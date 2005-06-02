@@ -1,0 +1,21 @@
+version attr
+eps/svg import?
+videoobject/canvas
+
+
+this is mainly a note to myself as to what to hack on if i get bored.
+it's definitely not a promise :)
+
+byte offsets for Branch
+
+sscanf might be a bad idea. use strtoX(), atoX()?
+?Writer::putNBitInt sanity check, are n enough bits to represent value?
+-make exporting an option
+import wav
+import mp3
+fail more elegantly, make parsing after filesize impossible.
+dont load everything to memory, use streams. make it a sax parser/handler?
+
+alexis reference:
+	DefineButton2(?) buttons have colortransform
+	DefineButton2 has an additional list of actions?

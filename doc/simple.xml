@@ -1,0 +1,93 @@
+
+<dialect>
+	<tag name="movie">
+		creates an SWF movie. This is the root of any "simple swfml" document.
+		
+		<attribute name="width" opt="true" def="320">
+			Width of the resulting movie in pixels.
+		</attribute>
+		<attribute name="height" opt="true" def="240">
+			Height of the resulting movie in pixels.
+		</attribute>
+		<attribute name="framerate" opt="true" def="12.0">
+			Framerate of the resulting movie in frames per second.
+		</attribute>
+		<attribute name="compressed" opt="true" def="1">
+			Wether to compress the movie with zlib compression.
+		</attribute>
+	</tag>
+	
+	<tag name="background">
+		sets the background color of the current clip (or root, if it appears 
+		directly in a <ref tag="movie"/>).<br />
+		Set either <ref attr="red"/>, <ref attr="green"/> and <ref attr="blue"/>
+		or <ref attr="color"/>, but not both.
+		
+		<attribute name="red" opt="true" def="200">
+			Red component of the RGB background color.
+		</attribute>
+		<attribute name="green" opt="true" def="200">
+			Green component of the RGB background color.
+		</attribute>
+		<attribute name="blue" opt="true" def="200">
+			Blue component of the RGB background color.
+		</attribute>
+		<attribute name="color" opt="true">
+			RGB background color in #hexadecimal notation (#rrggbb, e.g. #ffffff).
+		</attribute>
+	</tag>
+	
+	<tag name="clip">
+		creates a new MovieClip instance. 
+		If a <ref attr="import"/> attribute is given,
+		tries to import the file specified by it and ignores its children.
+		Else, the contents of the <ref/> tag make up the new movie clip.
+		
+		<attribute name="id">
+			a textual id for the clip. There should be no other clip with the same
+			id in the same document. If the <ref tag="clip"/> is placed inside
+			a <ref tag="library"/> tag, <ref attr="id"/> specifies the linkage-id
+			for attachMovie().
+		</attribute>
+		<attribute name="name" opt="true">
+			declares a variable name for the clip. 
+		</attribute>
+		<attribute name="import" opt="true">
+			specifies the file to import, relative to the directory where swfmill is run.
+			understands .png, .jpg and .swf.
+		</attribute>
+		<attribute name="class" opt="true">
+			links the <ref tag="clip"/> to an actionscript class using Object.registerClass().
+			specify the complete package name in "com.foo.package.Class" notation.
+		</attribute>
+	</tag>
+	
+	<tag name="font">
+		imports a TrueType Font (TTF).
+		<attribute name="id">
+			name of the Font for use in ActionScript.
+		</attribute>
+		<attribute name="import">
+			specifies location of the .TTF file, relative to the directory where swfmill is being run from.
+		</attribute>
+		<attribute name="glyphs" opt="true">
+			restricts the glyphs (characters) to import to the set specified.
+			Make sure the encoding in your XML declaration at the beginning of the document
+			matches the one used by your editor if you want to specify non-ASCII glyphs.
+			If <ref attr="glyphs"/> is left empty, all available glyphs will be imported.
+		</attribute>
+	</tag>
+
+	<tag name="place">
+		places the <ref tag="clip"/> specified by <ref attr="id"/> onto its parent
+		(the containing <ref tag="clip"/>), or the stage if the parent is a
+		<ref tag="movie"/>).
+	</tag>
+	
+	<tag name="library">
+		exports all contained <ref tag="clip"/>s "into the library" of the containing
+		<ref tag="movie"/>, making them available by their
+		<ref tag="clip" attr="id"/> attribute as linkage-id.
+	</tag>
+	
+</dialect>

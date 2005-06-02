@@ -1,0 +1,543 @@
+<?xml version="1.0"?>
+<book id="sample"><bookinfo><title>swfml basic profile</title><releaseinfo role="meta">$Id: reference.xml,v 1.1 2005/05/30 12:48:38 dan Exp $</releaseinfo><author><surname>Fischer</surname><firstname>Daniel</firstname><affiliation><address><email>dan[at]subsignal.org</email></address></affiliation></author><copyright><year>2005</year><holder>Daniel Fischer</holder></copyright><legalnotice>
+				Permission is granted to copy, distribute and/or modify this document
+				under the terms of the GNU Free Documentation License, Version 1.2
+				or any later version published by the Free Software Foundation;
+				with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+				A copy of the license is included in the distribution in doc/licenses/fdl.txt,
+				or can be obtained from <a href="http://www.fsf.org/licenses/fdl.html">http://www.fsf.org/licenses/fdl.html</a>.<br/>
+				The author shall not be held responsible for content of other websites linked from here.
+			</legalnotice></bookinfo><chapter id="intro"><title>Introduction</title><p>This is the reference to the <b>swfml basic profile</b> XML dialect.
+			<a href="http://iterative.org/swfmill/">swfmill</a> can convert from binary SWF to and from this dialect.
+			It is very closely modeled after the SWF file format, which means that you can produce all kinds of illegal SWFs with it,
+			so be careful.
+			</p><section id="document"><title>About this Document</title><p>This reference lists all types, tags and actions available in swfml basic.
+				It is organized into chapters, first listing <a href="#internal">internal types</a>,
+				then <a href="#types">basic types</a>, <a href="#tags">Tags</a> and <a href="#actions">Actions</a>.
+				All tables are in alphabetical order.
+				The difference of internal and basic types should be irrelevant to the swfml user.
+				</p><section id="sample-entry"><title>Example entry</title><p>Let's look at the <a href="#tag_Import">Import</a> tag as an example.
+					It's entry looks like this:
+						<table cellspacing="1" border="0"><tr><th align="left">Tag Name</th><th align="left">ID</th><th align="left">Attributes</th></tr><tr><td valign="top">
+									Import
+								</td><td valign="top">0x39</td><td valign="top">
+									url (string)<br/>
+									symbols (List of <a href="#type_Symbol">Symbol</a>s)<br/></td></tr></table></p><p>
+					This tells us that there is a swfml tag called "Import" which has two
+					parameters: url and symbols. You can safely ignore the ID, it is given
+					for reference purposes only. 
+					Note, though, that "Symbol" is a link to a type definition, which looks like this:
+						<table cellspacing="1" border="0"><tr><th align="left">Type Name</th><th align="left">Attributes</th></tr><tr><td valign="top">
+									Symbol
+								</td><td valign="top">
+									objectID (word)<br/>
+									name (string)<br/></td></tr></table></p><p>
+					We now have enough information to construct an Import tag, it could look like this:
+					<xml><Import url="http://foo.com/mylibrary.swf"><symbols><Symbol objectID="1" name="myFoo"/><Symbol objectID="2" name="myBar"/></symbols></Import></xml></p><p>
+					Note that, while primitive types like string must be given
+					as <i>Attributes</i>, Lists and Object parameters become <i>Child Elements</i>
+					of our tag instance.
+					</p></section></section></chapter><chapter id="types"><title>Basic Types</title><table cellspacing="1" border="0"><tr><th align="left">Type Name</th><th align="left">Attributes</th></tr><tr><td valign="top"><a name="type_Button"/>Button</td><td valign="top">hitTest
+			(bit)
+	<br/>down
+			(bit)
+	<br/>over
+			(bit)
+	<br/>up
+			(bit)
+	<br/>
+		
+		
+		
+		
+	</td></tr><tr><td valign="top"><a name="type_Color"/>Color</td><td valign="top">red
+			(byte)
+	<br/>green
+			(byte)
+	<br/>blue
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="type_ColorRGBA"/>ColorRGBA</td><td valign="top">red
+			(byte)
+	<br/>green
+			(byte)
+	<br/>blue
+			(byte)
+	<br/>alpha
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="type_ColorTransform2"/>ColorTransform2</td><td valign="top">
+		
+		
+		
+		
+		
+	
+		
+		
+		
+		
+		
+	</td></tr><tr><td valign="top"><a name="type_Condition"/>Condition</td><td valign="top">next
+			(word)
+	<br/>key
+			(integer)
+	<br/>menuLeave
+			(bit)
+	<br/>menuEnter
+			(bit)
+	<br/>pointerReleaseOutside
+			(bit)
+	<br/>pointerDragEnter
+			(bit)
+	<br/>pointerDragLeave
+			(bit)
+	<br/>pointerReleaseInside
+			(bit)
+	<br/>pointerPush
+			(bit)
+	<br/>pointerLeave
+			(bit)
+	<br/>pointerEnter
+			(bit)
+	<br/>actions
+			(List of
+	<a href="#type_Action">Action</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="type_CurveTo"/>CurveTo</td><td valign="top">x1
+			(integer)
+	<br/>y1
+			(integer)
+	<br/>x2
+			(integer)
+	<br/>y2
+			(integer)
+	<br/></td></tr><tr><td valign="top"><a name="type_GradientItem"/>GradientItem</td><td valign="top">position
+			(byte)
+	<br/>color
+			(Object of type
+	<a href="#type_Color">Color</a>)
+	<br/></td></tr><tr><td valign="top"><a name="type_Header"/>Header</td><td valign="top">size
+			(Object of type
+	<a href="#type_Rectangle">Rectangle</a>)
+	<br/>framerate
+			(integer)
+	<br/>frames
+			(word)
+	<br/>tags
+			(List of
+	<a href="#type_Tag">Tag</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="type_Kerning"/>Kerning</td><td valign="top">a
+			(byte)
+	<br/>b
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="type_LineStyle"/>LineStyle</td><td valign="top">width
+			(word)
+	<br/>color
+			(Object of type
+	<a href="#type_Color">Color</a>)
+	<br/></td></tr><tr><td valign="top"><a name="type_Parameter"/>Parameter</td><td valign="top">reg
+			(byte)
+	<br/>name
+			(string)
+	<br/></td></tr><tr><td valign="top"><a name="type_Rectangle"/>Rectangle</td><td valign="top">left
+			(integer)
+	<br/>right
+			(integer)
+	<br/>top
+			(integer)
+	<br/>bottom
+			(integer)
+	<br/></td></tr><tr><td valign="top"><a name="type_Shape"/>Shape</td><td valign="top">edges
+			(List of
+	<a href="#type_ShapeItem">ShapeItem</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="type_ShapeSetup"/>ShapeSetup</td><td valign="top">
+		
+		
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	</td></tr><tr><td valign="top"><a name="type_Short"/>Short</td><td valign="top">value
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="type_String"/>String</td><td valign="top">value
+			(string)
+	<br/></td></tr><tr><td valign="top"><a name="type_StyleList"/>StyleList</td><td valign="top">fillStyles
+			(List of
+	<a href="#type_Style">Style</a>s)
+	<br/>lineStyles
+			(List of
+	<a href="#type_LineStyle">LineStyle</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="type_Symbol"/>Symbol</td><td valign="top">objectID
+			(word)
+	<br/>name
+			(string)
+	<br/></td></tr><tr><td valign="top"><a name="type_TextEntry"/>TextEntry</td><td valign="top">glyph
+			(integer)
+	<br/>advance
+			(integer)
+	<br/></td></tr><tr><td valign="top"><a name="type_TextRecord"/>TextRecord</td><td valign="top">
+		
+	
+		
+	</td></tr><tr><td valign="top"><a name="type_TextRecord6"/>TextRecord6</td><td valign="top">
+		
+		
+		
+		
+		
+		
+			
+		
+		
+			
+		
+		
+			
+		
+		
+			
+		
+		
+			
+		
+	
+		
+		
+		
+	</td></tr><tr><td valign="top"><a name="type_TextRecord7"/>TextRecord7</td><td valign="top">
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+		
+	</td></tr><tr><td valign="top"><a name="type_Transform"/>Transform</td><td valign="top">
+		
+		
+		
+	
+		
+		
+		
+	transX
+			(integer)
+	<br/>transY
+			(integer)
+	<br/></td></tr><tr><td valign="top"><a name="type_UChar"/>UChar</td><td valign="top">value
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="type_ULong"/>ULong</td><td valign="top">value
+			(integer)
+	<br/></td></tr><tr><td valign="top"><a name="type_UShort"/>UShort</td><td valign="top">value
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="type_WideKerning"/>WideKerning</td><td valign="top">a
+			(word)
+	<br/>b
+			(word)
+	<br/></td></tr></table></chapter><chapter id="tags"><title>Tags</title><a name="type_Tag"/><table cellspacing="1" border="0"><tr><th align="left">Tag Name</th><th align="left">ID</th><th align="left">Attributes</th></tr><tr><td valign="top"><a name="tag_DefineBitsJPEG2"/>DefineBitsJPEG2</td><td valign="top">0x15</td><td valign="top">objectID
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineBitsLossless"/>DefineBitsLossless</td><td valign="top">0x14</td><td valign="top">objectID
+			(word)
+	<br/>format
+			(byte)
+	<br/>width
+			(word)
+	<br/>height
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineBitsLossless2"/>DefineBitsLossless2</td><td valign="top">0x24</td><td valign="top">objectID
+			(word)
+	<br/>format
+			(byte)
+	<br/>width
+			(word)
+	<br/>height
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineButton2"/>DefineButton2</td><td valign="top">0x22</td><td valign="top">objectID
+			(word)
+	<br/>menu
+			(bit)
+	<br/>buttonsSize
+			(word)
+	<br/>buttons
+			(List of
+	<a href="#type_Button">Button</a>s)
+	<br/>conditions
+			(List of
+	<a href="#type_Condition">Condition</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineEditText"/>DefineEditText</td><td valign="top">0x25</td><td valign="top">objectID
+			(word)
+	<br/>size
+			(Object of type
+	<a href="#type_Rectangle">Rectangle</a>)
+	<br/>wordWrap
+			(bit)
+	<br/>multiLine
+			(bit)
+	<br/>password
+			(bit)
+	<br/>readOnly
+			(bit)
+	<br/>autoSize
+			(bit)
+	<br/>hasLayout
+			(bit)
+	<br/>notSelectable
+			(bit)
+	<br/>hasBorder
+			(bit)
+	<br/>isHTML
+			(bit)
+	<br/>useOutlines
+			(bit)
+	<br/>
+		
+		
+	
+		
+	
+		
+	
+		
+		
+		
+		
+		
+	variableName
+			(string)
+	<br/>
+		
+	</td></tr><tr><td valign="top"><a name="tag_DefineFont"/>DefineFont</td><td valign="top">0x0A</td><td valign="top">objectID
+			(word)
+	<br/>glyphs
+			(Object of type
+	<a href="#type_GlyphList">GlyphList</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineFont2"/>DefineFont2</td><td valign="top">0x30</td><td valign="top">objectID
+			(word)
+	<br/>isShiftJIS
+			(bit)
+	<br/>isUnicode
+			(bit)
+	<br/>isANSII
+			(bit)
+	<br/>wideGlyphOffsets
+			(bit)
+	<br/>italic
+			(bit)
+	<br/>bold
+			(bit)
+	<br/>language
+			(byte)
+	<br/>name
+			(string)
+	<br/>glyphs
+			(Object of type
+	<a href="#type_GlyphList">GlyphList</a>)
+	<br/>
+		
+		
+		
+		
+		
+		
+		
+			
+		
+		
+			
+		
+	</td></tr><tr><td valign="top"><a name="tag_DefineFontInfo"/>DefineFontInfo</td><td valign="top">0x0D</td><td valign="top">objectID
+			(word)
+	<br/>smallTextOrUnicode
+			(bit)
+	<br/>isShiftJIS
+			(bit)
+	<br/>isANSII
+			(bit)
+	<br/>isItalic
+			(bit)
+	<br/>isBold
+			(bit)
+	<br/>isWide
+			(bit)
+	<br/>
+		
+	map
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineFontInfo2"/>DefineFontInfo2</td><td valign="top">0x3E</td><td valign="top">objectID
+			(word)
+	<br/>smallTextOrUnicode
+			(bit)
+	<br/>isShiftJIS
+			(bit)
+	<br/>isANSII
+			(bit)
+	<br/>isItalic
+			(bit)
+	<br/>isBold
+			(bit)
+	<br/>isWide
+			(bit)
+	<br/>
+		
+	map
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineShape"/>DefineShape</td><td valign="top">0x02</td><td valign="top">objectID
+			(word)
+	<br/>bounds
+			(Object of type
+	<a href="#type_Rectangle">Rectangle</a>)
+	<br/>styles
+			(Object of type
+	<a href="#type_StyleList">StyleList</a>)
+	<br/>shapes
+			(Object of type
+	<a href="#type_Shape">Shape</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineSprite"/>DefineSprite</td><td valign="top">0x27</td><td valign="top">objectID
+			(word)
+	<br/>frames
+			(word)
+	<br/>tags
+			(List of
+	<a href="#type_Tag">Tag</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineText"/>DefineText</td><td valign="top">0x0B</td><td valign="top">objectID
+			(word)
+	<br/>bounds
+			(Object of type
+	<a href="#type_Rectangle">Rectangle</a>)
+	<br/>transform
+			(Object of type
+	<a href="#type_Transform">Transform</a>)
+	<br/>records
+			(List of
+	<a href="#type_TextRecord">TextRecord</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineVideoStream"/>DefineVideoStream</td><td valign="top">0x3C</td><td valign="top">objectID
+			(word)
+	<br/>frames
+			(word)
+	<br/>width
+			(word)
+	<br/>height
+			(word)
+	<br/>deblocking
+			(integer)
+	<br/>smoothing
+			(bit)
+	<br/>codec
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DoAction"/>DoAction</td><td valign="top">0x0C</td><td valign="top">actions
+			(List of
+	<a href="#type_Action">Action</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DoInitAction"/>DoInitAction</td><td valign="top">0x3B</td><td valign="top">sprite
+			(word)
+	<br/>actions
+			(List of
+	<a href="#type_Action">Action</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_End"/>End</td><td valign="top">0x00</td><td valign="top"/></tr><tr><td valign="top"><a name="tag_Export"/>Export</td><td valign="top">0x38</td><td valign="top">symbols
+			(List of
+	<a href="#type_Symbol">Symbol</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_FrameLabel"/>FrameLabel</td><td valign="top">0x2B</td><td valign="top">label
+			(string)
+	<br/>flags
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_Import"/>Import</td><td valign="top">0x39</td><td valign="top">url
+			(string)
+	<br/>symbols
+			(List of
+	<a href="#type_Symbol">Symbol</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="tag_PlaceObject2"/>PlaceObject2</td><td valign="top">0x1A</td><td valign="top">replace
+			(bit)
+	<br/>depth
+			(word)
+	<br/>
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	</td></tr><tr><td valign="top"><a name="tag_RemoveObject"/>RemoveObject</td><td valign="top">0x05</td><td valign="top">objectID
+			(word)
+	<br/>depth
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="tag_RemoveObject2"/>RemoveObject2</td><td valign="top">0x1C</td><td valign="top">depth
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="tag_SetBackgroundColor"/>SetBackgroundColor</td><td valign="top">0x09</td><td valign="top">color
+			(Object of type
+	<a href="#type_Color">Color</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_ShowFrame"/>ShowFrame</td><td valign="top">0x01</td><td valign="top"/></tr><tr><td valign="top"><a name="tag_SoundStreamBlock"/>SoundStreamBlock</td><td valign="top">0x13</td><td valign="top">data
+			(data)
+	<br/></td></tr><tr><td valign="top"><a name="tag_SoundStreamHead"/>SoundStreamHead</td><td valign="top">0x12</td><td valign="top">playbackRate
+			(integer)
+	<br/>playbackSize
+			(bit)
+	<br/>playbackStereo
+			(bit)
+	<br/>compression
+			(integer)
+	<br/>soundRate
+			(integer)
+	<br/>soundSize
+			(bit)
+	<br/>soundStereo
+			(bit)
+	<br/>sampleSize
+			(word)
+	<br/>
+		
+		
+	</td></tr><tr><td valign="top"><a name="tag_SoundStreamHead2"/>SoundStreamHead2</td><td valign="top">0x2D</td><td valign="top">playbackRate
+			(integer)
+	<br/>playbackSize
+			(bit)
+	<br/>playbackStereo
+			(bit)
+	<br/>compression
+			(integer)
+	<br/>soundRate
+			(integer)
+	<br/>soundSize
+			(bit)
+	<br/>soundStereo
+			(bit)
+	<br/>sampleSize
+			(word)
+	<br/>
+		
+		
+	</td></tr><tr><td valign="top"><a name="tag_UnknownTag"/>UnknownTag</td><td valign="top">-1</td><td valign="top">data
+			(data)
+	<br/></td></tr><tr><td valign="top"><a name="tag_VideoFrame"/>VideoFrame</td><td valign="top">0x3D</td><td valign="top">objectID
+			(word)
+	<br/>frame
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr></table></chapter></book>

@@ -1,0 +1,51 @@
+2005-05-31 release 0.2.3
+	new <video/> element,
+	new <set name= member= value=/> element,
+	new @class property for <clip/>s (inheritance),
+	xslt can use exslt extensions,
+	OSX binary,
+	64bit compatibility (tested on AMD64).
+
+2005-04-22 release 0.2.2
+	stack items in actions are properly parsed
+	and written; swfml simple requires frame tags,
+	brings new name attribute for place and frame 
+	tags, clip tags (without @import), call and
+	stop tags, symbol attribute for import tags,
+	and some corrections.
+
+2005-04-20 release 0.2.1
+	fixed a bug with PNG with alpha channel on
+	big-endian platforms (like OSX).
+	support for importing shared libraries.
+
+2005-04-18 release 0.2
+	"library" commandline option has been dropped
+	in favor of "simple", allowing for a simple
+	XML specification of what should be contained
+	in the generated movie. see README for details;
+	allows specification of background color;
+	allows specification of font glyphs to import.
+
+2005-04-13 release 0.1.3
+	can import PNGs in 24 and 32 bits,
+	libpng is required.
+
+2005-04-10 release 0.1.2
+	can import fonts (TTF), freetype is required,
+	filename extensions are handled case-insensitive,
+	bug fixes in DefineEditText, DefineFont, Shapes.
+
+2005-04-07 release 0.1.1
+	fixes an endian bug in the header parser,
+	so swfmill should now run on MacOS X and other 
+	big-endian systems. 
+	.jpeg extension is recognized.
+
+2005-04-06 release 0.1
+	Initial public release, pretty untested. 
+	swfmill should understand >~80% of known SWF tags, 
+	does basic XML/SWF and back conversion, 
+	supports 'swft' XSLT extension (next-id, map-id, 
+	document and reset-map), and has a basic 'library 
+	packing' feature for jpg and swf.

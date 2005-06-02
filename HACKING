@@ -1,0 +1,10 @@
+this file contains information that might be helpful when browsing swfmills sources for whatever reason.
+
+- the classes to represent SWF elements are generated with XSLT from the file src/xsl/source.xml with
+	cd src/
+	xsltproc xsl/mk.xsl xsl/source.xml
+the resulting code is not well indented, and really the xslt step should be integrated into the makefile.
+
+- the basic I/O code is in SWFFile (for header, compression) and SWFReader/Writer (for anything else, including SWF-style nBit numbers etc.)
+
+

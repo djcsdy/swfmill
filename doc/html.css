@@ -1,0 +1,78 @@
+*, BODY, TD {
+		font-family: sans-serif;
+		line-height: 170%;
+		}
+BODY {
+		font-size: 10pt;
+		margin: 40px;
+		}
+SMALL {
+		font-size: 9pt;
+		}
+B {
+		color: #000000;
+		}
+A:link, A:visited {
+		font-weight: bold;
+		color: #333333;
+		text-decoration: none;
+		}
+A:hover, A:active {
+		font-weight: bold;
+		color: #000000;
+		text-decoration: underline;
+		}
+
+H1, H2, H3 {
+		font-weight: bold;
+		margin-top: 2em;
+		}
+H1 {
+		font-size: 15pt;
+		}
+H2 {
+		font-size: 13pt;
+		}
+H3 {
+		font-size: 11pt;
+		}
+
+.code {
+		font-family: courier, fixed;
+		line-height: 120%;
+		font-weight: bold;
+		background: #dddddd;
+		padding: 15px;
+		margin-bottom: 1em;
+		margin-top: 1em;
+	}
+PRE {
+		font-family: courier, fixed;
+		line-height: 120%;
+		font-weight: bold;
+		background: #dddddd;
+		padding: 15px;
+	}
+.xml {
+		margin-bottom: 1em;
+		}
+		
+th {
+		border-bottom: 1px solid black;
+		padding: 5px;
+		}
+td {
+		border-top: 1px dotted black;
+		padding: 5px 15px 5px 5px;
+		}
+p {
+		padding: 0;
+		margin: 0;
+		margin-bottom: .5em;
+		margin-top: .5em;
+	}
+table.attributes {
+		margin-top: 10px;
+		display: none;
+		}
+		

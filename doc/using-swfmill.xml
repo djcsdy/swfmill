@@ -1,0 +1,380 @@
+<?xml version="1.0"?>
+
+<book id="manual">
+	<bookinfo>
+		<title>Using swfmill to create SWFs without Flash</title>
+		<releaseinfo role="meta">$Id: using-swfmill.xml,v 1.1 2005/05/30 12:48:38 dan Exp $</releaseinfo>
+		<author>
+			<surname>Winterhalder</surname>
+			<firstname>Mark</firstname>
+			<affiliation>
+				<address>
+					<email>mark[at]snafoo.org</email>
+				</address>
+			</affiliation>
+		</author>
+		<copyright>
+			<year>2005</year>
+			<holder>Mark Winterhalder and Daniel Fischer</holder>
+		</copyright>
+		<legalnotice>
+			Permission is granted to copy, distribute and/or modify this document
+			under the terms of the GNU Free Documentation License, Version 1.2
+			or any later version published by the Free Software Foundation;
+			with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+			A copy of the license is included in the distribution in doc/licenses/fdl.txt,
+			or can be obtained from <a href="http://www.fsf.org/licenses/fdl.html">http://www.fsf.org/licenses/fdl.html</a>.<br />
+			The author shall not be held responsible for content of other websites linked from here.
+		</legalnotice>
+	</bookinfo>
+
+<chapter id="introduction">
+	<title>Introduction</title>
+	While I had my coffee this morning, I decided to write something like an introduction to swfmill. 
+	In this document I try to explain how, together with the MTASC compiler, your editor of choice and swfmill, you can completely avoid the Flash IDE. 
+	The focus is on importing assets into the library of a newly created SWF, but the document also explains some other features, like placing movieclips on the stage. 
+	The basic idea, by the way, is to write an XML file swfmill can turn into an SWF.
+	<section id="why">
+		<title>Why not just use the Flash IDE?</title>
+		<p>
+			Just because. Well, actually there are a number of reasons. If you're reading 
+			this you probably have your own. In case you're interested, my main reason is 
+			to improve my workflow. Everybody has a favorite text editor -- be it <a href="http://eclipse.org/">Eclipse</a> with 
+			the <a href="http://asdt.org">ActionScript plug-in</a>, <a href="http://www.bomberstudios.com/sciteflash/">SciTE|Flash</a> or <a href="http://www.sephiroth.it/python/sepy.php">SEPY</a>, it almost certainly 
+			beats the internal ActionScript editor that comes with the Flash IDE. Until 
+			recently, what people did was to edit their classes in their external editor and 
+			use Flash for the rest: compiling, filling the library with assets they needed, 
+			and so on.
+		</p>
+	</section>
+	
+	<section id="mtasc">
+		<title>MTASC</title>
+		<p>
+			Then came <a href="http://mtasc.org/">MTASC</a>, an open source command line ActionScript compiler written by 
+			<a href="http://ncannasse.free.fr/">Nicolas Cannasse</a>. Apart from being much, much faster than the compiler that 
+			is built into the Flash IDE, it comes with various goodies, like a -strict 
+			compile option and better integration with your editor of choice, among others. 
+			Using it instead seemed like an obvious choice. The workflow now was to create 
+			an SWF with the necessary assets included in the Flash IDE, and then compile 
+			your code into it with MTASC. However, using Flash solely to fill up the SWF's 
+			library seemed silly (also, the Flash IDE is not available for all platforms).
+		</p><p>
+			How to use MTASC is pretty well explained on its website, how to integrate it 
+			into your editor depends on which one you use. <a href="http.//www.carlosrovira.com/">Carlos Rovira</a> wrote a good 
+			<a href="http://www.actionscript.com/index.php/fw/1/towards-open-source-flash-development/">tutorial</a> in which he explains how to use it with Eclipse. I will focus on the preceding steps, that is, 
+			how to use swfmill to get to the point where you have an SWF you can then compile your code 
+			into.
+		</p>
+	</section>
+	
+	<section id="swfmill">
+		<title>swfmill</title>
+		<p>
+			Several programs can export SWFs. Other assets you might want to have in your 
+			SWF include fonts, images and components. To fill the gap in the Flash IDE free 
+			production chain between having those assets and having an SWF ready to have the 
+			code compiled into, <a href="http://0xdf.com/">Daniel Fischer</a>, who only by coincidence happens to be a 
+			housemate of mine (take that as a disclaimer), wrote <a href="http://iterative.org/swfmill/">swfmill</a>. It's published under 
+			the GPL and can convert back and forth between a binary SWF and an XML dialect 
+			called SWFML which closely resembles the SWF file format. To faciliate usage and 
+			allow for comfortably importing assets, a simpler dialect was introduced. As a short overview, you can currently do the 
+			following:
+			<ul>
+				<li> Import assets into the library. This can be a shared library if you wish.
+					At the time of writing, the following formats are supported:
+					<ul>
+						<li>SWFs</li>
+						<li>SWCs (components, with a bit of effort)</li>
+						<li>TrueType fonts, or a specified subset of characters</li>
+						<li>jpegs</li>
+						<li>PNGs (24 and 32 bit, including alpha)</li>
+					 </ul>
+				</li>
+				<li>Place imported assets on the stage with an identifier to access by script</li>
+				<li>Control what gets included or placed into which frame</li>
+				<li>Create (and make available to scripts) movieclips with multible frames containing other clips</li>
+			</ul>
+			swfmill is currently under development and new features are being added. You can 
+			keep up to date, report bugs, give feedback, describe usage scenarios, discuss 
+			and so on by subscribing to the mailing list. Simply send an empty email to:
+			<br/>
+			   swfmill-subscribe[at]subsignal.org
+		</p>
+	</section>
+	
+	<section id="warning">
+		<title>WARNING</title>
+		<p>
+			swfmill's SWFML simple should be considered preliminary. It will almost certainly change, 
+			possibly even in its most basic structure (or its name. you can post suggestions to the mailing list).
+		</p><p>However, it might already be useful for some as it is,
+			if you believe you're one of them this text is for you. Be aware that you might have to modify, possibly significantly, anything you build around it. No, we don't just say that.
+		</p><p>
+			If you find speeling or grammer mistakes, please let me know. If you have other suggestions how this document might be improved, please post them either to me or preferrably to the mailing list.
+		</p>
+	</section>
+</chapter>
+
+<chapter id="usage">
+	<title>Using swfmill</title>
+	<section id="movie">
+		<title>Creating a basic SWF</title>
+		<p>
+			This is simple. The example below should be self explanatory:
+			<xml>
+			   <pi name="xml" version="1.0" encoding="iso-8859-1"/>
+			
+			   <movie width="320" height="240" framerate="12">
+			      <background color="#ffffff"/>
+			      <frame/>
+			   </movie>
+			</xml>
+	
+			The "encoding" attribute is important. Set it to what you use, the above works for 
+			me. Let's assume you saved the above as "foo.xml" and you want to produce a 
+			"bar.swf". This is how you would call swfmill:
+			<br/>
+			   <code>swfmill simple foo.xml bar.swf</code>
+		</p><p>	
+			Ok, that was easy. However, it's not particularly useful just yet. We have an 
+			empty SWF, 320 by 240 pixels with a white background running at a target 
+			framerate of 12 fps. Let's pack some stuff into it next.
+		</p>
+	</section>
+	
+	<section id="library">
+		<title>Adding assets to the library</title>
+		<p>
+			To add a jpeg image called "foo.jpg" from a directory called "library" (located 
+			under the one you call swfmill from) into your SWF, add the following lines into the &lt;movie/&gt; inside
+			the basic SWF description above:
+			<xml>
+			   <frame>
+			      <library>
+				 <clip id="foo" import="library/foo.jpg"/>
+			      </library>
+			   </frame>
+			</xml>
+			
+			Pass it through swfmill again, and the resulting SWF will have the image in its 
+			library. It has the linkage id "foo", so to get it onto the stage you can use 
+			MovieClip.attachMovie() like you normally would do.
+			swfmill recognises the file extension, importing a PNG or a SWF would work just 
+			the same, by adding them inside the &lt;library/&gt; node. 
+		</p>
+	</section>
+
+	<section id="fonts">
+		<title>Importing fonts</title>
+		<p>
+			Fonts work slightly 
+			different. To import all numerical characters of vera.ttf as "vera", you 
+			would add the following after the library node:
+			<xml>
+			   <font id="vera" import="library/vera.ttf" glyphs="0123456789"/>
+			</xml>
+		</p>
+	</section>
+
+	<section id="shared">
+		<title>Using shared libraries</title>
+		<p>
+			You don't have to do anything specific to make it a shared library. Just 
+			remember the URL where you put it, and keep a local copy. To import a shared 
+			library, add this line for each SWF you want to import as a library for runtime sharing:
+			<xml>
+			   <import file="library/library.swf" url="http://foo.com/library.swf"/>
+			</xml>
+		</p>
+	</section>
+	<section id="packed">
+		<title>An example library SWF</title>
+		<p>
+			As a reference, below XML fills the library with some assets, adds a font and imports a 
+			shared library. it then adds another 
+			item to the library in frame 5, which is named "myFrame" so you can gotoAndPlay( 
+			"myFrame" ) to it:
+			<xml>
+			   <pi name="xml"  version="1.0" encoding="iso-8859-1"/>
+			
+			   <movie width="320" height="240" framerate="12">
+			      <background color="#ffffff"/>
+			
+			      <comment>first frame</comment>
+			      <frame>
+			
+				 <comment>add some assets to the library</comment>
+				 <library>
+				    <clip id="picture" import="library/picture.jpg"/>
+				    <clip id="bitmap" import="library/bitmap.png"/>
+				    <clip id="clip" import="library/clip.swf"/>
+				 </library>
+			
+				 <comment>import the numerical characters of vera.ttf</comment>
+				 <font id="vera" import="library/vera.ttf" glyphs="0123456789"/>
+			
+				 <comment>import a shared library</comment>
+				 <import file="library/library.swf" url="http://foo.com/library.swf"/>
+			
+			      </frame>
+			
+			      <comment>some empty frames</comment>
+			      <frame/>
+			      <frame/>
+			      <frame/>
+			
+			      <comment>frame "myFrame"</comment>
+			      <frame name="myFrame">
+				 <library>
+				    <clip id="anotherClip" import="library/foobar.swf"/>
+				 </library>
+			      </frame>
+			
+			   </movie>
+			</xml>
+			If all you want is a library, this will do. However, it is also possible to include components, place clips on 
+			the stage, and even to declare new ones in SWFML simple.
+		</p>
+	</section>
+	
+</chapter>
+<chapter id="advanced">
+	<title>Advanced Topics</title>
+
+	<section id="components">
+		<title>Adding components</title>
+		<p>
+			Adding components to the library is a bit trickier, but not too difficult either. They come in SWCs, which 
+			basically are zipped archives containing a precompiled SWF and various other files. We're 
+			interested in those named *.asi, because MTASC will need them as header files 
+			for typing. Ideally, use a script to go through the following steps:
+			<ul>
+				<li>Rename *.swc to *.zip if necessary and unpack the archive.</li>
+				<li>Rename the *.asi files to *.as, and remove the package names from in front
+			      of their class names. Create directories for the used packages, move the .as
+			      files to their respective directories and add them to your classpath.</li>
+				<li>MTASC will complain about the getter and setter methods being declared
+			      twice. To avoid this, strip all lines containing "__get__" or "__set__"
+			      from the *.as files, or even better, remove all that contain the string
+			      "private", because you can't access private properties anyway.</li>
+				<li>create directories for the packages used and copy your manipulated *.as
+			      to their respective locations.</li>
+				<li>Finally, add the component SWF to the library like any normal SWF.</li>
+			</ul>
+			There's one last step to be done to make components work. MTASC has a "-main" 
+			option which calls a static method "main" on your class as an entry point. 
+			However, it does that before the SWF is properly initialized, and the components 
+			will not display correctly (they appear as empty boxes). To avoid this problem, 
+			we have to call the entry point method in swfml instead of calling it with 
+			MTASCs -main option. Assuming you want to call Main.main(), add the following to 
+			your XML inside the &lt;frame/&gt; tag:
+			
+			<xml>
+			   <library>
+			      <comment>import the SWF that was inside the SWC archive</comment>
+			      <clip id="fooComponent" import="components/fooComponent.swf"/>
+			   </library>
+			   <comment>call Main.main() as an entry point</comment>
+			   <call object="Main" method="main"/>
+			</xml>
+		</p>
+	</section>
+
+	<section id="timeline">
+		<title>Basic timeline use</title>
+		So far, we have only packed assets into the library of an SWF so we can use them with ActionScript later. However, it's
+		also possible to place movieclips directly onto the stage, and even to create new movieclips. <br/>
+		The "id" attribute from a &lt;clip/&gt; tag is something like the equivalent of a class name. Instances need their own names, the "name" attribute. 
+		When you use MovieClip.attachMovie(), you place a movieclip with a certain linkage id (the "id" attribute of clips imported into the &lt;library/&gt;) inside another one and assign it its instance name and depth. You can do the same with SWFML simple, 
+		by using the &lt;place/&gt; tag explained below. It's important to understand that importing or creating a movieclip doesn't make it appear on the stage. This has to be
+		done explicitly, because it is possible you only wanted to have the movieclip in your SWF so you can use it inside others you create. 
+		<section id="place">
+			<title>Placing clips onto the stage</title>
+			<p>
+				To place a clip onto the stage, add a &lt;place/&gt; tag inside the frame you want to 
+				place it in. Note that it has to be previously added to the SWF. If you wanted 
+				to place foobar.swf onto the stage, your "myFrame" frame 
+				would look like this:
+				<xml>
+				   <comment>frame "myFrame"</comment>
+				   <frame name="myFrame">
+				      <library>
+					 <clip id="foobar" import="library/foobar.swf"/>
+				      </library>
+				
+				      <comment>place "foobar" onto the stage</comment>
+				      <place id="foobar" name="myFoobar" x="10" y="10" depth="1"/>
+				
+				   </frame>
+				</xml>
+				An instance of "foobar" will now be placed onto the stage with an instance name 
+				called "myFoobar" at depth 1 and the coordinates 10, 10. You could also scale it 
+				by adding a "scale" attribute, where 1 is 100%. The x and y position defaults to 0 and you don't need to specify them 
+				if this is what you want. You must specify the depth, though, and it must be unique inside the respective parent movieclip. If you don't specify a name, you won't be able to control that clip 
+				or its children from ActionScript.
+			</p><p>
+				You don't have to import the movieclip inside the &lt;library/&gt; tag. 
+				Assets declared inside a library tag will be made available to ActionScript 
+				with their id attribute as linkage name. If you don't want to attach them 
+				dynamically, you can simply import them anywhere inside a &lt;frame/&gt; tag, and 
+				still place them with the &lt;place/&gt; tag like above.<br/>
+			</p>
+		</section>
+	
+		<section id="movieclips">
+			<title>Creating movieclips</title>
+			<p>
+				Instead of importing existing SWFs into yours, you can also create them with 
+				simple swfml. Like imported assets, they can be placed onto the stage and will 
+				have a linkage id if you create them inside a &lt;library/&gt; tag.
+			</p><p>
+				You can do pretty much everything inside created clips you can do inside the 
+				&lt;movie/&gt;, except for importing and adding assets to the library. 
+				That is, you can create other movieclips or textfields and place them into 
+				the clip's frames.
+			</p><p>
+				Creating a movieclip works just like importing, only that you don't use the "import" attribute for the &lt;clip/&gt; tag. 
+				Below is an excample of a movieclip with two frames, "on" and "off":
+				<xml>
+					<comment>import images to be displayed in the frames</comment>
+					<clip id="onState" import="images/on.png"/>
+					<clip id="offState" import="images/off.png"/>
+					
+					<comment>create the movieclip</comment>
+					<library>
+						<clip id="onOff">
+							<frame name="on">
+								<place id="onState" depth="1"/>
+								<stop/>
+							</frame>
+							<frame name="off">
+								<place id="offState" depth="1"/>
+							</frame>
+						</clip>
+					</library>
+				</xml>
+				First, two PNGs to indicate the two states "on" and "off" are imported into the SWF. They won't 
+				be used with ActionScript, so they don't have to go into the library. The "onOff" movieclip to be created, in this case, is declared inside 
+				the library so it can be attached by script. Inside the &lt;clip&gt; tag the new movieclip has its own timeline, in this case it has two frames. They have a "name" attribute so they can 
+				be targeted by using e.g. myOnOff.gotoAndPlay( "off" ). One of the two imported PNGs is placed into each frame, at position 0, 0. You may have noticed they're both being 
+				placed at depth 1, so they replace their previously displayed counterpart. The &lt;stop/&gt; tag stops the playhead in the frame it's placed in so 
+				the clip doesn't switch back and forth between the "on" and "off" frames without a MovieClip.gotoAndStop() from the script.
+			</p>
+		</section>
+		<section id="textfields">
+			<title>Creating textfields</title>
+			<p>
+				To create a textfield, you have to give it the necessary attributes "width", "height", "size", "font" and of course "id".
+				Here's an excample:
+				<xml>
+					<textfield id="hellobox" width="200" height="50" size="10" font="vera" text="hello world!"/>
+					<place id="hellobox" name="output" depth="10"/>
+				</xml>
+				That's it, for now.
+			</p>
+		</section>
+	</section>
+</chapter>
+
+</book>
