@@ -607,7 +607,7 @@
 </xsl:template>
 
 <!-- global id remapping -->
-<xsl:template match="@objectID|@fontRef" mode="idmap">
+<xsl:template match="@objectID|@fontRef|@sprite" mode="idmap">
 	<xsl:attribute name="{name()}"><xsl:value-of select="swft:map-id(.)"/></xsl:attribute>
 </xsl:template>
 <xsl:template match="*|@*|text()" mode="idmap" priority="-1">
@@ -649,10 +649,23 @@
 	<xsl:variable name="method">
 		<xsl:choose>
 			<xsl:when test="@method"><xsl:value-of select="@method"/></xsl:when>
-			<xsl:otherwise>method</xsl:otherwise>
+			<xsl:otherwise>main</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	<DoAction>
+	<xsl:variable name="spriteid">
+		<xsl:value-of select="swft:next-id()"/>
+	</xsl:variable>
+	<DefineSprite objectID="{$spriteid}" frames="1">
+		<tags>
+			<End/>
+		</tags>
+	</DefineSprite>
+	<Export>
+		<symbols>
+			<Symbol objectID="{$spriteid}" name="__Packages.swfmill.call.{$object}.{$method}"/>
+		</symbols>
+	</Export>
+	<DoInitAction sprite="{$spriteid}">
 		<actions>
 			<PushData>
 				<items>
@@ -669,7 +682,7 @@
 			<Pop/>
 			<EndAction/>
 		</actions>
-	</DoAction>
+	</DoInitAction>
 </xsl:template>
 
 <xsl:template name="register-class">
@@ -686,7 +699,7 @@
 	</DefineSprite>
 	<Export>
 		<symbols>
-		  <Symbol objectID="{$id}" name="__Packages.swfmill.{$linkage-id}"/>
+		  <Symbol objectID="{$id}" name="__Packages.swfmill.registerClass.{$linkage-id}"/>
 		</symbols>
 	</Export>
 	<DoInitAction sprite="{$id}">
@@ -744,7 +757,20 @@
 </xsl:template>
 
 <xsl:template match="set">
-	<DoAction>
+	<xsl:variable name="spriteid">
+		<xsl:value-of select="swft:next-id()"/>
+	</xsl:variable>
+	<DefineSprite objectID="{$spriteid}" frames="1">
+		<tags>
+			<End/>
+		</tags>
+	</DefineSprite>
+	<Export>
+		<symbols>
+			<Symbol objectID="{$spriteid}" name="__Packages.swfmill.set.{@name}.{@member}"/>
+		</symbols>
+	</Export>
+	<DoInitAction sprite="{$spriteid}">
 		<actions>
 			<Dictionary>
 				<strings>
@@ -775,7 +801,7 @@
 			<SetMember/>
 			<EndAction/>
 		</actions>
-	</DoAction>
+	</DoInitAction>
 </xsl:template>
 
 <!-- stop -->
