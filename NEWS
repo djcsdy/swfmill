@@ -1,4 +1,10 @@
-2005-05-31 release 0.2.3
+2005-06-06 release 0.2.4
+	<set/> and @class logic is now embedded in
+	__Package sprites,
+	DoInitAction's @sprite id is properly mapped
+	for swf import.
+
+2005-06-01 release 0.2.3
 	new <video/> element,
 	new <set name= member= value=/> element,
 	new @class property for <clip/>s (inheritance),
