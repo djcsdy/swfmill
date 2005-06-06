@@ -21,7 +21,7 @@ if [ ! -z $VERSION ]; then
 	# update version in configure.ac
 	sed -e "s/AC_INIT( $PACKAGE, [0-9\.]*,/AC_INIT( $PACKAGE, $VERSION,/" configure.ac > configure.ac2
 	mv configure.ac2 configure.ac
-	cvs commit -m "release $VERSION"
+	svn commit -m "release $VERSION"
 	# save version
 	echo $VERSION > .version
 else
