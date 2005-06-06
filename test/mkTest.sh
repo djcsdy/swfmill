@@ -1,5 +1,5 @@
 #!/bin/sh
 
-swfmill simple test.swfml output.swf \
-#&& mozilla -chrome chrome://flaunch/content/flaunch.xul?$(pwd)/output.swf \
-#&& mtasc -cp /usr/local/share/mtasc/std -swf output.swf -main Main.as \
+mtasc -cp /usr/local/share/mtasc/std -swf classes.swf -separate -header 320:240:25 Main.as org/swfmill/Foo.as
+swfmill simple test.swfml output.swf
+#&& mozilla -chrome chrome://fludge/content/fludge.xul?$(pwd)/output.swf 

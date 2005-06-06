@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<movie width="220" height="170" framerate="4">
+<movie width="220" height="270" framerate="15">
 	<background color="#dddddd"/>
 
-	<library>
-		<clip id="jpg" import="library/testjpg.jpg"/>
-		<clip id="png" import="library/testpng.png"/>
-		<clip id="png-alpha" import="library/testpng-alpha.png"/>
-		<clip id="swf" import="library/star.swf"/>
-	</library>
-	<font id="vera" import="library/vera.ttf"
-		glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß"/>
+		<library>
+			<clip import="classes.swf"/>
+			<clip id="jpg" import="library/testjpg.jpg"/>
+			<clip id="png" import="library/testpng.png"/>
+			<clip id="png-alpha" import="library/testpng-alpha.png"/>
+			<clip id="swf" class="org.swfmill.Foo" import="library/star.swf"/>
+		</library>
+		<font id="vera" import="library/vera.ttf"
+			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!"/>
 
 	<frame>
 		<place id="jpg" x="10" y="10" depth="1" scale="0.5"/>
@@ -38,7 +39,8 @@
 		<place id="pngatext" x="150" y="60" depth="6"/>
 	
 	
-		<place id="swf" x="0" y="80" depth="7" scale="10"/>
+		<place id="swf" x="0" y="80" depth="7" scale="10" name="star"/>
+		<set name="star" member="text" value="Hello World!"/>
 		<textfield id="swftext" 
 			width="150" height="15" 
 			font="vera" size="12"
@@ -59,6 +61,15 @@
 			text="Font"
 			/>
 		<place id="texttext" x="100" y="140" depth="10"/>
+
+		<textfield id="scriptout" 
+			width="200" height="50" 
+			font="vera" size="10"
+			text=""
+			/>
+		<place id="scriptout" name="scriptout" x="10" y="180" depth="11"/>
+
+		<call object="Main" method="main"/>
 	</frame>
 	
 	<html-wrapper name="test.html" swf="output.swf"/>
