@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<movie width="220" height="270" framerate="15">
+<movie width="290" height="270" framerate="15">
 	<background color="#dddddd"/>
 
 		<library>
@@ -8,6 +8,7 @@
 			<clip id="jpg" import="library/testjpg.jpg"/>
 			<clip id="png" import="library/testpng.png"/>
 			<clip id="png-alpha" import="library/testpng-alpha.png"/>
+			<clip id="png24" import="library/testpng24.png"/>
 			<clip id="swf" class="org.swfmill.Foo" import="library/star.swf"/>
 		</library>
 		<font id="vera" import="library/vera.ttf"
@@ -38,15 +39,22 @@
 			/>
 		<place id="pngatext" x="150" y="60" depth="6"/>
 	
+		<place id="png24" x="220" y="10" depth="7" scale="0.5"/>
+		<textfield id="png24text" 
+			width="70" height="15" 
+			font="vera" size="12"
+			text="PNG24"
+			/>
+		<place id="png24text" x="220" y="60" depth="8"/>
 	
-		<place id="swf" x="0" y="80" depth="7" scale="10" name="star"/>
+		<place id="swf" x="0" y="80" depth="9" scale="10" name="star"/>
 		<set name="star" member="text" value="Hello World!"/>
 		<textfield id="swftext" 
 			width="150" height="15" 
 			font="vera" size="12"
 			text="SWF"
 			/>
-		<place id="swftext" x="10" y="140" depth="8"/>
+		<place id="swftext" x="10" y="140" depth="10"/>
 	
 	
 		<textfield id="text" 
@@ -54,20 +62,20 @@
 			font="vera" size="12"
 			text="the quick brown fox jumps over the lazy dog"
 			/>
-		<place id="text" x="100" y="85" depth="9"/>
+		<place id="text" x="100" y="85" depth="11"/>
 		<textfield id="texttext" 
 			width="100" height="15" 
 			font="vera" size="12"
 			text="Font"
 			/>
-		<place id="texttext" x="100" y="140" depth="10"/>
+		<place id="texttext" x="100" y="140" depth="12"/>
 
 		<textfield id="scriptout" 
 			width="200" height="50" 
 			font="vera" size="10"
 			text=""
 			/>
-		<place id="scriptout" name="scriptout" x="10" y="180" depth="11"/>
+		<place id="scriptout" name="scriptout" x="10" y="180" depth="13"/>
 
 		<call object="Main" method="main"/>
 	</frame>

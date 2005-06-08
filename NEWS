@@ -1,3 +1,6 @@
+2005-06-08 release 0.2.5
+	fixes Red/Blue swap bug for 24bit PNG import
+
 2005-06-06 release 0.2.4
 	<set/> and @class logic is now embedded in
 	__Package sprites,

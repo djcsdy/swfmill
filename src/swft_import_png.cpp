@@ -139,9 +139,9 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		
 		for( int i=0; i<w*h; i++ ) {
 			rgba[i*4] = 0xff;
-			rgba[(i*4)+1] = data[(i*3)+2];
+			rgba[(i*4)+3] = data[(i*3)+2];
 			rgba[(i*4)+2] = data[(i*3)+1];
-			rgba[(i*4)+3] = data[(i*3)];
+			rgba[(i*4)+1] = data[(i*3)];
 		}
 		data = rgba;
 	} else {
