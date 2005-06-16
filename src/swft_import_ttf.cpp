@@ -137,6 +137,9 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	tag->setwideGlyphOffsets( 1 );
 	tag->setwideMap( 1 );
 	
+	if( face->style_flags & FT_STYLE_FLAG_ITALIC ) tag->setitalic(true);
+	if( face->style_flags & FT_STYLE_FLAG_BOLD ) tag->setbold(true);
+	
 	character = FT_Get_First_Char( face, &glyph_index );
 	for( glyph=0; character && glyph<nGlyphs; ) {
 		if( glyphs ) {
