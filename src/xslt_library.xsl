@@ -466,7 +466,7 @@
 	</DefineBitsJPEG2>
 	<DefineShape objectID="{$shapeID}">
 		<bounds>
-			<Rectangle left="0" right="{@width}" top="0" bottom="{@width}"/>
+			<Rectangle left="0" right="{@width}" top="0" bottom="{@height}"/>
 		</bounds>
 		<styles>
 			<StyleList>
@@ -518,7 +518,7 @@
 	</DefineBitsLossless2>
 	<DefineShape objectID="{$shapeID}">
 		<bounds>
-			<Rectangle left="0" right="{@width}" top="0" bottom="{@width}"/>
+			<Rectangle left="0" right="{@width}" top="0" bottom="{@height}"/>
 		</bounds>
 		<styles>
 			<StyleList>
