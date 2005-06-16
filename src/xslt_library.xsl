@@ -397,10 +397,10 @@
 		<xsl:value-of select="@import"/>
 	</xsl:variable>
 	<xsl:variable name="ext">
-		<xsl:value-of select="translate(substring-after(@import,'.'),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
+		<xsl:value-of select="translate(substring(@import,string-length(@import)-2),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
 	</xsl:variable>
 	<xsl:choose>
-		<xsl:when test="$ext = 'jpg' or $ext = 'jpeg'">
+		<xsl:when test="$ext = 'jpg' or $ext = 'peg'">
 			<xsl:apply-templates select="swft:import-jpeg($file)" mode="makeswf">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
