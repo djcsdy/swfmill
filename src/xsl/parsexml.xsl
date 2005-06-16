@@ -32,7 +32,14 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	</xsl:if>
 
 	<xsl:for-each select="*[@context]">
-		<xsl:value-of select="@name"/> = ctx-><xsl:value-of select="@name"/>;
+		<xsl:choose>
+			<xsl:when test="@context='inverse'">
+				ctx-><xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="@name"/> = ctx-><xsl:value-of select="@name"/>;
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:for-each>
 }
 </xsl:for-each>
