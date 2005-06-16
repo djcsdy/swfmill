@@ -30,7 +30,8 @@ DEPENDENCIES
 swfmill requires, and the windows binary release contains
 code from:
 	libxml2  - (C) 1998-2003 Daniel Veillard. 
-	libxslt  - (C) 2001-2002 Daniel Veillard.
+	libxslt/exslt
+             - (C) 2001-2002 Daniel Veillard.
 	zlib     - (C) 1995-2004 Jean-loup Gailly and Mark Adler.
 	freetype - (C) 1996-2000, 2002, 2004 David Turner, 
 	               Robert Wilhelm, and Werner Lemberg.
