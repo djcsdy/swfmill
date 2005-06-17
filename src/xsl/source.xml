@@ -371,6 +371,11 @@
 	<word name="depth" prop="true"/>
 </tag>
 
+<tag name="DefineBits" id="0x06">
+	<word name="objectID" prop="true"/>
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
 <tag name="SetBackgroundColor" id="0x09">
 	<object type="Color" name="color" prop="true" />
 	<!-- FIXME: alpha?, when len=4 -->
