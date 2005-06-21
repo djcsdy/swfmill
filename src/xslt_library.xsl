@@ -633,7 +633,7 @@
 <!-- TTF import -->
 <xsl:template match="ttf" mode="makeswf">
 	<xsl:param name="id"/>
-	<DefineFont2 objectID="{$id}" name="{@name}">
+	<DefineFont2 objectID="{$id}">
 		<xsl:apply-templates select="DefineFont2/*|DefineFont2/@*[name() != 'objectID']"/>
 	</DefineFont2>
 </xsl:template>

@@ -139,7 +139,15 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	
 	if( face->style_flags & FT_STYLE_FLAG_ITALIC ) tag->setitalic(true);
 	if( face->style_flags & FT_STYLE_FLAG_BOLD ) tag->setbold(true);
-	
+	tag->setname( face->family_name );
+/*	
+	ctx is ad-hoc, it doesnt reflect the outer ctx...
+	if( !ctx->quiet ) {
+		fprintf( stderr, "Importing font %s - %s%s%s\n", filename, face->family_name,
+					face->style_flags & FT_STYLE_FLAG_BOLD ? " bold" : "",
+					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "" );
+	}
+*/
 	character = FT_Get_First_Char( face, &glyph_index );
 	for( glyph=0; character && glyph<nGlyphs; ) {
 		if( glyphs ) {
@@ -184,22 +192,16 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 			int n;
 			for( int contour = 0; contour < outline->n_contours; contour++ ) {
 				end = outline->contours[contour];
-	//			fprintf(stderr,"  contour %i: %i-%i\n", contour, start, end );
 				n=0;
 
 				for( int p = start; p<=end; p++ ) {
 					control = !(outline->tags[p] & 0x01);
 					cubic = outline->tags[p] & 0x02;
 					
-	/*				if( character == 'h' ) 
-					fprintf( stderr, "   point %i: %s%s %i %i\n", p, 
-						control?(cubic?"third-order ":"second-order "):"",
-						control?"control":"on-curve",
-						outline->points[p].x, outline->points[p].y);
-	*/				
-						if( p==start ) {
-							shaper.setup( outline->points[p-n].x, outline->points[p-n].y, 1 );
-						}
+					if( p==start ) {
+						shaper.setup( outline->points[p-n].x, outline->points[p-n].y, 1 );
+					}
+					
 					if( !control && n > 0 ) {
 						importGlyphPoints( &(outline->points[(p-n)+1]), n-1, shaper, cubic );
 						n=1;
@@ -286,7 +288,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar*)"ttf", NULL );
 	node = doc->xmlRootNode;
 	
-	swft_addFileName( node, (const char *)filename );
+	//swft_addFileName( node, (const char *)filename );
 	
 	
 	// create the font tag
