@@ -11,7 +11,7 @@
 			<clip id="png24" import="library/testpng24.png"/>
 			<clip id="swf" class="org.swfmill.Foo" import="library/star.swf"/>
 		</library>
-		<font id="vera" import="library/vera.ttf"
+		<font id="vera" import="library/vera.ttf" name="FooName"
 			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!"/>
 
 	<frame>
