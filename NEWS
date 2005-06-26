@@ -1,4 +1,10 @@
-2005-07-16 release 0.2.6
+2005-06-26 release 0.2.7
+	adds basic defineBits tag, so v1 jpegs get id-mapped;
+	uses freetype family name as font name;
+	fixes two small bugs for <import/> (shared lib support),
+	so imported symbols can now be <place/>d.
+
+2005-06-16 release 0.2.6
 	shape/clip boundaries for image import were square
 	determine extension for image import correctly
 	minimum compression buffer size for importing PNGs
