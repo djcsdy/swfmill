@@ -62,6 +62,18 @@ uint32_t Reader::getInt() {
 	return r;
 }
 
+uint64_t Reader::getInt64() {
+	if( pos+8 > length ) {
+		err = SWFR_EOF;
+		pos = length+1;
+		return 0;
+	}
+	uint64_t val;
+	val = (uint64_t)getInt() << 32;
+	val |= (uint64_t)getInt();
+	return( val );
+}
+
 float Reader::getFloat() {
 	if( pos+4 > length ) {
 		err = SWFR_EOF;
@@ -77,7 +89,7 @@ float Reader::getFloat() {
 }
 
 double Reader::getDouble() {
-	if( pos+8 > length ) {
+/*	if( pos+8 > length ) {
 		err = SWFR_EOF;
 		pos = length+1;
 		return 0;
@@ -94,6 +106,14 @@ double Reader::getDouble() {
 	value[3] = data[pos++];
 
 	return *(double*)value;
+*/
+    union {
+        double d;
+        uint64_t ull;
+    } u;
+
+    u.ull = getInt64();
+    return u.d;
 }
 
 double Reader::getFixed( int bytesize, int exp ) {

@@ -49,6 +49,16 @@ void Writer::putInt( uint32_t value ) {
 	data[pos++] = (value>>24)&0xFF;
 }
 
+void Writer::putInt64( uint64_t value ) {
+	byteAlign();
+	if( !assure( 8 ) ) return;
+		
+	putByte( value >> 24 );
+	putByte( value >> 16 );
+	putByte( value >> 8 );
+	putByte( value );
+}
+
 void Writer::putFloat( float v ) {
 	byteAlign();
 	if( !assure( 4 ) ) return;
@@ -62,6 +72,13 @@ void Writer::putFloat( float v ) {
 }
 
 void Writer::putDouble( double v ) {
+    union {
+        double d;
+        uint64_t ull;
+    } u;
+    u.d = v;
+    putInt64(u.ull);
+/*
 	byteAlign();
 	if( !assure( 8 ) ) return;
 	// FIXME x86-centric?
@@ -76,6 +93,7 @@ void Writer::putDouble( double v ) {
 	data[pos++] = value[1];
 	data[pos++] = value[2];
 	data[pos++] = value[3];
+*/
 }
 
 void Writer::putFixed( double value, int bytesize, int exp ) {

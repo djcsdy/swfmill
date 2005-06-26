@@ -20,6 +20,7 @@ class Reader {
 		uint8_t getByte();
 		uint16_t getWord();
 		uint32_t getInt();
+		uint64_t getInt64();
 		float getFloat();
 		double getDouble();
 		double getFixed( int bytesize, int decimals );

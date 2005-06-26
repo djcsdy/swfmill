@@ -21,6 +21,7 @@ class Writer {
 		void putByte(uint8_t);
 		void putWord(uint16_t);
 		void putInt(uint32_t);
+		void putInt64(uint64_t);
 		void putFloat(float);
 		void putDouble(double);
 		void putFixed( double v, int bytesize, int decimals );
