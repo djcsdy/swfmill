@@ -588,22 +588,20 @@
 
 <!-- shared library import -->
 <xsl:template match="import">
-	<swft:push-map/>
 	<Import url="{@url}">
 		<symbols>
 			<xsl:if test="@symbol">
-				<Symbol objectID="{swft:next-id()}" name="{@symbol}"/>
+				<Symbol objectID="{swft:map-id(@symbol)}" name="{@symbol}"/>
 			</xsl:if>	
-			<xsl:if test="file">
+			<xsl:if test="@file">
 				<xsl:apply-templates select="swft:document(@file)/swf/Header/tags/Export/symbols/*" mode="import"/>
 			</xsl:if>
 		</symbols>
 	</Import>
-	<swft:pop-map/>
 </xsl:template>
 
 <xsl:template match="Symbol" mode="import">
-	<Symbol objectID="{swft:map-id(@objectID)}" name="{@name}"/>
+	<Symbol objectID="{swft:map-id(@name)}" name="{@name}"/>
 </xsl:template>
 
 <!-- global id remapping -->
