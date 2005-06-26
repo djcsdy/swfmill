@@ -52,11 +52,9 @@ void Writer::putInt( uint32_t value ) {
 void Writer::putInt64( uint64_t value ) {
 	byteAlign();
 	if( !assure( 8 ) ) return;
-		
-	putByte( value >> 24 );
-	putByte( value >> 16 );
-	putByte( value >> 8 );
-	putByte( value );
+
+	putInt( value >> 32 );
+	putInt( value & 0xffffffff );
 }
 
 void Writer::putFloat( float v ) {
