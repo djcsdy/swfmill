@@ -373,6 +373,7 @@
 
 <tag name="DefineBits" id="0x06">
 	<word name="objectID" prop="true"/>
+	<!-- only basic support for the id -->
 	<object type="Rest" name="data" prop="true"/>
 </tag>
 
@@ -426,6 +427,18 @@
 		<byte name="language" prop="true"/>
 	</if>
 	<object type="Rest" name="map" prop="true"/>
+</tag>
+
+<tag name="DefineShape2" id="0x16">
+	<word name="objectID" prop="true"/>
+	<!-- only basic support for the id -->
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
+<tag name="DefineShape3" id="0x20">
+	<word name="objectID" prop="true"/>
+	<!-- only basic support for the id -->
+	<object type="Rest" name="data" prop="true"/>
 </tag>
 
 <tag name="DefineFontInfo2" id="0x3E">
