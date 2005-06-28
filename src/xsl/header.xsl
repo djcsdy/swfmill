@@ -28,6 +28,8 @@ struct Context {
 		
 		bool isLast;
 		char tagVersion;
+		bool alpha;
+		bool many_shapes;
 		
 		<xsl:for-each select="//*[@context]">
 			<xsl:apply-templates select="." mode="ctype"/>

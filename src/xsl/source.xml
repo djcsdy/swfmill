@@ -15,14 +15,9 @@
 	<byte prop="true" name="red" default="0"/>
 	<byte prop="true" name="green" default="0"/>
 	<byte prop="true" name="blue" default="0"/>
-	<fill-byte/>
-</type>
-
-<type name="ColorRGBA">
-	<byte prop="true" name="red" default="0"/>
-	<byte prop="true" name="green" default="0"/>
-	<byte prop="true" name="blue" default="0"/>
-	<byte prop="true" name="alpha" default="0"/>
+	<if expression="ctx->alpha">
+		<byte prop="true" name="alpha" default="0"/>
+	</if>
 	<fill-byte/>
 </type>
 
@@ -79,8 +74,8 @@
 </type>
 
 <type name="LineStyle">
-	<word name="width" prop="true"/>
-	<object type="Color" name="color" prop="true"/>
+       <word name="width" prop="true"/>
+       <object type="Color" name="color" prop="true"/>
 </type>
 
 <type name="StyleList">
@@ -358,6 +353,8 @@
 <tag name="ShowFrame" id="0x01"/>
 
 <tag name="DefineShape" id="0x02">
+	<context param="alpha" value="0"/>
+	<context param="many_shapes" value="0"/>
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="bounds" prop="true"/>
 	<object type="StyleList" name="styles" prop="true"/>
@@ -429,15 +426,30 @@
 </tag>
 
 <tag name="DefineShape2" id="0x16">
+	<context param="alpha" value="0"/>
+	<context param="many_shapes" value="1"/>
+
 	<word name="objectID" prop="true"/>
-	<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
+	<object type="Rectangle" name="bounds" prop="true"/>
+	<object type="StyleList" name="styles" prop="true"/>
+	<object type="Shape" name="shapes" prop="true"/>
+	<fill-byte/>
+
 </tag>
 
 <tag name="DefineShape3" id="0x20">
+	<context param="alpha" value="1"/>
+	<context param="many_shapes" value="1"/>
+
 	<word name="objectID" prop="true"/>
-	<!-- only basic support for the id -->
+	<object type="Rectangle" name="bounds" prop="true"/>
+	<object type="StyleList" name="styles" prop="true"/>
+	<object type="Shape" name="shapes" prop="true"/>
+	<fill-byte/>
+
+<!-- only basic support for the id 
 	<object type="Rest" name="data" prop="true"/>
+-->
 </tag>
 
 <tag name="DefineFontInfo2" id="0x3E">
@@ -564,7 +576,8 @@
 		<word name="fontHeight" prop="true"/>
 	</flagged>
 	<flagged flag="hasColor">
-		<object type="ColorRGBA" name="color" prop="true"/>
+		<context param="alpha" value="1"/>
+		<object type="Color" name="color" prop="true"/>
 	</flagged>
 	<flagged flag="hasMaxLength">
 		<word name="maxLength" prop="true"/>
