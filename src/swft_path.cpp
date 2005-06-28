@@ -14,7 +14,7 @@ bool mkShapeSegment( ShapeMaker& shaper, int *coord, int *C, char *tmp, char mod
 	if( tmp[0] ) {
 		*C=c+1;
 		coord[c] = atoi( tmp );
-		fprintf(stderr, "coord[%i]: %i, mode %c, tmp %s\n", c, coord[c], mode, tmp );
+		//fprintf(stderr, "coord[%i]: %i, mode %c, tmp %s\n", c, coord[c], mode, tmp );
 	}
 	if( mode == 'Q' && c==3 ) {
 		shaper.curveTo( coord[0], coord[1], coord[2], coord[3] );
@@ -83,7 +83,7 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 		
 	string = obj->stringval;
 	
-	fprintf(stderr,"making shape from path '%s'\n", string );
+	// fprintf(stderr,"making shape from path '%s'\n", string );
 	
 	for( int i=0; i==0 || string[i-1] != 0; i++ ) {
 		switch( string[i] ) {

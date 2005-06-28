@@ -59,7 +59,7 @@ class ShapeMaker {
 		int getLastY() { return lasty; }
 	
 	protected:
-		void cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k );
+		void cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k, int iteration=0 );
 	
 		List<ShapeItem>* edges;
 		double factorx, factory;

@@ -125,18 +125,19 @@ void bezierSplit( const Bezier& b, Bezier* b0, Bezier* b1 ) {
 	b1->set( p03, p13, p23, b.p3 );
 }
 
-void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k ) {
+void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k, int iteration ) {
 	Point s = intersectLines( a, b, c, d );
 	double dx = (a.x+d.x+s.x*4-(b.x+c.x)*3)*.125;
 	double dy = (a.y+d.y+s.y*4-(b.y+c.y)*3)*.125;
 	Bezier bz( a, b, c, d );
 	Bezier b0, b1;
-	if( dx*dx + dy*dy > k ) {
+	if( dx*dx + dy*dy > k && iteration<1 ) {
 		fprintf(stderr,"split: %f\n",dx*dx + dy*dy);
 		bezierSplit( bz, &b0, &b1 );
 		// recurse
-		cubicToRec( a,    b0.p1, b0.p2, b0.p3, k );
-		cubicToRec( b1.p0, b1.p1, b1.p2, d,    k );
+		iteration++;
+		cubicToRec( a,    b0.p1, b0.p2, b0.p3, k, iteration );
+		cubicToRec( b1.p0, b1.p1, b1.p2, d,    k, iteration );
 	} else {
 	//	SWF::LineTo *segment = new SWF::LineTo;
 	//	segment->setType(1);
@@ -156,7 +157,7 @@ void ShapeMaker::cubicTo( int x1, int y1, int x2, int y2, int ax, int ay ) {
 	Point c(x2,y2);
 	Point d(ax,ay);
 
-	cubicToRec( a, b, c, d, 50000 );
+	cubicToRec( a, b, c, d, 1 );
 	//lastx = ax; lasty = ay;
 }
 

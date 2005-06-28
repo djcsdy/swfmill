@@ -62,6 +62,7 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_css
 void swft_css( xmlXPathParserContextPtr ctx, int nargs );
+void swft_transform( xmlXPathParserContextPtr ctx, int nargs );
 
 
 static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs ) {
@@ -125,6 +126,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "document", SWFT_NAMESPACE, swft_document);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "css", SWFT_NAMESPACE, swft_css);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-jpeg", SWFT_NAMESPACE, swft_import_jpeg );
