@@ -148,6 +148,8 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlSetProp( node, (const xmlChar *)"green", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", style.fill.b);
 	xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
+	snprintf(tmp,TMP_STRLEN,"%i", style.fill.a);
+	xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
 
 	node = xmlNewChild( doc->xmlRootNode, NULL, (const xmlChar *)"lineStyles", NULL );
 	node = xmlNewChild( node, NULL, (const xmlChar *)"LineStyle", NULL );
@@ -161,6 +163,8 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlSetProp( node, (const xmlChar *)"green", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", style.stroke.b);
 	xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
+	snprintf(tmp,TMP_STRLEN,"%i", style.stroke.a);
+	xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
 
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 }
