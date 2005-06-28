@@ -4,6 +4,7 @@ NULL =
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = \
+	xslt_library.xsl
 	$(NULL)
 	
 bin_PROGRAMS = swfmill
