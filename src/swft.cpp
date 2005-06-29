@@ -17,6 +17,7 @@
 class swft_ctx {
 public:
 	int last_id;
+	int last_depth;
 	std::stack<std::map<std::string,int>*> maps;
 	
 	void pushMap() {
@@ -42,6 +43,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI );
 void swft_shutdown( xsltTransformContextPtr ctx, const xmlChar *URI, void *data );
 
 static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs );
+static void swft_nextdepth( xmlXPathParserContextPtr ctx, int nargs );
 
 static void swft_pushmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp );
 static void swft_popmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp );
@@ -59,9 +61,11 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_path
 void swft_path( xmlXPathParserContextPtr ctx, int nargs );
+void swft_bounds( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_css
 void swft_css( xmlXPathParserContextPtr ctx, int nargs );
+void swft_unit( xmlXPathParserContextPtr ctx, int nargs );
 void swft_transform( xmlXPathParserContextPtr ctx, int nargs );
 
 
@@ -69,6 +73,13 @@ static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs ) {
 	char tmp[TMP_STRLEN];
 	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
 	snprintf(tmp,TMP_STRLEN,"%i", c->last_id++ );
+	valuePush(ctx, xmlXPathNewString((const xmlChar *)tmp));
+}
+
+static void swft_nextdepth( xmlXPathParserContextPtr ctx, int nargs ) {
+	char tmp[TMP_STRLEN];
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
+	snprintf(tmp,TMP_STRLEN,"%i", c->last_depth++ );
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)tmp));
 }
 
@@ -120,14 +131,17 @@ void swft_register() {
 
 void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "next-id", SWFT_NAMESPACE, swft_nextid);
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "next-depth", SWFT_NAMESPACE, swft_nextdepth);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "map-id", SWFT_NAMESPACE, swft_mapid);
 	xsltRegisterExtElement(  ctx, (const xmlChar *) "push-map", SWFT_NAMESPACE, swft_pushmap);
 	xsltRegisterExtElement(  ctx, (const xmlChar *) "pop-map", SWFT_NAMESPACE, swft_popmap);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "document", SWFT_NAMESPACE, swft_document);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
-	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "bounds", SWFT_NAMESPACE, swft_bounds);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "css", SWFT_NAMESPACE, swft_css);
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "unit", SWFT_NAMESPACE, swft_unit);
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-jpeg", SWFT_NAMESPACE, swft_import_jpeg );
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-png", SWFT_NAMESPACE, swft_import_png );

@@ -2,6 +2,8 @@
 <xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 				xmlns:swft="http://subsignal.org/swfml/swft"
 				xmlns:str="http://exslt.org/strings"
+				xmlns:math="http://exslt.org/math"
+				xmlns:svg="http://www.w3.org/2000/svg"
 				extension-element-prefixes="swft"
 				version='1.0'>
 
@@ -420,6 +422,11 @@
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
+		<xsl:when test="$ext = 'svg'">
+			<xsl:apply-templates select="document($file)" mode="makesvg">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
 	</xsl:choose>
 	<xsl:if test="ancestor::library">
 		<xsl:apply-templates select="*|@*" mode="export">
@@ -585,6 +592,118 @@
 	</DefineSprite>
 	<swft:pop-map/>
 </xsl:template>
+
+<!-- SVG import -->
+<xsl:template match="svg:svg" mode="makesvg">
+	<DefineSprite objectID="{$id}" frames="1">
+		<tags>
+			<xsl:apply-templates/>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
+</xsl:template>
+
+<xsl:template match="svg:g">
+	<xsl:variable name="id"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<DefineSprite objectID="{$id}">
+		<tags>
+			<xsl:apply-templates/>
+		</tags>
+	</DefineSprite>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
+		<transform>
+			<xsl:choose>
+				<xsl:when test="@transform">
+					<xsl:copy-of select="swft:transform(@transform)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<Transform transX="0" transY="0" scaleX="1" scaleY="1"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</transform>
+	</PlaceObject2>
+</xsl:template>
+
+<xsl:template match="svg:path">
+	<xsl:variable name="id"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<DefineShape3 objectID="{$id}">
+		<bounds>
+				<xsl:copy-of select="swft:bounds(@d)"/>
+<!--			<Rectangle left="math:min($path//@x)" right="math:max($path//@x)" top="math:min($path//@y)" bottom="math:max($path//@y)"/>
+-->
+		</bounds>
+		<styles>
+			<StyleList>
+				<xsl:copy-of select="swft:css(@style)/tmp/*"/>
+			</StyleList>
+		</styles>
+		<shapes>
+			<Shape>
+				<xsl:apply-templates mode="shape" select="swft:path(@d)/tmp/Shape/*"/>
+			</Shape>
+		</shapes>
+	</DefineShape3>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
+		<transform>
+			<xsl:choose>
+				<xsl:when test="@transform">
+					<xsl:copy-of select="swft:transform(@transform)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<Transform transX="0" transY="0" scaleX="1" scaleY="1"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</transform>
+	</PlaceObject2>
+</xsl:template>
+
+<xsl:template match="svg:rect">
+	<xsl:variable name="id"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<DefineShape3 objectID="{$id}">
+		<bounds>
+			<Rectangle left="0" right="{@width*20}" top="0" bottom="{@height*20}"/>
+		</bounds>
+		<styles>
+			<StyleList>
+				<xsl:copy-of select="swft:css(@style)/tmp/*"/>
+			</StyleList>
+		</styles>
+		<shapes>
+			<Shape>
+				<edges>
+					<ShapeSetup x="{(@width)*20}" y="{(@height)*20}" fillStyle0="1" lineStyle="1"/>
+					<LineTo x="-{(@width)*20}" y="0"/>
+					<LineTo x="0" y="-{(@height)*20}"/>
+					<LineTo x="{(@width)*20}" y="0"/>
+					<LineTo x="0" y="{(@height)*20}"/>
+					<ShapeSetup/>
+				</edges>
+			</Shape>
+		</shapes>
+	</DefineShape3>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
+		<transform>
+			<xsl:choose>
+				<xsl:when test="@transform">
+					<xsl:copy-of select="swft:transform(@transform)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<Transform transX="{@x*20}" transY="{@y*20}" scaleX="1" scaleY="1"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</transform>
+	</PlaceObject2>
+</xsl:template>
+<xsl:template match="ShapeSetup" mode="shape">
+	<ShapeSetup fillStyle0="1" fillStyle1="2" lineStyle="1">
+		<xsl:apply-templates select="*|@*" mode="shape"/>
+	</ShapeSetup>
+</xsl:template>
+<xsl:template match="*|@*|text()" mode="shape" priority="-1">
+	<xsl:copy-of select="."/>
+</xsl:template>
+
 
 <!-- shared library import -->
 <xsl:template match="import">

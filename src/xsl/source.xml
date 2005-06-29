@@ -374,8 +374,9 @@
 </tag>
 
 <tag name="SetBackgroundColor" id="0x09">
-	<object type="Color" name="color" prop="true" />
 	<!-- FIXME: alpha?, when len=4 -->
+	<context param="alpha" value="0"/>
+	<object type="Color" name="color" prop="true" />
 </tag>
 
 <tag name="DefineText" id="0x0B">
@@ -384,6 +385,7 @@
 	<object type="Transform" name="transform" prop="true"/>
 	<byte name="glyphBits" context="true"/>
 	<byte name="advanceBits" context="true"/>
+	<context param="alpha" value="0"/>
 	<list name="records" type="TextRecord" prop="true"/>
 </tag>
 

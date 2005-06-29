@@ -18,7 +18,7 @@ ShapeMaker::ShapeMaker( List<ShapeItem>* e, double fx, double fy, double ofsx, d
 	diffx = diffy = 0;
 }
 
-void ShapeMaker::setupR( int _x, int _y, int fillStyle0, int fillStyle1, int lineStyle ) {
+void ShapeMaker::setupR( double _x,double _y, int fillStyle0, int fillStyle1, int lineStyle ) {
 	roundReset();
 	int x = roundX(factorx * ( offsetx + _x ) );
 	int y = roundY(factory * ( offsety + _y ) );
@@ -52,7 +52,7 @@ void ShapeMaker::setupR( int _x, int _y, int fillStyle0, int fillStyle1, int lin
 //	fprintf(stderr,"setup %i/%i\n", x, y );
 }
 
-void ShapeMaker::lineToR( int _x, int _y ) {
+void ShapeMaker::lineToR( double _x, double _y ) {
 	int x = roundX(factorx * ( offsetx + _x ) );
 	int y = roundY(factory * ( offsety + _y ) );
 
@@ -66,7 +66,7 @@ void ShapeMaker::lineToR( int _x, int _y ) {
 	edges->append( segment );
 }
 
-void ShapeMaker::curveToR( int _cx, int _cy, int ax, int ay ) {
+void ShapeMaker::curveToR( double _cx, double _cy, double ax, double ay ) {
 	int cx = roundX(factorx * ( offsetx + _cx ) );
 	int cy = roundY(factory * ( offsety + _cy ) );
 	int x = roundX(factorx * ( offsetx + ax ) );
@@ -100,11 +100,11 @@ Point intersectLines( Point p1, Point p2, Point p3, Point p4 ) {
 	if( !dx1 ) {
 		return Point( x1, (m2*(x1-x4))+y4 );
 	} else if( !dx2 ) {
-		return Point( x4, (m1*(x1-x4))+y1 );
+		return Point( x4, (m1*(x4-x1))+y1 );
 	}
 	double x = ((-m2 * x4) + y4 + (m1 * x1) - y1) / (m1-m2);
 	Point p( x, (m1 * (x-x1)) + y1 );
-	fprintf(stderr,"S: %f/%f\n", p.x, p.y );
+	fprintf(stderr,"S: %f/%f  m1/2: %f/%f\n", p.x, p.y, m1, m2 );
 	return p;
 }
 
@@ -137,21 +137,21 @@ void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, con
 		// recurse
 		iteration++;
 		cubicToRec( a,    b0.p1, b0.p2, b0.p3, k, iteration );
-		cubicToRec( b1.p0, b1.p1, b1.p2, d,    k, iteration );
-	} else {
-	//	SWF::LineTo *segment = new SWF::LineTo;
-	//	segment->setType(1);
-	//	segment->setx( (int)(factorx*d.x) );
-	//	segment->sety( (int)(factory*d.y) );
-	//	edges->append( segment );
+		//lineTo( b0.p3.x, b0.p3.y );
 		
-	//	lineTo( (int)s.x, (int)s.y );
-	//	lineTo( (int)d.x, (int)d.y );
-		curveTo( (int)s.x, (int)s.y, (int)d.x, (int)d.y );
+		cubicToRec( b1.p0, b1.p1, b1.p2, d,    k, iteration );
+		//lineTo( b1.p1.x, b1.p1.y );
+		//lineTo( b1.p2.x, b1.p2.y );
+		//lineTo( d.x, d.y );
+	} else {
+		fprintf(stderr,"#### %i %i %i %i\n", (int)s.x, (int)s.y, (int)d.x, (int)d.y );
+		//lineTo( (int)s.x, (int)s.y );
+		//lineTo( (int)d.x, (int)d.y );
+		curveTo( s.x, s.y, d.x, d.y );
 	}
 }
 
-void ShapeMaker::cubicTo( int x1, int y1, int x2, int y2, int ax, int ay ) {
+void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax, double ay ) {
 	Point a(lastx,lasty);
 	Point b(x1,y1);
 	Point c(x2,y2);
@@ -185,19 +185,19 @@ void ShapeMaker::finish() {
 	edges->append( setup );
 }
 
-void ShapeMaker::setup( int x, int y, int fillStyle0, int fillStyle1, int lineStyle ) {
+void ShapeMaker::setup( double x, double y, int fillStyle0, int fillStyle1, int lineStyle ) {
 	setupR( x-lastx, y-lasty, fillStyle0, fillStyle1, lineStyle );
 	lastx = x;
 	lasty = y;
 }
 
-void ShapeMaker::lineTo( int x, int y ) {
+void ShapeMaker::lineTo( double x, double y ) {
 	lineToR( x-lastx, y-lasty );
 	lastx = x;
 	lasty = y;
 }
 
-void ShapeMaker::curveTo( int cx, int cy, int ax, int ay ) {
+void ShapeMaker::curveTo( double cx, double cy, double ax, double ay ) {
 	curveToR( cx-lastx, cy-lasty, ax-cx, ay-cy );
 	lastx = ax;
 	lasty = ay;

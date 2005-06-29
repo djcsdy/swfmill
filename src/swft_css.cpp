@@ -65,7 +65,10 @@ char *parse_string( char *p, string& s ) {
 void parse_css_simple( const char *style_str, Style *style ) {
 	char *p = (char *)style_str; // casting away const, but, hey- wtf.
 
+	memset( style, 0, sizeof(Style) );
+	
 	bool fail=false;
+	bool no_fill=false, no_stroke=false;
 	string key, value;
 	
 	while( !fail ) {
@@ -79,25 +82,32 @@ void parse_css_simple( const char *style_str, Style *style ) {
 		EXPECT(p,';');
 		if( value.length() == 0 || key.length() == 0 ) fail = true;
 
-//		std::cerr << "[" << key << "] " << value << std::endl;
+		//std::cerr << "[" << key << "] " << value << " " << (fail?"FAIL":"OK") << std::endl;
 		
-		if( !fail ) {
-			if( key == "fill" ) {
-				parse_color( value, &(style->fill) );
-			} else if( key == "stroke" ) {
-				parse_color( value, &(style->stroke) );
+		if( true || !fail ) {
+			if( key == "fill" && value == "none" ) {
+				no_fill = true;
+				style->fill.a = 0;
 			} else if( key == "fill-opacity" ) {
 				float f;
 				sscanf(value.c_str(),"%f",&f);
-				style->fill.a = (unsigned char)(f*0xff);
+				if( !no_fill ) style->fill.a = (unsigned char)(f*0xff);
 			} else if( key == "stroke-opacity" ) {
 				float f;
 				sscanf(value.c_str(),"%f",&f);
-				style->stroke.a = (unsigned char)(f*0xff);
+				if( !no_stroke ) style->stroke.a = (unsigned char)(f*0xff);
+			} else if( key == "fill" ) {
+				if( style->fill.a == 0 ) style->fill.a = 0xff;
+				parse_color( value, &(style->fill) );
+			} else if( key == "stroke" && value == "none" ) {
+				style->stroke.a = 0;
+			} else if( key == "stroke" ) {
+				if( style->stroke.a == 0 ) style->stroke.a = 0xff;
+				parse_color( value, &(style->stroke) );
 			} else if( key == "stroke-width" ) {
 				float f;
 				sscanf(value.c_str(),"%f",&f);
-				style->width = f;
+				style->width = f*20;
 			}
 			// the rest is ignored
 		}
@@ -169,6 +179,43 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 }
 
+void swft_unit( xmlXPathParserContextPtr ctx, int nargs ) {
+	xmlChar *string;
+	xmlXPathObjectPtr obj;
+	xmlDocPtr doc;
+	xmlNodePtr node;
+	char tmp[TMP_STRLEN];
+
+	xmlXPathStringFunction(ctx, 1);
+	if (ctx->value->type != XPATH_STRING) {
+		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
+			 "swft:unit() : invalid arg, expecting a string\n");
+		ctx->error = XPATH_INVALID_TYPE;
+		return;
+	}
+	obj = valuePop(ctx);
+	if (obj->stringval == NULL) {
+		valuePush(ctx, xmlXPathNewNodeSet(NULL));
+		return;
+	}
+		
+	string = obj->stringval;
+	float val;
+	
+	if( sscanf( (const char*)string, "%fpt", &val ) == 1 ) {
+	//  fprintf( stderr, "---- UNIT: %fpt -> %fpx \n", val, val*(100.0/80));
+		snprintf(tmp,TMP_STRLEN,"%f", val * (100.0/80));
+		
+		valuePush( ctx, xmlXPathNewString( (const xmlChar *)tmp ) );
+	} else {
+		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
+			 "swft:unit() : unknown unit: '%s'\n", (const char*)string );
+		ctx->error = XPATH_INVALID_TYPE;
+		return;
+	}
+}
+
+
 void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlChar *string;
 	xmlXPathObjectPtr obj;
@@ -191,11 +238,9 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		
 	string = obj->stringval;
 	
-	fprintf(stderr,"getting transformation from '%s'\n", string );
-
 	float a, b, c, d, e, f;
 	if( sscanf( (const char*)string, "matrix(%f,%f,%f,%f,%f,%f)", &a, &b, &c, &d, &e, &f ) == 6 ) {
-		fprintf(stderr,"matrix: %f %f %f %f %f %f\n", a, b, c, d, e, f );
+//		fprintf(stderr,"matrix: %f %f %f %f %f %f\n", a, b, c, d, e, f );
 	
 		doc = xmlNewDoc( (const xmlChar *)"1.0");
 		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );
@@ -203,9 +248,12 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		node = doc->xmlRootNode;
 		xmlSetProp( node, (const xmlChar *)"generated", (const xmlChar *)"true" );
 		
+		float factorx, factory;
+		factorx = factory = 20;
+	
 		float scaleX, scaleY, skewX, skewY, transX, transY;
-		transX = e;
-		transY = f;
+		transX = e*factorx;
+		transY = f*factory;
 		scaleX = a;
 		scaleY = d;
 		skewX = b;
@@ -227,7 +275,7 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 		
 	} else if( sscanf( (const char*)string, "translate(%f,%f)", &e, &f ) == 2 ) {
-		fprintf(stderr,"matrix: %f %f\n", e, f );
+//		fprintf(stderr,"translate: %f %f\n", e, f );
 	
 		doc = xmlNewDoc( (const xmlChar *)"1.0");
 		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );
@@ -235,9 +283,12 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		node = doc->xmlRootNode;
 		xmlSetProp( node, (const xmlChar *)"generated", (const xmlChar *)"true" );
 		
+		float factorx, factory;
+		factorx = factory = 20;
+	
 		float transX, transY;
-		transX = e;
-		transY = f;
+		transX = e*factorx;
+		transY = f*factory;
 	
 		snprintf(tmp,TMP_STRLEN,"%f", transX);
 		xmlSetProp( node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
@@ -246,9 +297,31 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 
 		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 		
+	} else if( sscanf( (const char*)string, "scale(%f,%f)", &a, &b ) == 2 ) {
+//		fprintf(stderr,"scale: %f %f\n", a, b );
+	
+		doc = xmlNewDoc( (const xmlChar *)"1.0");
+		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );
+		
+		node = doc->xmlRootNode;
+		xmlSetProp( node, (const xmlChar *)"generated", (const xmlChar *)"true" );
+		
+		float scaleX, scaleY;
+		scaleX = a;
+		scaleY = b;
+	
+		snprintf(tmp,TMP_STRLEN,"%f", scaleX);
+		xmlSetProp( node, (const xmlChar *)"scaleX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", scaleY);
+		xmlSetProp( node, (const xmlChar *)"scaleY", (const xmlChar *)&tmp );
+		xmlSetProp( node, (const xmlChar *)"transX", (const xmlChar *)"0" );
+		xmlSetProp( node, (const xmlChar *)"transY", (const xmlChar *)"0" );
+
+		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
+
 	} else {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:transform() : transformation is not a simple matrix(a,b,c,d,e,f), NYI\n");
+			 "swft:transform() : transformation is not a simple matrix, translate or scale, NYI\n");
 		ctx->error = XPATH_INVALID_TYPE;
 		return;
 	}

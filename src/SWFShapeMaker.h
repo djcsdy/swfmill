@@ -44,19 +44,19 @@ class ShapeMaker {
 	public:
 		ShapeMaker( List<ShapeItem>* edges, double fx = 1, double fy = 1, double ofsx = 0, double ofsy = 0 );
 	
-		void setup( int x=0, int y=0, int fillStyle0=-1, int fillStyle1=-1, int lineStyle=-1 );
-		void lineTo( int x, int y );
-		void curveTo( int cx, int cy, int ax, int ay );
-		void cubicTo( int x1, int y1, int x2, int y2, int ax, int ay );
+		void setup( double x=0, double y=0, int fillStyle0=-1, int fillStyle1=-1, int lineStyle=-1 );
+		void lineTo( double x, double y );
+		void curveTo( double cx, double cy, double ax, double ay );
+		void cubicTo( double x1, double y1, double x2, double y2, double ax, double ay );
 		void close();
 		void finish();
 	
-		void setupR( int x=0, int y=0, int fillStyle0=-1, int fillStyle1=-1, int lineStyle=-1 );
-		void lineToR( int x, int y );
-		void curveToR( int cx, int cy, int ax, int ay );
+		void setupR( double x=0, double y=0, int fillStyle0=-1, int fillStyle1=-1, int lineStyle=-1 );
+		void lineToR( double x, double y );
+		void curveToR( double cx, double cy, double ax, double ay );
 	
-		int getLastX() { return lastx; }
-		int getLastY() { return lasty; }
+		double getLastX() { return lastx; }
+		double getLastY() { return lasty; }
 	
 	protected:
 		void cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k, int iteration=0 );
@@ -64,8 +64,8 @@ class ShapeMaker {
 		List<ShapeItem>* edges;
 		double factorx, factory;
 		double offsetx, offsety;
-		int lastx, lasty;
-		int diffx, diffy;
+		double lastx, lasty;
+		double diffx, diffy;
 	
 		// rounding error accumulation compensation
 		double roundx, roundy;
