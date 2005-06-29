@@ -428,6 +428,8 @@
 </tag>
 
 <tag name="DefineShape2" id="0x16">
+	<word name="objectID" prop="true"/>
+<!--
 	<context param="alpha" value="0"/>
 	<context param="many_shapes" value="1"/>
 
@@ -436,11 +438,13 @@
 	<object type="StyleList" name="styles" prop="true"/>
 	<object type="Shape" name="shapes" prop="true"/>
 	<fill-byte/>
-
+-->
+	<object type="Rest" name="data" prop="true"/>
 </tag>
 
 <tag name="DefineShape3" id="0x20">
-	<context param="alpha" value="1"/>
+	<word name="objectID" prop="true"/>
+<!--	<context param="alpha" value="1"/>
 	<context param="many_shapes" value="1"/>
 
 	<word name="objectID" prop="true"/>
@@ -448,12 +452,25 @@
 	<object type="StyleList" name="styles" prop="true"/>
 	<object type="Shape" name="shapes" prop="true"/>
 	<fill-byte/>
-
-<!-- only basic support for the id 
-	<object type="Rest" name="data" prop="true"/>
 -->
+<!-- only basic support for the id -->
+	<object type="Rest" name="data" prop="true"/>
 </tag>
 
+<tag name="DefineMorph" id="0x2E">
+	<word name="objectID" prop="true"/>
+<!--	<context param="alpha" value="1"/>
+	<context param="many_shapes" value="1"/>
+
+	<word name="objectID" prop="true"/>
+	<object type="Rectangle" name="bounds" prop="true"/>
+	<object type="StyleList" name="styles" prop="true"/>
+	<object type="Shape" name="shapes" prop="true"/>
+	<fill-byte/>
+-->
+<!-- only basic support for the id -->
+	<object type="Rest" name="data" prop="true"/>
+</tag>
 <tag name="DefineFontInfo2" id="0x3E">
 	<word name="objectID" prop="true"/>
 	<!--
