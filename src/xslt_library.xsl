@@ -571,24 +571,12 @@
 <xsl:template match="swf" mode="makeswf">
 	<swft:push-map/>
 	<xsl:param name="id"/>
-	<xsl:variable name="swfID"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
-	
+
 	<xsl:apply-templates select="Header/tags/*" mode="sprite-global"/>
-		
-	<DefineSprite objectID="{$swfID}" frames="{count(Header/tags/ShowFrame)}">
+	
+	<DefineSprite objectID="{$id}" frames="{count(Header/tags/ShowFrame)}">
 		<tags>
 			<xsl:apply-templates select="Header/tags/*" mode="sprite-local"/>
-		</tags>
-	</DefineSprite>
-	<DefineSprite objectID="{$id}" frames="1">
-		<tags>
-			<PlaceObject2 replace="0" depth="1" objectID="{$swfID}">
-				<transform>
-					<Transform transX="0" transY="0" />
-				</transform>
-			</PlaceObject2>
-			<ShowFrame/>
-			<End/>
 		</tags>
 	</DefineSprite>
 	<swft:pop-map/>
