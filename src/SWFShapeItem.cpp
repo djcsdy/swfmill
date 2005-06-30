@@ -132,15 +132,15 @@ void LineTo::dump( int n, Context *ctx ) {
 	printf("\n");
 }
 
-size_t LineTo::getSize( Context *ctx ) {
-	int r=0;
+size_t LineTo::getSize( Context *ctx, int start_at ) {
+	int r=start_at;
 	if( x != 0 && y != 0 ) {
-		r = 4 + 1 + ((bits+2)*2);
+		r += 4 + 1 + ((bits+2)*2);
 	} else {
-		r = 4 + 2 + (bits+2);
+		r += 4 + 2 + (bits+2);
 	}
-	r += ShapeItem::getHeaderSize(r);
-	return r;
+	r += ShapeItem::getHeaderSize(r-start_at);
+	return r-start_at;
 }
 
 void LineTo::write( Writer *w, Context *ctx ) {

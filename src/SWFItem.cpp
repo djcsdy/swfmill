@@ -119,10 +119,11 @@ void Rest::dump( int indent, Context *ctx ) {
 	}
 }
 
-size_t Rest::getSize( Context *ctx ) {
-	int r = size * 8;
-	r += Item::getHeaderSize(r);
-	return r;
+size_t Rest::getSize( Context *ctx, int start_at ) {
+	int r = start_at;
+	r += size * 8;
+	r += Item::getHeaderSize(r-start_at);
+	return r-start_at;
 }
 
 void Rest::write( Writer *w, Context *ctx ) {

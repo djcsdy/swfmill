@@ -244,7 +244,7 @@ int File::setXML( xmlNodePtr root, Context *_ctx ) {
 	header = new Header;
 	header->parseXML( headerNode, ctx );
 
-	length = (header->getSize(ctx)/8);
+	length = (header->getSize(ctx,0)/8);
 		
 	if( !_ctx && ctx ) delete ctx;
 	return length+8;

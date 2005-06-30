@@ -184,7 +184,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 			shape = glyphList->getShapeN(glyph);
 			ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
 
-			// set fillBits
 			shape->setfillBits(1);
 			
 			int start = 0, end;

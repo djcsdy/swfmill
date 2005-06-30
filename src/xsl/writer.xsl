@@ -16,7 +16,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	int start=w->getBitPosition();
 	if( ctx->debugTrace ) {
 		printf("WRITE <xsl:value-of select="@name"/> @%i\n", start/8 );
-		dump(1,ctx);
+		//dump(1,ctx);
 	}
 	
 	<!-- calculate end offsets for some lists -->
@@ -40,19 +40,19 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 
 	<xsl:choose>
 		<xsl:when test="@parent">
-			<xsl:apply-templates select="." mode="baseclass"/>::writeHeader( w, ctx, getSize(ctx)/8 );
+			<xsl:apply-templates select="." mode="baseclass"/>::writeHeader( w, ctx, getSize(ctx,w->getBitPosition())/8 );
 		</xsl:when>
 		<xsl:when test="name()='type'"/>
 		<xsl:otherwise>
-			<xsl:apply-templates select="." mode="baseclass"/>::writeHeader( w, ctx, (getSize(ctx)/8) <xsl:if test="@swallow"> - <xsl:value-of select="@swallow"/></xsl:if> );
+			<xsl:apply-templates select="." mode="baseclass"/>::writeHeader( w, ctx, (getSize(ctx,w->getBitPosition())/8) <xsl:if test="@swallow"> - <xsl:value-of select="@swallow"/></xsl:if> );
 		</xsl:otherwise>
 	</xsl:choose>
 	
 	<xsl:apply-templates mode="write"/>
 
 	int l = w->getBitPosition()-start;
-	if( l != getSize(ctx)) {
-		printf("WARNING: <xsl:value-of select="@name"/> has different size than expected: %i bits instead of %i\n", l, getSize(ctx) );
+	if( l != getSize(ctx,start)) {
+		printf("WARNING: <xsl:value-of select="@name"/> has different size than expected: %i bits instead of %i\n", l, getSize(ctx,start) );
 	}
 
 }

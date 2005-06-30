@@ -106,6 +106,7 @@
 		<integer name="lineStyle" size="ctx->lineBits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasNewStyles">
+<fill-byte/>
 		<object type="StyleList" name="styles" prop="true"/>
 	</flagged>
 </type>
@@ -443,8 +444,7 @@
 </tag>
 
 <tag name="DefineShape3" id="0x20">
-	<word name="objectID" prop="true"/>
-<!--	<context param="alpha" value="1"/>
+	<context param="alpha" value="1"/>
 	<context param="many_shapes" value="1"/>
 
 	<word name="objectID" prop="true"/>
@@ -452,22 +452,10 @@
 	<object type="StyleList" name="styles" prop="true"/>
 	<object type="Shape" name="shapes" prop="true"/>
 	<fill-byte/>
--->
-<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
 </tag>
 
-<tag name="DefineMorph" id="0x2E">
+<tag name="DefineMorphShape" id="0x2E">
 	<word name="objectID" prop="true"/>
-<!--	<context param="alpha" value="1"/>
-	<context param="many_shapes" value="1"/>
-
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="bounds" prop="true"/>
-	<object type="StyleList" name="styles" prop="true"/>
-	<object type="Shape" name="shapes" prop="true"/>
-	<fill-byte/>
--->
 <!-- only basic support for the id -->
 	<object type="Rest" name="data" prop="true"/>
 </tag>
@@ -568,6 +556,8 @@
 </tag>
 
 <tag name="DefineEditText" id="0x25">
+	<context param="alpha" value="1"/>
+
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="size" prop="true"/>
 	<bit name="hasText"/>
@@ -595,7 +585,6 @@
 		<word name="fontHeight" prop="true"/>
 	</flagged>
 	<flagged flag="hasColor">
-		<context param="alpha" value="1"/>
 		<object type="Color" name="color" prop="true"/>
 	</flagged>
 	<flagged flag="hasMaxLength">

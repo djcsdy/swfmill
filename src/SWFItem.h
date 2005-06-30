@@ -18,7 +18,7 @@ class Item {
 	
 		virtual bool parse( Reader *r, int end, Context *ctx ) = 0;
 		virtual void dump( int indent, Context *ctx ) = 0;
-		virtual size_t getSize( Context *ctx ) = 0;
+		virtual size_t getSize( Context *ctx, int start_at ) = 0;
 		virtual void write( Writer *r, Context *ctx ) = 0;
 	
 		virtual void writeXML( xmlNodePtr xml, Context *ctx ) = 0;
@@ -38,7 +38,7 @@ class Rest : public Item {
 		~Rest();
 		virtual bool parse( Reader *r, int end, Context *ctx );
 		virtual void dump( int indent, Context *ctx );
-		virtual size_t getSize( Context *ctx );
+		virtual size_t getSize( Context *ctx, int start_at );
 		virtual void write( Writer *w, Context *ctx );
 		virtual void writeXML( xmlNodePtr node, Context *ctx );
 		virtual void parseXML( xmlNodePtr node, Context *ctx );

@@ -91,17 +91,17 @@ void GlyphList::dump( int n, Context *ctx ) {
 	printf("\n");
 }
 
-size_t GlyphList::getSize( Context *ctx ) {
-	int r=0;
+size_t GlyphList::getSize( Context *ctx, int start_at ) {
+	int r=start_at;
 	
 	if( ctx->tagVersion>1 ) {
 		r += ( ctx->wideGlyphOffsets ? 4 : 2 ) * (nGlyphs+1) * 8;
 	} else {
 		r += (nGlyphs+1) * 16;
 	}
-
+	
 	for( int i=0; i<nGlyphs; i++ ) {
-		r += glyphs[i].getSize( ctx );
+		r += glyphs[i].getSize( ctx, r );
 		if( r%8 != 0 ) r += 8-(r%8);
 	}
 
@@ -111,8 +111,8 @@ size_t GlyphList::getSize( Context *ctx ) {
 			ctx->tagVersion, ctx->wideMap ? "wide" : "narrow" );
 	fprintf(stderr,"GL size: %i %i %i\n", nGlyphs, r, r/8 );
 */	
-	r += Item::getHeaderSize(r);
-	return r;
+	r += Item::getHeaderSize(r-start_at);
+	return r-start_at;
 }
 
 void GlyphList::write( Writer *w, Context *ctx ) {
@@ -124,9 +124,10 @@ void GlyphList::write( Writer *w, Context *ctx ) {
 	} else {
 		ofs = (nGlyphs+1)*2;
 	}
+	
 	ctx->wideGlyphOffsets ? w->putInt( ofs ) : w->putWord( ofs );
 	for( int i=0; i<nGlyphs; i++ ) {
-		int p = glyphs[i].getSize(ctx);
+		int p = glyphs[i].getSize(ctx,w->getBitPosition());
 		if( p%8 != 0 ) p += 8-(p%8);
 		ofs += (p)/8;
 		ctx->wideGlyphOffsets ? w->putInt( ofs ) : w->putWord( ofs );

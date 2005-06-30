@@ -127,10 +127,11 @@
 	<xsl:variable name="alpha">
 		<xsl:choose>
 			<xsl:when test="@alpha"><xsl:value-of select="@alpha"/></xsl:when>
+			<xsl:when test="string-length(@color) = 9">0x<xsl:value-of select="substring(@color,8)"/></xsl:when>
 			<xsl:otherwise>255</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	<ColorRGBA red="{$red}" green="{$green}" blue="{$blue}" alpha="{$alpha}"/>
+	<Color red="{$red}" green="{$green}" blue="{$blue}" alpha="{$alpha}"/>
 </xsl:template>
 
 <!-- background color -->
