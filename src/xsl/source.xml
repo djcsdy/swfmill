@@ -83,6 +83,8 @@
 	<list name="fillStyles" type="Style" length="n_fillStyles" prop="true"/>
 	<byte name="n_lineStyles"/> <!-- for other shape tags, introduce byteOrWord -->
 	<list name="lineStyles" type="LineStyle" length="n_lineStyles" prop="true"/>
+	<integer name="fillBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_fillStyles"/>
+	<integer name="lineBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_lineStyles"/>
 </type>
 
 <type name="ShapeSetup" parent="ShapeItem">
@@ -106,7 +108,7 @@
 		<integer name="lineStyle" size="ctx->lineBits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasNewStyles">
-<fill-byte/>
+	<fill-byte/>
 		<object type="StyleList" name="styles" prop="true"/>
 	</flagged>
 </type>
@@ -120,8 +122,14 @@
 </type>
 
 <type name="Shape">
-	<integer name="fillBits" size="4" constant-size="true" context="true"/>
-	<integer name="lineBits" size="4" constant-size="true" context="true"/>
+	<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
+</type>
+
+<type name="GlyphShape">
+	<context param="fillBits" value="1"/>
+	<context param="lineBits" value="0"/>
+	<integer name="fillBits" size="4" constant-size="true" set-from-bits-needed="1"/>
+	<integer name="lineBits" size="4" constant-size="true" set-from-bits-needed="0"/>
 	<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
 </type>
 

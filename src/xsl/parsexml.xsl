@@ -36,6 +36,9 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 			<xsl:when test="@context='inverse'">
 				ctx-><xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
 			</xsl:when>
+			<xsl:when test="@set-from-bits-needed">
+				<xsl:value-of select="@name"/> = ctx-><xsl:value-of select="@name"/> = SWFBitsNeeded( <xsl:value-of select="@set-from-bits-needed"/> );
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="@name"/> = ctx-><xsl:value-of select="@name"/>;
 			</xsl:otherwise>

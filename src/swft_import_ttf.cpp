@@ -60,7 +60,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	List<Rectangle>* bounds = tag->getbounds();
 	// NYI: kerning
 	
-	Shape *shape;
+	GlyphShape *shape;
 	int nGlyphs, glyph;
 	
 	if( FT_Init_FreeType( &swfft_library ) ) {
@@ -184,8 +184,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 			shape = glyphList->getShapeN(glyph);
 			ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
 
+/* FIXME this has no effect, done elsewhere
 			shape->setfillBits(1);
-			
+			shape->setlineBits(0);
+*/
 			int start = 0, end;
 			bool control, cubic;
 			int n;

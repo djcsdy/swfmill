@@ -49,9 +49,15 @@ bool GlyphList::parse( Reader *r, int end, Context *ctx ) {
 		offset[0] = r->getPosition() - file_offset;
 		offset[nOffsets] = end-file_offset;
 	}
-
+	/*
+	int fillBits = r->getNBitInt(4);
+	int lineBits = r->getNBitInt(4);
+	if( fillBits != 1 || lineBits != 0 ) {
+		fprintf(stderr,"WARNING: GlyphList fillBits: %i, lineBits: %i, expected 1/0\n", fillBits, lineBits );
+	}
+	*/
 	if( ctx->debugTrace ) fprintf(stderr, "Glyphs @%i offset[0]: %i\n", r->getPosition(), offset[0] );
-	glyphs = new Shape[nGlyphs];
+	glyphs = new GlyphShape[nGlyphs];
 	for( int i=0; i<nGlyphs; i++ ) {
 		if( ctx->debugTrace ) fprintf(stderr, "PARSE glyph #%i @%i should be %i-%i\n", i, r->getPosition(), file_offset + offset[i], file_offset + offset[i+1] );
 		if( r->getPosition() != file_offset + offset[i] ) {
@@ -99,7 +105,12 @@ size_t GlyphList::getSize( Context *ctx, int start_at ) {
 	} else {
 		r += (nGlyphs+1) * 16;
 	}
-	
+/*	
+	// fillBits/lineBits
+	ctx->fillBits = 1;
+	ctx->lineBits = 0;
+	r+=8
+	*/
 	for( int i=0; i<nGlyphs; i++ ) {
 		r += glyphs[i].getSize( ctx, r );
 		if( r%8 != 0 ) r += 8-(r%8);
@@ -124,15 +135,24 @@ void GlyphList::write( Writer *w, Context *ctx ) {
 	} else {
 		ofs = (nGlyphs+1)*2;
 	}
-	
+	/*
+	// fillBits/lineBits
+	ofs++;
+	ctx->fillBits = 1;
+	ctx->lineBits = 0;
+	*/
 	ctx->wideGlyphOffsets ? w->putInt( ofs ) : w->putWord( ofs );
 	for( int i=0; i<nGlyphs; i++ ) {
-		int p = glyphs[i].getSize(ctx,w->getBitPosition());
+		int p = glyphs[i].getSize(ctx,ofs);
 		if( p%8 != 0 ) p += 8-(p%8);
 		ofs += (p)/8;
 		ctx->wideGlyphOffsets ? w->putInt( ofs ) : w->putWord( ofs );
 	}
-	
+	/*
+	// fillBits/lineBits
+	w->putNBitInt( 1, 4 );
+	w->putNBitInt( 0, 4 );
+	*/
 	ofs = w->getPosition();
 	for( int i=0; i<nGlyphs; i++ ) {
 		glyphs[i].write( w, ctx );
@@ -183,14 +203,14 @@ void GlyphList::parseXML( xmlNodePtr node, Context *ctx ) {
 			memset( map, 0, sizeof(int)*nGlyphs );
 		}
 		
-		glyphs = new Shape[ nGlyphs ];
+		glyphs = new GlyphShape[ nGlyphs ];
 		child = node;
 		int i=0;
 		while( child ) {
 			if( !strcmp( (const char *)child->name, "Glyph" ) ) {
 				xmlNodePtr shape = child->children;
 				while( shape ) {
-					if( !strcmp( (const char *)shape->name, "Shape" ) ) {
+					if( !strcmp( (const char *)shape->name, "GlyphShape" ) ) {
 						glyphs[i].parseXML( shape, ctx );
 						
 						if( ctx->tagVersion>1 ) {
@@ -225,12 +245,12 @@ void GlyphList::allocate( int n ) {
 	if( glyphs ) delete glyphs;
 
 	nGlyphs = n;
-	glyphs = new Shape[ nGlyphs ];
+	glyphs = new GlyphShape[ nGlyphs ];
 	map = new int[ nGlyphs ];
 	memset( map, 0, sizeof(int)*nGlyphs );
 }
 
-Shape *GlyphList::getShapeN( int n ) {
+GlyphShape *GlyphList::getShapeN( int n ) {
 	return &glyphs[n];
 }
 

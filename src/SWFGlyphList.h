@@ -5,7 +5,7 @@
 
 namespace SWF {
 
-class Shape;
+class GlyphShape;
 	
 class GlyphList : public Item {
 	/* glyph lists have strange offsetting stuff, so we do them manually */
@@ -20,12 +20,12 @@ class GlyphList : public Item {
 		virtual void parseXML( xmlNodePtr node, Context *ctx );
 	
 		void allocate( int n );
-		Shape *getShapeN( int n );
+		GlyphShape *getShapeN( int n );
 		void setMapN( int n, int m );
 	
 	protected:
 		int nGlyphs;
-		Shape *glyphs;
+		GlyphShape *glyphs;
 		int *map;
 };
 
