@@ -142,6 +142,8 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 				break;
 		}
 	}
+
+	shaper.finish();
 	
 	// make the shape xml
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
