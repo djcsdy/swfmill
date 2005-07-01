@@ -104,7 +104,7 @@ Point intersectLines( Point p1, Point p2, Point p3, Point p4 ) {
 	}
 	double x = ((-m2 * x4) + y4 + (m1 * x1) - y1) / (m1-m2);
 	Point p( x, (m1 * (x-x1)) + y1 );
-	fprintf(stderr,"S: %f/%f  m1/2: %f/%f\n", p.x, p.y, m1, m2 );
+	//fprintf(stderr,"S: %f/%f  m1/2: %f/%f\n", p.x, p.y, m1, m2 );
 	return p;
 }
 
@@ -131,8 +131,8 @@ void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, con
 	double dy = (a.y+d.y+s.y*4-(b.y+c.y)*3)*.125;
 	Bezier bz( a, b, c, d );
 	Bezier b0, b1;
-	if( dx*dx + dy*dy > k && iteration<1 ) {
-		fprintf(stderr,"split: %f\n",dx*dx + dy*dy);
+	if( dx*dx + dy*dy > k && iteration<100 ) {
+		//fprintf(stderr,"split: %f\n",dx*dx + dy*dy);
 		bezierSplit( bz, &b0, &b1 );
 		// recurse
 		iteration++;
@@ -144,7 +144,7 @@ void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, con
 		//lineTo( b1.p2.x, b1.p2.y );
 		//lineTo( d.x, d.y );
 	} else {
-		fprintf(stderr,"#### %i %i %i %i\n", (int)s.x, (int)s.y, (int)d.x, (int)d.y );
+	//	fprintf(stderr,"#### %i %i %i %i\n", (int)s.x, (int)s.y, (int)d.x, (int)d.y );
 		//lineTo( (int)s.x, (int)s.y );
 		//lineTo( (int)d.x, (int)d.y );
 		curveTo( s.x, s.y, d.x, d.y );
@@ -157,7 +157,7 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 	Point c(x2,y2);
 	Point d(ax,ay);
 
-	cubicToRec( a, b, c, d, 1 );
+	cubicToRec( a, b, c, d, .1 );
 	//lastx = ax; lasty = ay;
 }
 

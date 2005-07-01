@@ -236,7 +236,7 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 		
 	string = obj->stringval;
 	
-	fprintf(stderr,"making shape from path '%s'\n", string );
+//	fprintf(stderr,"making shape from path '%s'\n", string );
 	
 	for( int i=0; i==0 || string[i-1] != 0; i++ ) {
 		switch( string[i] ) {

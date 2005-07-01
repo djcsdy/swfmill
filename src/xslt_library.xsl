@@ -597,24 +597,52 @@
 
 <xsl:template match="svg:g" mode="svg">
 	<xsl:variable name="id"><xsl:value-of select="swft:map-id(@id)"/></xsl:variable> 
+	<xsl:variable name="subid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<xsl:variable name="xofs">
+		<xsl:choose>
+			<xsl:when test="@reference-x">
+				<xsl:value-of select="@reference-x"/>
+			</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable> 
+	<xsl:variable name="yofs">
+		<xsl:choose>
+			<xsl:when test="@reference-y">
+				<xsl:value-of select="@reference-y"/>
+			</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable> 
 	
-	<DefineSprite objectID="{$id}" frames="1">
+	<DefineSprite objectID="{$subid}" frames="1">
 		<tags>
 			<xsl:apply-templates mode="svg"/>
 			<ShowFrame/>
 			<End/>
 		</tags>
 	</DefineSprite>
+	<DefineSprite objectID="{$id}" frames="1">
+		<tags>
+			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$subid}">
+				<transform>
+					<xsl:choose>
+						<xsl:when test="@transform">
+							<xsl:copy-of select="swft:transform(@transform,$xofs*-1,$yofs*-1)"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<Transform transX="{$xofs*-20}" transY="{$yofs*-20}"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</transform>
+			</PlaceObject2>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
 	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
 		<transform>
-			<xsl:choose>
-				<xsl:when test="@transform">
-					<xsl:copy-of select="swft:transform(@transform)"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<Transform transX="0" transY="0"/>
-				</xsl:otherwise>
-			</xsl:choose>
+			<Transform transX="{$xofs*20}" transY="{$yofs*20}"/>
 		</transform>
 	</PlaceObject2>
 	<xsl:if test="@class">
