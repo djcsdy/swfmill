@@ -569,8 +569,8 @@
 
 <!-- SWF import -->
 <xsl:template match="swf" mode="makeswf">
-	<swft:push-map/>
 	<xsl:param name="id"/>
+	<swft:push-map/>
 
 	<xsl:apply-templates select="Header/tags/*" mode="sprite-global"/>
 	
@@ -579,25 +579,30 @@
 			<xsl:apply-templates select="Header/tags/*" mode="sprite-local"/>
 		</tags>
 	</DefineSprite>
+	
 	<swft:pop-map/>
 </xsl:template>
 
 <!-- SVG import -->
 <xsl:template match="svg:svg" mode="makesvg">
+	<xsl:param name="id"/>
 	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
-			<xsl:apply-templates/>
+			<xsl:apply-templates mode="svg"/>
 			<ShowFrame/>
 			<End/>
 		</tags>
 	</DefineSprite>
 </xsl:template>
 
-<xsl:template match="svg:g">
+<xsl:template match="svg:g" mode="svg">
 	<xsl:variable name="id"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
-	<DefineSprite objectID="{$id}">
+	
+	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
-			<xsl:apply-templates/>
+			<xsl:apply-templates mode="svg"/>
+			<ShowFrame/>
+			<End/>
 		</tags>
 	</DefineSprite>
 	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
@@ -607,20 +612,20 @@
 					<xsl:copy-of select="swft:transform(@transform)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Transform transX="0" transY="0" scaleX="1" scaleY="1"/>
+					<Transform transX="0" transY="0"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</transform>
 	</PlaceObject2>
 </xsl:template>
 
-<xsl:template match="svg:path">
-	<xsl:variable name="id"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
-	<DefineShape3 objectID="{$id}">
+<xsl:template match="svg:path" mode="svg">
+	<xsl:variable name="id"><xsl:value-of select="swft:map-id(@id)"/></xsl:variable> 
+	<xsl:variable name="shapeid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+
+	<DefineShape3 objectID="{$shapeid}">
 		<bounds>
 				<xsl:copy-of select="swft:bounds(@d)"/>
-<!--			<Rectangle left="math:min($path//@x)" right="math:max($path//@x)" top="math:min($path//@y)" bottom="math:max($path//@y)"/>
--->
 		</bounds>
 		<styles>
 			<StyleList>
@@ -629,10 +634,22 @@
 		</styles>
 		<shapes>
 			<Shape>
-				<xsl:apply-templates mode="shape" select="swft:path(@d)/tmp/Shape/*"/>
+				<xsl:apply-templates mode="shape" select="swft:path(@d,-2000,-2000)/tmp/Shape/*"/>
 			</Shape>
 		</shapes>
 	</DefineShape3>
+	<DefineSprite objectID="{$id}" frames="1">
+		<tags>
+			<xsl:apply-templates mode="svg"/>
+			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$shapeid}">
+				<transform>
+					<Transform transX="0" transY="0"/>
+				</transform>
+			</PlaceObject2>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
 	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
 		<transform>
 			<xsl:choose>
@@ -640,16 +657,23 @@
 					<xsl:copy-of select="swft:transform(@transform)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Transform transX="0" transY="0" scaleX="1" scaleY="1"/>
+					<Transform transX="0" transY="0"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</transform>
 	</PlaceObject2>
+	<xsl:if test="@class">
+		<xsl:call-template name="register-class">
+			<xsl:with-param name="class" select="@class"/>
+			<xsl:with-param name="linkage-id" select="@id"/>
+		</xsl:call-template>
+	</xsl:if>
 </xsl:template>
 
-<xsl:template match="svg:rect">
+<xsl:template match="svg:rect" mode="svg">
 	<xsl:variable name="id"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
-	<DefineShape3 objectID="{$id}">
+	<xsl:variable name="shapeid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<DefineShape3 objectID="{$shapeid}">
 		<bounds>
 			<Rectangle left="0" right="{@width*20}" top="0" bottom="{@height*20}"/>
 		</bounds>
@@ -671,6 +695,18 @@
 			</Shape>
 		</shapes>
 	</DefineShape3>
+	<DefineSprite objectID="{$id}" frames="1">
+		<tags>
+			<xsl:apply-templates mode="svg"/>
+			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$shapeid}">
+				<transform>
+					<Transform transX="{@x*20}" transY="{@y*20}"/>
+				</transform>
+			</PlaceObject2>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
 	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
 		<transform>
 			<xsl:choose>
@@ -678,12 +714,16 @@
 					<xsl:copy-of select="swft:transform(@transform)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Transform transX="{@x*20}" transY="{@y*20}" scaleX="1" scaleY="1"/>
+					<Transform transX="0" transY="0"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</transform>
 	</PlaceObject2>
 </xsl:template>
+
+<xsl:template match="*|@*|text()" mode="svg" priority="-1"/>
+
+
 <xsl:template match="ShapeSetup" mode="shape">
 	<ShapeSetup fillStyle0="1" fillStyle1="2" lineStyle="1">
 		<xsl:apply-templates select="*|@*" mode="shape"/>
@@ -791,13 +831,14 @@
 	</DoInitAction>
 </xsl:template>
 
+<!-- works only if the id is exported! -->
 <xsl:template name="register-class">
 	<xsl:param name="class"/>
 	<xsl:param name="linkage-id"/>
 	<xsl:variable name="packages" select="str:tokenize($class,'.')"/>
 	<xsl:variable name="strofs">3</xsl:variable>
 	<xsl:variable name="id" select="swft:next-id()"/>
-	
+
 	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
 		  <End/>
@@ -806,6 +847,8 @@
 	<Export>
 		<symbols>
 		  <Symbol objectID="{$id}" name="__Packages.swfmill.registerClass.{$linkage-id}"/>
+		  <!-- export the linked symbol, too -->
+		  <Symbol objectID="{swft:map-id($linkage-id)}" name="{$linkage-id}"/>
 		</symbols>
 	</Export>
 	<DoInitAction sprite="{$id}">
