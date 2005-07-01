@@ -58,7 +58,6 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlChar *string;
 	xmlXPathObjectPtr obj;
 	Shape shape;
-	ShapeMaker shaper( shape.getedges(), 20, 20 );
 	Context swfctx;
 	xmlDocPtr doc;
 	int fillBits = 0, lineBits = 0;
@@ -69,22 +68,30 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 	int mode = 0;
 	bool closed = true;
 	double smoothx, smoothy;
+	double xofs, yofs;
 
-	xmlXPathStringFunction(ctx, 1);
-	if (ctx->value->type != XPATH_STRING) {
-		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:path() : invalid arg expecting a path string\n");
-		ctx->error = XPATH_INVALID_TYPE;
+	if( (nargs != 1) && (nargs != 3) ) {
+		xmlXPathSetArityError(ctx);
 		return;
 	}
-	obj = valuePop(ctx);
-	if (obj->stringval == NULL) {
-		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
-	}
-		
-	string = obj->stringval;
 	
+	if( nargs == 3 ) {
+		yofs = xmlXPathPopNumber(ctx);
+		xofs = xmlXPathPopNumber(ctx);
+		if( xmlXPathCheckError(ctx) )
+			return;
+	} else {
+		yofs = xofs = 0;
+	}
+	
+	string = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) || (string == NULL) ) {
+		return;
+	}
+	
+
+	ShapeMaker shaper( shape.getedges(), 20, 20, xofs, yofs );
+
 	// fprintf(stderr,"making shape from path '%s'\n", string );
 	
 	for( int i=0; i==0 || string[i-1] != 0; i++ ) {

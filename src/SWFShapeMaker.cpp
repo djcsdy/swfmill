@@ -20,8 +20,8 @@ ShapeMaker::ShapeMaker( List<ShapeItem>* e, double fx, double fy, double ofsx, d
 
 void ShapeMaker::setupR( double _x,double _y, int fillStyle0, int fillStyle1, int lineStyle ) {
 	roundReset();
-	int x = roundX(factorx * ( offsetx + _x ) );
-	int y = roundY(factory * ( offsety + _y ) );
+	int x = roundX(factorx * ( _x ) );
+	int y = roundY(factory * ( _y ) );
 
 	diffx = diffy = 0;
 
@@ -53,8 +53,8 @@ void ShapeMaker::setupR( double _x,double _y, int fillStyle0, int fillStyle1, in
 }
 
 void ShapeMaker::lineToR( double _x, double _y ) {
-	int x = roundX(factorx * ( offsetx + _x ) );
-	int y = roundY(factory * ( offsety + _y ) );
+	int x = roundX(factorx * ( _x ) );
+	int y = roundY(factory * ( _y ) );
 
 	diffx += x; diffy += y;
 	
@@ -67,10 +67,10 @@ void ShapeMaker::lineToR( double _x, double _y ) {
 }
 
 void ShapeMaker::curveToR( double _cx, double _cy, double ax, double ay ) {
-	int cx = roundX(factorx * ( offsetx + _cx ) );
-	int cy = roundY(factory * ( offsety + _cy ) );
-	int x = roundX(factorx * ( offsetx + ax ) );
-	int y = roundY(factory * ( offsety + ay ) );
+	int cx = roundX(factorx * ( _cx ) );
+	int cy = roundY(factory * ( _cy ) );
+	int x = roundX(factorx * ( ax ) );
+	int y = roundY(factory * ( ay ) );
 
 	diffx += cx; diffy += cy;
 	diffx += x; diffy += y;
@@ -186,12 +186,14 @@ void ShapeMaker::finish() {
 }
 
 void ShapeMaker::setup( double x, double y, int fillStyle0, int fillStyle1, int lineStyle ) {
+	x+=offsetx; y+=offsety;
 	setupR( x-lastx, y-lasty, fillStyle0, fillStyle1, lineStyle );
 	lastx = x;
 	lasty = y;
 }
 
 void ShapeMaker::lineTo( double x, double y ) {
+	x+=offsetx; y+=offsety;
 	lineToR( x-lastx, y-lasty );
 	lastx = x;
 	lasty = y;
