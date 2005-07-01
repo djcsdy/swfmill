@@ -22,6 +22,7 @@ struct Color {
 };
 
 struct Style {
+	bool no_fill, no_stroke;
 	Color fill;
 	Color stroke;
 	double width;
@@ -86,21 +87,20 @@ void parse_css_simple( const char *style_str, Style *style ) {
 		
 		if( true || !fail ) {
 			if( key == "fill" && value == "none" ) {
-				no_fill = true;
-				style->fill.a = 0;
+				style->no_fill = true;
+			} else if( key == "stroke" && value == "none" ) {
+				style->no_stroke = true;
 			} else if( key == "fill-opacity" ) {
 				float f;
 				sscanf(value.c_str(),"%f",&f);
-				if( !no_fill ) style->fill.a = (unsigned char)(f*0xff);
+				style->fill.a = (unsigned char)(f*0xff);
 			} else if( key == "stroke-opacity" ) {
 				float f;
 				sscanf(value.c_str(),"%f",&f);
-				if( !no_stroke ) style->stroke.a = (unsigned char)(f*0xff);
+				style->stroke.a = (unsigned char)(f*0xff);
 			} else if( key == "fill" ) {
 				if( style->fill.a == 0 ) style->fill.a = 0xff;
 				parse_color( value, &(style->fill) );
-			} else if( key == "stroke" && value == "none" ) {
-				style->stroke.a = 0;
 			} else if( key == "stroke" ) {
 				if( style->stroke.a == 0 ) style->stroke.a = 0xff;
 				parse_color( value, &(style->stroke) );
@@ -124,11 +124,12 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlDocPtr doc;
 	xmlNodePtr node;
 	char tmp[TMP_STRLEN];
+	
 
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:path() : invalid arg expecting a path string\n");
+			 "swft:css() : invalid arg expecting a transformation string\n");
 		ctx->error = XPATH_INVALID_TYPE;
 		return;
 	}
@@ -139,16 +140,24 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 		
 	string = obj->stringval;
-	
+
 	//fprintf(stderr,"getting style from '%s'\n", string );
 
 	Style style;
 	parse_css_simple( (const char *)string, &style );
 
+	/* FIXME: really we should not list a fully transparent style, 
+	   but make sure the style is not used (shapes use fillStyle=, lineStyle=,
+	   that makes the flash player crash firefox! */
+	if( style.no_fill ) style.fill.a = 0;
+	if( style.no_stroke ) style.stroke.a = 0;
+	
+	
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"tmp", NULL );
 
 	node = xmlNewChild( doc->xmlRootNode, NULL, (const xmlChar *)"fillStyles", NULL );
+	
 	node = xmlNewChild( node, NULL, (const xmlChar *)"Solid", NULL );
 	node = xmlNewChild( node, NULL, (const xmlChar *)"color", NULL );
 	node = xmlNewChild( node, NULL, (const xmlChar *)"Color", NULL );
@@ -160,7 +169,7 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", style.fill.a);
 	xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
-
+	
 	node = xmlNewChild( doc->xmlRootNode, NULL, (const xmlChar *)"lineStyles", NULL );
 	node = xmlNewChild( node, NULL, (const xmlChar *)"LineStyle", NULL );
 	snprintf(tmp,TMP_STRLEN,"%f", style.width);
@@ -175,7 +184,7 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", style.stroke.a);
 	xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
-
+	
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 }
 
@@ -222,21 +231,28 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlDocPtr doc;
 	xmlNodePtr node;
 	char tmp[TMP_STRLEN];
+	double xofs, yofs;
 
-	xmlXPathStringFunction(ctx, 1);
-	if (ctx->value->type != XPATH_STRING) {
-		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:transform() : invalid arg expecting a transformation string\n");
-		ctx->error = XPATH_INVALID_TYPE;
+	if( (nargs != 1) && (nargs != 3) ) {
+		xmlXPathSetArityError(ctx);
 		return;
 	}
-	obj = valuePop(ctx);
-	if (obj->stringval == NULL) {
-		valuePush(ctx, xmlXPathNewNodeSet(NULL));
+	
+	if( nargs == 3 ) {
+		yofs = xmlXPathPopNumber(ctx);
+		xofs = xmlXPathPopNumber(ctx);
+		if( xmlXPathCheckError(ctx) )
+			return;
+	} else {
+		yofs = xofs = 0;
+	}
+	xofs *= 20;
+	yofs *= 20;
+	
+	string = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) || (string == NULL) ) {
 		return;
 	}
-		
-	string = obj->stringval;
 	
 	float a, b, c, d, e, f;
 	if( sscanf( (const char*)string, "matrix(%f,%f,%f,%f,%f,%f)", &a, &b, &c, &d, &e, &f ) == 6 ) {
@@ -267,9 +283,9 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		xmlSetProp( node, (const xmlChar *)"scaleX", (const xmlChar *)&tmp );
 		snprintf(tmp,TMP_STRLEN,"%f", scaleY);
 		xmlSetProp( node, (const xmlChar *)"scaleY", (const xmlChar *)&tmp );
-		snprintf(tmp,TMP_STRLEN,"%f", transX);
+		snprintf(tmp,TMP_STRLEN,"%f", transX+xofs);
 		xmlSetProp( node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
-		snprintf(tmp,TMP_STRLEN,"%f", transY);
+		snprintf(tmp,TMP_STRLEN,"%f", transY+yofs);
 		xmlSetProp( node, (const xmlChar *)"transY", (const xmlChar *)&tmp );
 		
 		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );

@@ -278,11 +278,11 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 	// make the shape xml
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
 	node = doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Rectangle", NULL );
-	
+	/*
 		maxx-=minx;
 		maxy-=miny;
 		minx=miny=0;
-	
+	*/
 		snprintf(tmp,TMP_STRLEN,"%f", minx*20);
 		xmlSetProp( node, (const xmlChar *)"left", (const xmlChar *)&tmp );
 		snprintf(tmp,TMP_STRLEN,"%f", maxx*20);

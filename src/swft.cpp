@@ -149,6 +149,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	
 	swft_ctx *c = new swft_ctx;
 	c->last_id = 1;
+	c->last_depth = 1;
 	c->pushMap();
 	return c;
 }
