@@ -132,7 +132,7 @@ void LineTo::dump( int n, Context *ctx ) {
 	printf("\n");
 }
 
-size_t LineTo::getSize( Context *ctx, int start_at ) {
+size_t LineTo::calcSize( Context *ctx, int start_at ) {
 	int r=start_at;
 	if( x != 0 && y != 0 ) {
 		r += 4 + 1 + ((bits+2)*2);

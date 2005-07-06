@@ -108,7 +108,7 @@
 		<integer name="lineStyle" size="ctx->lineBits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasNewStyles">
-	<fill-byte/>
+		<fill-byte/>
 		<object type="StyleList" name="styles" prop="true"/>
 	</flagged>
 </type>

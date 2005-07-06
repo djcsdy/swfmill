@@ -38,25 +38,5 @@ class Action : public Item {
 		static Description Registry[];
 		static int nRegistered;
 };
-/*
-class EndAction : public Action {
-	public:
-		virtual bool parse( Reader *r, int end, Context *ctx );
-		virtual void dump( int indent );
-		virtual size_t getSize( Context *ctx );
-		virtual void write( Writer *w, Context *ctx );
-};
-
-class UnknownAction : public Action {
-	public:
-		virtual bool parse( Reader *r, int end, Context *ctx );
-		virtual void dump( int indent );
-		virtual size_t getSize( Context *ctx );
-		virtual void write( Writer *w, Context *ctx );
-	
-	protected:
-		unsigned char *data;
-};
-*/
 }
 #endif

@@ -71,6 +71,14 @@ long SWFMaxBitsNeeded( bool is_signed, int how_many, ... ) {
 
 Item::Item() {
 	file_offset = -1;
+	cached_size = -1;
+}
+
+size_t Item::getSize( Context *ctx, int start_at ) {
+	if( cached_size == -1 ) {
+		cached_size = calcSize( ctx, start_at );
+	}
+	return cached_size;
 }
 
 int Item::getHeaderSize( int size ) {
@@ -119,7 +127,7 @@ void Rest::dump( int indent, Context *ctx ) {
 	}
 }
 
-size_t Rest::getSize( Context *ctx, int start_at ) {
+size_t Rest::calcSize( Context *ctx, int start_at ) {
 	int r = start_at;
 	r += size * 8;
 	r += Item::getHeaderSize(r-start_at);

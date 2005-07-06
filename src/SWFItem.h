@@ -18,17 +18,21 @@ class Item {
 	
 		virtual bool parse( Reader *r, int end, Context *ctx ) = 0;
 		virtual void dump( int indent, Context *ctx ) = 0;
-		virtual size_t getSize( Context *ctx, int start_at ) = 0;
+		virtual size_t calcSize( Context *ctx, int start_at ) = 0;
 		virtual void write( Writer *r, Context *ctx ) = 0;
 	
 		virtual void writeXML( xmlNodePtr xml, Context *ctx ) = 0;
 		virtual void parseXML( xmlNodePtr xml, Context *ctx ) = 0;
 			
+		// wont touch the context if size is cached.
+		size_t getSize( Context *ctx, int start_at );
+	
 	protected:
 		int getHeaderSize( int size );
 		void writeHeader( Writer *w, Context *ctx, size_t len );
 	
 		int file_offset; // bytes after header for SWF, line for XML (NYI)
+		int cached_size; // cached size
 };
 	
 // to save the rest of a tag as binary data...
@@ -38,7 +42,7 @@ class Rest : public Item {
 		~Rest();
 		virtual bool parse( Reader *r, int end, Context *ctx );
 		virtual void dump( int indent, Context *ctx );
-		virtual size_t getSize( Context *ctx, int start_at );
+		virtual size_t calcSize( Context *ctx, int start_at );
 		virtual void write( Writer *w, Context *ctx );
 		virtual void writeXML( xmlNodePtr node, Context *ctx );
 		virtual void parseXML( xmlNodePtr node, Context *ctx );

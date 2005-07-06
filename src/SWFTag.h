@@ -36,17 +36,5 @@ class Tag : public Item {
 		static int nRegistered;
 };
 	
-/*
-class UnknownTag : public Tag {
-	public:
-		virtual bool parse( Reader *r, int end, Context *ctx );
-		virtual void dump( int indent );
-		virtual size_t getSize( Context *ctx );
-		virtual void write( Writer *w, Context *ctx );
-	
-	protected:
-		unsigned char *data;
-};
-*/
 }
 #endif

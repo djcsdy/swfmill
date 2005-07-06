@@ -74,42 +74,4 @@ void Tag::writeHeader( Writer *w, Context *ctx, size_t len ) {
 		w->putWord(h);
 	}
 }
-/*
-bool UnknownTag::parse( Reader *r, int end, Context *ctx ) {
-	data = new unsigned char[ len ];
-	return r->getData( (void*)data, len );
-}
-
-void UnknownTag::dump( int indent ) {
-	for( int i=0; i<indent; i++ ) printf("  ");
-	printf("[unknown tag 0x%02X, len %i]\n", type, len );
-	
-	indent++;
-	int i=0;
-	while( i<len ) {
-		for( int in=0; in<indent; in++ ) printf("  ");
-		for( int n=0; n<16 && i<len; n++ ) {
-			for( int b=0; b<8; b++ ) {
-				printf( data[i] & (1<<b) ? "1" : "0" );
-			}
-			printf(" ");
-//			printf("%02X ", data[i] );
-			if( n%4==3 ) printf(" ");
-			i++;
-		}
-		printf("\n");
-	}
-}
-
-size_t UnknownTag::getSize( Context *ctx ) {
-	int r = len*8;
-	r += Tag::getHeaderSize(r);
-	return r;
-}
-
-void UnknownTag::write( Writer *w, Context *ctx ) {
-	Tag::writeHeader( w, ctx, getSize(ctx)/8 );
-	w->putData( data, len );
-}
-*/
 }

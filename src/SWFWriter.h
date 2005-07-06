@@ -55,7 +55,7 @@ class Writer {
 		unsigned char *getData() { return data; }
 		int getPosition() { return pos; }
 		int getBits() { return bits; }
-		int getBitPosition() { return (pos*8)-( (8-bits) ); }
+		int getBitPosition() { return (pos*8)+( bits ); }
 		
 	protected:
 		void writeByte( uint8_t value );

@@ -18,11 +18,12 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 		printf("WRITE <xsl:value-of select="@name"/> @%i\n", start/8 );
 		dump(1,ctx);
 	}
-	
+<!--
 	<xsl:for-each select="*[@set-from-bits-needed]">
-		<xsl:value-of select="@name"/> = ctx-><xsl:value-of select="@name"/> = SWFBitsNeeded( <xsl:value-of select="@set-from-bits-needed"/> );
+		<xsl:value-of select="@name"/> = SWFBitsNeeded( <xsl:value-of select="@set-from-bits-needed"/> );
+		if( <xsl:value-of select="@name"/> > ctx-><xsl:value-of select="@name"/> ) ctx-><xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
 	</xsl:for-each>
-
+-->
 	<!-- calculate end offsets for some lists -->
 	<xsl:for-each select="list[@end]">
 		{

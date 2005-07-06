@@ -9,28 +9,33 @@
 namespace <xsl:value-of select="/format/@format"/> {
 
 <xsl:for-each select="tag|action|style|stackitem">
-size_t <xsl:value-of select="@name"/>::getSize( Context *ctx, int start_at ) {
+size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	size_t r = start_at;
 	<xsl:apply-templates select="*[@context]" mode="size-context"/>
 	<xsl:apply-templates select="*" mode="size"/>
-	
+
 	r += <xsl:apply-templates select="." mode="baseclass"/>::getHeaderSize( r-start_at );
-//	printf("<xsl:value-of select="@name"/> sz %i bits (%.2f bytes)\n", r, ((float)r)/8 );
+//	printf("<xsl:value-of select="@name"/> sz %i bits (%.2f bytes, start %i)\n", r-start_at, ((float)r-start_at)/8, start_at );
 
 	return r-start_at;
 }
 </xsl:for-each>
 
 <xsl:for-each select="type">
-size_t <xsl:value-of select="@name"/>::getSize( Context *ctx, int start_at ) {
+size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	size_t r = start_at;
 
 	r += <xsl:apply-templates select="." mode="baseclass"/>::getHeaderSize( r-start_at );
 
 	<xsl:apply-templates select="*[@context]" mode="size-context"/>
 	<xsl:apply-templates select="*" mode="size"/>
-	
-//	printf("<xsl:value-of select="@name"/> sz %i bits (%.2f bytes)\n", r-start_at, ((float)r-start_at)/8 );
+
+	<xsl:for-each select="*[@set-from-bits-needed]">
+		<xsl:value-of select="@name"/> = SWFBitsNeeded( <xsl:value-of select="@set-from-bits-needed"/> );
+		ctx-><xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
+	</xsl:for-each>
+
+//	printf("<xsl:value-of select="@name"/> sz %i bits (%.2f bytes, start %i)\n", r-start_at, ((float)r-start_at)/8, start_at );
 
 	return r-start_at;
 }

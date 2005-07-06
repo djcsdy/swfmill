@@ -46,7 +46,7 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 		
 		virtual bool parse( Reader *r, int end, Context *ctx );
 		virtual void dump( int indent, Context *ctx );
-		virtual size_t getSize( Context *ctx, int start_at );
+		virtual size_t calcSize( Context *ctx, int start_at );
 		virtual void write( Writer *w, Context *ctx );
 		virtual void writeXML( xmlNodePtr xml, Context *ctx );
 		virtual void parseXML( xmlNodePtr xml, Context *ctx );

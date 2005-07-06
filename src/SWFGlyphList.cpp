@@ -97,7 +97,7 @@ void GlyphList::dump( int n, Context *ctx ) {
 	printf("\n");
 }
 
-size_t GlyphList::getSize( Context *ctx, int start_at ) {
+size_t GlyphList::calcSize( Context *ctx, int start_at ) {
 	int r=start_at;
 	
 	if( ctx->tagVersion>1 ) {
