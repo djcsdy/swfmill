@@ -220,23 +220,28 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 	double lastx=0, lasty=0;
 	double minx=0, miny=0;
 	double maxx=0, maxy=0;
+	double xofs, yofs;
 
-	xmlXPathStringFunction(ctx, 1);
-	if (ctx->value->type != XPATH_STRING) {
-		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:bounds() : invalid arg expecting a SVG path string\n");
-		ctx->error = XPATH_INVALID_TYPE;
+	if( (nargs != 1) && (nargs != 3) ) {
+		xmlXPathSetArityError(ctx);
 		return;
 	}
-	obj = valuePop(ctx);
-	if (obj->stringval == NULL) {
-		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
-	}
-		
-	string = obj->stringval;
 	
-//	fprintf(stderr,"making shape from path '%s'\n", string );
+	if( nargs == 3 ) {
+		yofs = xmlXPathPopNumber(ctx);
+		xofs = xmlXPathPopNumber(ctx);
+		if( xmlXPathCheckError(ctx) )
+			return;
+	} else {
+		yofs = xofs = 0;
+	}
+	
+	string = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) || (string == NULL) ) {
+		return;
+	}
+	
+//	fprintf(stderr,"measuring bounding box for path '%s'\n", string );
 	
 	for( int i=0; i==0 || string[i-1] != 0; i++ ) {
 		switch( string[i] ) {
@@ -292,6 +297,15 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 		maxy-=miny;
 		minx=miny=0;
 	*/
+		maxx+=10;
+		maxy+=10;
+		minx-=10;
+		miny-=10;
+		maxx+=xofs;
+		minx+=xofs;
+		maxy+=yofs;
+		miny+=yofs;
+	
 		snprintf(tmp,TMP_STRLEN,"%f", minx*20);
 		xmlSetProp( node, (const xmlChar *)"left", (const xmlChar *)&tmp );
 		snprintf(tmp,TMP_STRLEN,"%f", maxx*20);
