@@ -138,9 +138,10 @@ void GlyphList::write( Writer *w, Context *ctx ) {
 	/*
 	// fillBits/lineBits
 	ofs++;
-	ctx->fillBits = 1;
-	ctx->lineBits = 0;
 	*/
+	ctx->fillBits = 1;
+	ctx->lineBits = 1;
+
 	ctx->wideGlyphOffsets ? w->putInt( ofs ) : w->putWord( ofs );
 	for( int i=0; i<nGlyphs; i++ ) {
 		int p = glyphs[i].getSize(ctx,ofs);

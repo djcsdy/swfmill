@@ -35,6 +35,10 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 		ctx-><xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
 	</xsl:for-each>
 
+	<xsl:for-each select="*[@set-from]">
+		<xsl:value-of select="@name"/> =<xsl:value-of select="@set-from"/>;
+	</xsl:for-each>
+
 //	printf("<xsl:value-of select="@name"/> sz %i bits (%.2f bytes, start %i)\n", r-start_at, ((float)r-start_at)/8, start_at );
 
 	return r-start_at;

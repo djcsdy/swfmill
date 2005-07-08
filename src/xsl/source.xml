@@ -128,8 +128,8 @@
 <type name="GlyphShape">
 	<context param="fillBits" value="1"/>
 	<context param="lineBits" value="0"/>
-	<integer name="fillBits" size="4" constant-size="true" set-from-bits-needed="1"/>
-	<integer name="lineBits" size="4" constant-size="true" set-from-bits-needed="0"/>
+	<integer name="fillBits" size="4" constant-size="true" set-from="1"/>
+	<integer name="lineBits" size="4" constant-size="true" set-from="0"/>
 	<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
 </type>
 
@@ -276,10 +276,10 @@
 -->
 
 <type name="TextRecord">
-	<if expression="ctx->swfVersion &lt; 7">
+	<if expression="ctx->tagVersion &lt; 2">
 		<list type="TextRecord6" name="records" prop="true"/>
 	</if>
-	<if expression="ctx->swfVersion >= 7">
+	<if expression="ctx->tagVersion >= 2">
 		<object type="TextRecord7" name="string" prop="true"/>
 	</if>
 </type>
@@ -395,6 +395,7 @@
 	<byte name="glyphBits" context="true"/>
 	<byte name="advanceBits" context="true"/>
 	<context param="alpha" value="0"/>
+	<context param="tagVersion" value="1"/>
 	<list name="records" type="TextRecord" prop="true"/>
 </tag>
 
@@ -642,7 +643,11 @@
 	<context param="tagVersion" value="1"/>
 	<context param="wideGlyphOffsets" value="0"/>
 	<word name="objectID" prop="true"/>
+
+	<object type="Rest" name="data" prop="true"/>
+<!--
 	<object type="GlyphList" name="glyphs" prop="true"/>
+-->
 </tag>
 
 <tag name="DefineFont2" id="0x30">
