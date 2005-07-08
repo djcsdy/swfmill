@@ -157,7 +157,7 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 	Point c(x2,y2);
 	Point d(ax,ay);
 
-	cubicToRec( a, b, c, d, .1 );
+	cubicToRec( a, b, c, d, 100000 );
 	//lastx = ax; lasty = ay;
 }
 
