@@ -438,8 +438,6 @@
 </tag>
 
 <tag name="DefineShape2" id="0x16">
-	<word name="objectID" prop="true"/>
-<!--
 	<context param="alpha" value="0"/>
 	<context param="many_shapes" value="1"/>
 
@@ -448,8 +446,10 @@
 	<object type="StyleList" name="styles" prop="true"/>
 	<object type="Shape" name="shapes" prop="true"/>
 	<fill-byte/>
--->
+<!--
+	<word name="objectID" prop="true"/>
 	<object type="Rest" name="data" prop="true"/>
+-->
 </tag>
 
 <tag name="DefineShape3" id="0x20">
@@ -515,6 +515,11 @@
 </tag>
 
 <tag name="DefineBitsJPEG2" id="0x15">
+	<word name="objectID" prop="true"/>
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
+<tag name="DefineBitsJPEG3" id="0x23">
 	<word name="objectID" prop="true"/>
 	<object type="Rest" name="data" prop="true"/>
 </tag>
