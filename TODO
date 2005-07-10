@@ -1,3 +1,10 @@
+this is mainly a note to myself as to what to hack on if i get bored.
+it's definitely not a promise :)
+
+if you want to help improving swfmill, introduce yourself on the mailinglist!
+
+-----------------------------------------------------------------------------
+
 svg:path->DefineShape3 should have proper bounds (use exslt:math:min/max)
 sanitizing xslt? 
 	swft:check-id() for Define*, check for double ids.
@@ -5,15 +12,10 @@ sanitizing xslt?
 	(re-)calulate bounds for DefineShape*, Fonts
 
 DefineShape2/3 many_shapes (>255) *will fail once someone tries*
-Header size not as expected since DefineShape2/3 (fixed?)
 
 version attr
 eps/svg import?
-videoobject/canvas
 
-
-this is mainly a note to myself as to what to hack on if i get bored.
-it's definitely not a promise :)
 
 byte offsets for Branch
 
@@ -28,3 +30,4 @@ dont load everything to memory, use streams. make it a sax parser/handler?
 alexis reference:
 	DefineButton2(?) buttons have colortransform
 	DefineButton2 has an additional list of actions?
+
