@@ -4,6 +4,7 @@
 #include <libxml/tree.h>
 
 // definitions for "in-memory" stylesheets
-extern const char *xslt_library;
+extern const char *xslt_simple2lowlevel;
+extern const char *xslt_svg2lowlevel;
 
 #endif

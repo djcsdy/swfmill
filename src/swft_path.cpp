@@ -92,7 +92,7 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 
 	ShapeMaker shaper( shape.getedges(), 20, 20, xofs, yofs );
 
-	// fprintf(stderr,"making shape from path '%s'\n", string );
+//	fprintf(stderr,"making shape from path '%s'\n", string );
 	
 	for( int i=0; i==0 || string[i-1] != 0; i++ ) {
 		switch( string[i] ) {
@@ -323,3 +323,123 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 	return;
 }
 
+
+void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
+	xmlChar *string;
+	xmlXPathObjectPtr obj;
+	xmlDocPtr doc;
+	xmlNodePtr node;
+	char tmp[TMP_STRLEN];
+	double xofs, yofs;
+
+	if( (nargs != 1) && (nargs != 3) ) {
+		xmlXPathSetArityError(ctx);
+		return;
+	}
+	
+	if( nargs == 3 ) {
+		yofs = xmlXPathPopNumber(ctx);
+		xofs = xmlXPathPopNumber(ctx);
+		if( xmlXPathCheckError(ctx) )
+			return;
+	} else {
+		yofs = xofs = 0;
+	}
+	xofs *= 20;
+	yofs *= 20;
+	
+	string = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) || (string == NULL) ) {
+		return;
+	}
+	
+	float a, b, c, d, e, f;
+	if( sscanf( (const char*)string, "matrix(%f,%f,%f,%f,%f,%f)", &a, &b, &c, &d, &e, &f ) == 6 ) {
+//		fprintf(stderr,"matrix: %f %f %f %f %f %f\n", a, b, c, d, e, f );
+	
+		doc = xmlNewDoc( (const xmlChar *)"1.0");
+		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );
+		
+		node = doc->xmlRootNode;
+		xmlSetProp( node, (const xmlChar *)"generated", (const xmlChar *)"true" );
+		
+		float factorx, factory;
+		factorx = factory = 20;
+	
+		float scaleX, scaleY, skewX, skewY, transX, transY;
+		transX = e*factorx;
+		transY = f*factory;
+		scaleX = a;
+		scaleY = d;
+		skewX = b;
+		skewY = c;
+	
+		snprintf(tmp,TMP_STRLEN,"%f", skewX);
+		xmlSetProp( node, (const xmlChar *)"skewX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", skewY);
+		xmlSetProp( node, (const xmlChar *)"skewY", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", scaleX);
+		xmlSetProp( node, (const xmlChar *)"scaleX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", scaleY);
+		xmlSetProp( node, (const xmlChar *)"scaleY", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", transX+xofs);
+		xmlSetProp( node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", transY+yofs);
+		xmlSetProp( node, (const xmlChar *)"transY", (const xmlChar *)&tmp );
+		
+		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
+		
+	} else if( sscanf( (const char*)string, "translate(%f,%f)", &e, &f ) == 2 ) {
+		fprintf(stderr,"translate: %f %f, offset %f %f\n", e, f, xofs, yofs );
+	
+		doc = xmlNewDoc( (const xmlChar *)"1.0");
+		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );
+		
+		node = doc->xmlRootNode;
+		xmlSetProp( node, (const xmlChar *)"generated", (const xmlChar *)"true" );
+		
+		float factorx, factory;
+		factorx = factory = 20;
+	
+		float transX, transY;
+		transX = e*factorx;
+		transY = f*factory;
+	
+		snprintf(tmp,TMP_STRLEN,"%f", transX+xofs);
+		xmlSetProp( node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", transY+yofs);
+		xmlSetProp( node, (const xmlChar *)"transY", (const xmlChar *)&tmp );
+
+		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
+		
+	} else if( sscanf( (const char*)string, "scale(%f,%f)", &a, &b ) == 2 ) {
+//		fprintf(stderr,"scale: %f %f\n", a, b );
+	
+		doc = xmlNewDoc( (const xmlChar *)"1.0");
+		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );
+		
+		node = doc->xmlRootNode;
+		xmlSetProp( node, (const xmlChar *)"generated", (const xmlChar *)"true" );
+		
+		float scaleX, scaleY;
+		scaleX = a;
+		scaleY = b;
+	
+		snprintf(tmp,TMP_STRLEN,"%f", scaleX);
+		xmlSetProp( node, (const xmlChar *)"scaleX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", scaleY);
+		xmlSetProp( node, (const xmlChar *)"scaleY", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", xofs);
+		xmlSetProp( node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%f", yofs);
+		xmlSetProp( node, (const xmlChar *)"transY", (const xmlChar *)&tmp );
+
+		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
+
+	} else {
+		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
+			 "swft:transform() : transformation is not a simple matrix, translate or scale, NYI\n");
+		ctx->error = XPATH_INVALID_TYPE;
+		return;
+	}
+}

@@ -422,6 +422,9 @@
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
+		<xsl:otherwise>
+			<xsl:message>WARNING: Cannot import <xsl:value-of select="$file"/> (unknown extension), skipping.</xsl:message>
+		</xsl:otherwise>
 	</xsl:choose>
 	<xsl:if test="ancestor::library">
 		<xsl:apply-templates select="*|@*" mode="export">
@@ -575,15 +578,6 @@
 	</DefineSprite>
 	
 	<swft:pop-map/>
-</xsl:template>
-
-<xsl:template match="ShapeSetup" mode="shape">
-	<ShapeSetup fillStyle0="1" fillStyle1="2" lineStyle="1">
-		<xsl:apply-templates select="*|@*" mode="shape"/>
-	</ShapeSetup>
-</xsl:template>
-<xsl:template match="*|@*|text()" mode="shape" priority="-1">
-	<xsl:copy-of select="."/>
 </xsl:template>
 
 

@@ -18,9 +18,9 @@ ADDCFLAGS = -DLIBXML_STATIC -DLIBXSLT_STATIC -DLIBEXSLT_STATIC
 ADDLDFLAGS = -all-static
 endif
 
-swfmill_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(FREETYPE_CFLAGS) $(PNG_CFLAGS) $(ADDCFLAGS)
+swfmill_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(FREETYPE_CFLAGS) $(PNG_CFLAGS) $(CROCO_CFLAGS) $(ADDCFLAGS)
 swfmill_CXXFLAGS = $(swfmill_CFLAGS)
-swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) $(FREETYPE_LIBS) $(PNG_LIBS)
+swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) $(FREETYPE_LIBS) $(PNG_LIBS) $(CROCO_LIBS)
 swfmill_LDFLAGS = $(ADDLDFLAGS)
 
 BUILT_SOURCES = \
@@ -31,8 +31,11 @@ BUILT_SOURCES = \
 	gSWFDumper.cpp \
 	gSWFBasics.cpp \
 	gSWFSize.cpp \
-	xslt_library.cpp \
+	xslt_simple2lowlevel.cpp \
+	xslt_svg2lowlevel.cpp \
 	$(NULL)
+	
+CLEAN_FILES = xslt_simple2lowlevel.cpp xsl_svg2lowlevel.cpp
 
 # rule to build the generated sources from xsl
 #gSWFParseXML.cpp gSWFWriteXML.cpp gSWFParser.cpp gSWFWriter.cpp gSWFDumper.cpp gSWFBasics.cpp gSWFSize.cpp : xsl/mk.xsl xsl/source.xml xsl/basic.xsl xsl/basics.xsl xsl/header.xsl xsl/parser.xsl xsl/parsexml.xsl xsl/size.xsl xsl/writer.xsl xsl/writexml.xsl
@@ -77,7 +80,8 @@ swfmill_SOURCES = \
 	swft_import_jpeg.cpp \
 	swft_import_png.cpp \
 	swft_import_ttf.cpp \
-	xslt_library.cpp \
+	xslt_simple2lowlevel.cpp \
+	xslt_svg2lowlevel.cpp \
 	$(NULL)
 
 noinst_HEADERS = \

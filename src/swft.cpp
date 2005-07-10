@@ -1,46 +1,21 @@
 #include <libxslt/extensions.h>
 #include <libxml/uri.h>
 #include <libxslt/xsltutils.h>
+#include <libxslt/variables.h>
 #include <libxml/xpathInternals.h>
 #include <stdlib.h>
 #include <string.h>
 #include "swft.h"
 
-#include <string>
-#include <stack>
-#include <map>
-
 #define TMP_STRLEN 0xFF
 #define SWFT_MAPSIZE 32
 #define SWFT_NAMESPACE ((const xmlChar*)"http://subsignal.org/swfml/swft")
 
-class swft_ctx {
-public:
-	int last_id;
-	int last_depth;
-	std::stack<std::map<std::string,int>*> maps;
-	
-	void pushMap() {
-		maps.push( new std::map<std::string,int> );
-	}
-	void popMap() {
-		maps.pop();
-	}
-	
-	int doMap( const char *oldID ) {
-		std::map<std::string,int>& m = *(maps.top());
-		int r = m[oldID];
-		if( r == 0 ) {
-			r = last_id++;
-			m[oldID] = r;
-		}
-		return r;
-	}
-};
-
 
 void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI );
 void swft_shutdown( xsltTransformContextPtr ctx, const xmlChar *URI, void *data );
+
+static void swft_error( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp );
 
 static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs );
 static void swft_nextdepth( xmlXPathParserContextPtr ctx, int nargs );
@@ -51,7 +26,7 @@ static void swft_popmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePt
 static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_import_*.cpp
-// FIXME why are these not static?
+// FIXME why are these not static? any reason?
 void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_png( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs );
@@ -62,12 +37,11 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs );
 // in swft_path
 void swft_path( xmlXPathParserContextPtr ctx, int nargs );
 void swft_bounds( xmlXPathParserContextPtr ctx, int nargs );
+void swft_transform( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_css
 void swft_css( xmlXPathParserContextPtr ctx, int nargs );
 void swft_unit( xmlXPathParserContextPtr ctx, int nargs );
-void swft_transform( xmlXPathParserContextPtr ctx, int nargs );
-
 
 static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs ) {
 	char tmp[TMP_STRLEN];
@@ -148,9 +122,6 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-ttf", SWFT_NAMESPACE, swft_import_ttf );
 	
 	swft_ctx *c = new swft_ctx;
-	c->last_id = 1;
-	c->last_depth = 1;
-	c->pushMap();
 	return c;
 }
 

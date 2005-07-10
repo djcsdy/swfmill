@@ -12,7 +12,7 @@ using namespace SWF;
 bool quiet = false;
 bool verbose = false;
 bool dump = false;
-bool simple = false;
+const char *internal_stylesheet = NULL;
 
 void usage() {
 	fprintf( stderr,
@@ -169,16 +169,24 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 			goto fail;
 		}
 
-		// treat input as XML, produce SWF
-		if( simple ) {
-			transform = xsltParseStylesheetMemory( xslt_library, strlen(xslt_library) );
+		// see if one of the internal stylesheets should be used
+		if( internal_stylesheet ) {
+			transform = xsltParseStylesheetMemory( internal_stylesheet, strlen(internal_stylesheet) );
 			if( !transform ) {
-				fprintf( stderr, "ERROR: internal library stylesheet could not be read.\n" );
+				fprintf( stderr, "ERROR: internal stylesheet could not be read.\n" );
 				goto fail;
 			}
+
+			char *params[3];
+			params[0] = NULL;
 			
-			doc2 = xsltApplyStylesheet( transform, doc, NULL );
-			
+			if( quiet ) {
+				params[0] = "quiet";
+				params[1] = "true";
+				params[2] = NULL;
+			}
+			doc2 = xsltApplyStylesheet( transform, doc, (const char **)&params );
+
 			if( !doc2 ) {
 				fprintf( stderr, "ERROR: transformation failed.\n" );
 				goto fail;
@@ -188,6 +196,7 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 			doc = doc2;
 		}
 		
+		// treat input as XML, produce SWF
 		input.setXML( doc->xmlRootNode, NULL );
 		if( dump ) input.dump();
 		out_fp = std_out ? stdout : fopen( outfile, "wb" );
@@ -338,7 +347,10 @@ int main( int argc, char *argv[] ) {
 	} else if( !strcmp( command, "xslt" ) ) {
 		return swfmill_xslt( argc-i, &argv[i] );
 	} else if( !strcmp( command, "simple" ) ) {
-		simple = true;
+		internal_stylesheet = xslt_simple2lowlevel;
+		return swfmill_xml2swf( argc-i, &argv[i] );
+	} else if( !strcmp( command, "svg2swf" ) ) {
+		internal_stylesheet = xslt_svg2lowlevel;
 		return swfmill_xml2swf( argc-i, &argv[i] );
 	} else {
 		fprintf(stderr,"ERROR: unknown command %s\n", command );
