@@ -291,7 +291,7 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 		
 	} else if( sscanf( (const char*)string, "translate(%f,%f)", &e, &f ) == 2 ) {
-		fprintf(stderr,"translate: %f %f\n", xofs, yofs );
+		fprintf(stderr,"translate: %f %f, offset %f %f\n", e, f, xofs, yofs );
 	
 		doc = xmlNewDoc( (const xmlChar *)"1.0");
 		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );

@@ -157,7 +157,7 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 	Point c(x2,y2);
 	Point d(ax,ay);
 
-	cubicToRec( a, b, c, d, 100000 );
+	cubicToRec( a, b, c, d, .001 );
 	//lastx = ax; lasty = ay;
 }
 
@@ -165,14 +165,14 @@ void ShapeMaker::close() {
 	// diffx/diffy captures rounding errors. they can accumulate a bit! FIXME
 	
 	if( diffx || diffy ) {
-		fprintf(stderr,"WARNING: shape not closed; closing (%i/%i).\n", diffx, diffy);
+		fprintf(stderr,"WARNING: shape not closed; closing (%f/%f).\n", diffx, diffy);
 		fprintf(stderr,"DEBUG: accumulated rounding error (%f/%f).\n", roundx, roundy);
 		// closing line
 		LineTo *segment = new LineTo;
 		segment->setType(1);
 		//segment->setbits( maxBitsNeeded( true, 2, x, y ) );
-		segment->setx( -diffx );
-		segment->sety( -diffy );
+		segment->setx( (int)-diffx );
+		segment->sety( (int)-diffy );
 		edges->append( segment );
 	}
 

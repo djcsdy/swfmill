@@ -609,7 +609,7 @@
 			<xsl:when test="@inkscape:px">
 				<xsl:value-of select="@inkscape:px"/>
 			</xsl:when>
-			<xsl:otherwise>0</xsl:otherwise>
+			<xsl:otherwise>none</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable> 
 	<xsl:variable name="yofs">
@@ -617,7 +617,7 @@
 			<xsl:when test="@inkscape:py">
 				<xsl:value-of select="@inkscape:py"/>
 			</xsl:when>
-			<xsl:otherwise>0</xsl:otherwise>
+			<xsl:otherwise>none</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable> 
 	<xsl:variable name="name" select="@id"/>
@@ -631,32 +631,12 @@
 		<xsl:with-param name="parentx" select="$parentx"/>
 		<xsl:with-param name="parenty" select="$parenty"/>
 	</xsl:apply-templates>
-<!--
-	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}" name="{@id}">
-		<transform>
-			<xsl:choose>
-				<xsl:when test="@transform">
-					<xsl:copy-of select="swft:transform(@transform,-$xofs,-$yofs)"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<Transform transX="{$xofs*-20}" transY="{$yofs*-20}"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</transform>
-	</PlaceObject2>
--->
 	<Export>
 		<symbols>
 		  <Symbol objectID="{$id}" name="{$name}"/>
 		</symbols>
 	</Export>
 	
-		<!-- debugging: spin everything
-		<xsl:call-template name="register-class">
-			<xsl:with-param name="class">org.iterative.Spinner</xsl:with-param>
-			<xsl:with-param name="linkage-id" select="$name"/>
-		</xsl:call-template>
-	-->
 	<xsl:if test="string-length($class) > 0">
 		<xsl:call-template name="register-class">
 			<xsl:with-param name="class" select="$class"/>
@@ -684,31 +664,18 @@
 			<End/>
 		</tags>
 	</DefineSprite>
-<!--
-<DefineSprite objectID="{$id}" frames="1">
-		<tags>
-			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$subid}">
-				<transform>
-					<Transform transX="0" transY="0"/>
-				</transform>
-			</PlaceObject2>
-			<ShowFrame/>
-			<End/>
-		</tags>
-	</DefineSprite>
--->
-			<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" objectID="{$id}">
-				<transform>
-					<xsl:choose>
-						<xsl:when test="@transform">
-							<xsl:copy-of select="swft:transform(@transform,($parentx+$xofs),($parenty+$yofs))"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<Transform transX="{($parentx+$xofs)*20}" transY="{($parenty+$yofs)*20}"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</transform>
-			</PlaceObject2>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" objectID="{$id}">
+		<transform>
+			<xsl:choose>
+				<xsl:when test="@transform">
+					<xsl:copy-of select="swft:transform(@transform,($parentx+$xofs),($parenty+$yofs))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<Transform transX="{($parentx+$xofs)*20}" transY="{($parenty+$yofs)*20}"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</transform>
+	</PlaceObject2>
 </xsl:template>
 
 <xsl:template match="svg:path" mode="svg-inner">
@@ -719,9 +686,31 @@
 	<xsl:param name="yofs"/>
 	<xsl:variable name="shapeid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
 
+	<xsl:variable name="bounds" select="swft:bounds(@d)"/>
+	<xsl:variable name="xo">
+		<xsl:choose>
+			<xsl:when test="$xofs = 'none'">
+				<xsl:value-of select="number($bounds/Rectangle/@left) div 20"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$xofs"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="yo">
+		<xsl:choose>
+			<xsl:when test="$yofs = 'none'">
+				<xsl:value-of select="number($bounds/Rectangle/@top) div 20"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$yofs"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	<DefineShape3 objectID="{$shapeid}">
 		<bounds>
-			<xsl:copy-of select="swft:bounds(@d,-$xofs,-$yofs)"/>
+			<xsl:copy-of select="swft:bounds(@d,-1 * $xo,-1 * $yo)"/>
 		</bounds>
 		<styles>
 			<StyleList>
@@ -730,7 +719,7 @@
 		</styles>
 		<shapes>
 			<Shape>
-				<xsl:apply-templates mode="shape" select="swft:path(@d,(-$xofs),(-$yofs))/tmp/Shape/*"/>
+				<xsl:apply-templates mode="shape" select="swft:path(@d,(-$xo),(-$yo))/tmp/Shape/*"/>
 			</Shape>
 		</shapes>
 	</DefineShape3>
@@ -749,10 +738,10 @@
 		<transform>
 			<xsl:choose>
 				<xsl:when test="@transform">
-					<xsl:copy-of select="swft:transform(@transform,($xofs + $parentx),($yofs + $parenty))"/>
+					<xsl:copy-of select="swft:transform(@transform,($xo + $parentx),($yo + $parenty))"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Transform transX="{($parentx + $xofs)*20}" transY="{($parenty + $yofs)*20}"/>
+					<Transform transX="{($parentx + $xo)*20}" transY="{($parenty + $yo)*20}"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</transform>
@@ -765,6 +754,27 @@
 	<xsl:param name="xofs"/>
 	<xsl:param name="yofs"/>
 	<xsl:variable name="shapeid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+
+	<xsl:variable name="xo">
+		<xsl:choose>
+			<xsl:when test="$xofs = 'none'">
+				<xsl:value-of select="@x"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$xofs"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="yo">
+		<xsl:choose>
+			<xsl:when test="$yofs = 'none'">
+				<xsl:value-of select="@y"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$yofs"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 	<DefineShape3 objectID="{$shapeid}">
 		<bounds>
@@ -792,7 +802,7 @@
 		<tags>
 			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$shapeid}">
 				<transform>
-					<Transform transX="{-$xofs*20}" transY="{-$yofs*20}"/>
+					<Transform transX="{-$xo*20}" transY="{-$yo*20}"/>
 				</transform>
 			</PlaceObject2>
 			<ShowFrame/>
@@ -803,10 +813,10 @@
 		<transform>
 			<xsl:choose>
 				<xsl:when test="@transform">
-					<xsl:copy-of select="swft:transform(@transform,($xofs + $parentx),($yofs + $parenty))"/>
+					<xsl:copy-of select="swft:transform(@transform,($xo + $parentx),($yo + $parenty))"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Transform transX="{($parentx + $xofs)*20}" transY="{($parenty + $yofs)*20}"/>
+					<Transform transX="{($parentx + $xo)*20}" transY="{($parenty + $yo)*20}"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</transform>
@@ -815,47 +825,91 @@
 
 <xsl:template match="svg:flowRoot" mode="svg-inner">
 	<xsl:param name="id"/>
+	<xsl:param name="name"/>
 	<xsl:param name="xofs"/>
 	<xsl:param name="yofs"/>
 	<xsl:variable name="subid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
 
+	<xsl:variable name="xo">
+		<xsl:choose>
+			<xsl:when test="$xofs = 'none'">
+				<xsl:value-of select="@x"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$xofs"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="yo">
+		<xsl:choose>
+			<xsl:when test="$yofs = 'none'">
+				<xsl:value-of select="@y"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$yofs"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	<DefineEditText objectID="{$subid}" wordWrap="1" multiLine="1" password="0" 
-		readOnly="1" autoSize="0" hasLayout="1"
-		notSelectable="1" hasBorder="0" isHTML="0" useOutlines="1" 
-		fontRef="{swft:map-id(vera)}" fontHeight="12"
+		readOnly="0" autoSize="0" hasLayout="1"
+		notSelectable="0" hasBorder="0" isHTML="0" useOutlines="1" 
+		fontRef="{swft:map-id('vera')}" fontHeight="{$size}"
 		align="0" leftMargin="0" rightMargin="0" indent="0" leading="40" 
-		variableName="{@id}">
-		<xsl:attribute name="initialText">
-			foo?
-		</xsl:attribute>
+		variableName="{@name}" initialText="{@text}">
 		<size>
-			<Rectangle left="{svg:flowRegion/@x}" 
-						right="{svg:flowRegion/@x + svg:flowRegion/@width}" 
-						top="{svg:flowRegion/@y}" 
-						bottom="{$svg:flowRegion/@y + $svg:flowRegion/@height}"/>
+			<Rectangle left="{$x}" right="{$x + $width}" top="{$y}" bottom="{$y + $height}"/>
 		</size>
 		<color>
-			<Color red="255" green="255" blue="255"/>
+			<xsl:call-template name="color-rgba"/>
 		</color>
 	</DefineEditText>
+
+<DefineShape3 objectID="{$shapeid}">
+		<bounds>
+			<Rectangle left="{@x}" right="{(@x+@width)*20}" top="{@y}" bottom="{(@y+@height)*20}"/>
+		</bounds>
+		<styles>
+			<StyleList>
+				<xsl:copy-of select="swft:css(@style)/tmp/*"/>
+			</StyleList>
+		</styles>
+		<shapes>
+			<Shape>
+				<edges>
+					<ShapeSetup x="{(@x+@width)*20}" y="{(@y+@height)*20}" fillStyle0="1" lineStyle="1"/>
+					<LineTo x="-{(@width)*20}" y="0"/>
+					<LineTo x="0" y="-{(@height)*20}"/>
+					<LineTo x="{(@width)*20}" y="0"/>
+					<LineTo x="0" y="{(@height)*20}"/>
+					<ShapeSetup/>
+				</edges>
+			</Shape>
+		</shapes>
+	</DefineShape3>
 	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
-			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$subid}">
+			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$shapeid}">
 				<transform>
-					<xsl:choose>
-						<xsl:when test="@transform">
-							<xsl:copy-of select="swft:transform(@transform,-$xofs,-$yofs)"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<Transform transX="{$xofs*-20}" transY="{$yofs*-20}"/>
-						</xsl:otherwise>
-					</xsl:choose>
+					<Transform transX="{-$xo*20}" transY="{-$yo*20}"/>
 				</transform>
 			</PlaceObject2>
 			<ShowFrame/>
 			<End/>
 		</tags>
 	</DefineSprite>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" objectID="{$id}">
+		<transform>
+			<xsl:choose>
+				<xsl:when test="@transform">
+					<xsl:copy-of select="swft:transform(@transform,($xo + $parentx),($yo + $parenty))"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<Transform transX="{($parentx + $xo)*20}" transY="{($parenty + $yo)*20}"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</transform>
+	</PlaceObject2>
 </xsl:template>
 
 <xsl:template match="*|@*|text()" mode="svg" priority="-1"/>

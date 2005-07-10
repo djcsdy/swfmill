@@ -218,7 +218,7 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 	int mode = 0;
 	double smoothx, smoothy;
 	double lastx=0, lasty=0;
-	double minx=0, miny=0;
+	double minx=1000000, miny=1000000; // FIXME proper limits?
 	double maxx=0, maxy=0;
 	double xofs, yofs;
 
@@ -241,7 +241,7 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 		return;
 	}
 	
-//	fprintf(stderr,"measuring bounding box for path '%s'\n", string );
+//	fprintf(stderr,"measuring bounding box for path '%s' with offset %f/%f\n", string, xofs, yofs );
 	
 	for( int i=0; i==0 || string[i-1] != 0; i++ ) {
 		switch( string[i] ) {
@@ -297,14 +297,18 @@ void swft_bounds( xmlXPathParserContextPtr ctx, int nargs ) {
 		maxy-=miny;
 		minx=miny=0;
 	*/
+	/*
 		maxx+=10;
 		maxy+=10;
 		minx-=10;
 		miny-=10;
+	*/
 		maxx+=xofs;
 		minx+=xofs;
 		maxy+=yofs;
 		miny+=yofs;
+	
+//	printf("BOUNDS: %f %f, %f %f, ofs %f %f\n", minx, miny, maxx, maxy, xofs, yofs );
 	
 		snprintf(tmp,TMP_STRLEN,"%f", minx*20);
 		xmlSetProp( node, (const xmlChar *)"left", (const xmlChar *)&tmp );
