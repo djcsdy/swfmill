@@ -302,10 +302,12 @@
 	<bit name="over" prop="true"/>
 	<bit name="up" prop="true"/>
 	<if expression="hitTest || down || over || up">
-		<word name="button" prop="true"/>
+		<word name="objectID" prop="true"/>
 		<word name="depth" prop="true"/>
 		<object type="Transform" name="transform" prop="true"/>
-		<object type="ColorTransform2" name="colorTransform" prop="true"/>
+		<if expression="ctx->tagVersion &gt;= 2">
+			<object type="ColorTransform2" name="colorTransform" prop="true"/>
+		</if>
 	</if>
 </type>
 
@@ -694,11 +696,13 @@
 </tag>
 
 <tag name="DefineButton2" id="0x22">
+	<context param="tagVersion" value="2"/>
+	
 	<word name="objectID" prop="true"/>
 	<integer name="reserved" size="7" constant-size="true"/>
 	<bit name="menu" prop="true"/>
 	<word name="buttonsSize" prop="true"/>
-	<list type="Button" name="buttons" end="buttonsSize" end-offset="-2" prop="true"/>
+	<list type="Button" name="buttons" end-condition="!(item->gethitTest() || item->getdown() || item->getover() || item->getup())" end-offset="-2" prop="true"/>
 	<list type="Condition" name="conditions" prop="true"/>
 </tag>
 
