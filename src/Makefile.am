@@ -4,7 +4,8 @@ NULL =
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = \
-	xslt_library.xsl
+	xslt_simple2lowlevel.xsl
+	xslt_svg2lowlevel.xsl
 	$(NULL)
 	
 bin_PROGRAMS = swfmill
