@@ -12,7 +12,7 @@
 			<clip id="swf" class="org.swfmill.Foo" import="library/star.swf"/>
 		</library>
 		<font id="vera" import="library/vera.ttf"
-			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!"/>
+			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!&#x26;&#x22;"/>
 
 	<frame>
 		<place id="jpg" x="10" y="10" depth="1" scale="0.5"/>
@@ -60,7 +60,7 @@
 		<textfield id="text" 
 			width="110" height="50" 
 			font="vera" size="12"
-			text="the quick brown fox jumps over the lazy dog"
+			text="the quick brown fox jumps over the &#34;lazy&#x22; dog"
 			/>
 		<place id="text" x="100" y="85" depth="11"/>
 		<textfield id="texttext" 
