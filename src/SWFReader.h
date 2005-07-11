@@ -42,7 +42,6 @@ class Reader {
 		int getPosition() { return pos; }
 		int getLength() { return length; }
 		int getBits() { return bits; }
-		bool assert( int l, int before=-1 ) { return pos+l < before==-1?length:before; }
 		void setEOF() { pos=length; }
 		void seekTo( int p ) { pos=p; }
 		
