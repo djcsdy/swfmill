@@ -81,9 +81,6 @@ static void swft_setmap( xmlXPathParserContextPtr ctx, int nargs ) {
 	if( xmlXPathCheckError(ctx) )
 		return;
 	
-	
-	fprintf(stderr,"--- set-map from %s to %i\n", (const char *)from, to );
-
 	c->setMap((const char *)from,to);
 	
 	xmlFree( from );
