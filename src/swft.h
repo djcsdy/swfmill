@@ -46,6 +46,11 @@ public:
 		}
 		return r;
 	}
+	
+	void setMap( const char *oldID, int newID ) {
+		std::map<std::string,int>& m = *(maps.top());
+		m[oldID] = newID;
+	}
 };
 
 #ifdef _cplusplus

@@ -24,6 +24,7 @@ static void swft_pushmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodeP
 static void swft_popmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp );
 
 static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs );
+static void swft_setmap( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_import_*.cpp
 // FIXME why are these not static? any reason?
@@ -65,6 +66,28 @@ static void swft_pushmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodeP
 static void swft_popmap( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp ) {
 	swft_ctx *c = (swft_ctx*)xsltGetExtData( ctx, SWFT_NAMESPACE );
 	c->popMap();
+}
+
+static void swft_setmap( xmlXPathParserContextPtr ctx, int nargs ) {
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
+
+	if( (nargs != 2) ) {
+		xmlXPathSetArityError(ctx);
+		return;
+	}
+	
+	int to = (int)xmlXPathPopNumber(ctx);
+	xmlChar *from = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) )
+		return;
+	
+	
+	fprintf(stderr,"--- set-map from %s to %i\n", (const char *)from, to );
+
+	c->setMap((const char *)from,to);
+	
+	xmlFree( from );
+	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
 }
 
 static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs ) {
@@ -109,6 +132,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "map-id", SWFT_NAMESPACE, swft_mapid);
 	xsltRegisterExtElement(  ctx, (const xmlChar *) "push-map", SWFT_NAMESPACE, swft_pushmap);
 	xsltRegisterExtElement(  ctx, (const xmlChar *) "pop-map", SWFT_NAMESPACE, swft_popmap);
+	xsltRegisterExtFunction(  ctx, (const xmlChar *) "set-map", SWFT_NAMESPACE, swft_setmap);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "document", SWFT_NAMESPACE, swft_document);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
