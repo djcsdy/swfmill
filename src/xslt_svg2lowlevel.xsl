@@ -12,7 +12,7 @@
 	<swf version="7" compressed="1">
 		<Header framerate="1" frames="1">
 			<size>
-				<Rectangle left="0" right="6400" top="0" bottom="4800"/>
+				<Rectangle left="0" right="2000" top="0" bottom="2000"/>
 			</size>
 			<tags>
 				<SetBackgroundColor>
@@ -330,5 +330,15 @@
 	</DoInitAction>
 	
 </xsl:template>
+
+<xsl:template match="ShapeSetup" mode="shape">
+	<ShapeSetup fillStyle0="1" fillStyle1="2" lineStyle="1">
+		<xsl:apply-templates select="*|@*" mode="shape"/>
+	</ShapeSetup>
+</xsl:template>
+<xsl:template match="*|@*|text()" mode="shape" priority="-1">
+	<xsl:copy-of select="."/>
+</xsl:template>
+
 
 </xsl:stylesheet>
