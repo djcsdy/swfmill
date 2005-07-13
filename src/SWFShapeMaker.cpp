@@ -131,8 +131,8 @@ void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, con
 	double dy = (a.y+d.y+s.y*4-(b.y+c.y)*3)*.125;
 	Bezier bz( a, b, c, d );
 	Bezier b0, b1;
-	if( dx*dx + dy*dy > k && iteration<100 ) {
-		//fprintf(stderr,"split: %f\n",dx*dx + dy*dy);
+	if( dx*dx + dy*dy > k && iteration<2 ) {
+		fprintf(stderr,"[%03i] split: %f\n", iteration, dx*dx + dy*dy);
 		bezierSplit( bz, &b0, &b1 );
 		// recurse
 		iteration++;
