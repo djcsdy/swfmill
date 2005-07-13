@@ -216,6 +216,9 @@ void swft_unit( xmlXPathParserContextPtr ctx, int nargs ) {
 		snprintf(tmp,TMP_STRLEN,"%f", val * (100.0/80));
 		
 		valuePush( ctx, xmlXPathNewString( (const xmlChar *)tmp ) );
+	} else if( sscanf( (const char*)string, "%fpx", &val ) == 1 ) {
+		snprintf(tmp,TMP_STRLEN,"%f", val );
+		valuePush( ctx, xmlXPathNewString( (const xmlChar *)tmp ) );
 	} else {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
 			 "swft:unit() : unknown unit: '%s'\n", (const char*)string );
