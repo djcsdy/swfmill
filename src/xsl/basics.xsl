@@ -146,7 +146,7 @@ int StackItem::nRegistered = <xsl:value-of select="count(stackitem)"/>;
 	<xsl:apply-templates mode="defineAccessors"/>
 </xsl:template>
 <xsl:template match="fill-byte|context" mode="defineAccessors"/>
-<xsl:template match="byte|word|fixedpoint|bit|integer[@constant-size]" mode="defineAccessors">
+<xsl:template match="byte|word|fixedpoint|bit|integer[@constant-size]|uint32" mode="defineAccessors">
 	// Constant Size Primitive
 	<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>
 	<xsl:value-of select="ancestor::*[@name]/@name"/>::get<xsl:value-of select="@name"/>() {
