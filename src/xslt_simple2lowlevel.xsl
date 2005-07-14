@@ -198,11 +198,53 @@
 		<RemoveObject2 depth="{@depth}"/>
 	</xsl:if>
 	<PlaceObject2 replace="0" morph="{$replace}" depth="{$depth}" objectID="{$id}" name="{@name}">
+		<xsl:if test="*">
+			<!-- 0x200: initialize -->
+			<xsl:attribute name="allflags1">0x200</xsl:attribute>
+			<events>
+				<Event flags1="0x200">
+					<actions>
+						<xsl:apply-templates mode="set"/>
+					</actions>
+				</Event>
+				<Event/>
+			</events>
+		</xsl:if>
 		<transform>
 			<Transform transX="{$x}" transY="{$y}" scaleX="{$scale}" scaleY="{$scale}"/>
 		</transform>
 	</PlaceObject2>
 </xsl:template>
+
+<!-- set primitive types with SetVariable, for PlaceObject2 events -->
+<xsl:template match="string" mode="set">
+	<PushData>
+		<items>
+			<StackString value="{@name}"/>
+			<StackString value="{@value}"/>
+		</items>
+	</PushData>
+	<SetVariable/>
+</xsl:template>
+<xsl:template match="number" mode="set">
+	<PushData>
+		<items>
+			<StackString value="{@name}"/>
+			<StackDouble value="{@value}"/>
+		</items>
+	</PushData>
+	<SetVariable/>
+</xsl:template>
+<xsl:template match="boolean" mode="set">
+	<PushData>
+		<items>
+			<StackString value="{@name}"/>
+			<StackBoolean value="{@value}"/>
+		</items>
+	</PushData>
+	<SetVariable/>
+</xsl:template>
+
 
 <!-- transform -->
 <xsl:template match="transform">
@@ -457,6 +499,11 @@
 	<xsl:apply-templates select="swft:import-ttf($file,@glyphs)" mode="makeswf">
 		<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 	</xsl:apply-templates>
+	<xsl:if test="ancestor::library">
+		<xsl:apply-templates select="*|@*" mode="export">
+			<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:if>
 </xsl:template>
 
 <!-- JPEG import -->
@@ -580,6 +627,26 @@
 	<swft:pop-map/>
 </xsl:template>
 
+<!-- component import (experimental) -->
+<xsl:template match="component">
+	
+	<xsl:variable name="name" select="@id"/>
+	<xsl:variable name="component" select="swft:document(@file)"/>
+
+	<swft:push-map/>
+		<xsl:apply-templates select="$component/swf/Header/tags/*" mode="component"/>
+		<xsl:variable name="id" select="swft:map-id($component/swf/Header/tags/Export/symbols/Symbol[@name = $name]/@objectID)"/>
+	<swft:pop-map/>
+
+	<xsl:value-of select="swft:set-map($name,$id)"/>
+	<xsl:message>New ID of "<xsl:value-of select="$name"/>" component is: <xsl:value-of select="$id"/></xsl:message>
+
+</xsl:template>
+
+<xsl:template match="PlaceObject2|ShowFrame|End" mode="component"/>
+<xsl:template match="*" mode="component" priority="-1">
+	<xsl:apply-templates select="." mode="idmap"/>
+</xsl:template>
 
 <!-- shared library import -->
 <xsl:template match="import">
