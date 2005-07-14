@@ -311,6 +311,49 @@
 	</if>
 </type>
 
+<type name="Event">
+	<fill-byte/>
+	
+	<word name="flags1" prop="true"/>
+	<if expression="ctx->swfVersion>=6">
+		<word name="flags2" prop="true"/>
+	</if>
+	<if expression="(flags1 | flags2)">
+<!--
+	... not sure about the order here ...
+
+	<if expression="ctx->swfVersion>=6">
+		<integer name="reserved" size="13" constant-size="true"/>
+		<bit name="construct" prop="true"/>
+		<bit name="keyPress" prop="true"/>
+		<bit name="dragOut" prop="true"/>
+	</if>
+	<bit name="dragOver" prop="true"/>
+	<bit name="rollOut" prop="true"/>
+	<bit name="rollOver" prop="true"/>
+	<bit name="releaseOutside" prop="true"/>
+	<bit name="release" prop="true"/>
+	<bit name="press" prop="true"/>
+	<bit name="initialize" prop="true"/>
+
+	<bit name="data" prop="true"/>
+	<bit name="keyUp" prop="true"/>
+	<bit name="keyDown" prop="true"/>
+	<bit name="mouseUp" prop="true"/>
+	<bit name="mouseDown" prop="true"/>
+	<bit name="mouseMove" prop="true"/>
+	<bit name="unload" prop="true"/>
+	<bit name="enterFrame" prop="true"/>
+	<bit name="load" prop="true"/>
+
+	<if expression="construct|keyPress|dragOut|dragOver|rollOut|rollOver|releaseOutside|release|press|initialize|data|keyUp|keyDown|mouseUp|mouseDown|unload|enterFrame|load">
+-->
+
+		<uint32 name="actionLength" size="32" constant-size="true"/>
+		<list type="Action" name="actions" prop="true" end="actionLength"/>
+	</if>
+</type>
+
 <type name="Condition">
 	<word name="next" next="true" next-offset="-2" prop="true"/>
 	<integer name="key" size="7" constant-size="true" prop="true"/>
@@ -326,6 +369,7 @@
 
 	<list type="Action" name="actions" prop="true"/>
 </type>
+
 <!-- ******************** STYLES ****************** -->
 
 <style name="Solid" id="0x00">
@@ -563,7 +607,19 @@
 		<word name="clipDepth" prop="true" default="0"/>
 	</flagged>
 	<flagged flag="hasEventHandler">
-		<object type="Rest" name="events" prop="true"/>
+		<word name="reserved"/>
+		
+		<!-- allflags1/2 should be set of the | of all item's flags -->
+		<word name="allflags1" prop="true"/>
+		<if expression="ctx->swfVersion>=6">
+			<word name="allflags2" prop="true"/>
+		</if>
+		<list type="Event" name="events" prop="true"
+			end-condition="!(item->getflags1() | item->getflags2())"/>
+		<!--
+				end-condition="!(item->getconstruct() || item->getkeyPress() || item->getdragOut() || item->getdragOver() || item->getrollOut() || item->getrollOver() || item->getreleaseOutside() || item->getrelease() || item->getpress() || item->getinitialize() || item->getdata() || item->getkeyUp() || item->getkeyDown() || item->getmouseUp() || item->getmouseDown() || item->getmouseMove() || item->getunload() || item->getenterFrame() || item->getload() )"/>
+			<object type="Rest" name="events" prop="true"/>
+		-->
 	</flagged>
 </tag>
 
