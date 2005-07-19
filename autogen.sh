@@ -7,6 +7,6 @@ autoheader
 automake --add-missing --copy
 autoconf
 cd src
-xsltproc xsl/mk.xsl xsl/source.xml
+xsltproc codegen/mk.xsl codegen/source.xml
 cd ..
 ./configure

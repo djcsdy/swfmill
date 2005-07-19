@@ -45,4 +45,6 @@ AC_SUBST(PNG_LIBS)
 AC_OUTPUT([
 	Makefile
 	src/Makefile
+	src/swft/Makefile
+	src/xslt/Makefile
 	])
