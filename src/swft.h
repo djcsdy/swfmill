@@ -5,10 +5,6 @@
 #include <string>
 #include <stack>
 #include <map>
-
-#ifdef _cplusplus
-extern "C" {
-#endif
 	
 void swft_register();
 	
@@ -53,8 +49,23 @@ public:
 	}
 };
 
-#ifdef _cplusplus
-}
-#endif
+// CSS style stuff
+
+struct CSSColor {
+	CSSColor() {
+			r=g=b=a=0;
+		};
+		
+	unsigned char r, g, b, a;
+};
+
+struct CSSStyle {
+	bool no_fill, no_stroke;
+	CSSColor fill;
+	CSSColor stroke;
+	double width;
+};
+
+void parse_css_simple( const char *style_str, CSSStyle *style );
 
 #endif

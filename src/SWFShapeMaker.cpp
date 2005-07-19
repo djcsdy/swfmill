@@ -16,9 +16,12 @@ ShapeMaker::ShapeMaker( List<ShapeItem>* e, double fx, double fy, double ofsx, d
 	offsety = ofsy;
 	lastx = lasty = 0;
 	diffx = diffy = 0;
+	have_first = false;
+	
+	fillStyle0 = lineStyle = fillStyle1 = -1;
 }
 
-void ShapeMaker::setupR( double _x,double _y, int fillStyle0, int fillStyle1, int lineStyle ) {
+void ShapeMaker::setupR( double _x,double _y ) {
 	roundReset();
 	int x = roundX(factorx * ( _x ) );
 	int y = roundY(factory * ( _y ) );
@@ -49,6 +52,8 @@ void ShapeMaker::setupR( double _x,double _y, int fillStyle0, int fillStyle1, in
 			
 	edges->append( setup );
 
+	minmax( x+(lastx*factorx), y+(lasty*factory) );
+	
 //	fprintf(stderr,"setup %i/%i\n", x, y );
 }
 
@@ -64,6 +69,7 @@ void ShapeMaker::lineToR( double _x, double _y ) {
 	segment->setx( x );
 	segment->sety( y );
 	edges->append( segment );
+	minmax( x+(lastx*factorx), y+(lasty*factory) );
 }
 
 void ShapeMaker::curveToR( double _cx, double _cy, double ax, double ay ) {
@@ -83,6 +89,7 @@ void ShapeMaker::curveToR( double _cx, double _cy, double ax, double ay ) {
 	segment->setx2( x );
 	segment->sety2( y );
 	edges->append( segment );
+	minmax( x+(lastx*factorx), y+(lasty*factory) );
 }
 
 // cubic to quadratic bezier functions
@@ -132,7 +139,7 @@ void ShapeMaker::cubicToRec( const Point& a, const Point& b, const Point& c, con
 	Bezier bz( a, b, c, d );
 	Bezier b0, b1;
 	if( dx*dx + dy*dy > k && iteration<2 ) {
-		fprintf(stderr,"[%03i] split: %f\n", iteration, dx*dx + dy*dy);
+	//	fprintf(stderr,"[%03i] split: %f\n", iteration, dx*dx + dy*dy);
 		bezierSplit( bz, &b0, &b1 );
 		// recurse
 		iteration++;
@@ -157,7 +164,7 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 	Point c(x2,y2);
 	Point d(ax,ay);
 
-	cubicToRec( a, b, c, d, .001 );
+	cubicToRec( a, b, c, d, .01 );
 	//lastx = ax; lasty = ay;
 }
 
@@ -185,9 +192,9 @@ void ShapeMaker::finish() {
 	edges->append( setup );
 }
 
-void ShapeMaker::setup( double x, double y, int fillStyle0, int fillStyle1, int lineStyle ) {
+void ShapeMaker::setup( double x, double y ) {
 	x+=offsetx; y+=offsety;
-	setupR( x-lastx, y-lasty, fillStyle0, fillStyle1, lineStyle );
+	setupR( x-lastx, y-lasty );
 	lastx = x;
 	lasty = y;
 }

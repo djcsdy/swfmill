@@ -7,4 +7,6 @@
 extern const char *xslt_simple2lowlevel;
 extern const char *xslt_svg2lowlevel;
 
+extern const char **swf_internal_stylesheets;
+
 #endif

@@ -133,7 +133,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "document", SWFT_NAMESPACE, swft_document);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
-	xsltRegisterExtFunction( ctx, (const xmlChar *) "bounds", SWFT_NAMESPACE, swft_bounds);
+//	xsltRegisterExtFunction( ctx, (const xmlChar *) "bounds", SWFT_NAMESPACE, swft_bounds);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "css", SWFT_NAMESPACE, swft_css);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "unit", SWFT_NAMESPACE, swft_unit);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);

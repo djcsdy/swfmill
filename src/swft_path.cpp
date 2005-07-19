@@ -1,5 +1,6 @@
 #include "SWFShapeMaker.h"
 #include "SWF.h"
+#include "swft.h"
 #include <libxslt/extensions.h>
 #include <libxslt/xsltutils.h>
 #include <libxml/xpathInternals.h>
@@ -41,9 +42,9 @@ bool mkShapeSegment( ShapeMaker& shaper, double *coord, int *C, char *tmp, char 
 	} else if( mode == 'l' && c==1 ) {
 		shaper.lineToR( coord[0], coord[1] );
 	} else if( mode == 'M' && c==1 ) {
-		shaper.setup( coord[0], coord[1], 1, -1, 1 );
+		shaper.setup( coord[0], coord[1] );
 	} else if( mode == 'm' && c==1 ) {
-		shaper.setupR( coord[0], coord[1], 1, -1, 1 );
+		shaper.setupR( coord[0], coord[1] );
 	} else if( mode == 'H' && c==0 ) {
 		shaper.lineTo( coord[0], shaper.getLastY() );
 	} else if( mode == 'V' && c==0 ) {
@@ -54,7 +55,176 @@ bool mkShapeSegment( ShapeMaker& shaper, double *coord, int *C, char *tmp, char 
 	return true;
 }
 	
+/*
+	Create a complete DefineShape3 element.
+	syntax: swft:path( <svg path string>, <id>, <style attr> [, <xofs>, <yofs>] )
+*/
 void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
+	xmlChar *string, *styleString, *idString;
+	xmlXPathObjectPtr obj;
+	Shape shape;
+	Context swfctx;
+	xmlDocPtr doc;
+	xmlNodePtr node, shapeNode, styleNode;
+	int fillBits = 0, lineBits = 0;
+	double coord[6];
+	int c=0;
+	char tmp[32]; tmp[0]=0;
+	int t=0;
+	int mode = 0;
+	bool closed = true;
+	double smoothx, smoothy;
+	double xofs, yofs;
+
+	
+	if( (nargs != 3) && (nargs != 5) ) {
+		xmlXPathSetArityError(ctx);
+		return;
+	}
+	
+	if( nargs == 5 ) {
+		yofs = xmlXPathPopNumber(ctx);
+		xofs = xmlXPathPopNumber(ctx);
+		if( xmlXPathCheckError(ctx) )
+			return;
+	} else {
+		yofs = xofs = 0;
+	}
+	
+	styleString = xmlXPathPopString(ctx);
+	idString = xmlXPathPopString(ctx);
+	string = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) || (string==NULL) || (idString==NULL) || (styleString == NULL) ) {
+		return;
+	}
+	
+	CSSStyle style;
+	parse_css_simple( (const char *)styleString, &style );
+
+	ShapeMaker shaper( shape.getedges(), 20, 20, xofs, yofs );
+	shaper.setStyle( style.no_fill ? -1 : 1, -1, style.no_stroke ? -1 : 1 );
+	
+//	fprintf(stderr,"making shape from path '%s', style '%s', id '%s'\n", string, styleString, idString );
+	
+	for( int i=0; i==0 || string[i-1] != 0; i++ ) {
+		switch( string[i] ) {
+			case 'M':
+			case 'm':
+				shaper.close();
+			case 'L':
+			case 'l':
+			case 'C':
+			case 'c':
+			case 'S':
+			case 's':
+			case 'Q':
+			case 'q':
+			case 'T':
+			case 't':
+			case 'H':
+			case 'h':
+			case 'V':
+			case 'v':
+				if( mkShapeSegment( shaper, coord, &c, tmp, mode, &smoothx, &smoothy ) ) {
+					c=0; closed=false;
+				}
+				t=0; tmp[0]=0;
+				mode = string[i];
+				break;
+			case 'Z':
+			case 'z':
+				shaper.close();
+				mode = 0;
+				c=0; t=0; tmp[0]=0;
+				closed = true;
+				break;
+			case '\t':
+			case '\n':
+			case '\r':
+			case ',':
+			case ' ':
+			case 0:
+				if( mkShapeSegment( shaper, coord, &c, tmp, mode, &smoothx, &smoothy ) ) {
+					c=0; closed=false;
+				}
+				t=0; tmp[0]=0;
+				break;
+			default:
+				tmp[t++]=string[i]; tmp[t]=0;
+				break;
+		}
+	}
+
+	shaper.finish();
+	
+	// make the shape xml
+	doc = xmlNewDoc( (const xmlChar *)"1.0");
+	node = shapeNode = doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"DefineShape3", NULL );
+	xmlSetProp( node, (const xmlChar*)"objectID", idString );
+
+		// bounds rectangle
+	float border = 0;
+	if( !style.no_stroke ) border = style.width;
+	
+	node = xmlNewChild( shapeNode, NULL, (const xmlChar *)"bounds", NULL ); 
+	node = xmlNewChild( node, NULL, (const xmlChar *)"Rectangle", NULL );
+	snprintf(tmp,TMP_STRLEN,"%f", shaper.getMinX()-border );
+	xmlSetProp( node, (const xmlChar *)"left", (const xmlChar *)&tmp );
+	snprintf(tmp,TMP_STRLEN,"%f", shaper.getMinY()-border );
+	xmlSetProp( node, (const xmlChar *)"top", (const xmlChar *)&tmp );
+	snprintf(tmp,TMP_STRLEN,"%f", shaper.getMaxX()+border );
+	xmlSetProp( node, (const xmlChar *)"right", (const xmlChar *)&tmp );
+	snprintf(tmp,TMP_STRLEN,"%f", shaper.getMaxY()+border);
+	xmlSetProp( node, (const xmlChar *)"bottom", (const xmlChar *)&tmp );
+
+		// style
+	
+	node = xmlNewChild( shapeNode, NULL, (const xmlChar *)"styles", NULL ); 
+	styleNode = xmlNewChild( node, NULL, (const xmlChar *)"StyleList", NULL );
+
+	if( !style.no_fill ) {
+		node = xmlNewChild( styleNode, NULL, (const xmlChar *)"fillStyles", NULL );
+		
+		node = xmlNewChild( node, NULL, (const xmlChar *)"Solid", NULL );
+		node = xmlNewChild( node, NULL, (const xmlChar *)"color", NULL );
+		node = xmlNewChild( node, NULL, (const xmlChar *)"Color", NULL );
+		snprintf(tmp,TMP_STRLEN,"%i", style.fill.r);
+		xmlSetProp( node, (const xmlChar *)"red", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%i", style.fill.g);
+		xmlSetProp( node, (const xmlChar *)"green", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%i", style.fill.b);
+		xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%i", style.fill.a);
+		xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
+	}
+
+	if( !style.no_stroke ) {
+		node = xmlNewChild( styleNode, NULL, (const xmlChar *)"lineStyles", NULL );
+		node = xmlNewChild( node, NULL, (const xmlChar *)"LineStyle", NULL );
+		snprintf(tmp,TMP_STRLEN,"%f", style.width);
+		xmlSetProp( node, (const xmlChar *)"width", (const xmlChar *)&tmp );
+		node = xmlNewChild( node, NULL, (const xmlChar *)"color", NULL );
+		node = xmlNewChild( node, NULL, (const xmlChar *)"Color", NULL );
+		snprintf(tmp,TMP_STRLEN,"%i", style.stroke.r);
+		xmlSetProp( node, (const xmlChar *)"red", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%i", style.stroke.g);
+		xmlSetProp( node, (const xmlChar *)"green", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%i", style.stroke.b);
+		xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
+		snprintf(tmp,TMP_STRLEN,"%i", style.stroke.a);
+		xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
+	}
+		
+		// the shape itself
+	node = xmlNewChild( shapeNode, NULL, (const xmlChar *)"shapes", NULL ); 
+
+	shape.writeXML( node, &swfctx );
+	
+	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
+	return;
+}
+
+void swft_path_old( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlChar *string;
 	xmlXPathObjectPtr obj;
 	Shape shape;

@@ -1,7 +1,7 @@
 #ifndef SWF_SHAPEMAKER_H
 #define SWF_SHAPEMAKER_H
 
-//#include "SWF.h"
+#include <stdio.h>
 
 namespace SWF {
 
@@ -44,29 +44,56 @@ class ShapeMaker {
 	public:
 		ShapeMaker( List<ShapeItem>* edges, double fx = 1, double fy = 1, double ofsx = 0, double ofsy = 0 );
 	
-		void setup( double x=0, double y=0, int fillStyle0=-1, int fillStyle1=-1, int lineStyle=-1 );
+		void setStyle( int _fillStyle0=-1, int _fillStyle1=-1, int _lineStyle=-1 ) {
+			fillStyle0 = _fillStyle0;
+			fillStyle1 = _fillStyle1;
+			lineStyle = _lineStyle;
+		}
+	
+		void setup( double x=0, double y=0 );
 		void lineTo( double x, double y );
 		void curveTo( double cx, double cy, double ax, double ay );
 		void cubicTo( double x1, double y1, double x2, double y2, double ax, double ay );
 		void close();
 		void finish();
 	
-		void setupR( double x=0, double y=0, int fillStyle0=-1, int fillStyle1=-1, int lineStyle=-1 );
+		void setupR( double x=0, double y=0 );
 		void lineToR( double x, double y );
 		void curveToR( double cx, double cy, double ax, double ay );
 	
 		double getLastX() { return lastx; }
 		double getLastY() { return lasty; }
-	
+
+		double getMinX() { return minx; }
+		double getMinY() { return miny; }
+		double getMaxX() { return maxx; }
+		double getMaxY() { return maxy; }
+		
 	protected:
 		void cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k, int iteration=0 );
+	
+		void minmax( double x, double y ) {
+			if( !have_first ) {
+				have_first = true;
+				minx = x; maxx=x; miny=y; maxy=y;
+			} else {
+				if( x < minx ) minx=x;
+				if( y < miny ) miny=y;
+				if( x > maxx ) maxx=x;
+				if( y > maxy ) maxy=y;
+			}
+		}
 	
 		List<ShapeItem>* edges;
 		double factorx, factory;
 		double offsetx, offsety;
 		double lastx, lasty;
 		double diffx, diffy;
+		double minx, miny, maxx, maxy;
+		bool have_first;
 	
+		int fillStyle0, fillStyle1, lineStyle;
+		
 		// rounding error accumulation compensation
 		double roundx, roundy;
 		int roundX( double x ) { return round( x, &roundx ); }

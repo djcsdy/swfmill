@@ -5,30 +5,12 @@
 #include <libxslt/extensions.h>
 #include <libxslt/xsltutils.h>
 #include <libxml/xpathInternals.h>
+#include "swft.h"
 
 using namespace std;
 #define TMP_STRLEN 0xff
-
-namespace SWFT {
-
-namespace CSS {
-
-struct Color {
-	Color() {
-			r=g=b=a=0;
-		};
-		
-	unsigned char r, g, b, a;
-};
-
-struct Style {
-	bool no_fill, no_stroke;
-	Color fill;
-	Color stroke;
-	double width;
-};
-
-void parse_color( std::string str_c, Color* color ) {
+	
+void parse_color( std::string str_c, CSSColor* color ) {
 	// this is a bit stupid really.
 	const char *s = str_c.c_str();
 	if( s[0] == '#' ) s++;
@@ -63,10 +45,10 @@ char *parse_string( char *p, string& s ) {
 }
 
 #define EXPECT(p,c) if( *p != c ) fail = true; else p++;
-void parse_css_simple( const char *style_str, Style *style ) {
+void parse_css_simple( const char *style_str, CSSStyle *style ) {
 	char *p = (char *)style_str; // casting away const, but, hey- wtf.
 
-	memset( style, 0, sizeof(Style) );
+	memset( style, 0, sizeof(CSSStyle) );
 	
 	bool fail=false;
 	bool no_fill=false, no_stroke=false;
@@ -113,10 +95,7 @@ void parse_css_simple( const char *style_str, Style *style ) {
 		}
 	}
 };
-}
-}
 
-using namespace SWFT::CSS;
 
 void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlChar *string;
@@ -143,7 +122,7 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 
 	//fprintf(stderr,"getting style from '%s'\n", string );
 
-	Style style;
+	CSSStyle style;
 	parse_css_simple( (const char *)string, &style );
 
 	/* FIXME: really we should not list a fully transparent style, 
@@ -211,13 +190,20 @@ void swft_unit( xmlXPathParserContextPtr ctx, int nargs ) {
 	string = obj->stringval;
 	float val;
 	
-	if( sscanf( (const char*)string, "%fpt", &val ) == 1 ) {
-	//  fprintf( stderr, "---- UNIT: %fpt -> %fpx \n", val, val*(100.0/80));
-		snprintf(tmp,TMP_STRLEN,"%f", val * (100.0/80));
+	if( sscanf( (const char*)string, "%f", &val ) == 1 ) {
+		char *unit = (char *)string;
+		while( unit[0] != 0 && ( (unit[0]>='0' && unit[0]<='9') || (unit[0]=='.') ) ) {
+			unit++;
+		}
+	
+		float factor = 1;
+		if( !strcmp( unit, "px" ) ) {
+		} else if( !strcmp( unit, "pt" ) ) {
+			factor = 100.0/80.0;
+		}
+//		fprintf( stderr, "UNIT: %s, VALUE %f, FACTOR %.2f, NEW %.2f\n", unit, val, factor, val*factor );
+		snprintf(tmp,TMP_STRLEN,"%f", val * factor);
 		
-		valuePush( ctx, xmlXPathNewString( (const xmlChar *)tmp ) );
-	} else if( sscanf( (const char*)string, "%fpx", &val ) == 1 ) {
-		snprintf(tmp,TMP_STRLEN,"%f", val );
 		valuePush( ctx, xmlXPathNewString( (const xmlChar *)tmp ) );
 	} else {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,

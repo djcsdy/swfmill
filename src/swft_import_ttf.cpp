@@ -183,7 +183,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 			glyphList->setMapN(glyph, character);
 			shape = glyphList->getShapeN(glyph);
 			ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
-
+			shaper.setStyle( 1, -1, -1 );
+			
 /* FIXME this has no effect, done elsewhere
 			shape->setfillBits(1);
 			shape->setlineBits(0);
@@ -200,7 +201,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 					cubic = outline->tags[p] & 0x02;
 					
 					if( p==start ) {
-						shaper.setup( outline->points[p-n].x, outline->points[p-n].y, 1 );
+						shaper.setup( outline->points[p-n].x, outline->points[p-n].y );
 					}
 					
 					if( !control && n > 0 ) {

@@ -32,6 +32,7 @@ BUILT_SOURCES = \
 	gSWFDumper.cpp \
 	gSWFBasics.cpp \
 	gSWFSize.cpp \
+	xslt.cpp \
 	xslt_simple2lowlevel.cpp \
 	xslt_svg2lowlevel.cpp \
 	$(NULL)
@@ -81,6 +82,7 @@ swfmill_SOURCES = \
 	swft_import_jpeg.cpp \
 	swft_import_png.cpp \
 	swft_import_ttf.cpp \
+	\
 	xslt_simple2lowlevel.cpp \
 	xslt_svg2lowlevel.cpp \
 	$(NULL)
