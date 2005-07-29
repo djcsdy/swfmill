@@ -347,10 +347,7 @@ int main( int argc, char *argv[] ) {
 	} else if( !strcmp( command, "xslt" ) ) {
 		return swfmill_xslt( argc-i, &argv[i] );
 	} else if( !strcmp( command, "simple" ) ) {
-		internal_stylesheet = xslt_simple2lowlevel;
-		return swfmill_xml2swf( argc-i, &argv[i] );
-	} else if( !strcmp( command, "svg2swf" ) ) {
-		internal_stylesheet = xslt_svg2lowlevel;
+		internal_stylesheet = xslt_simple;
 		return swfmill_xml2swf( argc-i, &argv[i] );
 	} else {
 		fprintf(stderr,"ERROR: unknown command %s\n", command );
