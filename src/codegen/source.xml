@@ -355,6 +355,7 @@
 </type>
 
 <type name="Condition">
+<!-- needs work; wrong order? -->
 	<word name="next" next="true" next-offset="-2" prop="true"/>
 	<integer name="key" size="7" constant-size="true" prop="true"/>
 	<bit name="menuLeave" prop="true"/>
@@ -481,6 +482,60 @@
 		<byte name="language" prop="true"/>
 	</if>
 	<object type="Rest" name="map" prop="true"/>
+</tag>
+
+<tag name="DefineSound" id="0x0E">
+	<word name="objectID" prop="true"/>
+	
+	<!-- format values:
+		 0 Raw
+		 1 ADPCM
+		 2 MP3
+		 3 Uncompressed
+		 6 Nellymoser
+	-->
+	<integer name="format" size="4" constant-size="true" prop="true"/>
+	
+	<!-- rate values:
+		 0 5512(.5?)
+		 1 11025
+		 2 22050
+		 3 44100
+	-->
+	<integer name="rate" size="2" constant-size="true" prop="true"/>
+	
+	<bit name="is16bit" prop="true"/>
+	<bit name="stereo" prop="true"/>
+	<uint32 name="samples" prop="true"/>
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
+<tag name="StartSound" id="0x0F">
+	<word name="objectID" prop="true"/>
+	
+	<integer name="reserved" size="2" constant-size="true"/>
+	<bit name="stopPlayback" prop="true"/>
+	<bit name="noMultiple" prop="true"/>
+	<bit name="hasEnvelope" prop="true"/>
+	<bit name="hasLoop" prop="true"/>
+	<bit name="hasOutPoint" prop="true"/>
+	<bit name="hasInPoint" prop="true"/>
+	
+	<flagged flag="hasInPoint">
+		<uint32 name="inPoint" prop="true"/>
+	</flagged>
+	<flagged flag="hasOutPoint">
+		<uint32 name="outPoint" prop="true"/>
+	</flagged>
+	<flagged flag="hasLoop">
+		<word name="loop" prop="true"/>
+	</flagged>
+	<flagged flag="hasEnvelope">
+		<byte name="envelopeCount" prop="true"/>
+		
+		<!-- would be easy to implement, too lazy now, and need a sample -->
+		<object type="Rest" name="envelopeData" prop="true"/>
+	</flagged>
 </tag>
 
 <tag name="DefineShape2" id="0x16">
