@@ -1,0 +1,19 @@
+
+2005-07-19 building the internal stylesheets
+
+ * swfmill uses internal stylesheets for some commands ("simple").
+ * these get big, so they are split into parts (*.xslt)
+ * a .xml file (e.g. simple.xml) describes which parts should get assembled 
+   to form a single internal sheet.
+ * the .xml is transformed along assemble.xsl, including the parts,
+   producing a .cpp that contains the stylesheet as a static string.
+
+a new internal stylesheet (foo) would need:
+ * foo.xml <compilation> description
+ * ? anything else
+ * mentions in Makefile.am
+ * mention in xslt.h
+ * command in swfmill.cpp
+ 
+(PS, yes i know about xsl:import and :include, but i would have to hack
+libxslt to read from something like memory:// urls, which is not nice either)

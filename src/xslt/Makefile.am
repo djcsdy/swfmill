@@ -4,10 +4,18 @@ NULL =
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = \
-	xslt_simple2lowlevel.xsl
-	xslt_svg2lowlevel.xsl
+	assemble.xsl \
+	simple.xml \
+	simple-tools.xslt \
+	simple-elements.xslt \
+	simple-import.xslt \
+	simple-deprecated.xslt \
 	$(NULL)
-	
+
+noinst_HEADERS = \
+	xslt.h \
+	$(NULL)
+
 lib_LTLIBRARIES = libswfmillxslt.la
 
 libswfmillxslt_la_CFLAGS =
@@ -15,25 +23,23 @@ libswfmillxslt_la_CXXFLAGS = $(libswfmillxslt_la_CFLAGS)
 libswfmillxslt_la_LIBADD =
 
 BUILT_SOURCES = \
-	xslt_simple2lowlevel.cpp \
-	xslt_svg2lowlevel.cpp \
+	simple.cpp \
 	$(NULL)
 	
-CLEAN_FILES = xslt_simple2lowlevel.cpp xsl_svg2lowlevel.cpp
+CLEAN_FILES = $(BUILT_SOURCES)
 
+NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
+			 xmlns:str=\"http:\/\/exslt.org\/strings\" \
+			 xmlns:math=\"http:\/\/exslt.org\/math\"
 
-# rule to include .xsl stylesheets as c files
-%.cpp : %.xsl
+%.cpp : %.xml assemble.xsl
+	xsltproc assemble.xsl $< > $(addsuffix .xsl, $(basename $<)) 
 	echo "#include \"xslt.h\"" > $@
-	echo "const char *$* = " >> $@
-	sed -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $< >> $@
+	echo "const char *xslt_$* = " >> $@
+	sed -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(addsuffix .xsl, $(basename $<)) >> $@
 	echo ";" >> $@
 
 libswfmillxslt_la_SOURCES = \
-	xslt_simple2lowlevel.cpp \
-	xslt_svg2lowlevel.cpp \
+	$(BUILT_SOURCES)
 	$(NULL)
 
-noinst_HEADERS = \
-	xslt.h \
-	$(NULL)
