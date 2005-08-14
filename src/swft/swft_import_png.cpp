@@ -70,6 +70,8 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
 	char tmp[TMP_STRLEN];
+	png_colorp palette;
+	int n_pal;
 
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
@@ -109,18 +111,24 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	unsigned long w, h, rowbytes;
 	int channels;
 	int compressed_size;
+	int format = 5;
+	int data_size = 0;
 	if( !fp ) goto fail;
 		
 	if( readpng_init( fp, &w, &h ) ) goto fail;
+	
 	// add w/h
 	snprintf(tmp,TMP_STRLEN,"%i", w);
 	xmlSetProp( node, (const xmlChar *)"width", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", h);
 	xmlSetProp( node, (const xmlChar *)"height", (const xmlChar *)&tmp );
 
-	data = readpng_get_image( 2.2, &channels, &rowbytes );
+	data = readpng_get_image( 2.2, &channels, &rowbytes, &palette, &n_pal );
+	
+	fprintf(stderr,"Importing %i channels, %i bytes/row PNG (%i bit/pixel) \n", channels, rowbytes, (rowbytes*8)/w );
 	
 	if( channels == 4 && rowbytes == (4*w) ) {
+	fprintf(stderr,"Importing 32bit PNG\n");
 		int c;
 		float a;
 		unsigned char r,g,b;
@@ -134,7 +142,9 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 			data[i+2] = g;
 			data[i+3] = b;
 		}
+		data_size = w*h*4;
 	} else if( channels == 3 && rowbytes == (3*w) ) {
+	fprintf(stderr,"Importing 24bit PNG\n");
 		unsigned char *rgba = new unsigned char[ w*h*4 ];
 		
 		for( int i=0; i<w*h; i++ ) {
@@ -144,19 +154,51 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 			rgba[(i*4)+1] = data[(i*3)];
 		}
 		data = rgba;
+		data_size = w*h*4;
+	} else if( channels == 1 && rowbytes == w ) {
+		unsigned char *img_data = data;
+		format = 3;
+		if( n_pal ) {
+			data_size = (4*n_pal) + (rowbytes*h);
+			data = new unsigned char[ data_size ];
+			fprintf(stderr,"Importing 8bit palette PNG - %i colors\n", n_pal );
+			for( int i=0; i<n_pal; i++ ) {
+				unsigned char *entry = &data[(i*4)];
+				entry[2] = palette[i].blue;
+				entry[1] = palette[i].green;
+				entry[0] = palette[i].red;
+				entry[3] = 0xff;
+			}
+		} else {
+			n_pal = 0xff;
+			data_size = (4*n_pal) + (rowbytes*h);
+			data = new unsigned char[ data_size ];
+			fprintf(stderr,"Importing 8bit grayscale PNG\n" );
+			for( int i=0; i<n_pal; i++ ) {
+				unsigned char *entry = &data[(i*4)];
+				entry[2] = i;
+				entry[1] = i;
+				entry[0] = i;
+				entry[3] = 0xff;
+			}
+		}
+		memcpy( &data[ (4*n_pal) ], img_data, rowbytes*h );
+
+		snprintf(tmp,TMP_STRLEN,"%i", n_pal-1 );
+		xmlSetProp( node, (const xmlChar *)"n_colormap", (const xmlChar *)&tmp );
 	} else {
-		fprintf( stderr, "WARNING: can only import 24 or 32bit RGB(A) PNGs (%s has %i channels, rowstride %i)\n", filename, channels, rowbytes );
+		fprintf( stderr, "WARNING: can only import 8bit palette, 24 or 32bit RGB(A) PNGs (%s has %i channels, rowstride %i)\n", filename, channels, rowbytes );
 		goto fail;
 	}
 
-	// format is always 5.
-	snprintf(tmp,TMP_STRLEN,"%i", 5);
+	// format is 5 for RGB(A), 3 for palette (4 for 16bit, unused)
+	snprintf(tmp,TMP_STRLEN,"%i", format );
 	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)&tmp );
 	
-	compressed_size = w*h*4;
+	compressed_size = data_size;
 	if( compressed_size < 64 ) compressed_size = 64;
 	compressed = new unsigned char[ compressed_size ];
-	if( compress( data, w*h*4, compressed, &compressed_size ) ) {
+	if( compress( data, data_size, compressed, &compressed_size ) ) {
 		swft_addData( node, (char*)compressed, compressed_size );
 		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 	}

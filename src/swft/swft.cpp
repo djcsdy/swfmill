@@ -29,6 +29,7 @@ static void swft_setmap( xmlXPathParserContextPtr ctx, int nargs );
 // in swft_import_*.cpp
 // FIXME why are these not static? any reason?
 void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs );
+void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_png( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs );
 
@@ -139,6 +140,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-jpeg", SWFT_NAMESPACE, swft_import_jpeg );
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-jpega", SWFT_NAMESPACE, swft_import_jpega );
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-png", SWFT_NAMESPACE, swft_import_png );
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-ttf", SWFT_NAMESPACE, swft_import_ttf );
 	

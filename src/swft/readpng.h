@@ -45,6 +45,8 @@
 #  define Trace(x)  ;
 #endif
 
+#include <png.h>
+
 typedef unsigned char   uch;
 typedef unsigned short  ush;
 typedef unsigned long   ulg;
@@ -62,7 +64,7 @@ int readpng_init(FILE *infile, ulg *pWidth, ulg *pHeight);
 int readpng_get_bgcolor(uch *bg_red, uch *bg_green, uch *bg_blue);
 
 uch *readpng_get_image(double display_exponent, int *pChannels,
-                       ulg *pRowbytes);
+                       ulg *pRowbytes, png_colorp *palette, int *n_pal );
 
 void readpng_cleanup(int free_image_data);
 

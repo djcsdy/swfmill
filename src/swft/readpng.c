@@ -179,7 +179,7 @@ int readpng_get_bgcolor(uch *red, uch *green, uch *blue)
 
 /* display_exponent == LUT_exponent * CRT_exponent */
 
-uch *readpng_get_image(double display_exponent, int *pChannels, ulg *pRowbytes)
+uch *readpng_get_image(double display_exponent, int *pChannels, ulg *pRowbytes, png_colorp *palette, int *n_pal )
 {
     double  gamma;
     png_uint_32  i, rowbytes;
@@ -194,13 +194,19 @@ uch *readpng_get_image(double display_exponent, int *pChannels, ulg *pRowbytes)
         return NULL;
     }
 
-
-    /* expand palette images to RGB, low-bit-depth grayscale images to 8 bits,
+	
+    /* expand palette images to 8bit, low-bit-depth grayscale images to 8 bits,
      * transparency chunks to full alpha channel; strip 16-bit-per-sample
-     * images to 8 bits per sample; and convert grayscale to RGB[A] */
+     * images to 8 bits per sample; and convert grayscale to 8bit */
+	*n_pal = 0;
+	*palette = NULL;
 
-    if (color_type == PNG_COLOR_TYPE_PALETTE)
-        png_set_expand(png_ptr);
+    if (color_type == PNG_COLOR_TYPE_PALETTE) {
+		png_set_packing( png_ptr );
+		if( png_get_valid(png_ptr, info_ptr, PNG_INFO_PLTE) ) {
+			png_get_PLTE( png_ptr, info_ptr, palette, n_pal );
+		}
+	}
     if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
         png_set_expand(png_ptr);
     if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
@@ -208,8 +214,9 @@ uch *readpng_get_image(double display_exponent, int *pChannels, ulg *pRowbytes)
     if (bit_depth == 16)
         png_set_strip_16(png_ptr);
     if (color_type == PNG_COLOR_TYPE_GRAY ||
-        color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
-        png_set_gray_to_rgb(png_ptr);
+        color_type == PNG_COLOR_TYPE_GRAY_ALPHA) {
+		png_set_packing( png_ptr );
+	}
 
 
     /* unlike the example in the libpng documentation, we have *no* idea where
