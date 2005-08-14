@@ -1,3 +1,19 @@
+
+2005-08-14 release 0.2.8 'rainy village'
+	support for importing SWFs with DefineFont2/3, DefineButton2,
+	DefineSound and StartSound tags;
+	support for SetScriptLimits and SetTabIndex;
+	support for 8bit palette or grayscale PNGs;
+	support for DefineBitsJPEG3 (importing a jpeg and 8bit mask PNG),
+	support for PlaceObject2 events (string/double/boolean),
+	experimental component import,
+	parse #rrggbbaa colors correctly,
+	export font ID if font is placed in library,
+	remove unnecessary MovieClip level for SWF import,
+	various fixes for size calculation, glyph shapes, and more,
+	preparations for basic SVG conversion,
+	reorder codebase and clean up.
+
 2005-06-26 release 0.2.7 'lazy sunday afternoon'
 	adds DefineBits, DefineShape2 and DefineShape3
 	tags to the basic dialect, so these get id-mapped;

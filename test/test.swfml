@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<movie width="290" height="270" framerate="15">
+<movie width="450" height="270" framerate="15">
 	<background color="#dddddd"/>
 
 		<library>
@@ -9,10 +9,12 @@
 			<clip id="png" import="library/testpng.png"/>
 			<clip id="png-alpha" import="library/testpng-alpha.png"/>
 			<clip id="png24" import="library/testpng24.png"/>
+			<clip id="png8" import="library/testpng8.png"/>
+			<clip id="jpega" import="library/testjpg.jpg" mask="library/testgradient.png"/>
 			<clip id="swf" class="org.swfmill.Foo" import="library/star.swf"/>
 		</library>
 		<font id="vera" import="library/vera.ttf"
-			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!&#x26;&#x22;"/>
+			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!&#x26;&#x22;+"/>
 
 	<frame>
 		<place id="jpg" x="10" y="10" depth="1" scale="0.5"/>
@@ -46,15 +48,32 @@
 			text="PNG24"
 			/>
 		<place id="png24text" x="220" y="60" depth="8"/>
-	
-		<place id="swf" x="0" y="80" depth="9" scale="10" name="star"/>
+		
+		<place id="png8" x="290" y="10" depth="9" scale="0.5"/>
+		<textfield id="png8text" 
+			width="70" height="15" 
+			font="vera" size="12"
+			text="PNG8"
+			/>
+		<place id="png8text" x="290" y="60" depth="10"/>
+
+		<place id="jpega" x="360" y="10" depth="11" scale="0.5"/>
+		<textfield id="jpegatext" 
+			width="70" height="15" 
+			font="vera" size="12"
+			text="JPEG+A"
+			/>
+		<place id="jpegatext" x="360" y="60" depth="12"/>
+		<place id="swf" x="0" y="80" depth="19" scale="10" name="star">
+			<string name="text2" value="Hello World!"/>
+		</place>
 		<set name="star" member="text" value="Hello World!"/>
 		<textfield id="swftext" 
 			width="150" height="15" 
 			font="vera" size="12"
 			text="SWF"
 			/>
-		<place id="swftext" x="10" y="140" depth="10"/>
+		<place id="swftext" x="10" y="140" depth="20"/>
 	
 	
 		<textfield id="text" 
@@ -62,20 +81,20 @@
 			font="vera" size="12"
 			text="the quick brown fox jumps over the &#34;lazy&#x22; dog"
 			/>
-		<place id="text" x="100" y="85" depth="11"/>
+		<place id="text" x="100" y="85" depth="21"/>
 		<textfield id="texttext" 
 			width="100" height="15" 
 			font="vera" size="12"
 			text="Font"
 			/>
-		<place id="texttext" x="100" y="140" depth="12"/>
+		<place id="texttext" x="100" y="140" depth="22"/>
 
 		<textfield id="scriptout" 
 			width="200" height="50" 
 			font="vera" size="10"
 			text=""
 			/>
-		<place id="scriptout" name="scriptout" x="10" y="180" depth="13"/>
+		<place id="scriptout" name="scriptout" x="10" y="180" depth="23"/>
 
 		<call object="Main" method="main"/>
 	</frame>
