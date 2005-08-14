@@ -148,6 +148,7 @@
 				<Event flags1="0x200">
 					<actions>
 						<xsl:apply-templates mode="set"/>
+						<EndAction/>
 					</actions>
 				</Event>
 				<Event/>
