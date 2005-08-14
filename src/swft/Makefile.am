@@ -14,10 +14,10 @@ endif
 
 lib_LTLIBRARIES = libswft.la
 
-libswft_la_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(FREETYPE_CFLAGS) $(PNG_CFLAGS) -I../
+libswft_la_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(FREETYPE_CFLAGS) $(PNG_CFLAGS) $(ADDCFLAGS) -I../
 libswft_la_CXXFLAGS = $(libswft_la_CFLAGS)
 libswft_la_LIBADD = $(XML_LIBS) $(XSLT_LIBS) $(FREETYPE_LIBS) $(PNG_LIBS)
-libswft_la_LDFLAGS = 
+libswft_la_LDFLAGS = $(ADDLDFLAGS)
 
 libswft_la_SOURCES = \
 	swft.cpp \
