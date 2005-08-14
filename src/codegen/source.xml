@@ -569,6 +569,7 @@
 <!-- only basic support for the id -->
 	<object type="Rest" name="data" prop="true"/>
 </tag>
+
 <tag name="DefineFontInfo2" id="0x3E">
 	<word name="objectID" prop="true"/>
 	<!--
@@ -622,6 +623,7 @@
 
 <tag name="DefineBitsJPEG3" id="0x23">
 	<word name="objectID" prop="true"/>
+	<uint32 name="offset_to_alpha" prop="true"/>
 	<object type="Rest" name="data" prop="true"/>
 </tag>
 
@@ -630,6 +632,9 @@
 	<byte name="format" prop="true"/>
 	<word name="width" prop="true"/>
 	<word name="height" prop="true"/>
+	<if expression="format==3">
+		<byte name="n_colormap" prop="true"/>
+	</if>
 	<object type="Rest" name="data" prop="true"/>
 </tag>
 
@@ -852,6 +857,16 @@
 	<word name="objectID" prop="true"/>
 	<word name="frame" prop="true"/>
 	<object type="Rest" name="data" prop="true"/>
+</tag>
+
+<tag name="ScriptLimits" id="0x41">
+	<word name="maxRecursionDepth" prop="true"/>
+	<word name="timeout" prop="true"/>
+</tag>
+
+<tag name="SetTabIndex" id="0x42">
+	<word name="depth" prop="true"/>
+	<word name="tabIndex" prop="true"/>
 </tag>
 
 <!-- ******************** ACTIONS ****************** -->
