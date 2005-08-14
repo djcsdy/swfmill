@@ -21,10 +21,18 @@
 	<xsl:variable name="file">
 		<xsl:value-of select="@import"/>
 	</xsl:variable>
+	<xsl:variable name="mask">
+		<xsl:value-of select="@mask"/>
+	</xsl:variable>
 	<xsl:variable name="ext">
 		<xsl:value-of select="translate(substring(@import,string-length(@import)-2),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
 	</xsl:variable>
 	<xsl:choose>
+		<xsl:when test="@mask">
+			<xsl:apply-templates select="swft:import-jpega($file,$mask)" mode="makeswf">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
 		<xsl:when test="$ext = 'jpg' or $ext = 'peg'">
 			<xsl:apply-templates select="swft:import-jpeg($file)" mode="makeswf">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
@@ -139,12 +147,64 @@
 	</DefineSprite>
 </xsl:template>
 
+<!-- JPEG-A import -->
+<xsl:template match="jpega" mode="makeswf">
+	<xsl:param name="id"/>
+	<xsl:variable name="bitmapID"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<xsl:variable name="shapeID"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+	<DefineBitsJPEG3 objectID="{$bitmapID}" offset_to_alpha="{@offset_to_alpha}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineBitsJPEG3>
+	<DefineShape objectID="{$shapeID}">
+		<bounds>
+			<Rectangle left="0" right="{@width}" top="0" bottom="{@height}"/>
+		</bounds>
+		<styles>
+			<StyleList>
+				<fillStyles>
+					<ClippedBitmap objectID="{$bitmapID}">
+						<matrix>
+							<Transform transX="0" transY="0"/>
+						</matrix>
+					</ClippedBitmap>
+				</fillStyles>
+				<lineStyles/>
+			</StyleList>
+		</styles>
+		<shapes>
+			<Shape>
+				<edges>
+					<ShapeSetup x="{@width}" y="{@height}" fillStyle1="1"/>
+					<LineTo x="-{@width}" y="0"/>
+					<LineTo x="0" y="-{@height}"/>
+					<LineTo x="{@width}" y="0"/>
+					<LineTo x="0" y="{@height}"/>
+					<ShapeSetup/>
+				</edges>
+			</Shape>
+		</shapes>
+	</DefineShape>
+	<DefineSprite objectID="{$id}" frames="1">
+		<tags>
+			<PlaceObject2 replace="0" depth="1" objectID="{$shapeID}">
+				<transform>
+					<Transform transX="0" transY="0" scaleX="20" scaleY="20"/>
+				</transform>
+			</PlaceObject2>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
+</xsl:template>
+
 <!-- PNG import -->
 <xsl:template match="png" mode="makeswf">
 	<xsl:param name="id"/>
 	<xsl:variable name="bitmapID"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
 	<xsl:variable name="shapeID"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
-	<DefineBitsLossless2 format="{@format}" width="{@width}" height="{@height}" objectID="{$bitmapID}">
+	<DefineBitsLossless2 format="{@format}" width="{@width}" height="{@height}" n_colormap="{@n_colormap}" objectID="{$bitmapID}">
 		<data>
 			<xsl:copy-of select="data"/>
 		</data>
