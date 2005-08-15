@@ -1,7 +1,7 @@
 # $Id: configure.ac,v 1.29 2005/06/01 10:16:06 dan Exp $
 AC_PREREQ(2.54)
 
-AC_INIT( swfmill, 0.2.8, dan@subsignal.org )
+AC_INIT( swfmill, 0.2.9, dan@subsignal.org )
 AM_INIT_AUTOMAKE( AC_PACKAGE_NAME, AC_PACKAGE_VERSION )
 
 # Checks for programs.
