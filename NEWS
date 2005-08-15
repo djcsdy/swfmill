@@ -1,3 +1,5 @@
+2005-08-15 release 0.2.9 'realign them bytes'
+	fix import of 8bit PNGs with widths not divisible by 4.
 
 2005-08-14 release 0.2.8 'rainy village'
 	support for importing SWFs with DefineFont2/3, DefineButton2,

@@ -158,8 +158,10 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	} else if( channels == 1 && rowbytes == w ) {
 		unsigned char *img_data = data;
 		format = 3;
+		int bpr = rowbytes;
+		bpr += 4 - (rowbytes % 4);
 		if( n_pal ) {
-			data_size = (4*n_pal) + (rowbytes*h);
+			data_size = (4*n_pal) + (bpr*h);
 			data = new unsigned char[ data_size ];
 			fprintf(stderr,"Importing 8bit palette PNG - %i colors\n", n_pal );
 			for( int i=0; i<n_pal; i++ ) {
@@ -171,7 +173,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 			}
 		} else {
 			n_pal = 0xff;
-			data_size = (4*n_pal) + (rowbytes*h);
+			data_size = (4*n_pal) + (bpr*h);
 			data = new unsigned char[ data_size ];
 			fprintf(stderr,"Importing 8bit grayscale PNG\n" );
 			for( int i=0; i<n_pal; i++ ) {
@@ -182,8 +184,17 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 				entry[3] = 0xff;
 			}
 		}
-		memcpy( &data[ (4*n_pal) ], img_data, rowbytes*h );
-
+		
+		/* copy row by row with 32bit alignment */
+		unsigned char *dst = &data[ (4*n_pal) ];
+		unsigned char *src = img_data;
+		memset( dst, 0, bpr*h );
+		for( int y=0; y<h; y++ ) {
+			memcpy( dst, src, rowbytes );
+			dst += bpr;
+			src += rowbytes;
+		}
+			
 		snprintf(tmp,TMP_STRLEN,"%i", n_pal-1 );
 		xmlSetProp( node, (const xmlChar *)"n_colormap", (const xmlChar *)&tmp );
 	} else {
