@@ -4,6 +4,10 @@ class org.swfmill.Foo extends MovieClip {
 	
 	function Foo() {
 			Main.debug("inheritance: OK");
+		/*
+			var png = _root.attachMovie("png","png",_root.getNextHighestDepth());
+			Main.debug("png size: "+png._width+"x"+png._height);
+		*/
 		}
 
 	function onRelease() {

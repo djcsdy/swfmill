@@ -159,11 +159,11 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		unsigned char *img_data = data;
 		format = 3;
 		int bpr = rowbytes;
-		bpr += 4 - (rowbytes % 4);
+		bpr += (rowbytes % 4) ? 4 - (rowbytes % 4) : 0;
 		if( n_pal ) {
 			data_size = (4*n_pal) + (bpr*h);
 			data = new unsigned char[ data_size ];
-			fprintf(stderr,"Importing 8bit palette PNG - %i colors\n", n_pal );
+			fprintf(stderr,"Importing 8bit palette PNG - %i colors, bpr %i\n", n_pal, bpr );
 			for( int i=0; i<n_pal; i++ ) {
 				unsigned char *entry = &data[(i*4)];
 				entry[2] = palette[i].blue;

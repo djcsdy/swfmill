@@ -1,3 +1,6 @@
+2005-09-03 release 0.2.10 'whoopsydaisy'
+	fix import of 8bit PNGs with width divisible by 4 (ahem).
+
 2005-08-15 release 0.2.9 'realign them bytes'
 	fix import of 8bit PNGs with widths not divisible by 4.
 
