@@ -25,7 +25,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	</xsl:for-each>
 -->
 	<!-- calculate end offsets for some lists -->
-	<xsl:for-each select="list[@end]">
+	<xsl:for-each select=".//list[@end]">
 		{
 			int r = 0;
 			<xsl:apply-templates select="." mode="size"/>
