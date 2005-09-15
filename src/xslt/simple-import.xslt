@@ -53,6 +53,11 @@
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
+		<xsl:when test="$ext = 'svg'">
+			<xsl:apply-templates select="document($file)" mode="svg">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
 		<xsl:otherwise>
 			<xsl:message>WARNING: Cannot import <xsl:value-of select="$file"/> (unknown extension), skipping.</xsl:message>
 		</xsl:otherwise>

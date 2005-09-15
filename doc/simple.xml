@@ -15,6 +15,12 @@
 		<attribute name="compressed" opt="true" def="1">
 			Wether to compress the movie with zlib compression.
 		</attribute>
+		<attribute name="version" opt="true" def="7">
+			Target SWF Version. Note that the simple dialect is targeted towards SWF7, so defining anything
+			else is unsupported. If you interleave your swfml-s with swfml-ll (put lowlevel tags into a simple xml),
+			take care to only use features available in the version specified. Anything else will likely crash
+			some flash players.
+		</attribute>
 	</tag>
 	
 	<tag name="background">
@@ -44,7 +50,7 @@
 		Else, the contents of the <ref/> tag make up the new movie clip.
 		
 		<attribute name="id">
-			a textual id for the clip. There should be no other clip with the same
+			a textual identifier for the clip. There should be no other clip with the same
 			id in the same document. If the <ref tag="clip"/> is placed inside
 			a <ref tag="library"/> tag, <ref attr="id"/> specifies the linkage-id
 			for attachMovie().
@@ -80,8 +86,14 @@
 
 	<tag name="place">
 		places the <ref tag="clip"/> specified by <ref attr="id"/> onto its parent
-		(the containing <ref tag="clip"/>), or the stage if the parent is a
+		(the containing <ref tag="clip"/>), or the stage (if the parent is a
 		<ref tag="movie"/>).
+		<attribute name="id">
+			textual identifier of the <ref tag="clip"/> to place. 
+			while the <ref tag="clip" attr="id"/> should be unique for <ref tag="clip"/>s,
+			within <ref tag="place"/> it should reference some already-defined clip. a single
+			clip can be placed more than once.
+		</attribute>
 	</tag>
 	
 	<tag name="library">

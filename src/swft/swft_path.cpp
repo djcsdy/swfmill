@@ -90,6 +90,10 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 	} else {
 		yofs = xofs = 0;
 	}
+/* maybe, unsure. should check FIXME
+	xofs*=20;
+	yofs*=20;
+*/
 	
 	styleString = xmlXPathPopString(ctx);
 	idString = xmlXPathPopString(ctx);
@@ -154,8 +158,6 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 				break;
 		}
 	}
-
-	shaper.finish();
 	
 	// make the shape xml
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
@@ -196,6 +198,8 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 		xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
 		snprintf(tmp,TMP_STRLEN,"%i", style.fill.a);
 		xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
+
+		shaper.close();
 	}
 
 	if( !style.no_stroke ) {
@@ -214,8 +218,9 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs ) {
 		snprintf(tmp,TMP_STRLEN,"%i", style.stroke.a);
 		xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
 	}
-		
+	
 		// the shape itself
+	shaper.finish();
 	node = xmlNewChild( shapeNode, NULL, (const xmlChar *)"shapes", NULL ); 
 
 	shape.writeXML( node, &swfctx );
@@ -537,10 +542,10 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		factorx = factory = 20;
 	
 		float scaleX, scaleY, skewX, skewY, transX, transY;
-		transX = e*factorx;
-		transY = f*factory;
 		scaleX = a;
 		scaleY = d;
+		transX = e*factorx;
+		transY = f*factory;
 		skewX = b;
 		skewY = c;
 	
@@ -560,7 +565,7 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs ) {
 		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 		
 	} else if( sscanf( (const char*)string, "translate(%f,%f)", &e, &f ) == 2 ) {
-		fprintf(stderr,"translate: %f %f, offset %f %f\n", e, f, xofs, yofs );
+//		fprintf(stderr,"translate: %f %f, offset %f %f\n", e, f, xofs, yofs );
 	
 		doc = xmlNewDoc( (const xmlChar *)"1.0");
 		doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"Transform", NULL );

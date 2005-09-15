@@ -37,7 +37,7 @@ char *skipws( char *p ) {
 
 char *parse_string( char *p, string& s ) {
 	s="";
-	while( *p && (isalnum(*p) || *p == '-' || *p == '#' || *p == '.') ) {
+	while( *p && (isalnum(*p) || *p == '-' || *p == '#' || *p == '.' || *p == '%') ) {
 		s.push_back(*p);
 		p++;
 	}
@@ -65,7 +65,7 @@ void parse_css_simple( const char *style_str, CSSStyle *style ) {
 		EXPECT(p,';');
 		if( value.length() == 0 || key.length() == 0 ) fail = true;
 
-		//std::cerr << "[" << key << "] " << value << " " << (fail?"FAIL":"OK") << std::endl;
+//		std::cerr << "[" << key << "] " << value << " " << (fail?"FAIL":"OK") << std::endl;
 		
 		if( true || !fail ) {
 			if( key == "fill" && value == "none" ) {

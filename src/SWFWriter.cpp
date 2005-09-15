@@ -1,5 +1,6 @@
 #include "SWFWriter.h"
 #include <string.h>
+#include <stdlib.h>
 
 namespace SWF {
 
@@ -135,8 +136,14 @@ void Writer::putNBitInt( int value, int n, bool is_signed ) {
 	}
 
 	// sanity check
-	if( value >= 1<<(n+(is_signed?1:0) ) ) {
-		fprintf(stderr,"WARNING: (%ssigned) value %i is too big to be represented in %i bits\n", is_signed?"":"un", value, n );
+	if( !is_signed || value >= 0 ) {
+		if( value >= (uint64_t)1<<(n+(is_signed?2:1) ) ) {
+			fprintf(stderr,"WARNING: (%ssigned) value %i is too big to be represented in %i bits (max %i)\n", is_signed?"":"un", value, n, 1<<(n+(is_signed?1:0) ) );
+		}
+	} else {
+		if( value < ((uint64_t)-1)<<(n+(is_signed?2:1) ) ) {
+			fprintf(stderr,"WARNING: (%ssigned) value %i is too small to be represented in %i bits (max %i)\n", is_signed?"":"un", value, n, 1<<(n+(is_signed?1:0) ) );
+		}
 	}
 	
 	if( n==(8-bits) ) {

@@ -2,5 +2,6 @@
 	<include src="simple-tools.xslt"/>
 	<include src="simple-elements.xslt"/>
 	<include src="simple-import.xslt"/>
+	<include src="simple-svg.xslt"/>
 	<include src="simple-deprecated.xslt"/>
 </compilation>

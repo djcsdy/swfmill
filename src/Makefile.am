@@ -29,8 +29,6 @@ BUILT_SOURCES = \
 	gSWFSize.cpp \
 	$(NULL)
 	
-CLEAN_FILES = xslt_simple2lowlevel.cpp xsl_svg2lowlevel.cpp
-
 # rule to build the generated sources from xsl
 #gSWFParseXML.cpp gSWFWriteXML.cpp gSWFParser.cpp gSWFWriter.cpp gSWFDumper.cpp gSWFBasics.cpp gSWFSize.cpp : xsl/mk.xsl xsl/source.xml xsl/basic.xsl xsl/basics.xsl xsl/header.xsl xsl/parser.xsl xsl/parsexml.xsl xsl/size.xsl xsl/writer.xsl xsl/writexml.xsl
 #	xsltproc xsl/mk.sh xsl/source.xml

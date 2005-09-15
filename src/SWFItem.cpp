@@ -6,9 +6,35 @@
 
 namespace SWF {
 
-// ------------ utility function
+// ------------ utility functions
+	
+int swf_get_bits_needed_for_uint( uint64_t value ) {
+	int i=0;
+	while( value > 0 ) {
+		value >>= 1;
+		i++;
+	}
+	return i;
+}
 
+int swf_get_bits_needed_for_int( int64_t value ) {
+	if( value < 0 )
+		/* XXX one more than necessary if num = -2^n */
+		return swf_get_bits_needed_for_uint( -value ) + 1;
+	else
+		return swf_get_bits_needed_for_uint( value ) + 1;
+}
+
+int swf_get_bits_needed_for_fp( double value ) {
+	return swf_get_bits_needed_for_int( (int64_t)(value * 65536.0) );
+}
+	
 int SWFBitsNeeded( int32_t value, bool is_signed ) {
+	if( is_signed ) 
+		return swf_get_bits_needed_for_int( value );
+	else
+		return swf_get_bits_needed_for_uint( value );
+	/*
 	long cnt;
 	if( is_signed ) {
 		if(value < 0) {
@@ -52,6 +78,7 @@ int SWFBitsNeeded( int32_t value, bool is_signed ) {
 		if( value == 0 ) return cnt+1;
 	}
 	return cnt;
+	*/
 }
 
 long SWFMaxBitsNeeded( bool is_signed, int how_many, ... ) {

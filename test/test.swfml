@@ -14,7 +14,7 @@
 			<clip id="swf" class="org.swfmill.Foo" import="library/star.swf"/>
 		</library>
 		<font id="vera" import="library/vera.ttf"
-			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!&#x26;&#x22;+"/>
+			glyphs="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ÄÖÜäöüß .:!&#x26;&#x22;+=?-"/>
 
 	<frame>
 		<place name="jpg" id="jpg" x="10" y="10" depth="1" scale="0.5"/>
@@ -64,6 +64,7 @@
 			text="JPEG+A"
 			/>
 		<place id="jpegatext" x="360" y="60" depth="12"/>
+		
 		<place id="swf" x="0" y="80" depth="19" scale="10" name="star">
 			<string name="text2" value="Hello World!"/>
 		</place>
@@ -74,7 +75,6 @@
 			text="SWF"
 			/>
 		<place id="swftext" x="10" y="140" depth="20"/>
-	
 	
 		<textfield id="text" 
 			width="110" height="50" 
