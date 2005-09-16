@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
+#include <math.h>
 
 #include "SWF.h"
 #include <ft2build.h>
@@ -82,7 +83,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 		fprintf( stderr, "WARNING: %s doesn't seem to contain a unicode charmap.\n", filename );
 	}
 
-	FT_Set_Char_Size(face, 1024<<6, 1024<<6, 72, 72);
+	FT_Set_Char_Size(face, (1024<<6), (1024<<6), 72, 72);
 
 	// count availably glyphs, yes we have to load them to check if they're empty, sorry.
 	nGlyphs = 0;
@@ -131,9 +132,9 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	tag->setglyphCount( nGlyphs );
 	
 	tag->sethasLayout( 1 );
-	tag->setascent( face->ascender * 1024 / face->units_per_EM );
-	tag->setdescent( labs(face->descender)* 1024 / face->units_per_EM );
-	tag->setleading( face->height* 1024 / face->units_per_EM );
+	tag->setascent( 1+(face->ascender * 1024 / face->units_per_EM) );
+	tag->setdescent( 1+(labs(face->descender)* 1024 / face->units_per_EM) );
+	tag->setleading( 1+(face->height * 1024 / face->units_per_EM) );
 	tag->setwideGlyphOffsets( 1 );
 	tag->setwideMap( 1 );
 	
@@ -167,10 +168,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 
 		if( !emptyGlyph( face, character ) ) {
 			outline = &face->glyph->outline;
-//			fprintf(stderr,"%i importing glyph %i ('%c') of %s (advance %i, %i points)\n", glyph, character, character, filename, face->glyph->advance.x, outline->n_points );
+	//		fprintf(stderr,"%i importing glyph %i ('%c') of %s (advance %i, %i points)\n", glyph, character, character, filename, face->glyph->advance.x, outline->n_points );
 
 			Short *adv = new Short();
-			adv->setvalue( (short)(face->glyph->advance.x * (1.0/64)) );
+			adv->setvalue( (short)2+floor(face->glyph->advance.x >> 6) );
 			advance->append(adv);
 			
 			Rectangle *r = new Rectangle();

@@ -238,7 +238,7 @@
 		readOnly="0" autoSize="0" hasLayout="1"
 		notSelectable="0" hasBorder="0" isHTML="0" useOutlines="1" 
 		fontRef="{swft:map-id(@font)}" fontHeight="{$size}"
-		align="0" leftMargin="0" rightMargin="0" indent="0" leading="40" 
+		align="0" leftMargin="0" rightMargin="0" indent="0" leading="0" 
 		variableName="{@name}" initialText="{@text}">
 		<size>
 			<Rectangle left="{$x}" right="{$x + $width}" top="{$y}" bottom="{$y + $height}"/>
