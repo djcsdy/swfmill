@@ -43,7 +43,54 @@
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="svg:g" mode="svg-inner">
+<xsl:template match="svg:g[@regard-pivot]" mode="svg-inner">
+	<xsl:param name="id"/>
+	<xsl:param name="name"/>
+	<xsl:variable name="subid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
+		
+	<xsl:message>PY: <xsl:value-of select="@inkscape:py"/></xsl:message>
+		
+	<xsl:variable name="xoffset">
+		<xsl:value-of select="@inkscape:px"/>
+	</xsl:variable>
+	<xsl:variable name="yoffset">
+		<xsl:value-of select="@inkscape:py"/>
+	</xsl:variable>
+
+	<DefineSprite objectID="{$subid}" frames="1">
+		<tags>
+			<xsl:apply-templates mode="svg"/>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
+
+	<DefineSprite objectID="{$id}" frames="1">
+		<tags>
+			<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$subid}">
+				<transform>
+					<xsl:choose>
+						<xsl:when test="@transform">
+							<xsl:copy-of select="swft:transform(@transform,-$xoffset,-$yoffset)"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<Transform transX="{$xoffset * -20}" transY="{$yoffset * -20}"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</transform>
+			</PlaceObject2>
+			<ShowFrame/>
+			<End/>
+		</tags>
+	</DefineSprite>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" objectID="{$id}">
+		<transform>
+			<Transform transX="{$xoffset * 20}" transY="{$yoffset * 20}"/>
+		</transform>
+	</PlaceObject2>
+</xsl:template>
+
+<xsl:template match="svg:g" mode="svg-inner" priority="-1">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
 	<xsl:variable name="subid"><xsl:value-of select="swft:next-id()"/></xsl:variable> 
