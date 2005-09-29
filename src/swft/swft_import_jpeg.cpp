@@ -1,5 +1,6 @@
 #include <libxslt/extensions.h>
 #include <libxslt/xsltutils.h>
+#include <libxslt/variables.h>
 #include <libxml/xpathInternals.h>
 #include "swft.h"
 #include <sys/types.h>
@@ -47,7 +48,12 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	tctx = xsltXPathGetTransformContext(ctx);
 	
 	filename = obj->stringval;
-		
+
+	bool quiet = true;
+	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
+	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
+
+	
 	FILE *fp = fopen( (const char *)filename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
@@ -99,6 +105,10 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 		goto fail;
 	}
 
+	if( !quiet ) {
+		fprintf(stderr,"Importing JPEG: '%s'\n",filename);
+	}
+	
 	swft_addData( node, (char*)data, size+ofs );
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 

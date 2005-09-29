@@ -52,8 +52,8 @@ void usage() {
 		"\n"
 		"<option>s are:\n"
 		"    -h print this help and quit\n"
-		"    -q be quiet, only print errors and warnings\n"
-		"    -v verbose output (for debugging)\n"
+		"    -v verbose output\n"
+		"    -V extra-verbose debugging output\n"
 		"    -d dump SWF data when loaded (for debugging)\n"
 		"\n"
 		"E-mail bug reports to "PACKAGE_BUGREPORT"\n\n"
@@ -177,13 +177,12 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 				goto fail;
 			}
 
-			char *params[3];
-			params[0] = NULL;
-			
+			const char *params[3];
+			params[0] = "quiet";
+			params[1] = "\"false\"";
+			params[2] = NULL;
 			if( quiet ) {
-				params[0] = "quiet";
-				params[1] = "true";
-				params[2] = NULL;
+				params[1] = "\"true\"";
 			}
 			doc2 = xsltApplyStylesheet( transform, doc, (const char **)&params );
 
@@ -229,6 +228,14 @@ int swfmill_xslt( int argc, char *argv[] ) {
 	Context ctx;
 	int size;
 
+	const char *params[3];
+	params[0] = "quiet";
+	params[1] = "\"FALSE\"";
+	params[2] = NULL;
+	if( quiet ) {
+		params[1] = "\"FALSE\"";
+	}
+	
 // setup context
 	ctx.debugTrace = verbose;
 	ctx.quiet = quiet;
@@ -255,7 +262,7 @@ int swfmill_xslt( int argc, char *argv[] ) {
 	}
 	
 	if( !quiet ) fprintf( stderr, "Applying XSLT %s to %s...\n", xslfile, infile );
-	doc2 = xsltApplyStylesheet( transform, doc, NULL );
+	doc2 = xsltApplyStylesheet( transform, doc, params );
 	
 	if( !doc2 ) {
 		fprintf( stderr, "ERROR: transformation failed.\n" );
@@ -301,6 +308,8 @@ int main( int argc, char *argv[] ) {
 	swft_register();
 	exsltRegisterAll();
 
+	quiet = true;
+	
 // parse args
 	int i=1;
 	for( ; i<argc && command==NULL; i++ ) {
@@ -312,6 +321,9 @@ int main( int argc, char *argv[] ) {
 						quiet = true;
 						break;
 					case 'v':
+						quiet = false;
+						break;
+					case 'V':
 						verbose = true;
 						break;
 					case 'd':

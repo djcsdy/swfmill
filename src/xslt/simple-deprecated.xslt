@@ -8,7 +8,9 @@
 
 <!-- set -->
 <xsl:template match="set">
-	<xsl:message>"set" is deprecated, please use assignments in place</xsl:message>
+	<xsl:if test="$quiet != 'true'">
+		<xsl:message>"set" is deprecated, please use assignments in place</xsl:message>
+	</xsl:if>
 	
 	<xsl:variable name="spriteid">
 		<xsl:value-of select="swft:next-id()"/>

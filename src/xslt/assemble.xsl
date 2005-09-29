@@ -16,7 +16,12 @@
 			<xsl:attribute name="method">xml</xsl:attribute>
 			<xsl:attribute name="indent">yes</xsl:attribute>
 		</xsl:element>
-		
+
+		<xsl:element name="xsl:param">
+			<xsl:attribute name="name">quiet</xsl:attribute>
+			<xsl:attribute name="select">'false'</xsl:attribute>
+		</xsl:element>
+
 		<xsl:apply-templates/>
 		
 	</xsl:element>

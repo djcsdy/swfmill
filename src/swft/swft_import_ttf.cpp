@@ -1,5 +1,6 @@
 #include <libxslt/extensions.h>
 #include <libxslt/xsltutils.h>
+#include <libxslt/variables.h>
 #include <libxml/xpathInternals.h>
 #include "swft.h"
 #include <sys/types.h>
@@ -144,11 +145,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	tag->sethasLayout( 1 );
 	
 #define SCALING_FACTOR ((int)1024)
-/*
-	tag->setascent( 1+(face->ascender * 1024 / face->units_per_EM) );
-	tag->setdescent( 1+(labs(face->descender)* 1024 / face->units_per_EM) );
-	tag->setleading( 1+(face->height * 1024 / face->units_per_EM) );
-*/
+
 	tag->setascent( 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
 	tag->setdescent( 1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM );
 	tag->setleading( 1+(SCALING_FACTOR * face->height) / face->units_per_EM );
@@ -159,9 +156,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	if( face->style_flags & FT_STYLE_FLAG_ITALIC ) tag->setitalic(true);
 	if( face->style_flags & FT_STYLE_FLAG_BOLD ) tag->setbold(true);
 	tag->setname( face->family_name );
-/*	
-	ctx is ad-hoc, it doesnt reflect the outer ctx...
-*/	if( !ctx->quiet ) {
+
+	if( !ctx->quiet ) {
 		fprintf( stderr, "Importing font %s - %s%s%s (%i glyphs)\n", filename, face->family_name,
 					face->style_flags & FT_STYLE_FLAG_BOLD ? " bold" : "",
 					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "",
@@ -303,6 +299,11 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 		
 	tctx = xsltXPathGetTransformContext(ctx);
+	
+	bool quiet = true;
+	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
+	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
+	swfctx.quiet = quiet;
 	
 	filename = obj->stringval;
 	

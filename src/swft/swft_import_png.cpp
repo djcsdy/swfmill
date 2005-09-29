@@ -1,6 +1,7 @@
 #include <libxslt/extensions.h>
 #include <libxslt/xsltutils.h>
 #include <libxml/xpathInternals.h>
+#include <libxslt/variables.h>
 #include "swft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -89,7 +90,12 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	tctx = xsltXPathGetTransformContext(ctx);
 	
 	filename = obj->stringval;
-		
+
+	bool quiet = true;
+	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
+	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
+
+	
 	FILE *fp = fopen( (const char *)filename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
@@ -125,10 +131,11 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 
 	data = readpng_get_image( 2.2, &channels, &rowbytes, &palette, &n_pal );
 	
-	fprintf(stderr,"Importing %i channels, %i bytes/row PNG (%i bit/pixel) \n", channels, rowbytes, (rowbytes*8)/w );
+	if( !quiet ) {
+		fprintf(stderr,"Importing %i channels, %i bytes/row PNG (%i bit/pixel) '%s'\n", channels, rowbytes, (rowbytes*8)/w, filename );
+	}
 	
 	if( channels == 4 && rowbytes == (4*w) ) {
-	fprintf(stderr,"Importing 32bit PNG\n");
 		int c;
 		float a;
 		unsigned char r,g,b;
@@ -144,7 +151,6 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		}
 		data_size = w*h*4;
 	} else if( channels == 3 && rowbytes == (3*w) ) {
-	fprintf(stderr,"Importing 24bit PNG\n");
 		unsigned char *rgba = new unsigned char[ w*h*4 ];
 		
 		for( int i=0; i<w*h; i++ ) {
@@ -163,7 +169,6 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		if( n_pal ) {
 			data_size = (4*n_pal) + (bpr*h);
 			data = new unsigned char[ data_size ];
-			fprintf(stderr,"Importing 8bit palette PNG - %i colors, bpr %i\n", n_pal, bpr );
 			for( int i=0; i<n_pal; i++ ) {
 				unsigned char *entry = &data[(i*4)];
 				entry[2] = palette[i].blue;
@@ -175,7 +180,6 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 			n_pal = 0xff;
 			data_size = (4*n_pal) + (bpr*h);
 			data = new unsigned char[ data_size ];
-			fprintf(stderr,"Importing 8bit grayscale PNG\n" );
 			for( int i=0; i<n_pal; i++ ) {
 				unsigned char *entry = &data[(i*4)];
 				entry[2] = i;
