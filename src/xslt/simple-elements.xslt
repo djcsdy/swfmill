@@ -240,10 +240,26 @@
 		notSelectable="0" hasBorder="0" isHTML="0" useOutlines="1" 
 		align="0" leftMargin="0" rightMargin="0" indent="0" leading="0" 
 		wordWrap="1" multiLine="1" password="0" 
-		variableName="{@name}" initialText="{@text}">
+		variableName="{@name}" 
+		>
 		<xsl:for-each select="@wordWrap|@multiLine|@password|@readOnly|@autoSize|@notSelectable|@hasBorder|@isHTML|@useOutlines|@align|@leftMargin|@rightMargin|@indent|@leading">
 			<xsl:copy-of select="."/>
 		</xsl:for-each>
+		<xsl:choose>
+			<xsl:when test="text()">
+				<xsl:attribute name="initialText">
+					<xsl:apply-templates select="*|text()" mode="htmltext"/>
+					<xsl:message>
+						<xsl:apply-templates select="*|text()" mode="htmltext"/>
+					</xsl:message>
+				</xsl:attribute>
+			</xsl:when>
+			<xsl:when test="@text">
+				<xsl:attribute name="initialText">
+					<xsl:value-of select="@text"/>
+				</xsl:attribute>
+			</xsl:when>
+		</xsl:choose>
 		<size>
 			<Rectangle left="{$x}" right="{$x + $width}" top="{$y}" bottom="{$y + $height}"/>
 		</size>
@@ -252,6 +268,27 @@
 		</color>
 	</DefineEditText>
 
+</xsl:template>
+
+<xsl:template match="*" mode="htmltext">
+	<xsl:text>&lt;</xsl:text>
+	<xsl:value-of select="name()"/>
+		<xsl:apply-templates select="@*"/>
+	<xsl:text>&gt;</xsl:text>
+		<xsl:apply-templates select="*|text()" mode="htmltext"/>
+	<xsl:text>&lt;/</xsl:text>
+	<xsl:value-of select="name()"/>
+	<xsl:text>&gt;</xsl:text>
+</xsl:template>
+<xsl:template match="@*" mode="htmltext">
+	<xsl:text> </xsl:text>
+	<xsl:value-of select="name()"/>
+	<xsl:text>=&quot;</xsl:text>
+	<xsl:value-of select="."/>
+	<xsl:text>&quot;</xsl:text>
+</xsl:template>
+<xsl:template match="text()" mode="htmltext">
+	<xsl:value-of select="."/>
 </xsl:template>
 
 <!-- video object -->
