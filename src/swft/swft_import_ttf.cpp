@@ -54,7 +54,7 @@ int compareGlyphs( const void *a, const void *b ) {
 	return( _a - _b );
 }
 
-void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *glyphs_xml, Context *ctx ) {
+void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx ) {
 	FT_Library swfft_library;
 	FT_Face face;
 	int error;
@@ -125,7 +125,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 		
 		nGlyphs = 0;
 		for( int i=0; i<nGlyphs_; i++ ) {
-			glyph_index = FT_Get_Char_Index( face, character );
+			glyph_index = FT_Get_Char_Index( face, glyphs[i] );
 			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
 				fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
 				goto fail;
@@ -155,10 +155,11 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	
 	if( face->style_flags & FT_STYLE_FLAG_ITALIC ) tag->setitalic(true);
 	if( face->style_flags & FT_STYLE_FLAG_BOLD ) tag->setbold(true);
-	tag->setname( face->family_name );
+	if( !fontname ) fontname = face->family_name;
+	tag->setname( strdup(fontname) );
 
 	if( !ctx->quiet ) {
-		fprintf( stderr, "Importing TTF: '%s' - '%s'%s%s (%i glyphs)\n", filename, face->family_name,
+		fprintf( stderr, "Importing TTF: '%s' - '%s'%s%s (%i glyphs)\n", filename, fontname,
 					face->style_flags & FT_STYLE_FLAG_BOLD ? " bold" : "",
 					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "",
 					nGlyphs );
@@ -274,30 +275,25 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	char tmp[TMP_STRLEN];
 	xmlChar *glyphs = NULL;
 	
-	if( nargs == 2 ) {
-		xmlXPathStringFunction(ctx, 1);
-		obj = valuePop(ctx);
-		if( obj->stringval ) glyphs = xmlStrdup(obj->stringval);
-		if( xmlStrlen(glyphs) == 0 ) {
-			// import all glyphs
-			xmlFree(glyphs);
-			glyphs=NULL;
-		}
+	const char *fontname = NULL;
+	
+	if( (nargs < 1) || (nargs > 3) ) {
+		xmlXPathSetArityError(ctx);
+		return;
 	}
+	
+	if( nargs >= 3 ) {
+		fontname = (const char *)xmlXPathPopString(ctx);
+		if( fontname[0] == 0 ) fontname = NULL;
+	}
+	if( nargs >= 2 ) {
+		glyphs = xmlXPathPopString(ctx);
+	}
+	filename = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) )
+		return;
 
-	xmlXPathStringFunction(ctx, 1);
-	if (ctx->value->type != XPATH_STRING) {
-		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:import-ttf() : invalid arg expecting a string\n");
-		ctx->error = XPATH_INVALID_TYPE;
-		return;
-	}
-	obj = valuePop(ctx);
-	if (obj->stringval == NULL) {
-		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
-	}
-		
+	
 	tctx = xsltXPathGetTransformContext(ctx);
 	
 	bool quiet = true;
@@ -305,7 +301,6 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
 	swfctx.quiet = quiet;
 	
-	filename = obj->stringval;
 	
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar*)"ttf", NULL );
@@ -316,7 +311,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	// create the font tag
 	tag = new DefineFont2;
-	importDefineFont2( tag, (const char *)filename, glyphs, &swfctx );
+	importDefineFont2( tag, (const char *)filename, fontname, glyphs, &swfctx );
 	tag->writeXML( node, &swfctx );
 
 /*

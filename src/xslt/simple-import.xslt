@@ -48,11 +48,13 @@
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
+		<!-- this is stupid, shouldnt be used.
 		<xsl:when test="$ext = 'ttf'">
-			<xsl:apply-templates select="swft:import-ttf($file,@glyphs)" mode="makeswf">
+			<xsl:apply-templates select="swft:import-ttf($file,@glyphs,'hello')" mode="makeswf">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
+		-->
 		<xsl:when test="$ext = 'svg'">
 			<xsl:apply-templates select="document($file)" mode="svg">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
@@ -90,7 +92,7 @@
 		<xsl:value-of select="@import"/>
 	</xsl:variable>
 	
-	<xsl:apply-templates select="swft:import-ttf($file,@glyphs)" mode="makeswf">
+	<xsl:apply-templates select="swft:import-ttf($file,@glyphs,@name)" mode="makeswf">
 		<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 	</xsl:apply-templates>
 	<xsl:if test="ancestor::library">
