@@ -234,12 +234,16 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<DefineEditText objectID="{$id}" wordWrap="1" multiLine="1" password="0" 
+	<DefineEditText objectID="{$id}"
+		fontRef="{swft:map-id(@font)}" fontHeight="{$size}"
 		readOnly="0" autoSize="0" hasLayout="1"
 		notSelectable="0" hasBorder="0" isHTML="0" useOutlines="1" 
-		fontRef="{swft:map-id(@font)}" fontHeight="{$size}"
 		align="0" leftMargin="0" rightMargin="0" indent="0" leading="0" 
+		wordWrap="1" multiLine="1" password="0" 
 		variableName="{@name}" initialText="{@text}">
+		<xsl:for-each select="@wordWrap|@multiLine|@password|@readOnly|@autoSize|@notSelectable|@hasBorder|@isHTML|@useOutlines|@align|@leftMargin|@rightMargin|@indent|@leading">
+			<xsl:copy-of select="."/>
+		</xsl:for-each>
 		<size>
 			<Rectangle left="{$x}" right="{$x + $width}" top="{$y}" bottom="{$y + $height}"/>
 		</size>
