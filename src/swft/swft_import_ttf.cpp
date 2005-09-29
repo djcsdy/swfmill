@@ -47,6 +47,12 @@ bool emptyGlyph( FT_Face face, FT_ULong wc ) {
 	return( wc != 32 && face->glyph->outline.n_points == 0 );
 }
 
+int compareGlyphs( const void *a, const void *b ) {
+	int _a = *(int*)a;
+	int _b = *(int*)b;
+	return( _a - _b );
+}
+
 void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *glyphs_xml, Context *ctx ) {
 	FT_Library swfft_library;
 	FT_Face face;
@@ -101,30 +107,34 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 			if( !emptyGlyph( face, character ) ) nGlyphs++;
 		}
 	} else {
-		nGlyphs = xmlUTF8Strlen( glyphs_xml );
-		
-		glyphs = new int[nGlyphs];
-		
-		// RealStupidSort(TM) FIXME
-		for( int i=0; i<nGlyphs; i++ ) glyphs[i]=-1;
-
-		int len=0, idx=0, g;
+		int nGlyphs_ = xmlUTF8Strlen( glyphs_xml );
+		glyphs = new int[nGlyphs_];
+		int len=0, idx=0;
 		const unsigned char *str;
-		for( int i=0; i<nGlyphs; i++ ) {
+		
+		for( int i=0; i<nGlyphs_; i++ ) {
 			str = (const unsigned char *)&glyphs_xml[idx];
-
 			len=4;
-			g=xmlGetUTF8Char( str, &len );
+			glyphs[i]=xmlGetUTF8Char( str, &len );
 			idx+=len;
-			
-			int j=0;
-			while( glyphs[j] < g && glyphs[j]!=-1) j++;
-			if( glyphs[j] != -1 ) {
-				for( int k=nGlyphs-1; k>j; k-- ) {
-					glyphs[k]=glyphs[k-1];
-				}
+		}
+
+		// sort the list of glyphs
+		qsort( glyphs, nGlyphs_, sizeof(int), compareGlyphs );
+		
+		nGlyphs = 0;
+		for( int i=0; i<nGlyphs_; i++ ) {
+			glyph_index = FT_Get_Char_Index( face, character );
+			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
+				fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
+				goto fail;
 			}
-			glyphs[j] = g;
+			if( face->glyph->format != FT_GLYPH_FORMAT_OUTLINE ) {
+				fprintf( stderr, "WARNING: %s seems to be a bitmap font.\n", filename );
+				goto fail;
+			}
+			if( !emptyGlyph( face, glyphs[i] ) ) 
+				nGlyphs++;
 		}
 	}
 		
@@ -132,9 +142,17 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	tag->setglyphCount( nGlyphs );
 	
 	tag->sethasLayout( 1 );
+	
+#define SCALING_FACTOR ((int)1024)
+/*
 	tag->setascent( 1+(face->ascender * 1024 / face->units_per_EM) );
 	tag->setdescent( 1+(labs(face->descender)* 1024 / face->units_per_EM) );
 	tag->setleading( 1+(face->height * 1024 / face->units_per_EM) );
+*/
+	tag->setascent( 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
+	tag->setdescent( 1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM );
+	tag->setleading( 1+(SCALING_FACTOR * face->height) / face->units_per_EM );
+	
 	tag->setwideGlyphOffsets( 1 );
 	tag->setwideMap( 1 );
 	
@@ -143,12 +161,13 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	tag->setname( face->family_name );
 /*	
 	ctx is ad-hoc, it doesnt reflect the outer ctx...
-	if( !ctx->quiet ) {
-		fprintf( stderr, "Importing font %s - %s%s%s\n", filename, face->family_name,
+*/	if( !ctx->quiet ) {
+		fprintf( stderr, "Importing font %s - %s%s%s (%i glyphs)\n", filename, face->family_name,
 					face->style_flags & FT_STYLE_FLAG_BOLD ? " bold" : "",
-					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "" );
+					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "",
+					nGlyphs );
 	}
-*/
+
 	character = FT_Get_First_Char( face, &glyph_index );
 	for( glyph=0; character && glyph<nGlyphs; ) {
 		if( glyphs ) {
@@ -171,7 +190,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	//		fprintf(stderr,"%i importing glyph %i ('%c') of %s (advance %i, %i points)\n", glyph, character, character, filename, face->glyph->advance.x, outline->n_points );
 
 			Short *adv = new Short();
-			adv->setvalue( (short)2+floor(face->glyph->advance.x >> 6) );
+			adv->setvalue( (short)(2+floor(face->glyph->advance.x >> 6)) );
 			advance->append(adv);
 			
 			Rectangle *r = new Rectangle();
