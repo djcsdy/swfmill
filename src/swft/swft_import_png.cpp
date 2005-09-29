@@ -27,7 +27,7 @@ bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBu
 	
 	status = deflateInit( &stream, Z_BEST_COMPRESSION );
 	if( status != Z_OK ) {
-		fprintf( stderr, "Error compressing PNG (1): %s\n", stream.msg );
+		fprintf( stderr, "ERROR: compressing PNG (1): %s\n", stream.msg );
 		return false;
 	}
 	
@@ -37,7 +37,7 @@ bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBu
 		status = deflate( &stream, Z_NO_FLUSH );
 		
 		if( status != Z_OK ) {
-			fprintf( stderr, "Error compressing PNG (2): %s\n", stream.msg );
+			fprintf( stderr, "ERROR: compressing PNG (2): %s\n", stream.msg );
 			return false;
 		}
 	}
@@ -47,14 +47,14 @@ bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBu
 	} while( status == Z_OK );
 	
 	if( status != Z_STREAM_END ) {
-		fprintf( stderr, "Error compressing PNG (3): %s\n", stream.msg );
+		fprintf( stderr, "ERROR: compressing PNG (3): %s\n", stream.msg );
 		return false;
 	}
 
 	status = deflateEnd(&stream);
 
 	if( status != Z_OK ) {
-		fprintf( stderr, "Error compressing PNG (4): %s\n", stream.msg );
+		fprintf( stderr, "ERROR: compressing PNG (4): %s\n", stream.msg );
 		return false;
 	}
 	
@@ -132,7 +132,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	data = readpng_get_image( 2.2, &channels, &rowbytes, &palette, &n_pal );
 	
 	if( !quiet ) {
-		fprintf(stderr,"Importing %i channels, %i bytes/row PNG (%i bit/pixel) '%s'\n", channels, rowbytes, (rowbytes*8)/w, filename );
+		fprintf(stderr,"Importing PNG: '%s' (%i bit/pixel)\n", filename, (rowbytes*8)/w );
 	}
 	
 	if( channels == 4 && rowbytes == (4*w) ) {

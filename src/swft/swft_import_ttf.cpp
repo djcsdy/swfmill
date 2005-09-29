@@ -158,7 +158,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const xmlChar *g
 	tag->setname( face->family_name );
 
 	if( !ctx->quiet ) {
-		fprintf( stderr, "Importing font %s - %s%s%s (%i glyphs)\n", filename, face->family_name,
+		fprintf( stderr, "Importing TTF: '%s' - '%s'%s%s (%i glyphs)\n", filename, face->family_name,
 					face->style_flags & FT_STYLE_FLAG_BOLD ? " bold" : "",
 					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "",
 					nGlyphs );

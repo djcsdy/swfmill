@@ -106,7 +106,7 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 
 	if( !quiet ) {
-		fprintf(stderr,"Importing JPEG: '%s'\n",filename);
+		fprintf(stderr,"Importing JPG: '%s'\n",filename);
 	}
 	
 	swft_addData( node, (char*)data, size+ofs );
