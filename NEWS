@@ -1,3 +1,16 @@
+2005-09-30 release 0.2.11 "the poodle's kern"
+	fix action lists in placeobject events;
+	bits calculation more precise (a few less bits needed here and there);
+	correct rounding errors and other improvements in font import;
+	limited SVG import works;
+	(incomplete) handling of svg:use and svg:text;
+	improved debugging output, default is now to be quiet, use -v;
+	integrated font metrics fixes from smash (Herman Narkaytis);
+	inherit all attributes from textfield to DefineEditText;
+	textfield takes its children as html text (alternative to @text);
+	allow override of font family name with @name;
+	import font kerning adjustments.
+
 2005-09-03 release 0.2.10 'whoopsydaisy'
 	fix import of 8bit PNGs with width divisible by 4 (ahem).
 
