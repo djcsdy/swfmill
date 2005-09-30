@@ -62,10 +62,12 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	FT_ULong character;
 	FT_Outline *outline;
 	int *glyphs = NULL;
+	int i=0;
 	
 	GlyphList *glyphList = tag->getglyphs();
 	List<Short>* advance = tag->getadvance();
 	List<Rectangle>* bounds = tag->getbounds();
+	List<WideKerning>* kernings = tag->getwideKerning();
 	// NYI: kerning
 	
 	GlyphShape *shape;
@@ -105,8 +107,18 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 				fprintf( stderr, "WARNING: %s seems to be a bitmap font.\n", filename );
 				goto fail;
 			}
-			if( !emptyGlyph( face, character ) ) nGlyphs++;
+			//if( !emptyGlyph( face, character ) ) 
+				nGlyphs++;
 		}
+		
+		glyphs = new int[nGlyphs+1];
+		i=0;
+		if( (character = FT_Get_First_Char( face, &glyph_index )) != 0 ) glyphs[i++] = character;
+		while( (character = FT_Get_Next_Char( face, character, &glyph_index )) != 0 ) {
+			//if( !emptyGlyph( face, character ) )
+			glyphs[i++] = character;
+		}
+
 	} else {
 		int nGlyphs_ = xmlUTF8Strlen( glyphs_xml );
 		glyphs = new int[nGlyphs_];
@@ -123,7 +135,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		// sort the list of glyphs
 		qsort( glyphs, nGlyphs_, sizeof(int), compareGlyphs );
 		
-		nGlyphs = 0;
 		for( int i=0; i<nGlyphs_; i++ ) {
 			glyph_index = FT_Get_Char_Index( face, glyphs[i] );
 			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
@@ -134,7 +145,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 				fprintf( stderr, "WARNING: %s seems to be a bitmap font.\n", filename );
 				goto fail;
 			}
-			if( !emptyGlyph( face, glyphs[i] ) ) 
+			//if( !emptyGlyph( face, glyphs[i] ) ) 
 				nGlyphs++;
 		}
 	}
@@ -165,12 +176,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 					nGlyphs );
 	}
 
-	character = FT_Get_First_Char( face, &glyph_index );
-	for( glyph=0; character && glyph<nGlyphs; ) {
-		if( glyphs ) {
-			character = glyphs[glyph];
-			glyph_index = FT_Get_Char_Index( face, character );
-		}
+	for( glyph=0; glyph<nGlyphs; glyph++ ) {
+
+		character = glyphs[glyph];
+		glyph_index = FT_Get_Char_Index( face, character );
 		
 		if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
 			fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
@@ -182,77 +191,90 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 			goto fail;
 		}
 
-		if( !emptyGlyph( face, character ) ) {
-			outline = &face->glyph->outline;
-	//		fprintf(stderr,"%i importing glyph %i ('%c') of %s (advance %i, %i points)\n", glyph, character, character, filename, face->glyph->advance.x, outline->n_points );
+		outline = &face->glyph->outline;
+//			fprintf(stderr,"%i importing glyph %i ('%c') of %s (advance %i, %i points)\n", glyph, character, character, filename, face->glyph->advance.x, outline->n_points );
 
-			Short *adv = new Short();
-			adv->setvalue( (short)(2+floor(face->glyph->advance.x >> 6)) );
-			advance->append(adv);
-			
-			Rectangle *r = new Rectangle();
-/*			r->settop( -face->bbox.yMax * 1024 / face->units_per_EM );
-			r->setright( face->bbox.xMax - face->bbox.xMin );
-			r->setbottom( -face->bbox.yMin * 1024 / face->units_per_EM );
-*/			r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
-			bounds->append(r);
-			
-			glyphList->setMapN(glyph, character);
-			shape = glyphList->getShapeN(glyph);
-			ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
-			shaper.setStyle( 1, -1, -1 );
-			
-/* FIXME this has no effect, done elsewhere
-			shape->setfillBits(1);
-			shape->setlineBits(0);
-*/
-			int start = 0, end;
-			bool control, cubic;
-			int n;
-			for( int contour = 0; contour < outline->n_contours; contour++ ) {
-				end = outline->contours[contour];
-				n=0;
-
-				for( int p = start; p<=end; p++ ) {
-					control = !(outline->tags[p] & 0x01);
-					cubic = outline->tags[p] & 0x02;
-					
-					if( p==start ) {
-						shaper.setup( outline->points[p-n].x, outline->points[p-n].y );
-					}
-					
-					if( !control && n > 0 ) {
-						importGlyphPoints( &(outline->points[(p-n)+1]), n-1, shaper, cubic );
-						n=1;
-					} else {
-						n++;
-					}
-				}
-				
-				if( n ) {
-					// special case: repeat first point
-					FT_Vector points[n+1];
-					int s=(end-n)+2;
-					for( int i=0; i<n-1; i++ ) {
-						points[i].x = outline->points[s+i].x;
-						points[i].y = outline->points[s+i].y;
-					}
-					points[n-1].x = outline->points[start].x;
-					points[n-1].y = outline->points[start].y;
-					
-					importGlyphPoints( points, n-1, shaper, false );
-				}
-				
-				shaper.close();
-				
-				start = end+1;
-			}
-				
-			shaper.finish();
-			glyph++;
-		}
+		Short *adv = new Short();
+		adv->setvalue( (short)(2+floor(face->glyph->advance.x >> 6)) );
+		advance->append(adv);
 		
-		if( !glyphs ) character = FT_Get_Next_Char( face, character, &glyph_index );
+		Rectangle *r = new Rectangle();
+/*		r->settop( -face->bbox.yMax * 1024 / face->units_per_EM );
+		r->setright( face->bbox.xMax - face->bbox.xMin );
+		r->setbottom( -face->bbox.yMin * 1024 / face->units_per_EM );
+*/		
+		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
+		bounds->append(r);
+		
+		glyphList->setMapN(glyph, character);
+		shape = glyphList->getShapeN(glyph);
+		ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
+		shaper.setStyle( 1, -1, -1 );
+		
+		int start = 0, end;
+		bool control, cubic;
+		int n;
+		for( int contour = 0; contour < outline->n_contours; contour++ ) {
+			end = outline->contours[contour];
+			n=0;
+
+			for( int p = start; p<=end; p++ ) {
+				control = !(outline->tags[p] & 0x01);
+				cubic = outline->tags[p] & 0x02;
+				
+				if( p==start ) {
+					shaper.setup( outline->points[p-n].x, outline->points[p-n].y );
+				}
+				
+				if( !control && n > 0 ) {
+					importGlyphPoints( &(outline->points[(p-n)+1]), n-1, shaper, cubic );
+					n=1;
+				} else {
+					n++;
+				}
+			}
+			
+			if( n ) {
+				// special case: repeat first point
+				FT_Vector points[n+1];
+				int s=(end-n)+2;
+				for( int i=0; i<n-1; i++ ) {
+					points[i].x = outline->points[s+i].x;
+					points[i].y = outline->points[s+i].y;
+				}
+				points[n-1].x = outline->points[start].x;
+				points[n-1].y = outline->points[start].y;
+				
+				importGlyphPoints( points, n-1, shaper, false );
+			}
+			
+			shaper.close();
+			
+			start = end+1;
+		}
+		shaper.finish();
+	}
+	
+	if( FT_HAS_KERNING(face) ) {
+		FT_Vector vec;
+		int l, r;
+		for( int left=0; left<nGlyphs; left++ ) {
+			for( int right=0; right<nGlyphs; right++ ) {
+				l = FT_Get_Char_Index( face, glyphs[left] );
+				r = FT_Get_Char_Index( face, glyphs[right] );
+				if( !FT_Get_Kerning( face, l, r, FT_KERNING_DEFAULT, &vec ) ) {
+					if( vec.x ) {
+		//				fprintf(stderr,"------ %i -> %i: %i\n", glyphs[left], glyphs[right], vec.x );
+						
+						WideKerning *kern = new WideKerning();
+						kern->seta( glyphs[left] );
+						kern->setb( glyphs[right] );
+						kern->setadjustment( (short)(floor(vec.x >> 6)) );
+						kernings->append(kern);
+					}
+				}
+			}
+		}
 	}
 	
 	if( glyphs ) delete glyphs;
@@ -288,6 +310,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 	if( nargs >= 2 ) {
 		glyphs = xmlXPathPopString(ctx);
+		if( glyphs[0] == 0 ) glyphs = NULL;
 	}
 	filename = xmlXPathPopString(ctx);
 	if( xmlXPathCheckError(ctx) )

@@ -164,10 +164,12 @@
 <type name="Kerning">
 	<byte name="a" prop="true"/>
 	<byte name="b" prop="true"/>
+	<integer name="adjustment" signed="true" size="16" constant-size="true" prop="true"/>
 </type>
 <type name="WideKerning">
 	<word name="a" prop="true"/>
 	<word name="b" prop="true"/>
+	<word signed="true" name="adjustment" prop="true"/>
 </type>
 
 <type name="TextEntry">

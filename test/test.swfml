@@ -79,13 +79,14 @@
 		<textfield id="text" 
 			width="110" height="50" 
 			font="vera" size="12"
+			isHTML="true"
 			text="the quick brown fox jumps over the &#34;lazy&#x22; dog"
-			/>
+			></textfield>
 		<place id="text" x="100" y="85" depth="21"/>
 		<textfield id="texttext" 
 			width="100" height="15" 
 			font="vera" size="12"
-			text="Font"
+			text="Font" 
 			/>
 		<place id="texttext" x="100" y="140" depth="22"/>
 
