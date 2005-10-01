@@ -37,7 +37,7 @@ char *skipws( char *p ) {
 
 char *parse_string( char *p, string& s ) {
 	s="";
-	while( *p && (isalnum(*p) || *p == '-' || *p == '#' || *p == '.' || *p == '%') ) {
+	while( *p && (isalnum(*p) || *p == '-' || *p == '#' || *p == '.' || *p == '%' || *p == ' ') ) {
 		s.push_back(*p);
 		p++;
 	}
@@ -48,8 +48,6 @@ char *parse_string( char *p, string& s ) {
 void parse_css_simple( const char *style_str, CSSStyle *style ) {
 	char *p = (char *)style_str; // casting away const, but, hey- wtf.
 
-	memset( style, 0, sizeof(CSSStyle) );
-	
 	bool fail=false;
 	bool no_fill=false, no_stroke=false;
 	string key, value;
@@ -91,7 +89,8 @@ void parse_css_simple( const char *style_str, CSSStyle *style ) {
 				sscanf(value.c_str(),"%f",&f);
 				style->width = f*20;
 			}
-			// the rest is ignored
+			
+			style->styles[key] = value;
 		}
 	}
 };
@@ -103,7 +102,6 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlDocPtr doc;
 	xmlNodePtr node;
 	char tmp[TMP_STRLEN];
-	
 
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
@@ -130,7 +128,6 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	   that makes the flash player crash firefox! */
 	if( style.no_fill ) style.fill.a = 0;
 	if( style.no_stroke ) style.stroke.a = 0;
-	
 	
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"tmp", NULL );
@@ -163,7 +160,7 @@ void swft_css( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlSetProp( node, (const xmlChar *)"blue", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", style.stroke.a);
 	xmlSetProp( node, (const xmlChar *)"alpha", (const xmlChar *)&tmp );
-	
+
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 }
 
@@ -211,4 +208,32 @@ void swft_unit( xmlXPathParserContextPtr ctx, int nargs ) {
 		ctx->error = XPATH_INVALID_TYPE;
 		return;
 	}
+}
+
+void swft_css_lookup( xmlXPathParserContextPtr ctx, int nargs ) {
+	xmlChar *haystack, *needle;
+	xmlXPathObjectPtr obj;
+	xmlDocPtr doc;
+	xmlNodePtr node;
+	char tmp[TMP_STRLEN];
+	
+	if( (nargs != 2 ) ) {
+		xmlXPathSetArityError(ctx);
+		return;
+	}
+
+	needle = xmlXPathPopString(ctx);
+	haystack = xmlXPathPopString(ctx);
+	if( xmlXPathCheckError(ctx) )
+		return;
+
+
+	CSSStyle style;
+	parse_css_simple( (const char *)haystack, &style );
+	
+	std::string r = style.styles[ std::string((const char *)needle) ];
+
+	//fprintf(stderr,"looking up style %s: %s\n", needle, r.c_str() );
+	
+	valuePush( ctx, xmlXPathNewString( (const xmlChar *)r.c_str() ) );
 }

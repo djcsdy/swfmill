@@ -9,7 +9,6 @@
 
 #define TMP_STRLEN 0xFF
 #define SWFT_MAPSIZE 32
-#define SWFT_NAMESPACE ((const xmlChar*)"http://subsignal.org/swfml/swft")
 
 
 void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI );
@@ -44,6 +43,7 @@ void swft_transform( xmlXPathParserContextPtr ctx, int nargs );
 // in swft_css
 void swft_css( xmlXPathParserContextPtr ctx, int nargs );
 void swft_unit( xmlXPathParserContextPtr ctx, int nargs );
+void swft_css_lookup( xmlXPathParserContextPtr ctx, int nargs );
 
 static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs ) {
 	char tmp[TMP_STRLEN];
@@ -136,6 +136,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
 //	xsltRegisterExtFunction( ctx, (const xmlChar *) "bounds", SWFT_NAMESPACE, swft_bounds);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "css", SWFT_NAMESPACE, swft_css);
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "css-lookup", SWFT_NAMESPACE, swft_css_lookup);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "unit", SWFT_NAMESPACE, swft_unit);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);
 

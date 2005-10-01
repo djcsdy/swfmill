@@ -54,7 +54,7 @@ int compareGlyphs( const void *a, const void *b ) {
 	return( _a - _b );
 }
 
-void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx ) {
+void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx, swft_ctx *swftctx ) {
 	FT_Library swfft_library;
 	FT_Face face;
 	int error;
@@ -195,7 +195,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 //			fprintf(stderr,"%i importing glyph %i ('%c') of %s (advance %i, %i points)\n", glyph, character, character, filename, face->glyph->advance.x, outline->n_points );
 
 		Short *adv = new Short();
-		adv->setvalue( (short)(2+floor(face->glyph->advance.x >> 6)) );
+		adv->setvalue( (short)(ceil(1+(face->glyph->advance.x >> 6))) );
 		advance->append(adv);
 		
 		Rectangle *r = new Rectangle();
@@ -278,6 +278,11 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	}
 	
 	if( glyphs ) delete glyphs;
+		
+// hacky: store the ascent in the idmap.
+	swftctx->setMap( fontname, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
+//	fprintf( stderr, "StoreAscent: %s %i\n", fontname, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
+	
 	return;
 		
 fail:
@@ -334,9 +339,10 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	// create the font tag
 	tag = new DefineFont2;
-	importDefineFont2( tag, (const char *)filename, fontname, glyphs, &swfctx );
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
+	importDefineFont2( tag, (const char *)filename, fontname, glyphs, &swfctx, c );
 	tag->writeXML( node, &swfctx );
-
+	
 /*
 	snprintf(tmp,TMP_STRLEN,"%i", 5);
 	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)&tmp );

@@ -65,6 +65,38 @@
 	<Color red="{$red}" green="{$green}" blue="{$blue}" alpha="{$alpha}"/>
 </xsl:template>
 
+<!-- ColorRGBA from parameter $color ("#rrggbbaa") -->
+<xsl:template name="color-rgba-param">
+	<xsl:param name="color">#00000000</xsl:param>
+	<xsl:param name="alpha"/>
+	<xsl:variable name="red">
+		<xsl:choose>
+			<xsl:when test="$color">0x<xsl:value-of select="substring($color,2,2)"/></xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="green">
+		<xsl:choose>
+			<xsl:when test="$color">0x<xsl:value-of select="substring($color,4,2)"/></xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="blue">
+		<xsl:choose>
+			<xsl:when test="$color">0x<xsl:value-of select="substring($color,6)"/></xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="a">
+		<xsl:choose>
+			<xsl:when test="$alpha != ''"><xsl:value-of select="$alpha * 255"/></xsl:when>
+			<xsl:when test="string-length($color) = 9">0x<xsl:value-of select="substring($color,8)"/></xsl:when>
+			<xsl:otherwise>255</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<Color red="{$red}" green="{$green}" blue="{$blue}" alpha="{$a}"/>
+</xsl:template>
+
 <!-- set primitive types with SetVariable, for PlaceObject2 events -->
 <xsl:template match="string" mode="set">
 	<PushData>
@@ -188,6 +220,27 @@
 	</xsl:document>
 </xsl:template>
 
+<!-- html text (entity-escape xml, for fitting xml/html content in an attribute) -->
+<xsl:template match="*" mode="htmltext">
+	<xsl:text>&lt;</xsl:text>
+	<xsl:value-of select="name()"/>
+		<xsl:apply-templates select="@*" mode="htmltext"/>
+	<xsl:text>&gt;</xsl:text>
+		<xsl:apply-templates select="*|text()" mode="htmltext"/>
+	<xsl:text>&lt;/</xsl:text>
+	<xsl:value-of select="name()"/>
+	<xsl:text>&gt;</xsl:text>
+</xsl:template>
+<xsl:template match="@*" mode="htmltext">
+	<xsl:text> </xsl:text>
+	<xsl:value-of select="name()"/>
+	<xsl:text>=&quot;</xsl:text>
+	<xsl:value-of select="."/>
+	<xsl:text>&quot;</xsl:text>
+</xsl:template>
+<xsl:template match="text()" mode="htmltext">
+	<xsl:value-of select="."/>
+</xsl:template>
 
 <!-- copy anything else -->
 <xsl:template match="*|@*|text()" priority="-1">

@@ -12,6 +12,8 @@ void swft_register();
 void swft_addFileName( xmlNodePtr node, const char *filename );
 void swft_addData( xmlNodePtr node, char *data, int length );
 
+#define SWFT_NAMESPACE ((const xmlChar*)"http://subsignal.org/swfml/swft")
+
 class swft_ctx {
 public:
 
@@ -60,10 +62,17 @@ struct CSSColor {
 };
 
 struct CSSStyle {
+	CSSStyle() {
+		no_fill = no_stroke = false;
+		width = 0;
+	}
+	
 	bool no_fill, no_stroke;
 	CSSColor fill;
 	CSSColor stroke;
 	double width;
+	
+	std::map<std::string,std::string> styles;
 };
 
 void parse_css_simple( const char *style_str, CSSStyle *style );

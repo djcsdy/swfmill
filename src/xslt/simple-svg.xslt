@@ -241,6 +241,7 @@
 	</PlaceObject2>
 </xsl:template>
 
+<!--
 <xsl:template match="svg:flowRoot" mode="svg-inner">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
@@ -276,18 +277,44 @@
 		</transform>
 	</PlaceObject2>
 </xsl:template>
+-->
 
 <xsl:template match="svg:text" mode="svg-inner">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
+	
+	<xsl:variable name="bold" select="swft:css-lookup(@style,'font-weight')='bold'"/>
+	<xsl:variable name="italic" select="swft:css-lookup(@style,'font-style')='italic' or swft:css-lookup(@style,'font-style')='oblique'"/>
+	<xsl:variable name="fill" select="swft:css-lookup(@style,'fill')"/>
 	<DefineEditText objectID="{$id}" wordWrap="0" multiLine="1" password="0" 
 		readOnly="1" autoSize="1" hasLayout="1"
-		notSelectable="1" hasBorder="0" isHTML="0" useOutlines="1" 
-		fontRef="{swft:map-id('vera')}" fontHeight="240"
-		align="0" leftMargin="0" rightMargin="0" indent="0" leading="1"
+		notSelectable="1" hasBorder="0" isHTML="1" useOutlines="1" 
+		fontRef="{swft:map-id('verar')}" 
+		fontHeight="{swft:unit(swft:css-lookup(@style,'font-size')) * 20}"
+		align="0" leftMargin="0" rightMargin="0" indent="0" leading="0"
 		variableName="{@name}">
 		<xsl:attribute name="initialText">
-			<xsl:apply-templates mode="svg-text"/>
+			<xsl:text>&lt;font face="</xsl:text>
+			<xsl:value-of select="swft:css-lookup(@style,'font-family')"/>
+			<xsl:text>" kerning="1"&gt;</xsl:text>
+			
+				<xsl:if test="$bold">
+					<xsl:text>&lt;b&gt;</xsl:text>
+				</xsl:if>
+				<xsl:if test="$italic">
+					<xsl:text>&lt;i&gt;</xsl:text>
+				</xsl:if>
+				
+				<xsl:apply-templates select="*" mode="svg-text"/>
+				
+				<xsl:if test="$italic">
+					<xsl:text>&lt;/i&gt;</xsl:text>
+				</xsl:if>
+				<xsl:if test="$bold">
+					<xsl:text>&lt;/b&gt;</xsl:text>
+				</xsl:if>
+			
+			<xsl:text>&lt;/font&gt;</xsl:text>
 		</xsl:attribute>
 		<size>
 			<Rectangle left="{@x * 20}" 
@@ -296,17 +323,41 @@
 						bottom="{@y * 30}"/>
 		</size>
 		<color>
-			<ColorRGBA red="255" green="255" blue="255" alpha="255"/>
+			<xsl:call-template name="color-rgba-param">
+				<xsl:with-param name="color" select="swft:css-lookup(@style,'fill')"/>
+				<xsl:with-param name="alpha" select="swft:css-lookup(@style,'fill-opacity')"/>
+			</xsl:call-template>
 		</color>
 	</DefineEditText>
-	<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" objectID="{$id}">
+	
+	<xsl:variable name="ascent">
+		<xsl:value-of select="(swft:map-id(swft:css-lookup(@style,'font-family')) * number(swft:unit(swft:css-lookup(@style,'font-size'))) * -1) div 1024"/>
+	</xsl:variable>
+	<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" objectID="{$id}" allflags1="0x200">
+	<!--
+		<events>
+			<Event flags1="0x200">
+				<actions>
+					<PushData>
+						<items>
+							<StackString value="text"/>
+							<StackString value="fooBar!"/>
+						</items>
+					</PushData>
+					<SetVariable/>
+					<EndAction/>
+				</actions>
+			</Event>
+		</events>
+	-->
 		<transform>
 			<xsl:choose>
+				<!-- hmm, the ascent adjustment should be done before the other transform... FIXME -->
 				<xsl:when test="@transform">
-					<xsl:copy-of select="swft:transform(@transform,-2.05,-11.55)"/>
+					<xsl:copy-of select="swft:transform(@transform,-2.05, $ascent - 1.95)"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Transform transX="0" transY="-240"/>
+					<Transform transX="-41" transY="{($ascent - 1.95) * 20}"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</transform>
@@ -314,13 +365,12 @@
 </xsl:template>
 
 <xsl:template match="svg:tspan[position()=1]" mode="svg-text">
-	<xsl:apply-templates mode="svg-text"/>
+	<xsl:apply-templates mode="htmltext"/>
 </xsl:template>
 
 <xsl:template match="svg:tspan" mode="svg-text" priority="-1">
-	<xsl:text>
-</xsl:text>
-	<xsl:apply-templates mode="svg-text"/>
+	<xsl:text>&lt;br/&gt;</xsl:text>
+	<xsl:apply-templates mode="htmltext"/>
 </xsl:template>
 
 <xsl:template match="text()" mode="svg-text">
