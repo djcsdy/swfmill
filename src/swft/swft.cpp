@@ -110,7 +110,7 @@ static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs ) {
 	// (int)xmlXPathStringEvalNumber()
 	oldID = obj->stringval;
 	newID = c->doMap((const char*)oldID);
-		
+	
 	xmlFree( oldID );
 	
 	snprintf(tmp,TMP_STRLEN,"%i", newID );

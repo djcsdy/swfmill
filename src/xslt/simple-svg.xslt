@@ -331,7 +331,7 @@
 	</DefineEditText>
 	
 	<xsl:variable name="ascent">
-		<xsl:value-of select="(swft:map-id(swft:css-lookup(@style,'font-family')) * number(swft:unit(swft:css-lookup(@style,'font-size'))) * -1) div 1024"/>
+		<xsl:value-of select="(swft:map-id(concat(swft:css-lookup(@style,'font-family'),'_ascent')) * number(swft:unit(swft:css-lookup(@style,'font-size'))) * -1) div 1024"/>
 	</xsl:variable>
 	<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" objectID="{$id}" allflags1="0x200">
 	<!--

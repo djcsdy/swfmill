@@ -63,6 +63,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	FT_Outline *outline;
 	int *glyphs = NULL;
 	int i=0;
+	char *font_ascentmap;
 	
 	GlyphList *glyphList = tag->getglyphs();
 	List<Short>* advance = tag->getadvance();
@@ -135,6 +136,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		// sort the list of glyphs
 		qsort( glyphs, nGlyphs_, sizeof(int), compareGlyphs );
 		
+		nGlyphs = nGlyphs_;
+	/*	
 		for( int i=0; i<nGlyphs_; i++ ) {
 			glyph_index = FT_Get_Char_Index( face, glyphs[i] );
 			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
@@ -148,6 +151,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 			//if( !emptyGlyph( face, glyphs[i] ) ) 
 				nGlyphs++;
 		}
+	*/
 	}
 		
 	glyphList->allocate( nGlyphs );
@@ -157,9 +161,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	
 #define SCALING_FACTOR ((int)1024)
 
-	tag->setascent( 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
-	tag->setdescent( 1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM );
-	tag->setleading( 1+(SCALING_FACTOR * face->height) / face->units_per_EM );
+	tag->setascent( 1+((SCALING_FACTOR * face->ascender) / face->units_per_EM) );
+	tag->setdescent( 1+((SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
+	tag->setleading( 0 ) ;// (1+(SCALING_FACTOR * face->ascender) / face->units_per_EM) + (1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
+			//1+(SCALING_FACTOR * face->height) / face->units_per_EM );
 	
 	tag->setwideGlyphOffsets( 1 );
 	tag->setwideMap( 1 );
@@ -280,7 +285,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	if( glyphs ) delete glyphs;
 		
 // hacky: store the ascent in the idmap.
-	swftctx->setMap( fontname, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
+	font_ascentmap = new char[0xff];
+	snprintf( font_ascentmap, 0xff, "%s_ascent", fontname );
+	swftctx->setMap( font_ascentmap, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
+	delete font_ascentmap;
 //	fprintf( stderr, "StoreAscent: %s %i\n", fontname, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
 	
 	return;

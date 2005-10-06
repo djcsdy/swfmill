@@ -42,6 +42,7 @@ public:
 			r = last_id++;
 			m[oldID] = r;
 		}
+		
 		return r;
 	}
 	
