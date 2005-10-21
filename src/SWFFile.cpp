@@ -76,7 +76,7 @@ int File::load( FILE *fp, Context *_ctx ) {
 
 	if( r ) delete r;
 	if( !_ctx && ctx ) delete ctx;
-	delete data;
+	delete[] data;
 	return length+8;
 	
 fail:
@@ -191,11 +191,11 @@ int File::saveXML( FILE *fp, Context *ctx ) {
 	
 	if( size ) fwrite( data, size, 1, fp );
 
-	if( data ) delete data;
+	if( data ) delete[] data;
 	return size;
 	
 fail:
-	if( data ) delete data;
+	if( data ) delete[] data;
 	return 0;
 }
 

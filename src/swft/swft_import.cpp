@@ -23,7 +23,7 @@ void swft_addFileName( xmlNodePtr node, const char *filename ) {
 		
 	xmlSetProp( node, (const xmlChar *)"name", (const xmlChar *)name );
 	
-	delete name;
+	delete[] name;
 }
 
 void swft_addData( xmlNodePtr node, char *data, int sz ) {

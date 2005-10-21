@@ -186,7 +186,7 @@ void Rest::writeXML( xmlNodePtr xml, Context *ctx ) {
 				tmpstr[l] = 0;
 				xmlNewTextChild( node, NULL, (const xmlChar *)"data", (const xmlChar *)tmpstr );
 			}
-			delete tmpstr;
+			delete[] tmpstr;
 		}
 	}
 }
