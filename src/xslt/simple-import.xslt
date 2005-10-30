@@ -77,6 +77,53 @@
 	</xsl:if>
 </xsl:template>
 
+<xsl:template match="bitmap[@import]">
+	<xsl:variable name="id">
+		<xsl:choose>
+			<xsl:when test="@id">
+				<xsl:value-of select="swft:map-id(@id)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="swft:next-id()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="file">
+		<xsl:value-of select="@import"/>
+	</xsl:variable>
+	<xsl:variable name="mask">
+		<xsl:value-of select="@mask"/>
+	</xsl:variable>
+	<xsl:variable name="ext">
+		<xsl:value-of select="translate(substring(@import,string-length(@import)-2),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
+	</xsl:variable>
+	<xsl:choose>
+		<xsl:when test="@mask">
+			<xsl:apply-templates select="swft:import-jpega($file,$mask)" mode="bitmap">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
+		<xsl:when test="$ext = 'jpg' or $ext = 'peg'">
+			<xsl:apply-templates select="swft:import-jpeg($file)" mode="bitmap">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
+		<xsl:when test="$ext = 'png'">
+			<xsl:apply-templates select="swft:import-png($file)" mode="bitmap">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:message>WARNING: Cannot import <xsl:value-of select="$file"/> (unknown extension), skipping.</xsl:message>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:if test="ancestor::library">
+		<xsl:apply-templates select="*|@*" mode="export">
+			<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:if>
+</xsl:template>
+
 <xsl:template match="font[@import]">
 	<xsl:variable name="id">
 		<xsl:choose>
@@ -256,6 +303,35 @@
 			<End/>
 		</tags>
 	</DefineSprite>
+</xsl:template>
+
+
+<!-- direct bitmap import (not placing them in a clip) -->
+<xsl:template match="jpeg" mode="bitmap">
+	<xsl:param name="id"/>
+	<DefineBitsJPEG2 objectID="{$id}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineBitsJPEG2>
+</xsl:template>
+
+<xsl:template match="jpega" mode="bitmap">
+	<xsl:param name="id"/>
+	<DefineBitsJPEG3 objectID="{$id}" offset_to_alpha="{@offset_to_alpha}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineBitsJPEG3>
+</xsl:template>
+
+<xsl:template match="png" mode="bitmap">
+	<xsl:param name="id"/>
+	<DefineBitsLossless2 format="{@format}" width="{@width}" height="{@height}" n_colormap="{@n_colormap}" objectID="{$bitmapID}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineBitsLossless2>
 </xsl:template>
 
 
