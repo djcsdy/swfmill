@@ -138,8 +138,18 @@
 	<xsl:variable name="file">
 		<xsl:value-of select="@import"/>
 	</xsl:variable>
+	<xsl:variable name="offset">
+		<xsl:choose>
+			<xsl:when test="@symbol='true'">
+				<xsl:value-of select="-61440"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="0"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	
-	<xsl:apply-templates select="swft:import-ttf($file,@glyphs,@name)" mode="makeswf">
+	<xsl:apply-templates select="swft:import-ttf($file,@glyphs,@name,$offset)" mode="makeswf">
 		<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 	</xsl:apply-templates>
 	<xsl:if test="ancestor::library">

@@ -54,7 +54,7 @@ int compareGlyphs( const void *a, const void *b ) {
 	return( _a - _b );
 }
 
-void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx, swft_ctx *swftctx ) {
+void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx, swft_ctx *swftctx, int offset ) {
 	FT_Library swfft_library;
 	FT_Face face;
 	int error;
@@ -87,10 +87,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 
 	if( face->num_faces > 1 ) {
 		fprintf( stderr, "WARNING: %s contains %i faces, but only the first is imported.\n", filename, face->num_faces );
-	}
-	
-	if( face->charmap == 0 ) {
-		fprintf( stderr, "WARNING: %s doesn't seem to contain a unicode charmap.\n", filename );
 	}
 
 	FT_Set_Char_Size(face, (1024<<6), (1024<<6), 72, 72);
@@ -129,7 +125,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		for( int i=0; i<nGlyphs_; i++ ) {
 			str = (const unsigned char *)&glyphs_xml[idx];
 			len=4;
-			glyphs[i]=xmlGetUTF8Char( str, &len );
+			glyphs[i]=xmlGetUTF8Char( str, &len )-offset;
+			fprintf(stderr,"glyph %i: %i, ofs %i\n", i, glyphs[i], offset );
 			idx+=len;
 		}
 
@@ -137,21 +134,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		qsort( glyphs, nGlyphs_, sizeof(int), compareGlyphs );
 		
 		nGlyphs = nGlyphs_;
-	/*	
-		for( int i=0; i<nGlyphs_; i++ ) {
-			glyph_index = FT_Get_Char_Index( face, glyphs[i] );
-			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
-				fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
-				goto fail;
-			}
-			if( face->glyph->format != FT_GLYPH_FORMAT_OUTLINE ) {
-				fprintf( stderr, "WARNING: %s seems to be a bitmap font.\n", filename );
-				goto fail;
-			}
-			//if( !emptyGlyph( face, glyphs[i] ) ) 
-				nGlyphs++;
-		}
-	*/
 	}
 		
 	glyphList->allocate( nGlyphs );
@@ -175,10 +157,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	tag->setname( strdup(fontname) );
 
 	if( !ctx->quiet ) {
-		fprintf( stderr, "Importing TTF: '%s' - '%s'%s%s (%i glyphs)\n", filename, fontname,
+		fprintf( stderr, "Importing TTF: '%s' - '%s'%s%s (%i glyphs) charcode offset %i\n", filename, fontname,
 					face->style_flags & FT_STYLE_FLAG_BOLD ? " bold" : "",
 					face->style_flags & FT_STYLE_FLAG_ITALIC ? " italic" : "",
-					nGlyphs );
+					nGlyphs, offset );
 	}
 
 	for( glyph=0; glyph<nGlyphs; glyph++ ) {
@@ -211,7 +193,7 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
 		bounds->append(r);
 		
-		glyphList->setMapN(glyph, character);
+		glyphList->setMapN(glyph, character+offset);
 		shape = glyphList->getShapeN(glyph);
 		ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
 		shaper.setStyle( 1, -1, -1 );
@@ -309,14 +291,18 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	Context swfctx;
 	char tmp[TMP_STRLEN];
 	xmlChar *glyphs = NULL;
+	int offset;
 	
 	const char *fontname = NULL;
 	
-	if( (nargs < 1) || (nargs > 3) ) {
+	if( (nargs < 1) || (nargs > 4) ) {
 		xmlXPathSetArityError(ctx);
 		return;
 	}
 	
+	if( nargs >= 4 ) {
+		offset = (int)xmlXPathPopNumber(ctx);
+	}
 	if( nargs >= 3 ) {
 		fontname = (const char *)xmlXPathPopString(ctx);
 		if( fontname[0] == 0 ) fontname = NULL;
@@ -348,7 +334,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	// create the font tag
 	tag = new DefineFont2;
 	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
-	importDefineFont2( tag, (const char *)filename, fontname, glyphs, &swfctx, c );
+	importDefineFont2( tag, (const char *)filename, fontname, glyphs, &swfctx, c, offset );
 	tag->writeXML( node, &swfctx );
 	
 /*
