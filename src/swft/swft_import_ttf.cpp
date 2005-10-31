@@ -126,7 +126,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 			str = (const unsigned char *)&glyphs_xml[idx];
 			len=4;
 			glyphs[i]=xmlGetUTF8Char( str, &len )-offset;
-			fprintf(stderr,"glyph %i: %i, ofs %i\n", i, glyphs[i], offset );
 			idx+=len;
 		}
 
