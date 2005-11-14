@@ -105,7 +105,7 @@ class ShapeMaker {
 					*acc -= 1.0;
 					r++;
 				}
-				while( *acc <= 1.0 ) {
+				while( *acc <= -1.0 ) {
 					*acc += 1.0;
 					r--;
 				}
