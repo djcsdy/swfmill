@@ -21,7 +21,7 @@ ShapeMaker::ShapeMaker( List<ShapeItem>* e, double fx, double fy, double ofsx, d
 	fillStyle0 = lineStyle = fillStyle1 = -1;
 }
 
-void ShapeMaker::setupR( double _x,double _y ) {
+void ShapeMaker::setupR( double _x, double _y ) {
 	roundReset();
 	int x = roundX(factorx * ( _x ) );
 	int y = roundY(factory * ( _y ) );
