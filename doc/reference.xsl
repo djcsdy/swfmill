@@ -42,8 +42,8 @@
 			<section id="document">
 				<title>About this Document</title>
 				<p>This reference lists all types, tags and actions available in swfml basic.
-				It is organized into chapters, first listing <a href="#internal">internal types</a>,
-				then <a href="#types">basic types</a>, <a href="#tags">Tags</a> and <a href="#actions">Actions</a>.
+				It is organized into chapters, first listing <a href="#types">basic types</a>, 
+                then <a href="#tags">Tags</a> and <a href="#actions">Actions</a>.
 				All tables are in alphabetical order.
 				The difference of internal and basic types should be irrelevant to the swfml user.
 				</p>
@@ -137,6 +137,20 @@
 				</xsl:apply-templates>
 			</table>
 		</chapter>
+		<chapter id="actions">
+			<title>Actions</title>
+			<a name="type_Action"/>
+			<table cellspacing="1" border="0">
+				<tr>
+					<th align="left">Action Name</th>
+					<th align="left">ID</th>
+					<th align="left">Attributes</th>
+				</tr>
+				<xsl:apply-templates select="action">
+					<xsl:sort select="@name" data-type="text"/>
+				</xsl:apply-templates>
+			</table>
+		</chapter>
 	</book>
 </xsl:template>
 
@@ -152,7 +166,7 @@
 	</tr>
 </xsl:template>
 
-<xsl:template match="tag">
+<xsl:template match="tag|action">
 	<tr>
 		<td valign="top">
 			<a name="{name()}_{@name}" />

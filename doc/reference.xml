@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<book id="sample"><bookinfo><title>swfml basic profile</title><releaseinfo role="meta">$Id: reference.xml,v 1.1 2005/05/30 12:48:38 dan Exp $</releaseinfo><author><surname>Fischer</surname><firstname>Daniel</firstname><affiliation><address><email>dan[at]subsignal.org</email></address></affiliation></author><copyright><year>2005</year><holder>Daniel Fischer</holder></copyright><legalnotice>
+<book id="sample"><bookinfo><title>swfml basic profile</title><releaseinfo role="meta">$Id: reference.xsl,v 1.1 2005/05/30 12:48:38 dan Exp $</releaseinfo><author><surname>Fischer</surname><firstname>Daniel</firstname><affiliation><address><email>dan[at]subsignal.org</email></address></affiliation></author><copyright><year>2005</year><holder>Daniel Fischer</holder></copyright><legalnotice>
 				Permission is granted to copy, distribute and/or modify this document
 				under the terms of the GNU Free Documentation License, Version 1.2
 				or any later version published by the Free Software Foundation;
@@ -12,8 +12,8 @@
 			It is very closely modeled after the SWF file format, which means that you can produce all kinds of illegal SWFs with it,
 			so be careful.
 			</p><section id="document"><title>About this Document</title><p>This reference lists all types, tags and actions available in swfml basic.
-				It is organized into chapters, first listing <a href="#internal">internal types</a>,
-				then <a href="#types">basic types</a>, <a href="#tags">Tags</a> and <a href="#actions">Actions</a>.
+				It is organized into chapters, first listing <a href="#types">basic types</a>, 
+                then <a href="#tags">Tags</a> and <a href="#actions">Actions</a>.
 				All tables are in alphabetical order.
 				The difference of internal and basic types should be irrelevant to the swfml user.
 				</p><section id="sample-entry"><title>Example entry</title><p>Let's look at the <a href="#tag_Import">Import</a> tag as an example.
@@ -50,21 +50,17 @@
 		
 		
 		
+			
+		
 	</td></tr><tr><td valign="top"><a name="type_Color"/>Color</td><td valign="top">red
 			(byte)
 	<br/>green
 			(byte)
 	<br/>blue
 			(byte)
-	<br/></td></tr><tr><td valign="top"><a name="type_ColorRGBA"/>ColorRGBA</td><td valign="top">red
-			(byte)
-	<br/>green
-			(byte)
-	<br/>blue
-			(byte)
-	<br/>alpha
-			(byte)
-	<br/></td></tr><tr><td valign="top"><a name="type_ColorTransform2"/>ColorTransform2</td><td valign="top">
+	<br/>
+		
+	</td></tr><tr><td valign="top"><a name="type_ColorTransform2"/>ColorTransform2</td><td valign="top">
 		
 		
 		
@@ -109,6 +105,18 @@
 			(integer)
 	<br/>y2
 			(integer)
+	<br/></td></tr><tr><td valign="top"><a name="type_Event"/>Event</td><td valign="top">flags1
+			(word)
+	<br/>
+		
+	
+
+
+		
+		
+	</td></tr><tr><td valign="top"><a name="type_GlyphShape"/>GlyphShape</td><td valign="top">edges
+			(List of
+	<a href="#type_ShapeItem">ShapeItem</a>s)
 	<br/></td></tr><tr><td valign="top"><a name="type_GradientItem"/>GradientItem</td><td valign="top">position
 			(byte)
 	<br/>color
@@ -128,6 +136,8 @@
 			(byte)
 	<br/>b
 			(byte)
+	<br/>adjustment
+			(integer)
 	<br/></td></tr><tr><td valign="top"><a name="type_LineStyle"/>LineStyle</td><td valign="top">width
 			(word)
 	<br/>color
@@ -159,6 +169,7 @@
 	
 		
 	
+		
 		
 	</td></tr><tr><td valign="top"><a name="type_Short"/>Short</td><td valign="top">value
 			(word)
@@ -242,8 +253,22 @@
 			(word)
 	<br/>b
 			(word)
-	<br/></td></tr></table></chapter><chapter id="tags"><title>Tags</title><a name="type_Tag"/><table cellspacing="1" border="0"><tr><th align="left">Tag Name</th><th align="left">ID</th><th align="left">Attributes</th></tr><tr><td valign="top"><a name="tag_DefineBitsJPEG2"/>DefineBitsJPEG2</td><td valign="top">0x15</td><td valign="top">objectID
+	<br/>adjustment
 			(word)
+	<br/></td></tr></table></chapter><chapter id="tags"><title>Tags</title><a name="type_Tag"/><table cellspacing="1" border="0"><tr><th align="left">Tag Name</th><th align="left">ID</th><th align="left">Attributes</th></tr><tr><td valign="top"><a name="tag_DefineBits"/>DefineBits</td><td valign="top">0x06</td><td valign="top">objectID
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineBitsJPEG2"/>DefineBitsJPEG2</td><td valign="top">0x15</td><td valign="top">objectID
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineBitsJPEG3"/>DefineBitsJPEG3</td><td valign="top">0x23</td><td valign="top">objectID
+			(word)
+	<br/>offset_to_alpha
+			(uint32)
 	<br/>data
 			(Object of type
 	<a href="#type_Rest">Rest</a>)
@@ -266,7 +291,9 @@
 			(word)
 	<br/>height
 			(word)
-	<br/>data
+	<br/>
+		
+	data
 			(Object of type
 	<a href="#type_Rest">Rest</a>)
 	<br/></td></tr><tr><td valign="top"><a name="tag_DefineButton2"/>DefineButton2</td><td valign="top">0x22</td><td valign="top">objectID
@@ -325,9 +352,9 @@
 		
 	</td></tr><tr><td valign="top"><a name="tag_DefineFont"/>DefineFont</td><td valign="top">0x0A</td><td valign="top">objectID
 			(word)
-	<br/>glyphs
+	<br/>data
 			(Object of type
-	<a href="#type_GlyphList">GlyphList</a>)
+	<a href="#type_Rest">Rest</a>)
 	<br/></td></tr><tr><td valign="top"><a name="tag_DefineFont2"/>DefineFont2</td><td valign="top">0x30</td><td valign="top">objectID
 			(word)
 	<br/>isShiftJIS
@@ -400,6 +427,11 @@
 	map
 			(Object of type
 	<a href="#type_Rest">Rest</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineMorphShape"/>DefineMorphShape</td><td valign="top">0x2E</td><td valign="top">objectID
+			(word)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
 	<br/></td></tr><tr><td valign="top"><a name="tag_DefineShape"/>DefineShape</td><td valign="top">0x02</td><td valign="top">objectID
 			(word)
 	<br/>bounds
@@ -411,6 +443,43 @@
 	<br/>shapes
 			(Object of type
 	<a href="#type_Shape">Shape</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineShape2"/>DefineShape2</td><td valign="top">0x16</td><td valign="top">objectID
+			(word)
+	<br/>bounds
+			(Object of type
+	<a href="#type_Rectangle">Rectangle</a>)
+	<br/>styles
+			(Object of type
+	<a href="#type_StyleList">StyleList</a>)
+	<br/>shapes
+			(Object of type
+	<a href="#type_Shape">Shape</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineShape3"/>DefineShape3</td><td valign="top">0x20</td><td valign="top">objectID
+			(word)
+	<br/>bounds
+			(Object of type
+	<a href="#type_Rectangle">Rectangle</a>)
+	<br/>styles
+			(Object of type
+	<a href="#type_StyleList">StyleList</a>)
+	<br/>shapes
+			(Object of type
+	<a href="#type_Shape">Shape</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_DefineSound"/>DefineSound</td><td valign="top">0x0E</td><td valign="top">objectID
+			(word)
+	<br/>format
+			(integer)
+	<br/>rate
+			(integer)
+	<br/>is16bit
+			(bit)
+	<br/>stereo
+			(bit)
+	<br/>samples
+			(uint32)
+	<br/>data
+			(Object of type
+	<a href="#type_Rest">Rest</a>)
 	<br/></td></tr><tr><td valign="top"><a name="tag_DefineSprite"/>DefineSprite</td><td valign="top">0x27</td><td valign="top">objectID
 			(word)
 	<br/>frames
@@ -482,15 +551,31 @@
 		
 	
 		
+		
+		
+		
+		
+			
+		
+		
+		
 	</td></tr><tr><td valign="top"><a name="tag_RemoveObject"/>RemoveObject</td><td valign="top">0x05</td><td valign="top">objectID
 			(word)
 	<br/>depth
 			(word)
 	<br/></td></tr><tr><td valign="top"><a name="tag_RemoveObject2"/>RemoveObject2</td><td valign="top">0x1C</td><td valign="top">depth
 			(word)
+	<br/></td></tr><tr><td valign="top"><a name="tag_ScriptLimits"/>ScriptLimits</td><td valign="top">0x41</td><td valign="top">maxRecursionDepth
+			(word)
+	<br/>timeout
+			(word)
 	<br/></td></tr><tr><td valign="top"><a name="tag_SetBackgroundColor"/>SetBackgroundColor</td><td valign="top">0x09</td><td valign="top">color
 			(Object of type
 	<a href="#type_Color">Color</a>)
+	<br/></td></tr><tr><td valign="top"><a name="tag_SetTabIndex"/>SetTabIndex</td><td valign="top">0x42</td><td valign="top">depth
+			(word)
+	<br/>tabIndex
+			(word)
 	<br/></td></tr><tr><td valign="top"><a name="tag_ShowFrame"/>ShowFrame</td><td valign="top">0x01</td><td valign="top"/></tr><tr><td valign="top"><a name="tag_SoundStreamBlock"/>SoundStreamBlock</td><td valign="top">0x13</td><td valign="top">data
 			(data)
 	<br/></td></tr><tr><td valign="top"><a name="tag_SoundStreamHead"/>SoundStreamHead</td><td valign="top">0x12</td><td valign="top">playbackRate
@@ -531,6 +616,31 @@
 	<br/>
 		
 		
+	</td></tr><tr><td valign="top"><a name="tag_StartSound"/>StartSound</td><td valign="top">0x0F</td><td valign="top">objectID
+			(word)
+	<br/>stopPlayback
+			(bit)
+	<br/>noMultiple
+			(bit)
+	<br/>hasEnvelope
+			(bit)
+	<br/>hasLoop
+			(bit)
+	<br/>hasOutPoint
+			(bit)
+	<br/>hasInPoint
+			(bit)
+	<br/>
+		
+	
+		
+	
+		
+	
+		
+		
+		
+		
 	</td></tr><tr><td valign="top"><a name="tag_UnknownTag"/>UnknownTag</td><td valign="top">-1</td><td valign="top">data
 			(data)
 	<br/></td></tr><tr><td valign="top"><a name="tag_VideoFrame"/>VideoFrame</td><td valign="top">0x3D</td><td valign="top">objectID
@@ -540,4 +650,95 @@
 	<br/>data
 			(Object of type
 	<a href="#type_Rest">Rest</a>)
-	<br/></td></tr></table></chapter></book>
+	<br/></td></tr></table></chapter><chapter id="actions"><title>Actions</title><a name="type_Action"/><table cellspacing="1" border="0"><tr><th align="left">Action Name</th><th align="left">ID</th><th align="left">Attributes</th></tr><tr><td valign="top"><a name="action_AND"/>AND</td><td valign="top">0x60</td><td valign="top"/></tr><tr><td valign="top"><a name="action_AddCast"/>AddCast</td><td valign="top">0x0A</td><td valign="top"/></tr><tr><td valign="top"><a name="action_AddTyped"/>AddTyped</td><td valign="top">0x47</td><td valign="top"/></tr><tr><td valign="top"><a name="action_BranchAlways"/>BranchAlways</td><td valign="top">0x99</td><td valign="top">byteOffset
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="action_BranchIfTrue"/>BranchIfTrue</td><td valign="top">0x9D</td><td valign="top">byteOffset
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="action_CHR"/>CHR</td><td valign="top">0x33</td><td valign="top"/></tr><tr><td valign="top"><a name="action_CallFrame"/>CallFrame</td><td valign="top">0x9E</td><td valign="top"/></tr><tr><td valign="top"><a name="action_CallFunction"/>CallFunction</td><td valign="top">0x3D</td><td valign="top"/></tr><tr><td valign="top"><a name="action_CallMethod"/>CallMethod</td><td valign="top">0x52</td><td valign="top"/></tr><tr><td valign="top"><a name="action_CastObject"/>CastObject</td><td valign="top">0x2B</td><td valign="top"/></tr><tr><td valign="top"><a name="action_ConcatenateString"/>ConcatenateString</td><td valign="top">0x21</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DeclareArray"/>DeclareArray</td><td valign="top">0x42</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DeclareFunction"/>DeclareFunction</td><td valign="top">0x9B</td><td valign="top">name
+			(string)
+	<br/>argc
+			(word)
+	<br/>args
+			(List of
+	<a href="#type_String">String</a>s)
+	<br/>length
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="action_DeclareFunction2"/>DeclareFunction2</td><td valign="top">0x8E</td><td valign="top">name
+			(string)
+	<br/>argc
+			(word)
+	<br/>regc
+			(byte)
+	<br/>preloadThis
+			(bit)
+	<br/>suppressThis
+			(bit)
+	<br/>preloadArguments
+			(bit)
+	<br/>suppressArguments
+			(bit)
+	<br/>preloadSuper
+			(bit)
+	<br/>suppressSuper
+			(bit)
+	<br/>preloadRoot
+			(bit)
+	<br/>preloadParent
+			(bit)
+	<br/>preloadGlobal
+			(bit)
+	<br/>reserved
+			(integer)
+	<br/>args
+			(List of
+	<a href="#type_Parameter">Parameter</a>s)
+	<br/>actions
+			(List of
+	<a href="#type_Action">Action</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="action_DeclareLocalVariable"/>DeclareLocalVariable</td><td valign="top">0x41</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DeclareObject"/>DeclareObject</td><td valign="top">0x43</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Decrement"/>Decrement</td><td valign="top">0x51</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DefineNumber"/>DefineNumber</td><td valign="top">0x4A</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DefineString"/>DefineString</td><td valign="top">0x4B</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Delete"/>Delete</td><td valign="top">0x3A</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DeleteAll"/>DeleteAll</td><td valign="top">0x3B</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Dictionary"/>Dictionary</td><td valign="top">0x88</td><td valign="top">strings
+			(List of
+	<a href="#type_String">String</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="action_Divide"/>Divide</td><td valign="top">0x0D</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Duplicate"/>Duplicate</td><td valign="top">0x4C</td><td valign="top"/></tr><tr><td valign="top"><a name="action_DuplicateSprite"/>DuplicateSprite</td><td valign="top">0x24</td><td valign="top"/></tr><tr><td valign="top"><a name="action_EndAction"/>EndAction</td><td valign="top">0x00</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Enumerate"/>Enumerate</td><td valign="top">0x46</td><td valign="top"/></tr><tr><td valign="top"><a name="action_EnumerateObject"/>EnumerateObject</td><td valign="top">0x55</td><td valign="top"/></tr><tr><td valign="top"><a name="action_EqualCast"/>EqualCast</td><td valign="top">0x0E</td><td valign="top"/></tr><tr><td valign="top"><a name="action_EqualTyped"/>EqualTyped</td><td valign="top">0x49</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Extends"/>Extends</td><td valign="top">0x69</td><td valign="top"/></tr><tr><td valign="top"><a name="action_GetMember"/>GetMember</td><td valign="top">0x4E</td><td valign="top"/></tr><tr><td valign="top"><a name="action_GetProperty"/>GetProperty</td><td valign="top">0x22</td><td valign="top"/></tr><tr><td valign="top"><a name="action_GetTarget"/>GetTarget</td><td valign="top">0x45</td><td valign="top"/></tr><tr><td valign="top"><a name="action_GetTimer"/>GetTimer</td><td valign="top">0x34</td><td valign="top"/></tr><tr><td valign="top"><a name="action_GetURL"/>GetURL</td><td valign="top">0x83</td><td valign="top">url
+			(string)
+	<br/>target
+			(string)
+	<br/></td></tr><tr><td valign="top"><a name="action_GetURL2"/>GetURL2</td><td valign="top">0x9A</td><td valign="top">method
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="action_GetVariable"/>GetVariable</td><td valign="top">0x1C</td><td valign="top"/></tr><tr><td valign="top"><a name="action_GotoExpression"/>GotoExpression</td><td valign="top">0x9F</td><td valign="top">play
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="action_GotoFrame"/>GotoFrame</td><td valign="top">0x81</td><td valign="top">frame
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="action_GotoLabel"/>GotoLabel</td><td valign="top">0x8C</td><td valign="top">label
+			(string)
+	<br/></td></tr><tr><td valign="top"><a name="action_GreaterThanTyped"/>GreaterThanTyped</td><td valign="top">0x67</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Implements"/>Implements</td><td valign="top">0x2C</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Increment"/>Increment</td><td valign="top">0x50</td><td valign="top"/></tr><tr><td valign="top"><a name="action_InstanceOf"/>InstanceOf</td><td valign="top">0x54</td><td valign="top"/></tr><tr><td valign="top"><a name="action_IntegralPart"/>IntegralPart</td><td valign="top">0x18</td><td valign="top"/></tr><tr><td valign="top"><a name="action_LessThanCast"/>LessThanCast</td><td valign="top">0x0F</td><td valign="top"/></tr><tr><td valign="top"><a name="action_LessThanTyped"/>LessThanTyped</td><td valign="top">0x48</td><td valign="top"/></tr><tr><td valign="top"><a name="action_LogicalAND"/>LogicalAND</td><td valign="top">0x10</td><td valign="top"/></tr><tr><td valign="top"><a name="action_LogicalNOT"/>LogicalNOT</td><td valign="top">0x12</td><td valign="top"/></tr><tr><td valign="top"><a name="action_LogicalOR"/>LogicalOR</td><td valign="top">0x11</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Modulo"/>Modulo</td><td valign="top">0x3F</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Mulitply"/>Mulitply</td><td valign="top">0x0C</td><td valign="top"/></tr><tr><td valign="top"><a name="action_MultibyteCHR"/>MultibyteCHR</td><td valign="top">0x37</td><td valign="top"/></tr><tr><td valign="top"><a name="action_MultibyteORD"/>MultibyteORD</td><td valign="top">0x36</td><td valign="top"/></tr><tr><td valign="top"><a name="action_MultibyteStringLength"/>MultibyteStringLength</td><td valign="top">0x31</td><td valign="top"/></tr><tr><td valign="top"><a name="action_MultibyteSubString"/>MultibyteSubString</td><td valign="top">0x35</td><td valign="top"/></tr><tr><td valign="top"><a name="action_New"/>New</td><td valign="top">0x40</td><td valign="top"/></tr><tr><td valign="top"><a name="action_NewMethod"/>NewMethod</td><td valign="top">0x53</td><td valign="top"/></tr><tr><td valign="top"><a name="action_NextFrame"/>NextFrame</td><td valign="top">0x04</td><td valign="top"/></tr><tr><td valign="top"><a name="action_OR"/>OR</td><td valign="top">0x61</td><td valign="top"/></tr><tr><td valign="top"><a name="action_ORD"/>ORD</td><td valign="top">0x32</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Play"/>Play</td><td valign="top">0x06</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Pop"/>Pop</td><td valign="top">0x17</td><td valign="top"/></tr><tr><td valign="top"><a name="action_PreviousFrame"/>PreviousFrame</td><td valign="top">0x05</td><td valign="top"/></tr><tr><td valign="top"><a name="action_PushData"/>PushData</td><td valign="top">0x96</td><td valign="top">items
+			(List of
+	<a href="#type_StackItem">StackItem</a>s)
+	<br/></td></tr><tr><td valign="top"><a name="action_Random"/>Random</td><td valign="top">0x30</td><td valign="top"/></tr><tr><td valign="top"><a name="action_RemoveSprite"/>RemoveSprite</td><td valign="top">0x25</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Return"/>Return</td><td valign="top">0x3E</td><td valign="top"/></tr><tr><td valign="top"><a name="action_SetLocalVariable"/>SetLocalVariable</td><td valign="top">0x3C</td><td valign="top"/></tr><tr><td valign="top"><a name="action_SetMember"/>SetMember</td><td valign="top">0x4F</td><td valign="top"/></tr><tr><td valign="top"><a name="action_SetProperty"/>SetProperty</td><td valign="top">0x23</td><td valign="top"/></tr><tr><td valign="top"><a name="action_SetTarget"/>SetTarget</td><td valign="top">0x8B</td><td valign="top">label
+			(string)
+	<br/></td></tr><tr><td valign="top"><a name="action_SetTargetDynamic"/>SetTargetDynamic</td><td valign="top">0x20</td><td valign="top"/></tr><tr><td valign="top"><a name="action_SetVariable"/>SetVariable</td><td valign="top">0x1D</td><td valign="top"/></tr><tr><td valign="top"><a name="action_ShiftLeft"/>ShiftLeft</td><td valign="top">0x63</td><td valign="top"/></tr><tr><td valign="top"><a name="action_ShiftRight"/>ShiftRight</td><td valign="top">0x64</td><td valign="top"/></tr><tr><td valign="top"><a name="action_ShiftRightUnsigned"/>ShiftRightUnsigned</td><td valign="top">0x65</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StartDrag"/>StartDrag</td><td valign="top">0x27</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Stop"/>Stop</td><td valign="top">0x07</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StopDrag"/>StopDrag</td><td valign="top">0x28</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StopSound"/>StopSound</td><td valign="top">0x09</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StoreRegister"/>StoreRegister</td><td valign="top">0x87</td><td valign="top">reg
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="action_StrictEqual"/>StrictEqual</td><td valign="top">0x66</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StringEqual"/>StringEqual</td><td valign="top">0x13</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StringGreaterThan"/>StringGreaterThan</td><td valign="top">0x68</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StringLength"/>StringLength</td><td valign="top">0x14</td><td valign="top"/></tr><tr><td valign="top"><a name="action_StringLessThan"/>StringLessThan</td><td valign="top">0x29</td><td valign="top"/></tr><tr><td valign="top"><a name="action_SubString"/>SubString</td><td valign="top">0x15</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Substract"/>Substract</td><td valign="top">0x0B</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Swap"/>Swap</td><td valign="top">0x4D</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Throw"/>Throw</td><td valign="top">0x2A</td><td valign="top"/></tr><tr><td valign="top"><a name="action_ToggleQuality"/>ToggleQuality</td><td valign="top">0x08</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Trace"/>Trace</td><td valign="top">0x26</td><td valign="top"/></tr><tr><td valign="top"><a name="action_Try"/>Try</td><td valign="top">0x8F</td><td valign="top">doFinally
+			(bit)
+	<br/>doCatch
+			(bit)
+	<br/>trySize
+			(word)
+	<br/>catchSize
+			(word)
+	<br/>finallySize
+			(word)
+	<br/>
+		
+	</td></tr><tr><td valign="top"><a name="action_TypeOf"/>TypeOf</td><td valign="top">0x44</td><td valign="top"/></tr><tr><td valign="top"><a name="action_UnknownAction"/>UnknownAction</td><td valign="top">-1</td><td valign="top">data
+			(data)
+	<br/></td></tr><tr><td valign="top"><a name="action_WaitForFrame"/>WaitForFrame</td><td valign="top">0x8A</td><td valign="top">frame
+			(word)
+	<br/>skip
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="action_WaitForFrameDynamic"/>WaitForFrameDynamic</td><td valign="top">0x8D</td><td valign="top">frame
+			(word)
+	<br/>skip
+			(byte)
+	<br/></td></tr><tr><td valign="top"><a name="action_With"/>With</td><td valign="top">0x94</td><td valign="top">size
+			(word)
+	<br/></td></tr><tr><td valign="top"><a name="action_XOR"/>XOR</td><td valign="top">0x62</td><td valign="top"/></tr></table></chapter></book>
