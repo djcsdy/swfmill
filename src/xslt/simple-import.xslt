@@ -411,16 +411,32 @@
 
 <!-- shared library import -->
 <xsl:template match="import">
-	<Import url="{@url}">
-		<symbols>
-			<xsl:if test="@symbol">
-				<Symbol objectID="{swft:map-id(@symbol)}" name="{@symbol}"/>
-			</xsl:if>	
-			<xsl:if test="@file">
-				<xsl:apply-templates select="swft:document(@file)/swf/Header/tags/Export/symbols/*" mode="import"/>
-			</xsl:if>
-		</symbols>
-	</Import>
+	<xsl:choose>
+		<xsl:when test="number(/movie/@version) >= 8">
+			<ImportAssets2 url="{@url}" reserved1="1" reserved2="0">
+				<symbols>
+					<xsl:if test="@symbol">
+						<Symbol objectID="{swft:map-id(@symbol)}" name="{@symbol}"/>
+					</xsl:if>	
+					<xsl:if test="@file">
+						<xsl:apply-templates select="swft:document(@file)/swf/Header/tags/Export/symbols/*" mode="import"/>
+					</xsl:if>
+				</symbols>
+			</ImportAssets2>
+		</xsl:when>
+		<xsl:otherwise>
+			<Import url="{@url}">
+				<symbols>
+					<xsl:if test="@symbol">
+						<Symbol objectID="{swft:map-id(@symbol)}" name="{@symbol}"/>
+					</xsl:if>	
+					<xsl:if test="@file">
+						<xsl:apply-templates select="swft:document(@file)/swf/Header/tags/Export/symbols/*" mode="import"/>
+					</xsl:if>
+				</symbols>
+			</Import>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="Symbol" mode="import">

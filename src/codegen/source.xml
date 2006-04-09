@@ -871,6 +871,14 @@
 	<word name="tabIndex" prop="true"/>
 </tag>
 
+<tag name="ImportAssets2" id="0x47">
+	<string name="url" prop="true"/>
+	<byte name="reserved1" prop="true"/>
+	<byte name="reserved2" prop="true"/>
+	<word name="count"/>
+	<list name="symbols" type="Symbol" length="count" prop="true"/>
+</tag>
+
 <!-- ******************** ACTIONS ****************** -->
 
 <stackitem name="StackString" id="0x00">
