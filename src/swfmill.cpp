@@ -4,6 +4,9 @@
 #include "xslt.h"
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
 
@@ -76,7 +79,8 @@ int swfmill_swf2xml( int argc, char *argv[] ) {
 	bool std_in, std_out;
 
 	File input;
-	int size, xmlsize;
+	unsigned int filesize, size, xmlsize;
+    struct stat filestat;
 	char sig;
 	Context ctx;
 
@@ -99,12 +103,21 @@ int swfmill_swf2xml( int argc, char *argv[] ) {
 	
 	if( !quiet ) fprintf(stderr,"Reading from %s\n", infile );
 	
+// stat filesize
+    filesize = (unsigned int)-1;
+    
+    if( !std_in ) {
+        stat( infile, &filestat );
+        filesize = filestat.st_size;
+//        fprintf(stderr,"Filesize: %u\n",filesize);
+    }
+    
 // setup context
 	ctx.debugTrace = verbose;
 	ctx.quiet = quiet;
 
 		// treat input as SWF, produce XML
-		if( (size = input.load( in_fp, &ctx )) != 0 ) {
+		if( (size = input.load( in_fp, &ctx, filesize )) != 0 ) {
 			if( dump ) input.dump();
 			out_fp = std_out ? stdout : fopen( outfile, "wb" );
 			if( !out_fp ) {

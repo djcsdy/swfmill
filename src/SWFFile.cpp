@@ -27,7 +27,7 @@ void File::dump() {
 	header->dump( 2, &ctx );
 }
 	
-int File::load( FILE *fp, Context *_ctx ) {
+int File::load( FILE *fp, Context *_ctx, unsigned int filesize ) {
 	Context *ctx;
 	ctx = _ctx ? _ctx : new Context;
 	Reader* r = NULL;
@@ -51,13 +51,24 @@ int File::load( FILE *fp, Context *_ctx ) {
 	ctx->swfVersion = version;
 	
 	length -= 8;
+
+	compressed = sig[0]=='C';
+    
+    if( length != filesize-8 ) {
+        if( length > filesize-8 && !compressed ) {
+            /* this allows uncompressed SWFs with invalid filesize to be parsed. */
+            fprintf(stderr,"WARNING: size specified in SWF (%i) != filesize (%i), using filesize-8.\n",
+                length, filesize );
+            length = filesize-8;
+        }
+    }
+    
 	data = new unsigned char[ length ];
 	if( !data ) {
 		fprintf(stderr,"cannot load SWF to memory (size %i)\n",length);
 		goto fail;
 	}
 
-	compressed = sig[0]=='C';
 	if( compressed ) {
 		decompress( data, length, fp );
 	} else {
