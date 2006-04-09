@@ -101,7 +101,7 @@ class ShapeMaker {
 		int round( double v, double *acc ) {
 				int r = (int)v;
 				*acc += v-(double)r;
-				while( *acc >= 1.0 ) {
+				while( *acc >= .5 ) {
 					*acc -= 1.0;
 					r++;
 				}
