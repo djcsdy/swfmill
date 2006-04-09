@@ -148,10 +148,11 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	
+
 	<xsl:apply-templates select="swft:import-ttf($file,@glyphs,@name,$offset)" mode="makeswf">
 		<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 	</xsl:apply-templates>
+
 	<xsl:if test="ancestor::library">
 		<xsl:apply-templates select="*|@*" mode="export">
 			<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
@@ -432,7 +433,7 @@
 <xsl:template match="ttf" mode="makeswf">
 	<xsl:param name="id"/>
 	<DefineFont2 objectID="{$id}">
-		<xsl:apply-templates select="DefineFont2/*|DefineFont2/@*[name() != 'objectID']"/>
+		<xsl:copy-of select="DefineFont2/*|DefineFont2/@*[name() != 'objectID']"/>
 	</DefineFont2>
 </xsl:template>
 
