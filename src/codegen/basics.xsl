@@ -208,5 +208,16 @@ int StackItem::nRegistered = <xsl:value-of select="count(stackitem)"/>;
 		return &amp;<xsl:value-of select="@name"/>;
 	}
 </xsl:template>
+<xsl:template match="xml" mode="defineAccessors">
+	<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>
+	<xsl:value-of select="ancestor::*[@name]/@name"/>::get<xsl:value-of select="@name"/>() {
+		return <xsl:value-of select="@name"/>;
+	}
+	
+	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
+		if( <xsl:value-of select="@name"/> ) delete <xsl:value-of select="@name"/>;
+		<xsl:value-of select="@name"/> = v;
+	}
+</xsl:template>
 
 </xsl:stylesheet>

@@ -58,7 +58,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	if( <xsl:if test="../@negative">!</xsl:if>xmlHasProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" ) ) has = true;
 </xsl:template>
 
-<xsl:template match="object|list|data" mode="has">
+<xsl:template match="object|list|data|xml" mode="has">
 	{
 		xmlNodePtr child = node->children;
 		while( child &amp;&amp; !has ) {
@@ -248,6 +248,31 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 			delete dst;
 			xmlFree( xmld );
 		} 
+	}
+</xsl:template>
+
+<xsl:template match="xml" mode="parsexml">
+	{
+		xmlBufferPtr buffer;
+
+		xmlNodePtr child = NULL;
+		xmlNodePtr currentChild = node->children;
+		while( currentChild &amp;&amp; child == NULL) {
+			if( ! strcmp( (const char *)currentChild->name, (const char *)"<xsl:value-of select="@name"/>" ) ) {
+				child = currentChild;
+			}
+			
+			currentChild = currentChild->next;
+		}
+
+		if (child == NULL) {
+			fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> child element in %s element\n", (const char *)node->name );
+		} else {
+			buffer = xmlBufferCreate();
+			int numBytes = xmlNodeDump(buffer, child->doc, child, 0, 0);
+			<xsl:value-of select="@name"/> = strdup((const char *)buffer->content);
+			xmlBufferFree(buffer);
+		}
 	}
 </xsl:template>
 

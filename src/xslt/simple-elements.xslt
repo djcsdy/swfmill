@@ -62,6 +62,19 @@
 			<xsl:otherwise>4800</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="hasMetaData">
+		<xsl:choose>
+			<xsl:when test="count(meta) &gt; 0">1</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="useNetwork">
+		<xsl:choose>
+			<xsl:when test="@local-access = 'network'">1</xsl:when>
+			<xsl:when test="@local-access = 'filesystem'">0</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 	<swf version="{$version}" compressed="{$compressed}">
 		<Header framerate="{$framerate}" frames="{$frames}">
@@ -69,6 +82,9 @@
 				<Rectangle left="{$left}" right="{$right}" top="{$top}" bottom="{$bottom}"/>
 			</size>
 			<tags>
+				<xsl:if test="$version = 8">
+					<FileAttributes hasMetaData="{$hasMetaData}" useNetwork="{$useNetwork}"/>
+				</xsl:if>
 				<xsl:apply-templates/>
 				<End/>
 			</tags>
@@ -84,6 +100,30 @@
 		</color>
 	</SetBackgroundColor>
 </xsl:template>
+
+<xsl:template match="meta">
+	<Metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description xmlns:dc="http://purl.org/dc/1.1/" rdf:about="">
+				<xsl:apply-templates mode="meta"/>
+		  </rdf:Description>
+		</rdf:RDF>
+	</Metadata>
+</xsl:template>
+
+<xsl:template match="title" mode="meta">
+	<dc:title>
+		<xsl:apply-templates/>
+	</dc:title>
+</xsl:template>
+
+<xsl:template match="description" mode="meta">
+	<dc:description>
+		<xsl:apply-templates/>
+	</dc:description>
+</xsl:template>
+
+<xsl:template match="*|text()" mode="meta"/>
 
 <!-- library just passes thru, children decide wether to export by themselves -->
 <xsl:template match="library">

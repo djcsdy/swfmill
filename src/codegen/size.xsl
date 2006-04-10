@@ -101,6 +101,10 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	r += ((<xsl:value-of select="@name"/> ? strlen( <xsl:value-of select="@name"/> ) : 0)+1)*8;
 </xsl:template>
 
+<xsl:template match="xml" mode="size">
+	r += ((<xsl:value-of select="@name"/> ? strlen( <xsl:value-of select="@name"/> ) : 0)+1)*8;
+</xsl:template>
+
 <xsl:template match="object" mode="size">
 	r += <xsl:value-of select="@name"/>.getSize(ctx,r);
 </xsl:template>

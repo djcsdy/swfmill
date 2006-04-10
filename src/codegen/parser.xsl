@@ -61,7 +61,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|bit|integer|string|uint32|float|double" mode="parse">
+<xsl:template match="byte|word|fixedpoint|bit|integer|string|uint32|float|double|xml" mode="parse">
 	<xsl:value-of select="@name"/> = <xsl:apply-templates select="." mode="get"/>;
 	if( ctx->debugTrace ) fprintf( stderr, "PARSE <xsl:value-of select="@name"/>: <xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/> );
 	<xsl:if test="@context">
@@ -88,6 +88,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 			<xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="string[@mode='pascal']" mode="get">r->getPString()</xsl:template>
 <xsl:template match="string" mode="get" priority="-1">r->getString()</xsl:template>
+<xsl:template match="xml" mode="get" priority="-1">r->getString()</xsl:template>
 
 <xsl:template match="object" mode="parse">
 	<xsl:value-of select="@name"/>.parse(r,end,ctx);

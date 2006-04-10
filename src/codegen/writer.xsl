@@ -84,7 +84,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|bit|integer|string|uint32|float|double" mode="write">
+<xsl:template match="byte|word|fixedpoint|bit|integer|string|uint32|float|double|xml" mode="write">
 	<xsl:apply-templates select="." mode="put"/>;
 	<xsl:if test="@context">
 		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
@@ -101,6 +101,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 <xsl:template match="string[@mode='pascal']" mode="put">w->putPString(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="string" mode="put" priority="-1">w->putString(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="data" mode="put">w->putData(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>)</xsl:template>
+<xsl:template match="xml" mode="put" priority="-1">w->putString(<xsl:value-of select="@name"/>)</xsl:template>
 
 <xsl:template match="object" mode="write">
 	<xsl:value-of select="@name"/>.write(w,ctx);

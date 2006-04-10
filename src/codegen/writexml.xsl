@@ -5,6 +5,7 @@
 
 #include "<xsl:value-of select="/format/@format"/>.h"
 #include "base64.h"
+#include "string.h"
 
 namespace <xsl:value-of select="/format/@format"/> {
 
@@ -106,6 +107,20 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 				xmlNewTextChild( node, NULL, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)tmpstr );
 			}
 			delete tmpstr;
+		}
+	}
+</xsl:template>
+
+<xsl:template match="xml" mode="writexml">
+	{
+		if(<xsl:value-of select="@name"/> ) {
+			xmlDocPtr doc = xmlParseMemory(<xsl:value-of select="@name"/>, strlen(<xsl:value-of select="@name"/>));
+			xmlNodePtr child = doc->children;
+
+			child = xmlDocCopyNode(child, node->doc, 1);
+			xmlAddChild(node, child);
+
+			xmlFreeDoc(doc);
 		}
 	}
 </xsl:template>

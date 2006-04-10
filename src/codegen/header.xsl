@@ -90,6 +90,10 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 			<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>get<xsl:value-of select="@name"/>();
 			void set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> );
 	</xsl:template>
+	<xsl:template match="xml" mode="declareAccessors" priority="-1">
+			<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>get<xsl:value-of select="@name"/>();
+			void set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> );
+	</xsl:template>
 	<xsl:template match="data" mode="declareAccessors" priority="-1">
 			void get<xsl:value-of select="@name"/>( unsigned char **dst, int *size );
 			void set<xsl:value-of select="@name"/>( const unsigned char *src, int size );

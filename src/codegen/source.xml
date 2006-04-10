@@ -879,6 +879,18 @@
 	<list name="symbols" type="Symbol" length="count" prop="true"/>
 </tag>
 
+<tag name="FileAttributes" id="0x45">
+	<integer name="reserved1" size="3" constant-size="true"/>
+	<bit name="hasMetaData" prop="true"/>
+	<integer name="reserved2" size="3" constant-size="true"/>
+	<bit name="useNetwork" prop="true"/>
+	<integer name="reserved3" size="24" constant-size="true"/>
+</tag>
+
+<tag name="Metadata" id="0x4D">
+	<xml name="RDF" prop="true"/>
+</tag>
+
 <!-- ******************** ACTIONS ****************** -->
 
 <stackitem name="StackString" id="0x00">
