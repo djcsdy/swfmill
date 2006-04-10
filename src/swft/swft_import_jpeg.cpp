@@ -208,7 +208,7 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	fp = fopen( (const char *)maskfilename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:import-jpega() : failed to read mask file '%s'\n", (const char *)filename);
+				   "swft:import-jpega() : failed to read mask file '%s'\n", (const char *)maskfilename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		goto fail;
 	}
