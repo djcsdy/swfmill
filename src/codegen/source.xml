@@ -357,18 +357,28 @@
 </type>
 
 <type name="Condition">
-<!-- needs work; wrong order? -->
 	<word name="next" next="true" next-offset="-2" prop="true"/>
-	<integer name="key" size="7" constant-size="true" prop="true"/>
-	<bit name="menuLeave" prop="true"/>
+
+	<!-- IdleToOverDown -->
 	<bit name="menuEnter" prop="true"/>
+	<!-- OutDownToIdle -->
 	<bit name="pointerReleaseOutside" prop="true"/>
+	<!-- OutDownToOverDown -->
 	<bit name="pointerDragEnter" prop="true"/>
+	<!-- OverDownToOutDown -->
 	<bit name="pointerDragLeave" prop="true"/>
+	<!-- OverDownToOverUp -->
 	<bit name="pointerReleaseInside" prop="true"/>
+	<!-- OverUpToOverDown -->
 	<bit name="pointerPush" prop="true"/>
+	<!-- OverUpToIdle -->
 	<bit name="pointerLeave" prop="true"/>
+	<!-- IdleToOverUp -->
 	<bit name="pointerEnter" prop="true"/>
+	<!-- KeyPress -->
+	<integer name="key" size="7" constant-size="true" prop="true"/>
+	<!-- IdleToOverDown -->
+	<bit name="menuLeave" prop="true"/>
 
 	<list type="Action" name="actions" prop="true"/>
 </type>
