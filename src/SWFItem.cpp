@@ -21,8 +21,10 @@ int swf_get_bits_needed_for_int( int64_t value ) {
 	if( value < 0 )
 		/* XXX one more than necessary if num = -2^n */
 		return swf_get_bits_needed_for_uint( -value ) + 1;
-	else
+	else if ( value > 0 )
 		return swf_get_bits_needed_for_uint( value ) + 1;
+	else
+		return 0;
 }
 
 int swf_get_bits_needed_for_fp( double value ) {
