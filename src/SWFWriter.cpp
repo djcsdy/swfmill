@@ -77,22 +77,6 @@ void Writer::putDouble( double v ) {
     } u;
     u.d = v;
     putInt64(u.ull);
-/*
-	byteAlign();
-	if( !assure( 8 ) ) return;
-	// FIXME x86-centric?
-	char value[8];
-	(*(double*)value) = v;
-	
-	data[pos++] = value[4];
-	data[pos++] = value[5];
-	data[pos++] = value[6];
-	data[pos++] = value[7];
-	data[pos++] = value[0];
-	data[pos++] = value[1];
-	data[pos++] = value[2];
-	data[pos++] = value[3];
-*/
 }
 
 void Writer::putFixed( double value, int bytesize, int exp ) {

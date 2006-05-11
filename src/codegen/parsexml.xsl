@@ -115,8 +115,8 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="float|double" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		float tmp_float;
-		sscanf( (char *)tmp, "%f", &amp;tmp_float );
+		double tmp_float;
+		sscanf( (char *)tmp, "%lg", &amp;tmp_float );
 		<xsl:value-of select="@name"/> = tmp_float;
 		xmlFree( tmp );
 	}
@@ -125,8 +125,8 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="fixedpoint" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		float t;
-		sscanf( (char *)tmp, "<xsl:apply-templates select="." mode="printf"/>", &amp;t);
+		double t;
+		sscanf( (char *)tmp, "%lg", &amp;t);
 		<xsl:value-of select="@name"/> = t;
 		xmlFree( tmp );
 		<xsl:choose>
