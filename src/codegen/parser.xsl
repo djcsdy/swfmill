@@ -90,6 +90,26 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 <xsl:template match="string" mode="get" priority="-1">r->getString()</xsl:template>
 <xsl:template match="xml" mode="get" priority="-1">r->getString()</xsl:template>
 
+<xsl:template match="byteOrWord" mode="parse">
+	<xsl:value-of select="@name"/> = r->getByte();
+    if( <xsl:value-of select="@name"/> == 0xff &amp;&amp; ctx->tagVersion >= 2 ) {
+        <xsl:value-of select="@name"/> = r->getWord();
+    }
+    
+	if( ctx->debugTrace ) fprintf( stderr, "PARSE <xsl:value-of select="@name"/>: <xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/> );
+	<xsl:if test="@context">
+		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
+	</xsl:if>
+	<xsl:if test="@next">
+		<!-- this describes the offset to end of this object, so we use it for end -->
+		if( <xsl:value-of select="@name"/> &amp;&amp; <xsl:value-of select="@name"/>+r->getPosition() &lt; end ) {
+			if( ctx->debugTrace ) fprintf(stderr, "- has next offset, setting end to current+%i\n", <xsl:value-of select="@name"/> );
+			end = r->getPosition() + <xsl:value-of select="@name"/>
+			<xsl:if test="@next-offset"> + (<xsl:value-of select="@next-offset"/>)</xsl:if>;
+		}
+	</xsl:if>
+</xsl:template>
+
 <xsl:template match="object" mode="parse">
 	<xsl:value-of select="@name"/>.parse(r,end,ctx);
 </xsl:template>

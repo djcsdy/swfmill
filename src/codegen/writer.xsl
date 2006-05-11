@@ -103,6 +103,22 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 <xsl:template match="data" mode="put">w->putData(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>)</xsl:template>
 <xsl:template match="xml" mode="put" priority="-1">w->putString(<xsl:value-of select="@name"/>)</xsl:template>
 
+<xsl:template match="byteOrWord" mode="write">
+    {
+        int v = <xsl:value-of select="@name"/>;
+        if( v >= 255  &amp;&amp; ctx->tagVersion >= 2 ) {
+            w->putByte( 255 );
+            w->putWord( v );
+        } else {
+            w->putByte( v );
+        }
+    }
+
+	<xsl:if test="@context">
+		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
+	</xsl:if>
+</xsl:template>
+
 <xsl:template match="object" mode="write">
 	<xsl:value-of select="@name"/>.write(w,ctx);
 </xsl:template>

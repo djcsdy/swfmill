@@ -65,7 +65,7 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmp );
 </xsl:template>
 
-<xsl:template match="byte|word|integer|bit|uint32" mode="writexml">
+<xsl:template match="byte|word|byteOrWord|integer|bit|uint32" mode="writexml">
 	snprintf(tmp,TMP_STRLEN,"<xsl:apply-templates select="." mode="printf"/>", <xsl:value-of select="@name"/>);
 	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmp );
 </xsl:template>

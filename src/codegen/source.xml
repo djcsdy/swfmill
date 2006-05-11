@@ -79,13 +79,14 @@
 </type>
 
 <type name="StyleList">
-	<byte name="n_fillStyles"/> <!-- for other shape tags, introduce byteOrWord -->
+    <byteOrWord name="n_fillStyles"/>
 	<list name="fillStyles" type="Style" length="n_fillStyles" prop="true"/>
-	<byte name="n_lineStyles"/> <!-- for other shape tags, introduce byteOrWord -->
+    <byteOrWord name="n_lineStyles"/>
 	<list name="lineStyles" type="LineStyle" length="n_lineStyles" prop="true"/>
 	<integer name="fillBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_fillStyles"/>
 	<integer name="lineBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_lineStyles"/>
 </type>
+
 
 <type name="ShapeSetup" parent="ShapeItem">
 	<bit name="hasNewStyles"/>
@@ -423,6 +424,7 @@
 <tag name="DefineShape" id="0x02">
 	<context param="alpha" value="0"/>
 	<context param="many_shapes" value="0"/>
+	<context param="tagVersion" value="1"/>
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="bounds" prop="true"/>
 	<object type="StyleList" name="styles" prop="true"/>
@@ -553,6 +555,7 @@
 <tag name="DefineShape2" id="0x16">
 	<context param="alpha" value="0"/>
 	<context param="many_shapes" value="1"/>
+	<context param="tagVersion" value="2"/>
 
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="bounds" prop="true"/>
@@ -568,6 +571,7 @@
 <tag name="DefineShape3" id="0x20">
 	<context param="alpha" value="1"/>
 	<context param="many_shapes" value="1"/>
+	<context param="tagVersion" value="3"/>
 
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="bounds" prop="true"/>

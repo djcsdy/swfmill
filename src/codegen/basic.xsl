@@ -3,6 +3,7 @@
 
 <xsl:template match="byte" mode="ctype">unsigned char</xsl:template>
 <xsl:template match="word" mode="ctype">unsigned short</xsl:template>
+<xsl:template match="byteOrWord" mode="ctype">unsigned short</xsl:template>
 <xsl:template match="string" mode="ctype">char *</xsl:template>
 <xsl:template match="fixedpoint" mode="ctype">float</xsl:template>
 <xsl:template match="bit" mode="ctype">bool</xsl:template>
@@ -17,6 +18,7 @@
 
 <xsl:template mode="printf" match="byte">%i</xsl:template>
 <xsl:template mode="printf" match="word">%i</xsl:template>
+<xsl:template mode="printf" match="byteOrWord">%i</xsl:template>
 <xsl:template mode="printf" match="string">%s</xsl:template>
 <xsl:template mode="printf" match="fixedpoint">%E</xsl:template>
 <xsl:template mode="printf" match="bit">%i</xsl:template>
@@ -26,7 +28,7 @@
 <xsl:template mode="printf" match="float|double">%e</xsl:template>
 <xsl:template mode="printf" match="xml">%s</xsl:template>
 
-<xsl:template mode="default" match="byte|word|fixedpoint|bit|integer">0</xsl:template>
+<xsl:template mode="default" match="byte|word|byteOrWord|fixedpoint|bit|integer">0</xsl:template>
 <xsl:template mode="default" match="uint32|float|double">0</xsl:template>
 <xsl:template mode="default" match="string|data|xml">NULL</xsl:template>
 

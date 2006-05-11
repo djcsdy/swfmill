@@ -72,6 +72,14 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	r += 8;
 </xsl:template>
 
+<xsl:template match="byteOrWord" mode="size">
+    if( <xsl:value-of select="@name"/> &gt;= 255 ) {
+        r += 24;
+    } else {
+    	r += 8;
+    }
+</xsl:template>
+
 <xsl:template match="word" mode="size">
 	r += 16;
 </xsl:template>
