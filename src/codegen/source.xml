@@ -902,9 +902,14 @@
 </tag>
 
 <tag name="Metadata" id="0x4D">
-	<xml name="RDF" prop="true"/>
+    <xml name="RDF" prop="true"/>
 </tag>
 
+<tag name="DefineScalingGrid" id="0x4E"> 
+	<word name="objectID" prop="true"/> 
+	<object type="Rectangle" name="splitter" prop="true"/> 
+</tag> 
+    
 <!-- ******************** ACTIONS ****************** -->
 
 <stackitem name="StackString" id="0x00">

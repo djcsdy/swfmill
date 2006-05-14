@@ -358,7 +358,6 @@
 			<xsl:apply-templates select="Header/tags/*" mode="sprite-local"/>
 		</tags>
 	</DefineSprite>
-	
 	<swft:pop-map/>
 </xsl:template>
 

@@ -3,6 +3,8 @@
 				xmlns:swft="http://subsignal.org/swfml/swft"
 				xmlns:str="http://exslt.org/strings"
 				xmlns:math="http://exslt.org/math"
+				xmlns:dc="http://purl.org/dc/elements/1.1/"
+				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 				extension-element-prefixes="swft"
 				version='1.0'>
 
@@ -103,8 +105,8 @@
 
 <xsl:template match="meta">
 	<Metadata>
-		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-			<rdf:Description xmlns:dc="http://purl.org/dc/1.1/" rdf:about="">
+		<rdf:RDF>
+			<rdf:Description>
 				<xsl:apply-templates mode="meta"/>
 		  </rdf:Description>
 		</rdf:RDF>
@@ -405,6 +407,19 @@
 	</xsl:if>
 </xsl:template>
 
+<!-- scale grid --> 
+<xsl:template match="scale-grid">
+	<xsl:variable name="id">
+		<xsl:value-of select="swft:map-id(@id)"/>
+	</xsl:variable>
+    <xsl:if test="number(/movie/@version) >= 8"> 
+		<DefineScalingGrid objectID="{$id}"> <!-- FIXME ID not Id? does it matter? -->
+			<splitter> 
+				<Rectangle left="{@left * 20}" right="{@right * 20}" top="{@top * 20}" bottom="{@bottom * 20}"/> 
+			</splitter> 
+		</DefineScalingGrid>     
+	</xsl:if> 
+</xsl:template>
 
 <!-- stop -->
 <xsl:template match="stop">
