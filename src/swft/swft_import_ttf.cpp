@@ -184,14 +184,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		adv->setvalue( (short)(ceil(1+(face->glyph->advance.x >> 6))) );
 		advance->append(adv);
 		
-		Rectangle *r = new Rectangle();
-/*		r->settop( -face->bbox.yMax * 1024 / face->units_per_EM );
-		r->setright( face->bbox.xMax - face->bbox.xMin );
-		r->setbottom( -face->bbox.yMin * 1024 / face->units_per_EM );
-*/		
-		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
-		bounds->append(r);
-		
 		glyphList->setMapN(glyph, character+offset);
 		shape = glyphList->getShapeN(glyph);
 		ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
@@ -239,6 +231,16 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 			start = end+1;
 		}
 		shaper.finish();
+
+		Rectangle *r = new Rectangle();
+        
+		r->setleft( (int)shaper.getMinX() );
+		r->settop( (int)shaper.getMinY() );
+		r->setright( (int)shaper.getMaxX() );
+		r->setbottom( (int)shaper.getMaxY() );
+        
+		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
+		bounds->append(r);
 	}
 	
 	if( FT_HAS_KERNING(face) ) {
