@@ -117,8 +117,6 @@ double Reader::getDouble() {
 }
 
 double Reader::getFixed( int bytesize, int exp ) {
-	fprintf(stderr,"WARNING: Reader::getFixed is deprecated\n");
-	
 	double r = 0;
 	if( pos+bytesize > length ) {
 		err = SWFR_EOF;
@@ -189,8 +187,15 @@ ret:
 }
 
 double Reader::getNBitFixed( int n, int m, bool is_signed ) {
-	double d = getNBitInt( n, is_signed );
-	d /= (double)(1<<m);
+	double d;
+	
+	if (n % 8 == 0) {
+		d = getFixed( n / 8, m );
+	} else {
+		d = getNBitInt( n, is_signed );
+		d /= (double)(1<<m);
+	}
+	
 	return d;
 }
 

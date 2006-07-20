@@ -94,6 +94,20 @@ class List {
 		ListItem<T> *last() { return mLast; };
 
 		friend class ListItem<T>;
+		
+		int size() {
+			if (mFirst == NULL) return 0;
+			if (mFirst == mLast) return 1;
+			
+			int count = 1;
+			ListItem<T> *item = mFirst;
+			while(item != mLast) {
+				count++;
+				item = item->next();
+			}
+			
+			return count;
+		}
 			
 	protected:
 		ListItem<T> *mFirst;

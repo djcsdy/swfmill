@@ -161,6 +161,9 @@
 <type name="Short">
 	<word signed="true" name="value" prop="true"/>
 </type>
+<type name="Float">
+	<float signed="true" name="value" prop="true"/>
+</type>
 
 <type name="Kerning">
 	<byte name="a" prop="true"/>
@@ -383,6 +386,119 @@
 
 	<list type="Action" name="actions" prop="true"/>
 </type>
+
+
+<!-- ******************** FILTERS ****************** -->
+
+<filter name="UnknownFilter" id="-1">
+	<data name="data" size="len" prop="true"/>
+</filter>
+
+<filter name="DropShadow" id="0x00">
+	<context param="alpha" value="1"/>
+	
+	<object type="Color" name="color" prop="true"/>
+	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<bit name="innerShadow" prop="true"/>
+	<bit name="knockout" prop="true"/>
+	<bit name="compositeSource" default="1"/>
+	<integer name="passes" size="5" constant-size="true" prop="true"/>
+</filter>
+
+<filter name="Blur" id="0x01">
+	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<integer name="passes" size="5" constant-size="true" prop="true"/>
+	<integer name="reserved1" size="3" constant-size="true"/>	
+</filter>
+
+<filter name="Glow" id="0x02">
+	<context param="alpha" value="1"/>
+	
+	<object type="Color" name="color" prop="true"/>
+	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<bit name="innerGlow" prop="true"/>
+	<bit name="knockout" prop="true"/>
+	<bit name="compositeSource" default="1"/>
+	<integer name="passes" size="5" constant-size="true" prop="true"/>
+</filter>
+
+<filter name="Bevel" id="0x03">
+	<context param="alpha" value="1"/>
+	
+	<object type="Color" name="shadowColor" prop="true"/>
+	<object type="Color" name="highlightColor" prop="true"/>
+	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<bit name="innerShadow" prop="true"/>
+	<bit name="knockout" prop="true"/>
+	<bit name="compositeSource" default="1"/>
+	<bit name="onTop" prop="true"/>
+	<integer name="passes" size="4" constant-size="true" prop="true"/>
+</filter>
+
+<filter name="GradientGlow" id="0x04">
+	<context param="alpha" value="1"/>
+	
+	<byte name="numColors"/>
+	<list type="Color" name="colors" length="numColors" prop="true"/>
+	<list type="UChar" name="ratio" length="numColors" prop="true"/>
+	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<bit name="innerGlow" prop="true"/>
+	<bit name="knockout" prop="true"/>
+	<bit name="compositeSource" default="1"/>
+	<bit name="onTop" prop="true"/>
+	<integer name="passes" size="4" constant-size="true" prop="true"/>
+</filter>
+
+<filter name="Convolution" id="0x05">
+	<context param="alpha" value="1"/>
+	
+	<byte name="matrixX" prop="true"/>
+	<byte name="matrixY" prop="true"/>
+	<float name="divizor" prop="true"/>
+	<float name="bias" prop="true"/>
+	<list type="Float" name="matrix" prop="true" end-condition="matrix.size() == matrixX * matrixY"/>
+	<object type="Color" name="defaultColor" prop="true"/>
+	<integer name="reserved" size="5" constant-size="true"/>
+	<bit name="clamp" prop="true"/>
+	<bit name="preserveAlpha" prop="true"/>
+</filter>
+
+<filter name="ColorMatrix" id="0x06">
+	<list type="Float" name="matrix" prop="true" end-condition="matrix.size() == 20"/>
+</filter>
+
+<filter name="GradientBevel" id="0x07">
+	<context param="alpha" value="1"/>
+	
+	<byte name="numColors"/>
+	<list type="Color" name="colors" length="numColors" prop="true"/>
+	<list type="UChar" name="ratio" length="numColors" prop="true"/>
+	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true" default="0"/>
+	<bit name="innerGlow" prop="true"/>
+	<bit name="knockout" prop="true"/>
+	<bit name="compositeSource" default="1"/>
+	<bit name="onTop" prop="true"/>
+	<integer name="passes" size="4" constant-size="true" prop="true"/>
+</filter>
 
 <!-- ******************** STYLES ****************** -->
 
@@ -883,6 +999,62 @@
 <tag name="SetTabIndex" id="0x42">
 	<word name="depth" prop="true"/>
 	<word name="tabIndex" prop="true"/>
+</tag>
+
+<tag name="PlaceObject3" id="0x46">
+	<bit name="hasEventHandler"/>
+	<bit name="hasClipDepth"/>
+	<bit name="hasName"/>
+	<bit name="hasMorph"/>
+	<bit name="hasColorTransform"/>
+	<bit name="hasTransform"/>
+	<bit name="hasID"/>
+	<bit name="replace" prop="true"/>
+	<integer name="reserved1" size="5" constant-size="true"/>
+	<bit name="hasCacheAsBitmap"/>
+	<bit name="hasBlendMode"/>
+	<bit name="hasFilterList"/>
+	<word name="depth" prop="true"/>
+	<flagged flag="hasID">
+		<word name="objectID" prop="true" default="0"/>
+	</flagged>
+	<flagged flag="hasTransform">
+		<object type="Transform" name="transform" prop="true"/>
+	</flagged>
+	<flagged flag="hasColorTransform">
+		<object type="ColorTransform2" name="colorTransform" prop="true"/>
+	</flagged>
+	<flagged flag="hasMorph">
+		<word name="morph" prop="true"/>
+	</flagged>
+	<flagged flag="hasName">
+		<string name="name" prop="true" default="NULL"/>
+	</flagged>
+	<flagged flag="hasClipDepth">
+		<word name="clipDepth" prop="true" default="0"/>
+	</flagged>
+	<flagged flag="hasFilterList">
+			<byte name="numFilters"/>
+			<list type="Filter" name="filters" length="numFilters" prop="true"/>
+	</flagged>
+	<flagged flag="hasBlendMode">
+		<word name="blendMode" prop="true" default="0"/>
+	</flagged>
+	<flagged flag="hasEventHandler">
+		<word name="reserved"/>
+		
+		<!-- allflags1/2 should be set of the | of all item's flags -->
+		<word name="allflags1" prop="true"/>
+		<if expression="ctx->swfVersion>=6">
+			<word name="allflags2" prop="true"/>
+		</if>
+		<list type="Event" name="events" prop="true"
+			end-condition="!(item->getflags1() | item->getflags2())"/>
+		<!--
+				end-condition="!(item->getconstruct() || item->getkeyPress() || item->getdragOut() || item->getdragOver() || item->getrollOut() || item->getrollOver() || item->getreleaseOutside() || item->getrelease() || item->getpress() || item->getinitialize() || item->getdata() || item->getkeyUp() || item->getkeyDown() || item->getmouseUp() || item->getmouseDown() || item->getmouseMove() || item->getunload() || item->getenterFrame() || item->getload() )"/>
+			<object type="Rest" name="events" prop="true"/>
+		-->
+	</flagged>
 </tag>
 
 <tag name="ImportAssets2" id="0x47">

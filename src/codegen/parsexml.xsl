@@ -10,7 +10,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="type|tag|action|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem">
 void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	xmlNodePtr node2;
 	xmlChar *tmp;

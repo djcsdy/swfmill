@@ -86,7 +86,6 @@ void Writer::putFixed( double value, int bytesize, int exp ) {
 	uint64_t v = (uint64_t)value;
 	for( int i=0; i<bytesize; i++ ) {
 		data[pos++] = v>>(8*i);
-		v/=(1<<(8*i));
 	}
 }
 
@@ -164,8 +163,12 @@ void Writer::putNBitInt( int value, int n, bool is_signed ) {
 }
 
 void Writer::putNBitFixed( double v, int n, int m, bool is_signed ) {
-	v *= (1<<m);
-	putNBitInt( (int)v, n, is_signed );
+	if (n % 8 == 0) { 
+		putFixed( v, n / 8, m ); 
+	} else { 
+		v *= (1<<m); 
+		putNBitInt( (int)v, n, is_signed ); 
+	} 
 }
 
 void Writer::writeByte( uint8_t value ) {

@@ -8,7 +8,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="tag|action|style|stackitem">
+<xsl:for-each select="tag|action|filter|style|stackitem">
 size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	size_t r = start_at;
 	<xsl:apply-templates select="*[@context]" mode="size-context"/>

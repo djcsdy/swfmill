@@ -9,7 +9,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="type|tag|action|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem">
 //////////////////////////////////// <xsl:value-of select="@name"/>
 
 bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {

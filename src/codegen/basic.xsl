@@ -20,12 +20,12 @@
 <xsl:template mode="printf" match="word">%i</xsl:template>
 <xsl:template mode="printf" match="byteOrWord">%i</xsl:template>
 <xsl:template mode="printf" match="string">%s</xsl:template>
-<xsl:template mode="printf" match="fixedpoint">%E</xsl:template>
+<xsl:template mode="printf" match="fixedpoint">%G</xsl:template>
 <xsl:template mode="printf" match="bit">%i</xsl:template>
 <xsl:template mode="printf" match="integer">%i</xsl:template>
 <xsl:template mode="printf" match="object|list|data">%p</xsl:template>
 <xsl:template mode="printf" match="uint32">%i</xsl:template>
-<xsl:template mode="printf" match="float|double">%e</xsl:template>
+<xsl:template mode="printf" match="float|double">%g</xsl:template>
 <xsl:template mode="printf" match="xml">%s</xsl:template>
 
 <xsl:template mode="default" match="byte|word|byteOrWord|fixedpoint|bit|integer">0</xsl:template>

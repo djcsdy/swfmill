@@ -8,6 +8,7 @@
 #include &lt;<xsl:value-of select="/format/@format"/>Reader.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Tag.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Action.h&gt;
+#include &lt;<xsl:value-of select="/format/@format"/>Filter.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>List.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Style.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>ShapeItem.h&gt;
@@ -38,7 +39,7 @@ struct Context {
 		</xsl:for-each>
 };
 
-<xsl:for-each select="type|tag|action|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem">
 class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mode="baseclass"/> {
 	public:
 		<xsl:value-of select="@name"/>();
@@ -116,6 +117,7 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 	</xsl:template>
 	<xsl:template match="tag" mode="baseclass">Tag</xsl:template>
 	<xsl:template match="action" mode="baseclass">Action</xsl:template>
+	<xsl:template match="filter" mode="baseclass">Filter</xsl:template>
 	<xsl:template match="style" mode="baseclass">Style</xsl:template>
 	<xsl:template match="stackitem" mode="baseclass">StackItem</xsl:template>
 

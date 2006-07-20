@@ -11,7 +11,7 @@ namespace <xsl:value-of select="/format/@format"/> {
 
 #define TMP_STRLEN 0xFF
 
-<xsl:for-each select="type|tag|action|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem">
 void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 	char tmp[TMP_STRLEN];
 	xmlNodePtr node = xml;

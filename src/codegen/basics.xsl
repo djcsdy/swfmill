@@ -43,7 +43,7 @@ Context::Context() {
 
 // ------------ basic object functions
 
-<xsl:for-each select="type|tag|action|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem">
 
 <xsl:value-of select="@name"/>::<xsl:value-of select="@name"/>() {
 	<xsl:apply-templates mode="ctor"/>
@@ -100,6 +100,21 @@ Action::Description Action::Registry[] = {
 	{ 0, NULL }
 };
 int Action::nRegistered = <xsl:value-of select="count(action)"/>;
+
+
+<xsl:for-each select="filter">
+Filter *<xsl:value-of select="@name"/>Factory() {
+	return (Filter*)new <xsl:value-of select="@name"/>;
+}
+</xsl:for-each>
+
+Filter::Description Filter::Registry[] = {
+<xsl:for-each select="filter">
+	{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
+</xsl:for-each>
+	{ 0, NULL }
+};
+int Filter::nRegistered = <xsl:value-of select="count(filter)"/>;
 
 
 
