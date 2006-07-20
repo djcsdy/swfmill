@@ -338,7 +338,7 @@
 
 <xsl:template match="png" mode="bitmap">
 	<xsl:param name="id"/>
-	<DefineBitsLossless2 format="{@format}" width="{@width}" height="{@height}" n_colormap="{@n_colormap}" objectID="{$bitmapID}">
+	<DefineBitsLossless2 format="{@format}" width="{@width}" height="{@height}" n_colormap="{@n_colormap}" objectID="{$id}">
 		<data>
 			<xsl:copy-of select="data"/>
 		</data>
