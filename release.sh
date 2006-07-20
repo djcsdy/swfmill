@@ -75,8 +75,8 @@ mkdostext COPYING
 mkdostext NEWS
 zip -r $PACKAGE-$VERSION-win32.zip $PACKAGE-$VERSION-win32
 
-status Copying release files to iterative.org/swfmill/pre/
-scp $PACKAGE-$VERSION-win32.zip $PACKAGE-$VERSION.tar.gz iterative@iterative.org:iterative.org/swfmill/pre/
+status Copying release files to swfmill.org/pre/
+scp $PACKAGE-$VERSION-win32.zip $PACKAGE-$VERSION.tar.gz dan@swfmill.org:/home/swfmill/swfmill.org/pre/
 
 echo all done.
 echo now just edit index.php and copy binaries from pre/
