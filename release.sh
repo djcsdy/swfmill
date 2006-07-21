@@ -76,7 +76,7 @@ mkdostext NEWS
 zip -r $PACKAGE-$VERSION-win32.zip $PACKAGE-$VERSION-win32
 
 status Copying release files to swfmill.org/pre/
-scp $PACKAGE-$VERSION-win32.zip $PACKAGE-$VERSION.tar.gz dan@swfmill.org:/home/swfmill/swfmill.org/pre/
+scp $PACKAGE-$VERSION.tar.gz $PACKAGE-$VERSION-win32.zip dan@swfmill.org:/home/swfmill/swfmill.org/pre/
 
 echo all done.
 echo now just edit index.php and copy binaries from pre/

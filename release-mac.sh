@@ -14,7 +14,7 @@ cd swfmill-$VERSION
 make
 echo "Linking Again (workaround for static linkin crt0 problem)"
 cd src
-g++ -g -O2 -o swfmill swfmill-base64.o swfmill-SWFReader.o swfmill-SWFWriter.o swfmill-SWFFile.o swfmill-SWFItem.o swfmill-SWFTag.o swfmill-SWFAction.o swfmill-SWFStackItem.o swfmill-SWFStyle.o swfmill-SWFShapeItem.o swfmill-SWFGlyphList.o swfmill-SWFShapeMaker.o swfmill-gSWFParseXML.o swfmill-gSWFWriteXML.o swfmill-gSWFParser.o swfmill-gSWFWriter.o swfmill-gSWFDumper.o swfmill-gSWFBasics.o swfmill-gSWFSize.o swfmill-swfmill.o -Wl,-bind_at_load  -L/Users/dan/usr//lib swft/.libs/libswft.a /Users/dan/usr//lib/libexslt.a /Users/dan/usr//lib/libxslt.a /Users/dan/usr//lib/libxml2.a -ldl -lpthread /usr/lib/libiconv.dylib /Users/dan/usr//lib/libfreetype.a /Users/dan/usr//lib/libpng12.a -lz -lm xslt/.libs/libswfmillxslt.a
+g++ -g -O2 -o swfmill swfmill-base64.o swfmill-SWFReader.o swfmill-SWFWriter.o swfmill-SWFFile.o swfmill-SWFItem.o swfmill-SWFTag.o swfmill-SWFAction.o swfmill-SWFFilter.o swfmill-SWFStackItem.o swfmill-SWFStyle.o swfmill-SWFShapeItem.o swfmill-SWFGlyphList.o swfmill-SWFShapeMaker.o swfmill-gSWFParseXML.o swfmill-gSWFWriteXML.o swfmill-gSWFParser.o swfmill-gSWFWriter.o swfmill-gSWFDumper.o swfmill-gSWFBasics.o swfmill-gSWFSize.o swfmill-swfmill.o -Wl,-bind_at_load  -L/Users/dan/usr//lib swft/.libs/libswft.a /Users/dan/usr//lib/libexslt.a /Users/dan/usr//lib/libxslt.a /Users/dan/usr//lib/libxml2.a -ldl -lpthread /usr/lib/libiconv.dylib /Users/dan/usr//lib/libfreetype.a /Users/dan/usr//lib/libpng12.a -lz -lm xslt/.libs/libswfmillxslt.a
 strip swfmill
 cd ../..
 mkdir swfmill-$VERSION-macosx
