@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
+#include <dirent.h>
 
 using namespace SWF;
 
@@ -232,26 +233,12 @@ fail:
 }
 
 
+int swfmill_do_xslt( xmlDocPtr doc, xsltStylesheetPtr transform, const char *outfile );
+
 int swfmill_xslt( int argc, char *argv[] ) {
 	const char *xslfile, *infile, *outfile = "stdout";
-	xsltStylesheetPtr transform = NULL;
-	xmlDocPtr doc = NULL, doc2 = NULL;
-	FILE *out_fp;
-	const char *ext;
-	Context ctx;
-	int size;
-
-	const char *params[3];
-	params[0] = "quiet";
-	params[1] = "\"FALSE\"";
-	params[2] = NULL;
-	if( quiet ) {
-		params[1] = "\"FALSE\"";
-	}
-	
-// setup context
-	ctx.debugTrace = verbose;
-	ctx.quiet = quiet;
+	xmlDocPtr doc = NULL;
+	xsltStylesheetPtr transform;
 	
 	// parse filenames
 	if( argc < 2 || argc > 3 ) {
@@ -274,7 +261,33 @@ int swfmill_xslt( int argc, char *argv[] ) {
 		goto fail;
 	}
 	
-	if( !quiet ) fprintf( stderr, "Applying XSLT %s to %s...\n", xslfile, infile );
+	return swfmill_do_xslt( doc, transform, outfile );
+	
+	fail:
+		return -1;
+}
+
+int swfmill_do_xslt( xmlDocPtr doc, xsltStylesheetPtr transform, const char *outfile ) {
+	xmlDocPtr doc2 = NULL;
+	FILE *out_fp;
+	const char *ext;
+	Context ctx;
+	int size;
+
+	const char *params[3];
+	params[0] = "quiet";
+	params[1] = "\"FALSE\"";
+	params[2] = NULL;
+	if( quiet ) {
+		params[1] = "\"FALSE\"";
+	}
+	
+	// setup context
+	ctx.debugTrace = verbose;
+	ctx.quiet = quiet;
+
+	
+	if( !quiet ) fprintf( stderr, "Applying XSLT...\n" );
 	doc2 = xsltApplyStylesheet( transform, doc, params );
 	
 	if( !doc2 ) {
@@ -314,6 +327,79 @@ fail:
 	return -1;
 }
 
+
+void swfmill_create_library( xmlNodePtr lib, const char *filename );
+
+void swfmill_create_library_dir( xmlNodePtr lib, const char *dir ) {
+	char tmp[256];
+	
+	struct dirent *e;
+	DIR *d = opendir( dir );
+	if( d == NULL ) return;
+		
+	while( true ) {
+		e = readdir(d);
+		if( e==NULL ) break;
+		if( e->d_name[0] == '.' ) continue; // no hidden files
+		
+		snprintf( tmp, 1023, "%s/%s", dir, e->d_name );
+		swfmill_create_library( lib, tmp );
+	}
+}
+
+void swfmill_create_library( xmlNodePtr lib, const char *filename ) {
+	struct stat s;
+	if( stat(filename,&s) ) return;
+
+/*
+	int i=strlen(filename)-1;
+	while( i>0 && filename[i]!='.' ) i--;
+	const char *ext = &filename[i];
+*/	
+	if( S_ISDIR(s.st_mode) ) {
+		swfmill_create_library_dir( lib, filename );
+	} else {
+//		if( !strcmp( ext, ".jpg" ) || !strcmp( ext, ".jpeg" ) ) {
+		
+		xmlNodePtr node = xmlNewChild( lib, NULL, (const xmlChar*)"clip", NULL );
+		xmlSetProp( node, (const xmlChar *)"id", (const xmlChar *)filename );
+		xmlSetProp( node, (const xmlChar *)"import", (const xmlChar *)filename );
+	}
+	
+//	fprintf(stderr, "clip %s: %s (%s)\n", filename, S_ISDIR(s.st_mode)?"dir":"file", ext );
+	
+}
+
+int swfmill_library( int argc, char *argv[] ) {
+	if( argc < 2 ) {
+		fprintf( stderr, "library creation needs at least two arguments\n\tswfmill library <input file(s)/dir(s)> <output>.swf\n" );
+		return -1;
+	}
+	const char *outfile = argv[argc-1];
+	argc--;
+		
+	internal_stylesheet = xslt_simple;
+	
+	xmlDocPtr doc = xmlNewDoc((const xmlChar*)"1.0");
+	doc->children = xmlNewDocNode( doc, NULL, (const xmlChar*)"movie", NULL );
+	
+	xmlNodePtr lib = xmlNewChild( doc->children, NULL, (const xmlChar *)"library", NULL );
+	
+	for( int i=0; i<argc; i++ ) {
+		swfmill_create_library( lib, argv[i] );
+	}
+	
+	xmlNodePtr node = xmlNewChild( lib, NULL, (const xmlChar *)"frame", NULL );
+//	xmlSetProp( node, (const xmlChar*)"id", (const xmlChar *)"foo");
+	
+	xsltStylesheetPtr transform = xsltParseStylesheetMemory( internal_stylesheet, strlen(internal_stylesheet) );
+	if( !transform ) {
+		fprintf( stderr, "ERROR: internal stylesheet could not be read.\n" );
+		return -1;
+	}
+	
+	swfmill_do_xslt( doc, transform, outfile );
+}
 
 int main( int argc, char *argv[] ) {
 	char *command = NULL;
@@ -374,6 +460,8 @@ int main( int argc, char *argv[] ) {
 	} else if( !strcmp( command, "simple" ) ) {
 		internal_stylesheet = xslt_simple;
 		return swfmill_xml2swf( argc-i, &argv[i] );
+	} else if( !strcmp( command, "library" ) ) {
+		return swfmill_library( argc-i, &argv[i] );
 	} else {
 		fprintf(stderr,"ERROR: unknown command %s\n", command );
 		usage();
