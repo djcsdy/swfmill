@@ -54,7 +54,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	</xsl:template>
 
 
-<xsl:template match="byte|word|byteOrWord|fixedpoint|bit|integer|string|uint32|float|double" mode="has">
+<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double" mode="has">
 	if( <xsl:if test="../@negative">!</xsl:if>xmlHasProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" ) ) has = true;
 </xsl:template>
 
@@ -122,7 +122,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="fixedpoint" mode="parsexml">
+<xsl:template match="fixedpoint|fixedpoint2" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 		double t;

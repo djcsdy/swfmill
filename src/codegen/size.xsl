@@ -97,7 +97,7 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	r += <xsl:value-of select="@size"/><xsl:if test="@size-add">+<xsl:value-of select="@size-add"/></xsl:if>;
 </xsl:template>
 
-<xsl:template match="fixedpoint" mode="size">
+<xsl:template match="fixedpoint|fixedpoint2" mode="size">
 	r += <xsl:value-of select="@size"/>;
 </xsl:template>
 

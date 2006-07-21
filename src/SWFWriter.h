@@ -29,8 +29,9 @@ class Writer {
 		void putPString( const char * );
 	
 		// this one cares about the current bit position
-		void putNBitInt( int v, int n, bool is_signed = false );
+		void putNBitInt( int64_t v, int n, bool is_signed = false );
 		void putNBitFixed( double v, int n, int m, bool is_signed = false );
+		void putNBitFixed2( double v, int n, int m, bool is_signed = false );
 	
 		// set bit position to next byte.
 		void byteAlign() {

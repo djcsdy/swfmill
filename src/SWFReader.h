@@ -30,6 +30,7 @@ class Reader {
 		// this one cares about the current bit position
 		long getNBitInt( int n, bool is_signed = false );
 		double getNBitFixed( int n, int m, bool is_signed = false ); // n bits total, m bits after decimal point.
+		double getNBitFixed2( int n, int m, bool is_signed = false );
 	
 		// set bit position to next byte.
 		void byteAlign() { 

@@ -80,6 +80,8 @@ void Writer::putDouble( double v ) {
 }
 
 void Writer::putFixed( double value, int bytesize, int exp ) {
+	/* putFixed/getFixed are deprecated: they implicitly to byteAlign */
+	
 	if( !assure( bytesize ) ) return;
 
 	value *= ((double)(1<<exp));
@@ -106,13 +108,13 @@ void Writer::putPString( const char *value ) {
 	pos += len;
 }
 
-void Writer::putNBitInt( int value, int n, bool is_signed ) {
+void Writer::putNBitInt( int64_t value, int n, bool is_signed ) {
 	// FIXME: unefficient, maybe incorrect!
 	if( !assure( ((n+bits)/8)+1 ) ) return;
 		
 	if( is_signed ) {
-		unsigned int *v = (unsigned int*)&value;
-		unsigned int sign = (1<<(n-1));
+		uint64_t *v = (uint64_t*)&value;
+		uint64_t sign = (1<<(n-1));
 		if( *v & sign ) {
 			value = (*v&(sign-1)) | (1<<(n-1));
 		}
@@ -152,7 +154,6 @@ void Writer::putNBitInt( int value, int n, bool is_signed ) {
 		} else {
 			bits = buf = 0;
 		}
-		
 		return;
 	}
 	
@@ -163,12 +164,16 @@ void Writer::putNBitInt( int value, int n, bool is_signed ) {
 }
 
 void Writer::putNBitFixed( double v, int n, int m, bool is_signed ) {
-	if (n % 8 == 0) { 
-		putFixed( v, n / 8, m ); 
-	} else { 
-		v *= (1<<m); 
-		putNBitInt( (int)v, n, is_signed ); 
-	} 
+	v *= ((double)(1<<m)); 
+	putNBitInt( (int64_t)v, n, is_signed ); 
+}
+
+void Writer::putNBitFixed2( double v, int n, int m, bool is_signed ) {
+	if( n%8 != 0 ) {
+		fprintf(stderr,"WARNING: fixedpoint2 needs a size that is divisible by 8");
+		return;
+	}
+	putFixed( v, n / 8, m ); 
 }
 
 void Writer::writeByte( uint8_t value ) {

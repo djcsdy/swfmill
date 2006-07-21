@@ -398,11 +398,11 @@
 	<context param="alpha" value="1"/>
 	
 	<object type="Color" name="color" prop="true"/>
-	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
 	<bit name="innerShadow" prop="true"/>
 	<bit name="knockout" prop="true"/>
 	<bit name="compositeSource" default="1"/>
@@ -410,8 +410,8 @@
 </filter>
 
 <filter name="Blur" id="0x01">
-	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
 	<integer name="passes" size="5" constant-size="true" prop="true"/>
 	<integer name="reserved1" size="3" constant-size="true"/>	
 </filter>
@@ -420,9 +420,9 @@
 	<context param="alpha" value="1"/>
 	
 	<object type="Color" name="color" prop="true"/>
-	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
 	<bit name="innerGlow" prop="true"/>
 	<bit name="knockout" prop="true"/>
 	<bit name="compositeSource" default="1"/>
@@ -434,11 +434,11 @@
 	
 	<object type="Color" name="shadowColor" prop="true"/>
 	<object type="Color" name="highlightColor" prop="true"/>
-	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
 	<bit name="innerShadow" prop="true"/>
 	<bit name="knockout" prop="true"/>
 	<bit name="compositeSource" default="1"/>
@@ -452,11 +452,11 @@
 	<byte name="numColors"/>
 	<list type="Color" name="colors" length="numColors" prop="true"/>
 	<list type="UChar" name="ratio" length="numColors" prop="true"/>
-	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
 	<bit name="innerGlow" prop="true"/>
 	<bit name="knockout" prop="true"/>
 	<bit name="compositeSource" default="1"/>
@@ -488,11 +488,11 @@
 	<byte name="numColors"/>
 	<list type="Color" name="colors" length="numColors" prop="true"/>
 	<list type="UChar" name="ratio" length="numColors" prop="true"/>
-	<fixedpoint name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true" default="0"/>
+	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true" default="0"/>
 	<bit name="innerGlow" prop="true"/>
 	<bit name="knockout" prop="true"/>
 	<bit name="compositeSource" default="1"/>

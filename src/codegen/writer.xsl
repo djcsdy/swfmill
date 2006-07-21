@@ -84,7 +84,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|bit|integer|string|uint32|float|double|xml" mode="write">
+<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|xml" mode="write">
 	<xsl:apply-templates select="." mode="put"/>;
 	<xsl:if test="@context">
 		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
@@ -96,6 +96,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 <xsl:template match="float" mode="put">w->putFloat(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="double" mode="put">w->putDouble(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="fixedpoint" mode="put">w->putNBitFixed(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>,<xsl:value-of select="@exp"/><xsl:if test="@signed">,true</xsl:if>)</xsl:template>
+<xsl:template match="fixedpoint2" mode="put">w->putNBitFixed2(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>,<xsl:value-of select="@exp"/><xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="bit" mode="put">w->putNBitInt(<xsl:value-of select="@name"/>,1)</xsl:template>
 <xsl:template match="integer" mode="put">w->putNBitInt(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/><xsl:if test="@size-add">+<xsl:value-of select="@size-add"/></xsl:if><xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="string[@mode='pascal']" mode="put">w->putPString(<xsl:value-of select="@name"/>)</xsl:template>

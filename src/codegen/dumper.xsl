@@ -55,7 +55,7 @@ void <xsl:value-of select="@name"/>::dump( int indent, Context *ctx ) {
 
 
 
-<xsl:template match="byte|word|byteOrWord|integer|fixedpoint|bit" mode="dump">
+<xsl:template match="byte|word|byteOrWord|integer|fixedpoint|fixedpoint2|bit" mode="dump">
 	printf("<xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/>);
 </xsl:template>
 
