@@ -696,6 +696,18 @@
 	<fill-byte/>
 </tag>
 
+<!-- pseudo-declarations for DefineShape4/5 (flash8),
+     these enable correct import of those -->
+<tag name="DefineShape4" id="0x43">
+	<word name="objectID" prop="true"/>
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+<tag name="DefineShape5" id="0x53">
+	<word name="objectID" prop="true"/>
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
+
 <tag name="DefineMorphShape" id="0x2E">
 	<word name="objectID" prop="true"/>
 <!-- only basic support for the id -->
