@@ -160,6 +160,22 @@
 	</xsl:if>
 </xsl:template>
 
+<!-- device fonts -->
+<xsl:template match="font" priority="-1">
+	<xsl:variable name="id">
+		<xsl:choose>
+			<xsl:when test="@id">
+				<xsl:value-of select="swft:map-id(@id)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="swft:next-id()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<DefineFont2 objectID="{$id}" isShiftJIS="0" isUnicode="0" isANSII="0" wideGlyphOffsets="0" italic="0" bold="0" language="1" name="{@name}">
+	</DefineFont2>
+</xsl:template>
+
 <!-- JPEG import -->
 <xsl:template match="jpeg" mode="makeswf">
 	<xsl:param name="id"/>

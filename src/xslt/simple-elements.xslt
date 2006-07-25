@@ -281,11 +281,17 @@
 			<xsl:otherwise>20</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="useOutlines">
+		<xsl:choose>
+			<xsl:when test="@useOutlines"><xsl:value-of select="@useOutlines"/></xsl:when>
+			<xsl:otherwise>1</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 	<DefineEditText objectID="{$id}"
 		fontRef="{swft:map-id(@font)}" fontHeight="{$size}"
 		readOnly="0" autoSize="0" hasLayout="0"
-		notSelectable="0" hasBorder="0" isHTML="0" useOutlines="1" 
+		notSelectable="0" hasBorder="0" isHTML="0" useOutlines="{$useOutlines}" 
 		align="0" leftMargin="0" rightMargin="0" indent="0" leading="{$leading}" 
 		wordWrap="1" multiLine="1" password="0" 
 		variableName="{@name}" 
