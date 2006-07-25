@@ -1,5 +1,6 @@
 #include "SWFShapeMaker.h"
 #include "SWFFile.h"
+#include "swft.h"
 #include <libxslt/extensions.h>
 #include <libxml/uri.h>
 #include <libxslt/xsltutils.h>
@@ -32,7 +33,7 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
 		
 	tctx = xsltXPathGetTransformContext(ctx);
 	
-	uri = obj->stringval;
+	uri = swft_get_filename( obj->stringval );
 		
 	FILE *fp = fopen( (const char *)uri, "rb" );
 	if( !fp ) {

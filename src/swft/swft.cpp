@@ -117,7 +117,14 @@ static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs ) {
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)tmp));
 }
 
-
+unsigned char *swft_get_filename( xmlChar *filenameUTF ) {
+	int l = strlen((const char*)filenameUTF);
+	int l2 = l;
+	unsigned char *filename = (unsigned char *)malloc(l+1);
+	UTF8Toisolat1( filename, &l2, filenameUTF, &l );
+	filename[l2] = 0;
+	return filename;
+}
 
 void swft_register() {
 	xsltRegisterExtModule((const xmlChar *)SWFT_NAMESPACE,

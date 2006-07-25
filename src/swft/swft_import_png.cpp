@@ -89,7 +89,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		
 	tctx = xsltXPathGetTransformContext(ctx);
 	
-	filename = obj->stringval;
+	filename = swft_get_filename(obj->stringval);
 
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );

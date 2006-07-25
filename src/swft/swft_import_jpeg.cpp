@@ -25,7 +25,7 @@ int getJpegWord( FILE *fp ) {
 
 void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	xmlChar *filename;
+	unsigned char *filename;
 	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
@@ -46,8 +46,7 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 		
 	tctx = xsltXPathGetTransformContext(ctx);
-	
-	filename = obj->stringval;
+	filename = swft_get_filename( obj->stringval );
 
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
@@ -132,8 +131,8 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 		return;
 	}
 
-	maskfilename = xmlXPathPopString(ctx);
-	filename = xmlXPathPopString(ctx);
+	maskfilename = swft_get_filename( xmlXPathPopString(ctx) );
+	filename = swft_get_filename( xmlXPathPopString(ctx) );
 	if( xmlXPathCheckError(ctx) || (filename==NULL) || (maskfilename==NULL) ) {
 		return;
 	}

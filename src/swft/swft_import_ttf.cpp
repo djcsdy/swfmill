@@ -312,7 +312,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 		glyphs = xmlXPathPopString(ctx);
 		if( glyphs[0] == 0 ) glyphs = NULL;
 	}
-	filename = xmlXPathPopString(ctx);
+	filename = swft_get_filename( xmlXPathPopString(ctx) );
 	if( xmlXPathCheckError(ctx) )
 		return;
 
