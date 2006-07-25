@@ -12,15 +12,17 @@
 	contains templates for most of the swfml-simple elements 
 -->
 
+<xsl:variable name="movie-version">
+	<xsl:choose>
+		<xsl:when test="movie/@version"><xsl:value-of select="movie/@version"/></xsl:when>
+		<xsl:otherwise>7</xsl:otherwise>
+	</xsl:choose>
+</xsl:variable>
+
 <!-- basic SWF setup -->
 <xsl:template match="movie">
 	<!-- set defaults for movie -->
-	<xsl:variable name="version">
-		<xsl:choose>
-			<xsl:when test="@version"><xsl:value-of select="@version"/></xsl:when>
-			<xsl:otherwise>7</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
+	<xsl:variable name="version" select="$movie-version"/>
 	<xsl:variable name="compressed">
 		<xsl:choose>
 			<xsl:when test="@compressed='true'">1</xsl:when>
@@ -318,8 +320,51 @@
 			<xsl:call-template name="color-rgba"/>
 		</color>
 	</DefineEditText>
+	
+	<xsl:if test="$movie-version &gt; 7">
+		<xsl:apply-templates select="text-settings">
+			<xsl:with-param name="id" select="$id"/>
+		</xsl:apply-templates>
+	</xsl:if>
 
 </xsl:template>
+
+<xsl:template match="text-settings">
+	<xsl:param name="id" select="0"/>
+	
+	<CSMTextSettings objectId="{$id}">
+		<xsl:attribute name="useFlashType">
+			<xsl:choose>
+				<xsl:when test="@render = 'advanced'">1</xsl:when>
+				<xsl:otherwise>0</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+		<xsl:attribute name="gridFit">
+			<xsl:choose>
+				<xsl:when test="@grid = 'sub-pixel'">2</xsl:when>
+				<xsl:when test="@grid = 'pixel'">1</xsl:when>
+				<xsl:otherwise>0</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+		<xsl:attribute name="thickness">
+			<xsl:choose>
+				<xsl:when test="@thickness">
+					<xsl:value-of select="@thickness"/>
+				</xsl:when>
+				<xsl:otherwise>0</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+		<xsl:attribute name="sharpness">
+			<xsl:choose>
+				<xsl:when test="@sharpness">
+					<xsl:value-of select="@sharpness"/>
+				</xsl:when>
+				<xsl:otherwise>0</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+	</CSMTextSettings>
+</xsl:template>
+
 
 <!-- video object -->
 <xsl:template match="video">
