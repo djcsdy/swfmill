@@ -1118,6 +1118,16 @@
 	<object type="Rest" name="data" prop="true"/>
 </tag>
 
+<tag name="CSMTextSettings" id="0x4A">
+	<word name="objectID" prop="true"/>
+	<integer name="useFlashType" prop="true" size="2" constant-size="true"/>
+	<integer name="gridFit" prop="true" size="3" constant-size="true"/>
+	<integer name="reserved1" size="3" constant-size="true"/>
+	<float name="thickness" prop="true"/>
+	<float name="sharpness" prop="true"/>
+	<byte name="reserved2"/>
+</tag>
+
 <tag name="DefineFont3" id="0x4B">
 	<word name="objectID" prop="true"/>
 	<!-- only basic support for the id -->
