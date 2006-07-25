@@ -1079,6 +1079,18 @@
 	<integer name="reserved3" size="24" constant-size="true"/>
 </tag>
 
+<tag name="DefineFontInfo3" id="0x49">
+	<word name="objectID" prop="true"/>
+	<!-- only basic support for the id -->
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
+<tag name="DefineFont3" id="0x4B">
+	<word name="objectID" prop="true"/>
+	<!-- only basic support for the id -->
+	<object type="Rest" name="data" prop="true"/>
+</tag>
+
 <tag name="Metadata" id="0x4D">
     <xml name="RDF" prop="true"/>
 </tag>
