@@ -218,6 +218,37 @@
 	</flagged>
 </type>
 
+<type name="TextRecord62">
+	<bit name="isSetup" default="0"/>
+	<flagged flag="isSetup">
+		<integer name="reserved" size="3" constant-size="true"/>
+		<bit name="hasFont"/>
+		<bit name="hasColor"/>
+		<bit name="hasMoveX"/>
+		<bit name="hasMoveY"/>
+		<flagged flag="hasFont">
+			<word name="objectID" prop="true"/>
+		</flagged>
+		<flagged flag="hasColor">
+			<object type="Color" name="color" prop="true"/>
+		</flagged>
+		<flagged flag="hasMoveX">
+			<word name="x" signed="true" prop="true"/>
+		</flagged>
+		<flagged flag="hasMoveY">
+			<word name="y" signed="true" prop="true"/>
+		</flagged>
+		<flagged flag="hasFont">
+			<word name="fontHeight" prop="true"/>
+		</flagged>
+	</flagged>
+	<flagged flag="isSetup" negative="true">
+		<integer name="nGlyphs" size="7" constant-size="true"/>
+		<list type="TextEntry2" name="glyphs" length="nGlyphs" prop="true"/>
+		<fill-byte/>
+	</flagged>
+</type>
+
 <type name="TextRecord7">
 	<bit name="isSetup" default="0"/>
 	<integer name="reserved" size="3" constant-size="true"/>
@@ -292,7 +323,7 @@
 
 <type name="TextRecord2">
 	<if expression="ctx->swfVersion &lt; 7">
-		<list type="TextRecord6" name="records" prop="true"/>
+		<list type="TextRecord62" name="records" prop="true"/>
 	</if>
 	<if expression="ctx->swfVersion >= 7">
 		<object type="TextRecord72" name="textString" prop="true"/>
@@ -576,6 +607,8 @@
 </tag>
 
 <tag name="DefineText2" id="0x21">
+	<context param="alpha" value="1"/>
+	
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="bounds" prop="true"/>
 	<object type="Transform" name="transform" prop="true"/>
