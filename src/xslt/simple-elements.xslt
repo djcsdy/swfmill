@@ -349,7 +349,17 @@
 		<xsl:attribute name="thickness">
 			<xsl:choose>
 				<xsl:when test="@thickness">
-					<xsl:value-of select="@thickness"/>
+					<xsl:choose>
+						<xsl:when test="@thickness &lt; -200">
+							<xsl:value-of select="-200"/>
+						</xsl:when>
+						<xsl:when test="@thickness &gt; 200">
+							<xsl:value-of select="200"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="@thickness"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>0</xsl:otherwise>
 			</xsl:choose>
@@ -357,7 +367,17 @@
 		<xsl:attribute name="sharpness">
 			<xsl:choose>
 				<xsl:when test="@sharpness">
-					<xsl:value-of select="@sharpness"/>
+					<xsl:choose>
+						<xsl:when test="@sharpness &lt; -400">
+							<xsl:value-of select="-400"/>
+						</xsl:when>
+						<xsl:when test="@sharpness &gt; 400">
+							<xsl:value-of select="400"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="@sharpness"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>0</xsl:otherwise>
 			</xsl:choose>
