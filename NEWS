@@ -1,3 +1,24 @@
+2006-08 prerelease 0.2.11.15
+	"swfmill library <infile or dir> <outswf>" mode
+	support for device fonts
+	minimal DefineShape4/5, DefineFont3, DefineFontInfo3 support
+	improvements to svg:text
+	@symbol property in <font/> specifies a "windows symbol font"
+	Steve's additions for flash8:
+		ImportAssets2
+		FileAttributes
+		MetaData
+		Filter support
+		CSMTextSettings
+	store glyph bounding boxes in DefineFont2 for TTF import
+	font leading fixes
+	fixes for proper delete[]ion (thanks to valgrind)
+	fix rounding errors for float and fixed
+	fix/enable DefineText2 and related tags/types
+	fix import of assets with special characters in path
+	fix zero values in signed bitfields
+	fix order of Condition event bits
+
 2005-09-30 release 0.2.11 "the poodle's kern"
 	fix action lists in placeobject events;
 	bits calculation more precise (a few less bits needed here and there);
