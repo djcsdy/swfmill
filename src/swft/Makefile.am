@@ -28,6 +28,7 @@ libswft_la_SOURCES = \
 	swft_import_jpeg.cpp \
 	swft_import_png.cpp \
 	swft_import_ttf.cpp \
+	swft_import_mp3.cpp \
 	readpng.c \
 	$(NULL)
 

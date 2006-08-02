@@ -252,3 +252,4 @@ fail:
 	if( data ) delete data;
 	if( jpegdata ) delete jpegdata;
 }
+

@@ -7,7 +7,7 @@
 				version='1.0'>
 
 
-<xsl:template match="clip[@import]">
+<xsl:template match="clip[@import]|sound[@import]">
 	<xsl:variable name="id">
 		<xsl:choose>
 			<xsl:when test="@id">
@@ -57,6 +57,11 @@
 		-->
 		<xsl:when test="$ext = 'svg'">
 			<xsl:apply-templates select="document($file)" mode="svg">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
+		<xsl:when test="$ext = 'mp3'">
+			<xsl:apply-templates select="swft:import-mp3($file)" mode="makeswf">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
@@ -468,5 +473,14 @@
 	</DefineFont2>
 </xsl:template>
 
+<!-- MP3 import -->
+<xsl:template match="mp3" mode="makeswf">
+	<xsl:param name="id"/>
+	<DefineSound objectID="{$id}" format="{@format}" rate="{@rate}" is16bit="{@is16bit}" stereo="{@stereo}" samples="{@samples}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineSound>
+</xsl:template>
 
 </xsl:stylesheet>
