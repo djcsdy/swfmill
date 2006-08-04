@@ -558,6 +558,11 @@
 	<object type="Transform" name="matrix" prop="true"/>
 </style>
 
+<style name="MatrixBitmap" id="0x43">
+	<word name="objectID" prop="true"/>
+	<object type="Transform" name="matrix" prop="true"/>
+</style>
+
 <!-- ******************** TAGS ****************** -->
 
 <tag name="UnknownTag" id="-1">
