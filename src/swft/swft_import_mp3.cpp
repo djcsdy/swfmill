@@ -89,8 +89,7 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 	while( !feof( fp ) && !finished) {
 		if( lastChar == 0xFF) {
 			lastChar = fgetc(fp);
-			if ((lastChar & 0xE0) == 0xE0) {
-				//fprintf(stdout,"INFO: Frame found. LastChar: %i\n", lastChar );
+			if ((lastChar & 0xF0) == 0xF0) {
 				//We found a frame!
 				frames++;
 				first = false; //We already found the first frame
@@ -115,7 +114,6 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 								mp3SamplingRates[samplingRate]
 							) + 
 							padding;
-				//fprintf(stdout,"INFO: Frame size: %i\n", frameSize );
 				//We are going to skip the rest of the data and go straight to the next frame.
 				//We have already read 3 bytes
 				for (int i = 0; i < frameSize - 3 && !feof(fp); i++) {
@@ -123,10 +121,8 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 				}
 				if (!feof(fp))
 					lastChar = fgetc(fp); //Hopefully, the first byte of the next frame.
-				//fprintf(stdout,"INFO: Data skipped. LastChar: %i\n", lastChar );
 			} else {
 				//If we are still looking for the first frame, move on, otherwise, we are done.
-				//fprintf(stderr,"WARNING: Frame search finished (second byte). LastChar: %i\n", lastChar );
 				finished = !first;
 			}
 		} else {
@@ -134,7 +130,6 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 			if (first)
 				lastChar = fgetc(fp);
 			else {
-				//fprintf(stderr,"WARNING: Frame search finished (first byte). LastChar: %i\n", lastChar );
 				finished = true;
 			}
 		}
