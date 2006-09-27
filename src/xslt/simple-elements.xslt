@@ -109,19 +109,20 @@
 	<Metadata>
 		<rdf:RDF>
 			<rdf:Description>
-				<xsl:apply-templates mode="meta"/>
-		  </rdf:Description>
+				<xsl:apply-templates select="@*" mode="meta"/>
+		    </rdf:Description>
+			<xsl:copy-of select="*"/>
 		</rdf:RDF>
 	</Metadata>
 </xsl:template>
 
-<xsl:template match="title" mode="meta">
+<xsl:template match="@title" mode="meta">
 	<dc:title>
 		<xsl:apply-templates/>
 	</dc:title>
 </xsl:template>
 
-<xsl:template match="description" mode="meta">
+<xsl:template match="@description" mode="meta">
 	<dc:description>
 		<xsl:apply-templates/>
 	</dc:description>
