@@ -247,14 +247,12 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 			}
 			delete dst;
 			xmlFree( xmld );
-		} 
+		}
 	}
 </xsl:template>
 
 <xsl:template match="xml" mode="parsexml">
 	{
-		xmlBufferPtr buffer;
-
 		xmlNodePtr child = NULL;
 		xmlNodePtr currentChild = node->children;
 		while( currentChild &amp;&amp; child == NULL) {
@@ -268,10 +266,12 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 		if (child == NULL) {
 			fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> child element in %s element\n", (const char *)node->name );
 		} else {
-			buffer = xmlBufferCreate();
-			int numBytes = xmlNodeDump(buffer, child->doc, child, 0, 0);
-			<xsl:value-of select="@name"/> = strdup((const char *)buffer->content);
-			xmlBufferFree(buffer);
+			xmlDocPtr out = xmlNewDoc((const xmlChar*)"1.0");
+			out->xmlRootNode = xmlCopyNode( child, 1 );
+			
+			char *data; int size;
+			xmlDocDumpFormatMemory( out, (xmlChar**)&amp;data, &amp;size, 1 );
+			<xsl:value-of select="@name"/> = data;
 		}
 	}
 </xsl:template>
