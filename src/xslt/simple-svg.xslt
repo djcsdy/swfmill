@@ -9,6 +9,21 @@
 				extension-element-prefixes="swft"
 				version='1.0'>
 
+<!-- named template for redundant transforms -->
+<xsl:template name="transform">
+	<transform>
+		<xsl:choose>
+			<!-- catch empty transform attributes. -->
+			<xsl:when test="not(@transform) or @transform=''">
+				<Transform transX="0" transY="0"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy-of select="swft:transform(@transform)"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</transform>
+</xsl:template>
+
 <!-- named template for redundant placing -->
 <xsl:template name="placeObject">
 	<!-- place the element, or the referenced element (if it's a reference). 
@@ -45,16 +60,18 @@ multiple instances with the same name. -->
 	<!-- place the object. -->
 	<PlaceObject2 replace="0" depth="{swft:next-depth()}" name="{$name}" 
 objectID="{$id}">
-		<transform>
-			<xsl:choose>
-				<xsl:when test="@transform">
-					<xsl:copy-of select="swft:transform(@transform)"/>
-				</xsl:when>
-				<xsl:otherwise>
+		<!-- svg:use elements add an instance transform, all others have it 
+included in their definition. -->
+		<xsl:choose>
+			<xsl:when test="name()='use'">
+				<xsl:call-template name="transform" />
+			</xsl:when>
+			<xsl:otherwise>
+				<transform>
 					<Transform transX="0" transY="0"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</transform>
+				</transform>
+			</xsl:otherwise>
+		</xsl:choose>
 	</PlaceObject2>
 </xsl:template>
 
@@ -66,9 +83,7 @@ objectID="{$id}">
 		<tags>
 			<PlaceObject2 replace="0" depth="{swft:next-depth()}" 
 objectID="{$innerid}">
-				<transform>
-					<Transform transX="0" transY="0"/>
-				</transform>
+				<xsl:call-template name="transform" />
 			</PlaceObject2>
 			<ShowFrame/>
 			<End/>
@@ -106,7 +121,7 @@ for placing the elements. -->
 	<xsl:param name="id"/>
 	<!-- initiate the definition pass. -->
 	<xsl:apply-templates mode="queue" />
-	<!-- define svg as sprite. -->
+	<!-- define svg root as sprite. -->
 	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
 			<!-- initiate the placement pass. -->
@@ -117,7 +132,8 @@ for placing the elements. -->
 	</DefineSprite>
 </xsl:template>
 
-<xsl:template match="svg:g|svg:path|svg:rect|svg:use|svg:text" mode="queue">
+<xsl:template match="svg:g|svg:path|svg:rect|svg:use|svg:text|svg:flowRoot" 
+mode="queue">
 	<xsl:variable name="id"><xsl:value-of 
 select="swft:map-id(@id)"/></xsl:variable>
 	<xsl:variable name="name" select="@id"/>
@@ -133,7 +149,7 @@ first. -->
 
 </xsl:template>
 
-<xsl:template match="svg:g|svg:path|svg:rect|svg:use|svg:text" 
+<xsl:template match="svg:g|svg:path|svg:rect|svg:use|svg:text|svg:flowRoot" 
 mode="placement">
 	<!-- no definition. just place this element. -->
 	<xsl:call-template name="placeObject" />
@@ -143,14 +159,35 @@ mode="placement">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
 
-	<!-- define the group and place the subparts -->
-	<DefineSprite objectID="{$id}" frames="1">
-		<tags>
-			<xsl:apply-templates mode="placement" />
-			<ShowFrame/>
-			<End/>
-		</tags>
-	</DefineSprite>
+	<!-- test if a wrapper is needed for a group transform -->
+	<xsl:choose>
+		<xsl:when test="not(@transform) or @transform='' or 
+transform='translate(0,0)'">
+			<!-- no transform, define the group and place the subparts -->
+			<DefineSprite objectID="{$id}" frames="1">
+				<tags>
+					<xsl:apply-templates mode="placement" />
+					<ShowFrame/>
+					<End/>
+				</tags>
+			</DefineSprite>
+		</xsl:when>
+		<xsl:otherwise>
+			<!-- define an inner group and wrap it with the group transform -->
+			<xsl:variable name="innerid"><xsl:value-of 
+select="swft:next-id()"/></xsl:variable>
+			<DefineSprite objectID="{$innerid}" frames="1">
+				<tags>
+					<xsl:apply-templates mode="placement" />
+					<ShowFrame/>
+					<End/>
+				</tags>
+			</DefineSprite>
+			<xsl:call-template name="wrapElement">
+				<xsl:with-param name="innerid" select="$innerid" />
+			</xsl:call-template>
+		</xsl:otherwise>
+	</xsl:choose>
 	<!-- export -->
 	<xsl:call-template name="exportElement" />
 
@@ -218,25 +255,21 @@ select="swft:next-id()"/></xsl:variable>
 
 	<!-- define the element -->
 	<DefineEditText objectID="{$shapeid}" wordWrap="1" multiLine="1" 
-password="0"
-		readOnly="0" autoSize="0" hasLayout="1"
-		notSelectable="0" hasBorder="1" isHTML="0" useOutlines="1"
-		fontRef="{swft:map-id('vera')}" fontHeight="240"
-		align="0" leftMargin="0" rightMargin="0" indent="0" leading="41"
-		variableName="{@name}">
+password="0" readOnly="0" autoSize="0" hasLayout="1" notSelectable="0" 
+hasBorder="0" isHTML="0" useOutlines="0" fontRef="{swft:map-id('vera')}" 
+fontHeight="240" align="0" leftMargin="0" rightMargin="0" indent="0" 
+leading="40" variableName="{@name}">
 		<xsl:attribute name="initialText">
-			<xsl:value-of select="normalize-space(.)"/>
+			<xsl:apply-templates mode="svg-text"/>
 		</xsl:attribute>
 		<size>
-			<Rectangle left="{svg:flowRegion/svg:rect/@x * 20}"
-						right="{(svg:flowRegion/svg:rect/@x + svg:flowRegion/svg:rect/@width)* 
-20}"
-						top="{svg:flowRegion/svg:rect/@y * 20}"
-						bottom="{(svg:flowRegion/svg:rect/@y + 
-svg:flowRegion/svg:rect/@height)* 20}"/>
+			<Rectangle left="{svg:flowRegion/svg:rect/@x * 20}" 
+right="{(svg:flowRegion/svg:rect/@x + svg:flowRegion/svg:rect/@width)* 20}" 
+top="{svg:flowRegion/svg:rect/@y * 20}" bottom="{(svg:flowRegion/svg:rect/@y 
++ svg:flowRegion/svg:rect/@height)* 20}"/>
 		</size>
 		<color>
-			<ColorRGBA red="100" green="150" blue="200" alpha="127"/>
+			<Color red="0" green="0" blue="0" alpha="255"/>
 		</color>
 	</DefineEditText>
 	<!-- wrap in sprite -->
@@ -255,24 +288,20 @@ select="swft:next-id()"/></xsl:variable>
 
 	<!-- define the element -->
 	<DefineEditText objectID="{$shapeid}" wordWrap="0" multiLine="1" 
-password="0"
-		readOnly="1" autoSize="1" hasLayout="1"
-		notSelectable="1" hasBorder="0" isHTML="0" useOutlines="1"
-		fontRef="{swft:map-id('vera')}" fontHeight="240"
-		align="0" leftMargin="0" rightMargin="0" indent="0" leading="1"
-		variableName="{@name}">
-		<xsl:attribute name="initialText">
-			<xsl:apply-templates mode="svg-text"/>
-		</xsl:attribute>
-		<size>
-			<Rectangle left="{@x * 20}"
-						right="{@x * 30}"
-						top="{@y * 20}"
-						bottom="{@y * 30}"/>
-		</size>
-		<color>
-			<ColorRGBA red="255" green="255" blue="255" alpha="255"/>
-		</color>
+password="0" readOnly="1" autoSize="1" hasLayout="1" notSelectable="1" 
+hasBorder="0" isHTML="0" useOutlines="0" fontRef="{swft:map-id('vera')}" 
+fontHeight="240" align="0" leftMargin="0" rightMargin="0" indent="0" 
+leading="40" variableName="{@name}">
+	<xsl:attribute name="initialText">
+		<xsl:apply-templates mode="svg-text"/>
+	</xsl:attribute>
+	<size>
+		<Rectangle left="{@x * 20}" right="{@x * 30}" top="{@y * 20}" bottom="{@y 
+* 30}"/>
+	</size>
+	<color>
+		<Color red="0" green="0" blue="0" alpha="255"/>
+	</color>
 	</DefineEditText>
 	<!-- wrap in sprite -->
 	<xsl:call-template name="wrapElement">
@@ -282,13 +311,21 @@ password="0"
 	<xsl:call-template name="exportElement" />
 </xsl:template>
 
+<xsl:template match="svg:flowRegion" mode="svg-text">
+	<xsl:apply-templates mode="svg-text"/>
+</xsl:template>
+
+<xsl:template match="svg:flowPara" mode="svg-text">
+	<xsl:apply-templates mode="svg-text"/>
+</xsl:template>
+
 <xsl:template match="svg:tspan[position()=1]" mode="svg-text">
 	<xsl:apply-templates mode="svg-text"/>
 </xsl:template>
 
 <xsl:template match="svg:tspan" mode="svg-text" priority="-1">
 	<xsl:text>
-</xsl:text>
+	</xsl:text>
 	<xsl:apply-templates mode="svg-text"/>
 </xsl:template>
 
