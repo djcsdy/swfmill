@@ -987,6 +987,14 @@
 	</flagged>
 </tag>
 
+<tag name="DefineButton" id="0x07">
+	<context param="tagVersion" value="1"/>
+	
+	<word name="objectID" prop="true"/>
+	<list type="Button" name="buttons" end-condition="!(item->gethitTest() || item->getdown() || item->getover() || item->getup())" end-offset="-2" prop="true"/>
+	<list type="Action" name="actions" prop="true"/>
+</tag>
+
 <tag name="DefineButton2" id="0x22">
 	<context param="tagVersion" value="2"/>
 	
