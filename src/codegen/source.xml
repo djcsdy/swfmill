@@ -1090,7 +1090,7 @@
 			<list type="Filter" name="filters" length="numFilters" prop="true"/>
 	</flagged>
 	<flagged flag="hasBlendMode">
-		<word name="blendMode" prop="true" default="0"/>
+		<byte name="blendMode" prop="true" default="0"/>
 	</flagged>
 	<flagged flag="hasEventHandler">
 		<word name="reserved"/>
