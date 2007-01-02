@@ -1092,6 +1092,10 @@
 	<flagged flag="hasBlendMode">
 		<byte name="blendMode" prop="true" default="0"/>
 	</flagged>
+	<flagged flag="hasCacheAsBitmap">
+        <!-- alexis swf ref states this as "not in the macromedia docs", dunno... -->
+		<byte name="bitmapCaching" prop="true" default="0"/>
+	</flagged>
 	<flagged flag="hasEventHandler">
 		<word name="reserved"/>
 		
