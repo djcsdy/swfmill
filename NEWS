@@ -1,3 +1,12 @@
+2007-01 prerel 0.2.11.21
+    DefineTextInfo support
+    basic MP3 import (thanks to JJ)
+    improved SVG import (thanks to Gerrit Klaus)
+    basic MatrixBitmap fill style support
+    fix namespace support for Metadata
+    DefineButton1 support
+    fix PlaceObject3 with BlendMode
+
 2006-08 prerelease 0.2.11.15
 	"swfmill library <infile or dir> <outswf>" mode
 	support for device fonts
@@ -7,7 +16,7 @@
 	Steve's additions for flash8:
 		ImportAssets2
 		FileAttributes
-		MetaData
+		Metadata
 		Filter support
 		CSMTextSettings
 	store glyph bounding boxes in DefineFont2 for TTF import
