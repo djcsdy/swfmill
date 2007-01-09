@@ -509,7 +509,7 @@
 </filter>
 
 <filter name="ColorMatrix" id="0x06">
-	<list type="Float" name="matrix" prop="true" end-condition="matrix.size() == 20"/>
+	<list type="Float" name="matrix" prop="true" end-condition="(matrix.size()==20)"/>
 </filter>
 
 <filter name="GradientBevel" id="0x07">
@@ -558,7 +558,12 @@
 	<object type="Transform" name="matrix" prop="true"/>
 </style>
 
-<style name="MatrixBitmap" id="0x43">
+<style name="TiledBitmap2" id="0x42">
+	<word name="objectID" prop="true"/>
+	<object type="Transform" name="matrix" prop="true"/>
+</style>
+
+<style name="ClippedBitmap2" id="0x43">
 	<word name="objectID" prop="true"/>
 	<object type="Transform" name="matrix" prop="true"/>
 </style>
