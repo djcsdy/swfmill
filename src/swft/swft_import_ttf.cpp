@@ -196,6 +196,36 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 			end = outline->contours[contour];
 			n=0;
 
+            /*
+             * If the outline starting point is "off the curve", reorder the points array.
+             * Shift the starting point off and move it the end of outline points.
+             */
+            control = !(outline->tags[start] & 0x01);
+            if (control) {
+             FT_Vector pointsBuffer[(end+1)-start];
+             char tagsBuffer[(end+1)-start];
+             int i,j;
+             for (i=0, j=start; j<=end; i++, j++ ) {
+               // save the original points to temporary area
+               pointsBuffer[i].x = outline->points[j].x;
+               pointsBuffer[i].y = outline->points[j].y;
+               tagsBuffer[i] = outline->tags[j];
+             }
+             for (i=0, j=start; j<=end; i++, j++ ) {
+                 if (i==0) {
+                 // move the original starting point to the tail
+                   outline->points[end].x = pointsBuffer[0].x;
+                   outline->points[end].y = pointsBuffer[0].y;
+                   outline->tags[end] = tagsBuffer[0];
+                } else {
+                  // just shift the other points
+                   outline->points[j-1].x = pointsBuffer[i].x;
+                   outline->points[j-1].y = pointsBuffer[i].y;
+                   outline->tags[j-1] = tagsBuffer[i];
+                }
+             }
+            }
+
 			for( int p = start; p<=end; p++ ) {
 				control = !(outline->tags[p] & 0x01);
 				cubic = outline->tags[p] & 0x02;
