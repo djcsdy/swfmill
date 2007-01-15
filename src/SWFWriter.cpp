@@ -59,6 +59,7 @@ void Writer::putInt64( uint64_t value ) {
 }
 
 void Writer::putFloat( float v ) {
+    /*
 	byteAlign();
 	if( !assure( 4 ) ) return;
 
@@ -68,6 +69,13 @@ void Writer::putFloat( float v ) {
 	data[pos++] = (value>>8)&0xFF;
 	data[pos++] = (value>>16)&0xFF;
 	data[pos++] = (value>>24)&0xFF;
+    */
+    union {
+        double f;
+        uint32_t ul;
+    } u;
+    u.f = v;
+    putInt(u.ul);
 }
 
 void Writer::putDouble( double v ) {

@@ -75,6 +75,7 @@ uint64_t Reader::getInt64() {
 }
 
 float Reader::getFloat() {
+    /*
 	if( pos+4 > length ) {
 		err = SWFR_EOF;
 		pos = length+1;
@@ -86,6 +87,14 @@ float Reader::getFloat() {
 	r += data[pos++]<<16;
 	r += data[pos++]<<24;
 	return *((float*)&r);
+    */
+    union {
+        float f;
+        uint32_t ul;
+    } u;
+
+    u.ul = getInt();
+    return u.f;
 }
 
 double Reader::getDouble() {
