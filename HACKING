@@ -5,6 +5,8 @@ this file contains information that might be helpful when browsing swfmills sour
 	xsltproc codegen/mk.xsl codegen/source.xml
 the resulting code is not well indented, and really the xslt step should be integrated into the makefile.
 
+- the generated base classes are derived from SWFTag, SWFAction, SWFStyle, SWFFilter or (for <type/>s in source.xml) no base class at all (for thngs like "Rectangle"). Fonts are certainly special, both the contents of the DefineFont2 tag (not a "clean", generated class but the SWFGlyphList kludge) as well as freetype handling and conversion to the proper shape definitions.
+
 - the basic I/O code is in SWFFile (for header, compression) and SWFReader/Writer (for anything else, including SWF-style nBit numbers etc.)
 
-
+- the XSL stylesheet that makes up the "simple" processing mode (which is itself everything but simple) is built in src/xslt/. there's more README there.
