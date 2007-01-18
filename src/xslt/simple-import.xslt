@@ -389,14 +389,6 @@
 <xsl:template match="@*|text()" mode="idmap" priority="-1">
 	<xsl:copy select="."/>
 </xsl:template>
-<xsl:template match="DefineShape|DefineShape2|DefineShape3" mode="idmap">
-	<xsl:copy select=".">
-		<xsl:apply-templates select="@*|text()" mode="idmap"/>
-        <xsl:for-each select="*">
-            <xsl:copy-of select="."/>
-        </xsl:for-each>
-	</xsl:copy>
-</xsl:template>
 <xsl:template match="*" mode="idmap" priority="-1">
 	<xsl:copy select=".">
 		<xsl:apply-templates select="*|@*|text()" mode="idmap"/>
