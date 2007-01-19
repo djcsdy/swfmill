@@ -74,8 +74,11 @@
 </type>
 
 <type name="LineStyle">
-       <word name="width" prop="true"/>
-       <object type="Color" name="color" prop="true"/>
+   <word name="width" prop="true"/>
+   <object type="Color" name="color" prop="true"/>
+    <if expression="ctx->tagVersion &gt; 3">
+		<word name="unknown" prop="true"/>
+	</if>
 </type>
 
 <type name="StyleList">
@@ -733,15 +736,49 @@
 </tag>
 
 <tag name="DefineShape4" id="0x43">
-	<word name="objectID" prop="true"/>
-<!-- only basic support for the id -->
+    <word name="objectID" prop="true"/>
 	<object type="Rest" name="data" prop="true"/>
+
+<!-- the above defines basic support for the id only.
+    below is probably correct, but i need a sample first.
+
+    <context param="alpha" value="1"/>
+	<context param="many_shapes" value="1"/>
+	<context param="tagVersion" value="4"/>
+
+	<word name="objectID" prop="true"/>
+    <object type="Rectangle" name="bounds" prop="true"/>
+    <object type="Rectangle" name="strokeBounds" prop="true"/>
+    
+	<integer name="reserved" size="6" constant-size="true"/>
+	<bit name="nonScalingStrokes" prop="true"/>
+	<bit name="scalingStrokes" prop="true"/>
+    
+    <object type="StyleList" name="styles" prop="true"/>
+    <object type="Shape" name="shapes" prop="true"/>
+	<fill-byte/>
+-->
+
 </tag>
 
 <tag name="DefineShape5" id="0x53">
+	<context param="alpha" value="1"/>
+	<context param="many_shapes" value="1"/>
+	<context param="tagVersion" value="5"/>
+
 	<word name="objectID" prop="true"/>
-<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
+    <object type="Rectangle" name="bounds" prop="true"/>
+    <object type="Rectangle" name="strokeBounds" prop="true"/>
+    
+	<integer name="reserved" size="6" constant-size="true"/>
+    <!-- not quite understanding the sense of having two bits for one booleanoid,
+         copying from alexis here once more. -->
+	<bit name="nonScalingStrokes" prop="true"/>
+	<bit name="scalingStrokes" prop="true"/>
+    
+    <object type="StyleList" name="styles" prop="true"/>
+    <object type="Shape" name="shapes" prop="true"/>
+	<fill-byte/>
 </tag>
 
 
