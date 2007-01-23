@@ -8,7 +8,7 @@ namespace SWF {
 class File {
 	public:
 		File();
-		int load( FILE *fp, Context *ctx = NULL, unsigned int filesize=-1 );
+		int load( FILE *fp, Context *ctx = NULL, unsigned int filesize=0 );
 		int save( FILE *fp, Context *ctx = NULL );
 		void dump();
 		int saveXML( FILE *fp, Context *ctx = NULL );
