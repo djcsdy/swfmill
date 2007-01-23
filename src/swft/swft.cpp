@@ -89,6 +89,40 @@ static void swft_setmap( xmlXPathParserContextPtr ctx, int nargs ) {
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
 }
 
+static void swft_bump_id( xmlXPathParserContextPtr ctx, int nargs ) {
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
+
+	if( (nargs != 1) ) {
+		xmlXPathSetArityError(ctx);
+		return;
+	}
+	
+	int offset = (int)xmlXPathPopNumber(ctx);
+	if( xmlXPathCheckError(ctx) )
+		return;
+	
+	if( offset >= c->last_id ) c->last_id = offset+1;
+	
+	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
+}
+
+static void swft_bump_depth( xmlXPathParserContextPtr ctx, int nargs ) {
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
+
+	if( (nargs != 1) ) {
+		xmlXPathSetArityError(ctx);
+		return;
+	}
+	
+	int offset = (int)xmlXPathPopNumber(ctx);
+	if( xmlXPathCheckError(ctx) )
+		return;
+	
+	if( offset >= c->last_depth ) c->last_depth = offset+1;
+	
+	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
+}
+
 static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs ) {
 	char tmp[TMP_STRLEN];
 	xmlXPathObjectPtr obj;
@@ -139,6 +173,8 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtElement(  ctx, (const xmlChar *) "push-map", SWFT_NAMESPACE, swft_pushmap);
 	xsltRegisterExtElement(  ctx, (const xmlChar *) "pop-map", SWFT_NAMESPACE, swft_popmap);
 	xsltRegisterExtFunction(  ctx, (const xmlChar *) "set-map", SWFT_NAMESPACE, swft_setmap);
+	xsltRegisterExtFunction(  ctx, (const xmlChar *) "bump-id", SWFT_NAMESPACE, swft_bump_id);
+	xsltRegisterExtFunction(  ctx, (const xmlChar *) "bump-depth", SWFT_NAMESPACE, swft_bump_depth);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "document", SWFT_NAMESPACE, swft_document);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
