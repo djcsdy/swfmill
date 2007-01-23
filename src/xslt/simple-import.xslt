@@ -391,7 +391,9 @@
 </xsl:template>
 <xsl:template match="*" mode="idmap" priority="-1">
 	<xsl:copy select=".">
-		<xsl:apply-templates select="*|@*|text()" mode="idmap"/>
+		<xsl:apply-templates select="@*" mode="idmap"/>
+		<xsl:apply-templates select="text()" mode="idmap"/>
+		<xsl:apply-templates mode="idmap"/>
 	</xsl:copy>
 </xsl:template>
 
