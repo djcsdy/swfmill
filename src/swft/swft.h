@@ -38,6 +38,9 @@ public:
 	}
 	
 	int doMap( const char *oldID ) {
+        int id = atoi( oldID );
+        if( id == 65535 ) return id;
+            
 		std::map<std::string,int>& m = *(maps.top());
 		int r = m[oldID];
 		if( r == 0 ) {

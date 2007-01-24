@@ -386,13 +386,15 @@
 <xsl:template match="@objectID|@fontRef|@sprite" mode="idmap">
 	<xsl:attribute name="{name()}"><xsl:value-of select="swft:map-id(.)"/></xsl:attribute>
 </xsl:template>
-<xsl:template match="@*|text()" mode="idmap" priority="-1">
+<xsl:template match="text()" mode="idmap" priority="-1">
+	<xsl:copy select="."/>
+</xsl:template>
+<xsl:template match="@*" mode="idmap" priority="-1">
 	<xsl:copy select="."/>
 </xsl:template>
 <xsl:template match="*" mode="idmap" priority="-1">
 	<xsl:copy select=".">
 		<xsl:apply-templates select="@*" mode="idmap"/>
-		<xsl:apply-templates select="text()" mode="idmap"/>
 		<xsl:apply-templates mode="idmap"/>
 	</xsl:copy>
 </xsl:template>
