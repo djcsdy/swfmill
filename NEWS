@@ -1,43 +1,39 @@
-2007-01-15 prerel 0.2.11.23
-    optimize simple-dialect .SWF import (don't id-map DefineShape contents)
-
-2007-01-09 prerel 0.2.11.22
-    adds TiledBitmap2 fill style (0x42)
-    adds fix for some fonts, courtesy of Kazuaki MATSUHASHI (thanks!)
-    fixes cacheAsBitmap in PlaceObject3
-
-
-2007-01 prerel 0.2.11.21
-    DefineTextInfo support
-    basic MP3 import (thanks to JJ)
-    improved SVG import (thanks to Gerrit Klaus)
-    basic MatrixBitmap fill style support
-    fix namespace support for Metadata
-    DefineButton1 support
-    fix PlaceObject3 with BlendMode
-
-2006-08 prerelease 0.2.11.15
+2007-01-25 release 0.2.12 'it's a long, long road'
 	"swfmill library <infile or dir> <outswf>" mode
-	support for device fonts
-	minimal DefineShape4/5, DefineFont3, DefineFontInfo3 support
-	improvements to svg:text
-	@symbol property in <font/> specifies a "windows symbol font"
 	Steve's additions for flash8:
 		ImportAssets2
 		FileAttributes
 		Metadata
 		Filter support
 		CSMTextSettings
-	store glyph bounding boxes in DefineFont2 for TTF import
+    basic MP3 import (thanks to JJ)
+    improved SVG import (thanks to Gerrit Klaus)
+	support for device fonts
+	minimal DefineShape4, DefineFont3, DefineFontInfo3 support
+    DefineShape5 support
+    DefineButton1 support
+    DefineTextInfo support
+	basic MatrixBitmap fill style support
+    TiledBitmap2 fill style support
+    improvements to svg:text
+	@symbol property in <font/> specifies a "windows symbol font"
+    store glyph bounding boxes in DefineFont2 for TTF import
+	optimize simple-dialect .SWF import.
+    exclude ID 65535 from idmapping.
+    new swft:bump-id and bump-depth functions.
 	font leading fixes
-	fixes for proper delete[]ion (thanks to valgrind)
+    fixes for proper delete[]ion (thanks to valgrind)
 	fix rounding errors for float and fixed
 	fix/enable DefineText2 and related tags/types
 	fix import of assets with special characters in path
 	fix zero values in signed bitfields
 	fix order of Condition event bits
+    fix cacheAsBitmap in PlaceObject3
+    fix for some fonts, courtesy of Kazuaki MATSUHASHI (thanks!)
+    fix namespace support for Metadata
+    fix PlaceObject3 with BlendMode
 
-2005-09-30 release 0.2.11 "the poodle's kern"
+2005-09-30 release 0.2.11 'the poodle's kern'
 	fix action lists in placeobject events;
 	bits calculation more precise (a few less bits needed here and there);
 	correct rounding errors and other improvements in font import;
