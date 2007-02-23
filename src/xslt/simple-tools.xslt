@@ -242,8 +242,11 @@
 	<xsl:value-of select="."/>
 </xsl:template>
 
-<!-- copy anything else -->
-<xsl:template match="*|@*|text()" priority="-1">
+<!-- copy anything else, but translate objectIDs -->
+<xsl:template match="@objectID|@sprite">
+	<xsl:attribute name="{name()}"><xsl:value-of select="swft:map-id(.)"/></xsl:attribute>
+</xsl:template>
+<xsl:template match="*|@*|text()" priority="-2">
 	<xsl:copy select=".">
 		<xsl:apply-templates select="*|@*|text()"/>
 	</xsl:copy>
