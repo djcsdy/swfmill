@@ -71,7 +71,7 @@ void Writer::putFloat( float v ) {
 	data[pos++] = (value>>24)&0xFF;
     */
     union {
-        double f;
+        float f;
         uint32_t ul;
     } u;
     u.f = v;
