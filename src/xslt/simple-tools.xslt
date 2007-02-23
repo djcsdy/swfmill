@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+h<?xml version="1.0"?>
 <xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 				xmlns:swft="http://subsignal.org/swfml/swft"
 				xmlns:str="http://exslt.org/strings"
@@ -243,7 +243,7 @@
 </xsl:template>
 
 <!-- copy anything else, but translate objectIDs -->
-<xsl:template match="@objectID|@sprite">
+<xsl:template match="@objectID|@sprite|@fontRef">
 	<xsl:attribute name="{name()}"><xsl:value-of select="swft:map-id(.)"/></xsl:attribute>
 </xsl:template>
 <xsl:template match="*|@*|text()" priority="-2">
