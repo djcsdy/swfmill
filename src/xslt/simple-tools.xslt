@@ -1,4 +1,4 @@
-h<?xml version="1.0"?>
+<?xml version="1.0"?>
 <xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 				xmlns:swft="http://subsignal.org/swfml/swft"
 				xmlns:str="http://exslt.org/strings"
