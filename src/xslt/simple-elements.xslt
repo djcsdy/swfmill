@@ -454,7 +454,16 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	<DefineSprite objectID="{$id}" frames="1">
+    <DefineSprite objectID="{$id}" frames="1">
+	<xsl:variable name="frames">
+		<xsl:choose>
+			<xsl:when test="count(frame)">
+				<xsl:value-of select="count(frame)"/>
+			</xsl:when>
+			<xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+	<DefineSprite objectID="{$id}" frames="{$frames}">
 		<tags>
 			<xsl:apply-templates/>
 			<End/>
