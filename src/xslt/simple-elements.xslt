@@ -171,6 +171,33 @@
 			<xsl:otherwise>1</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+    <xsl:variable name="skewx">
+            <xsl:choose>
+                    <xsl:when test="@skewx"><xsl:value-of select="@skewx"/></xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="skewy">
+            <xsl:choose>
+                    <xsl:when test="@skewy"><xsl:value-of select="@skewy"/></xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="scalex">
+            <xsl:choose>
+                    <xsl:when test="@scalex"><xsl:value-of select="@scalex"/></xsl:when>
+                    <xsl:when test="@scale"><xsl:value-of select="@scale"/></xsl:when>
+                    <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="scaley">
+            <xsl:choose>
+                    <xsl:when test="@scaley"><xsl:value-of select="@scaley"/></xsl:when>
+                    <xsl:when test="@scale"><xsl:value-of select="@scale"/></xsl:when>
+                    <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+
 	<xsl:variable name="depth"><xsl:value-of select="@depth"/></xsl:variable>
 	
 	<!-- if we have a former place with the same depth, use morph="1" replace="0"
@@ -200,7 +227,7 @@
 			</events>
 		</xsl:if>
 		<transform>
-			<Transform transX="{$x}" transY="{$y}" scaleX="{$scale}" scaleY="{$scale}"/>
+			<Transform transX="{$x}" transY="{$y}" scaleX="{$scalex}" scaleY="{$scaley}" skewX="{$skewx}" skewY="{$skewy}"/>
 		</transform>
 	</PlaceObject2>
 </xsl:template>
@@ -232,13 +259,41 @@
 			<xsl:otherwise>1</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+
+    <xsl:variable name="scalex">
+            <xsl:choose>
+                    <xsl:when test="@scalex"><xsl:value-of select="@scalex"/></xsl:when>
+                    <xsl:when test="@scale"><xsl:value-of select="@scale"/></xsl:when>
+                    <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="scaley">
+            <xsl:choose>
+                    <xsl:when test="@scaley"><xsl:value-of select="@scaley"/></xsl:when>
+                    <xsl:when test="@scale"><xsl:value-of select="@scale"/></xsl:when>
+                    <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="skewx">
+            <xsl:choose>
+                    <xsl:when test="@skewx"><xsl:value-of select="@skewx"/></xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="skewy">
+            <xsl:choose>
+                    <xsl:when test="@skewy"><xsl:value-of select="@skewy"/></xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+    </xsl:variable>
+ 
 	<xsl:variable name="depth">
 		<xsl:value-of select="preceding-sibling::place[@id=$myid]/@depth"/>
 	</xsl:variable>
 	
 	<PlaceObject2 replace="1" depth="{$depth}" objectID="{$id}">
 		<transform>
-			<Transform transX="{$x}" transY="{$y}" scaleX="{$scale}" scaleY="{$scale}"/>
+			<Transform transX="{$x}" transY="{$y}" scaleX="{$scalex}" scaleY="{$scaley}" skewX="{$skewx}" skewY="{$skewy}"/>
 		</transform>
 	</PlaceObject2>
 </xsl:template>
@@ -454,7 +509,6 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-    <DefineSprite objectID="{$id}" frames="1">
 	<xsl:variable name="frames">
 		<xsl:choose>
 			<xsl:when test="count(frame)">
