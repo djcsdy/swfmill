@@ -358,7 +358,14 @@
 
 
 <type name="Button">
-	<integer name="reserved" size="4" constant-size="true"/>
+	<integer name="reserved1" size="2" constant-size="true"/>
+	<if expression="ctx->swfVersion &lt; 8">
+		<integer name="reserved2" size="2" constant-size="true"/>
+	</if>
+	<if expression="ctx->swfVersion >= 8">
+		<bit name="hasBlendMode"/>
+		<bit name="hasFilterList"/>
+	</if>
 	<bit name="hitTest" prop="true"/>
 	<bit name="down" prop="true"/>
 	<bit name="over" prop="true"/>
@@ -370,6 +377,13 @@
 		<if expression="ctx->tagVersion &gt;= 2">
 			<object type="ColorTransform2" name="colorTransform" prop="true"/>
 		</if>
+		<flagged flag="hasFilterList">
+				<byte name="numFilters"/>
+				<list type="Filter" name="filters" length="numFilters" prop="true"/>
+		</flagged>
+		<flagged flag="hasBlendMode">
+			<byte name="blendMode" prop="true" default="0"/>
+		</flagged>
 	</if>
 </type>
 
