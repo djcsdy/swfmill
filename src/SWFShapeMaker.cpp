@@ -21,7 +21,7 @@ ShapeMaker::ShapeMaker( List<ShapeItem>* e, double fx, double fy, double ofsx, d
 	fillStyle0 = lineStyle = fillStyle1 = -1;
 }
 
-void ShapeMaker::setupR( double _x, double _y ) {
+void ShapeMaker::do_setup( double _x, double _y ) {
 	roundReset();
 	int x = roundX(factorx * ( _x ) );
 	int y = roundY(factory * ( _y ) );
@@ -200,9 +200,16 @@ void ShapeMaker::finish() {
 	edges->append( setup );
 }
 
+void ShapeMaker::setupR( double x, double y ) {
+    x+=lastx; y+=lasty;
+	do_setup( x, y );
+	lastx = x;
+	lasty = y;
+}
+
 void ShapeMaker::setup( double x, double y ) {
 	x+=offsetx; y+=offsety;
-	setupR( x-lastx, y-lasty );
+	do_setup( x, y );
 	lastx = x;
 	lasty = y;
 }

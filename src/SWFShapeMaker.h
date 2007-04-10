@@ -50,6 +50,7 @@ class ShapeMaker {
 			lineStyle = _lineStyle;
 		}
 	
+		void do_setup( double x=0, double y=0 );
 		void setup( double x=0, double y=0 );
 		void lineTo( double x, double y );
 		void curveTo( double cx, double cy, double ax, double ay );

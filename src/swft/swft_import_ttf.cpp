@@ -11,38 +11,45 @@
 #include "SWF.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include FT_OUTLINE_H
 #include "SWFShapeMaker.h"
 
 using namespace SWF;
 
 #define TMP_STRLEN 0xff
 
-void importGlyphPoints( FT_Vector *points, int n, ShapeMaker& shaper, bool cubic ) {
-	if( n==0 )  {
-		shaper.lineTo( points[0].x, points[0].y );
-	} else if( n==1 ) {
-		shaper.curveTo(
-			points[0].x, points[0].y,
-			points[1].x, points[1].y );
-	} else if( n>=2	) {
-		if( cubic ) {
-			fprintf(stderr,"ERROR: cubic beziers in fonts are not yet implemented.\n");
-		} else {
-			int x1, y1, x2, y2, midx, midy;
-			for( int i=0; i<n-1; i++ ) { 
-				x1 = points[i].x;
-				y1 = points[i].y;
-				x2 = points[i+1].x;
-				y2 = points[i+1].y;
-				midx = x1 + ((x2-x1)/2);
-				midy = y1 + ((y2-y1)/2);
-				shaper.curveTo( x1, y1, midx, midy );
-			}
-			shaper.curveTo( x2, y2, points[n].x, points[n].y );
-		}
-	} else {
-	}
+int moveTo( FT_Vector *to, void *shaper ) {
+	((ShapeMaker*)shaper)->setup( to->x, to->y );
+
+	return 0;
 }
+
+int lineTo( FT_Vector *to, void *shaper ) {
+	((ShapeMaker*)shaper)->lineTo( to->x, to->y );
+
+	return 0;
+}
+
+int conicTo( FT_Vector *control, FT_Vector *to, void *shaper ) {
+	((ShapeMaker*)shaper)->curveTo( control->x, control->y, to->x, to->y );
+
+	return 0;
+}
+
+int cubicTo( FT_Vector *control1, FT_Vector *control2, FT_Vector *to, void *shaper ) {
+	fprintf(stderr,"ERROR: cubic beziers in fonts are not yet implemented.\n");
+
+	return 0;
+}
+
+FT_Outline_Funcs decomposeFunctions = {
+	moveTo,
+	lineTo,
+	conicTo,
+	cubicTo,
+	0,
+	0
+};
 
 bool emptyGlyph( FT_Face face, FT_ULong wc ) {
 	return( wc != 32 && face->glyph->outline.n_points == 0 );
@@ -189,77 +196,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		ShapeMaker shaper( shape->getedges(), (1.0/64), -(1.0/64), 0, 0 );
 		shaper.setStyle( 1, -1, -1 );
 		
-		int start = 0, end;
-		bool control, cubic;
-		int n;
-		for( int contour = 0; contour < outline->n_contours; contour++ ) {
-			end = outline->contours[contour];
-			n=0;
+		FT_Outline_Decompose( outline, &decomposeFunctions, &shaper );
 
-            /*
-             * If the outline starting point is "off the curve", reorder the points array.
-             * Shift the starting point off and move it the end of outline points.
-             */
-            control = !(outline->tags[start] & 0x01);
-            if (control) {
-             FT_Vector pointsBuffer[(end+1)-start];
-             char tagsBuffer[(end+1)-start];
-             int i,j;
-             for (i=0, j=start; j<=end; i++, j++ ) {
-               // save the original points to temporary area
-               pointsBuffer[i].x = outline->points[j].x;
-               pointsBuffer[i].y = outline->points[j].y;
-               tagsBuffer[i] = outline->tags[j];
-             }
-             for (i=0, j=start; j<=end; i++, j++ ) {
-                 if (i==0) {
-                 // move the original starting point to the tail
-                   outline->points[end].x = pointsBuffer[0].x;
-                   outline->points[end].y = pointsBuffer[0].y;
-                   outline->tags[end] = tagsBuffer[0];
-                } else {
-                  // just shift the other points
-                   outline->points[j-1].x = pointsBuffer[i].x;
-                   outline->points[j-1].y = pointsBuffer[i].y;
-                   outline->tags[j-1] = tagsBuffer[i];
-                }
-             }
-            }
-
-			for( int p = start; p<=end; p++ ) {
-				control = !(outline->tags[p] & 0x01);
-				cubic = outline->tags[p] & 0x02;
-				
-				if( p==start ) {
-					shaper.setup( outline->points[p-n].x, outline->points[p-n].y );
-				}
-				
-				if( !control && n > 0 ) {
-					importGlyphPoints( &(outline->points[(p-n)+1]), n-1, shaper, cubic );
-					n=1;
-				} else {
-					n++;
-				}
-			}
-			
-			if( n ) {
-				// special case: repeat first point
-				FT_Vector points[n+1];
-				int s=(end-n)+2;
-				for( int i=0; i<n-1; i++ ) {
-					points[i].x = outline->points[s+i].x;
-					points[i].y = outline->points[s+i].y;
-				}
-				points[n-1].x = outline->points[start].x;
-				points[n-1].y = outline->points[start].y;
-				
-				importGlyphPoints( points, n-1, shaper, false );
-			}
-			
-			shaper.close();
-			
-			start = end+1;
-		}
 		shaper.finish();
 
 		Rectangle *r = new Rectangle();
