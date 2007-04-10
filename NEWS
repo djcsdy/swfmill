@@ -1,3 +1,11 @@
+0.2.12.4
+    correctly count frames for <clip>s (thanks to Alex Midgley)
+    scalex/scaley, skewx/skewy in simple's <place/> (thanks to Jey)
+    ShiftedRadialGradient (fillstyle 0x13)
+    fix TTF import for some fonts (thanks to Ralf Fuest)
+    fix (one of many) segfaults in SVG import (Ralf)
+    Bitmap Filter effects on Buttons (Ralf again!)
+
 2007-01-25 release 0.2.12 'it's a long, long road'
 	"swfmill library <infile or dir> <outswf>" mode
 	Steve's additions for flash8:
