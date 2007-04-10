@@ -15,7 +15,7 @@ void parse_color( std::string str_c, CSSColor* color ) {
 	const char *s = str_c.c_str();
 	if( s[0] == '#' ) s++;
 
-	unsigned char bg[3];
+	int bg[3];
 	
 	char str[3];
 	str[2] = 0;
