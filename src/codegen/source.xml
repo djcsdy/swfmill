@@ -214,7 +214,7 @@
 
 
 <type name="TextRecord6">
-	<bit name="isSetup" default="0"/>
+	<bit name="isSetup" default="0" prop="true"/>
 	<flagged flag="isSetup">
 		<integer name="reserved" size="3" constant-size="true"/>
 		<bit name="hasFont"/>
@@ -245,7 +245,7 @@
 </type>
 
 <type name="TextRecord62">
-	<bit name="isSetup" default="0"/>
+	<bit name="isSetup" default="0" prop="true"/>
 	<flagged flag="isSetup">
 		<integer name="reserved" size="3" constant-size="true"/>
 		<bit name="hasFont"/>
@@ -276,7 +276,7 @@
 </type>
 
 <type name="TextRecord7">
-	<bit name="isSetup" default="0"/>
+	<bit name="isSetup" default="0" prop="true"/>
 	<integer name="reserved" size="3" constant-size="true"/>
 	<bit name="hasFont"/>
 	<bit name="hasColor"/>
@@ -308,7 +308,7 @@
 <type name="TextRecord72">
 	<context param="alpha" value="1"/>
 	
-	<bit name="isSetup" default="0"/>
+	<bit name="isSetup" default="0" prop="true"/>
 	<integer name="reserved" size="3" constant-size="true"/>
 	<bit name="hasFont"/>
 	<bit name="hasColor"/>
