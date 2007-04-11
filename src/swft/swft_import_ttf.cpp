@@ -18,35 +18,35 @@ using namespace SWF;
 
 #define TMP_STRLEN 0xff
 
-int moveTo( FT_Vector *to, void *shaper ) {
+int moveTo( const FT_Vector *to, void *shaper ) {
 	((ShapeMaker*)shaper)->setup( to->x, to->y );
 
 	return 0;
 }
 
-int lineTo( FT_Vector *to, void *shaper ) {
+int lineTo( const FT_Vector *to, void *shaper ) {
 	((ShapeMaker*)shaper)->lineTo( to->x, to->y );
 
 	return 0;
 }
 
-int conicTo( FT_Vector *control, FT_Vector *to, void *shaper ) {
+int conicTo( const FT_Vector *control, const FT_Vector *to, void *shaper ) {
 	((ShapeMaker*)shaper)->curveTo( control->x, control->y, to->x, to->y );
 
 	return 0;
 }
 
-int cubicTo( FT_Vector *control1, FT_Vector *control2, FT_Vector *to, void *shaper ) {
+int cubicTo( const FT_Vector *control1, const FT_Vector *control2, const FT_Vector *to, void *shaper ) {
 	fprintf(stderr,"ERROR: cubic beziers in fonts are not yet implemented.\n");
 
 	return 0;
 }
 
 FT_Outline_Funcs decomposeFunctions = {
-	moveTo,
-	lineTo,
-	conicTo,
-	cubicTo,
+	(FT_Outline_MoveToFunc)moveTo,
+	(FT_Outline_LineToFunc)lineTo,
+	(FT_Outline_ConicToFunc)conicTo,
+	(FT_Outline_CubicToFunc)cubicTo,
 	0,
 	0
 };
