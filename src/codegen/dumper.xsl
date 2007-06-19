@@ -102,4 +102,8 @@ void <xsl:value-of select="@name"/>::dump( int indent, Context *ctx ) {
 
 <xsl:template match="bytealign|context" mode="dump"/>
 
+<xsl:template match="context" mode="dump-wrap">
+	ctx-><xsl:value-of select="@param"/> = <xsl:value-of select="@value"/>;
+</xsl:template>
+
 </xsl:stylesheet>

@@ -96,7 +96,7 @@
         </if>
 
         <if expression="hasFill">
-            <list name="fillStyles" type="Style" end-condition="true" prop="true"/>
+            <list name="fillStyles" type="Style" length="1" constant-length="true" prop="true"/>
         </if>
         <if expression="!hasFill">
             <object type="Color" name="fillColor" prop="true"/>
@@ -541,7 +541,7 @@
 	<byte name="matrixY" prop="true"/>
 	<float name="divizor" prop="true"/>
 	<float name="bias" prop="true"/>
-	<list type="Float" name="matrix" prop="true" end-condition="matrix.size() == matrixX * matrixY"/>
+	<list type="Float" name="matrix" prop="true" length="(matrixX * matrixY)" constant-length="true"/>
 	<object type="Color" name="defaultColor" prop="true"/>
 	<integer name="reserved" size="5" constant-size="true"/>
 	<bit name="clamp" prop="true"/>
@@ -549,7 +549,7 @@
 </filter>
 
 <filter name="ColorMatrix" id="0x06">
-	<list type="Float" name="matrix" prop="true" end-condition="(matrix.size()==20)"/>
+	<list type="Float" name="matrix" prop="true" length="20" constant-length="true"/>
 </filter>
 
 <filter name="GradientBevel" id="0x07">
@@ -578,19 +578,40 @@
 
 <style name="LinearGradient" id="0x10">
 	<object type="Transform" name="matrix" prop="true"/>
-	<byte name="count"/>
+	<if expression="ctx->tagVersion &lt; 4">
+		<integer name="reserved" size="4" constant-size="true" prop="true"/>
+	</if>
+	<if expression="ctx->tagVersion >= 4">
+		<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
+		<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
+	</if>
+	<integer name="count" size="4" constant-size="true"/>
 	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
 </style>
 
 <style name="RadialGradient" id="0x12">
 	<object type="Transform" name="matrix" prop="true"/>
-	<byte name="count"/>
+	<if expression="ctx->tagVersion &lt; 4">
+		<integer name="reserved" size="4" constant-size="true" prop="true"/>
+	</if>
+	<if expression="ctx->tagVersion >= 4">
+		<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
+		<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
+	</if>
+	<integer name="count" size="4" constant-size="true"/>
 	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
 </style>
 
 <style name="ShiftedRadialGradient" id="0x13">
 	<object type="Transform" name="matrix" prop="true"/>
-	<byte name="count"/>
+	<if expression="ctx->tagVersion &lt; 4">
+		<integer name="reserved" size="4" constant-size="true" prop="true"/>
+	</if>
+	<if expression="ctx->tagVersion >= 4">
+		<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
+		<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
+	</if>
+	<integer name="count" size="4" constant-size="true"/>
 	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
 	<word name="shift" prop="true"/>
 </style>

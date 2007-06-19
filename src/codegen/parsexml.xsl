@@ -200,7 +200,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	node2 = node->children;
 	while( node2 ) {
 		if( !strcmp( (const char *)node2->name, "<xsl:value-of select="@name"/>" ) ) {
-			<xsl:if test="@length">
+			<xsl:if test="@length and not(@constant-length)">
 				<xsl:value-of select="@length"/>=0;
 			</xsl:if>
 			
@@ -211,7 +211,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 					if( item ) {
 						item->parseXML( child, ctx );
 						<xsl:value-of select="@name"/>.append( item );
-						<xsl:if test="@length">
+						<xsl:if test="@length and not(@constant-length)">
 							<xsl:value-of select="@length"/>++;
 						</xsl:if>
 					}
