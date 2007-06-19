@@ -310,7 +310,8 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	snprintf(tmp,TMP_STRLEN,"%i", 5);
 	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)&tmp );
 */	
-	if( glyphs ) delete glyphs;
+	if( glyphs )
+		xmlFree( glyphs );
 
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 	return;
