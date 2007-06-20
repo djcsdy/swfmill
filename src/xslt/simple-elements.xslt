@@ -212,7 +212,10 @@
 	<xsl:if test="$replace = '1'">
 		<RemoveObject2 depth="{@depth}"/>
 	</xsl:if>
-	<PlaceObject2 replace="0" morph="{$replace}" depth="{$depth}" objectID="{$id}" name="{@name}">
+	<PlaceObject2 replace="0" morph="{$replace}" depth="{$depth}" objectID="{$id}">
+		<xsl:if test="@name">
+			<xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+		</xsl:if>
 		<xsl:if test="*">
 			<!-- 0x200: initialize -->
 			<xsl:attribute name="allflags1">0x200</xsl:attribute>
