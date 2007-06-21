@@ -83,7 +83,14 @@ int File::load( FILE *fp, Context *_ctx, unsigned int filesize ) {
 
 	header->parse( r, length, ctx );
 	
-	if( r->getError() != SWFR_OK ) goto fail;
+	if( r->getError() != SWFR_OK ) {
+		if( r->getError() == SWFR_EOF ) {
+			fprintf(stderr,"WARNING: reached EOF while reading SWF\n");
+		} else {
+			fprintf(stderr,"unknown error while reading SWF\n");
+			goto fail;
+		}
+	}	
 
 	if( r ) delete r;
 	if( !_ctx && ctx ) delete ctx;
