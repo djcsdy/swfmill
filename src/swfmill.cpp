@@ -16,6 +16,7 @@ using namespace SWF;
 bool quiet = false;
 bool verbose = false;
 bool dump = false;
+bool nonet = false;
 const char *internal_stylesheet = NULL;
 
 void usage() {
@@ -59,6 +60,7 @@ void usage() {
 		"    -v verbose output\n"
 		"    -V extra-verbose debugging output\n"
 		"    -d dump SWF data when loaded (for debugging)\n"
+		"    -n deactivate libxml network access"
 		"\n"
 		"E-mail bug reports to "PACKAGE_BUGREPORT"\n\n"
 	);
@@ -428,6 +430,9 @@ int main( int argc, char *argv[] ) {
 					case 'd':
 						dump = true;
 						break;
+					case 'n':
+						nonet = true;
+						break;
 					case '?':
 						usage();
 						goto fail;
@@ -448,6 +453,8 @@ int main( int argc, char *argv[] ) {
 		usage();
 		goto fail;
 	}
+	
+	if( nonet ) xmlSetExternalEntityLoader( xmlNoNetExternalEntityLoader );
 	
 	if( !quiet ) fprintf( stderr, "%s %s\n", PACKAGE_NAME, PACKAGE_VERSION );
 

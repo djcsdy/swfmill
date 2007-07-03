@@ -1,32 +1,15 @@
 #ifndef SWF_SHAPEMAKER_H
 #define SWF_SHAPEMAKER_H
 
+#include "Geom.h"
 #include <stdio.h>
+#include <libxml/tree.h>
+#include <math.h>
 
 namespace SWF {
 
 class ShapeItem;
 template <class T> class List;
-
-class Point {
-	public:
-		double x, y;
-		
-		Point( double _x=0, double _y=0 ) {
-			x = _x; y = _y;
-		}
-		Point( const Point& p ) {
-			x=p.x; y=p.y;
-		}
-		const Point operator -( const Point& p ) const {
-			Point p2(x-p.x, y-p.y);
-			return p2;
-		}
-		Point operator =( const Point& p ) {
-			x=p.x; y=p.y;
-			return *this;
-		}
-};
 
 class Bezier {
 	public:
@@ -50,28 +33,49 @@ class ShapeMaker {
 			lineStyle = _lineStyle;
 		}
 	
-		void do_setup( double x=0, double y=0 );
-		void setup( double x=0, double y=0 );
+		void setup( double x = 0, double y = 0 );
+		void setupR( double x = 0, double y = 0 );
+
 		void lineTo( double x, double y );
+		void lineToR( double x, double y );
+		
 		void curveTo( double cx, double cy, double ax, double ay );
+		void curveToR( double cx, double cy, double ax, double ay );
+
+		void smoothCurveTo( double ax, double ay );
+		void smoothCurveToR( double ax, double ay );
+
 		void cubicTo( double x1, double y1, double x2, double y2, double ax, double ay );
-		void close();
+		void cubicToR( double x1, double y1, double x2, double y2, double ax, double ay );
+
+		void smoothCubicTo( double x2, double y2, double ax, double ay );
+		void smoothCubicToR( double x2, double y2, double ax, double ay );
+
+		void close(bool stroke = true);
 		void finish();
 	
-		void setupR( double x=0, double y=0 );
-		void lineToR( double x, double y );
-		void curveToR( double cx, double cy, double ax, double ay );
+		void rect( double x, double y, double width, double height, double rx = 0, double ry = 0 );
+		void ellipse( double cx, double cy, double rx, double ry );
+
+		void arcTo( double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y );
+		void arcToR( double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y );
+	
+		void boundsWriteXML( xmlNodePtr node, double border = -1 );
 	
 		double getLastX() { return lastx; }
 		double getLastY() { return lasty; }
 
-		double getMinX() { return minx; }
-		double getMinY() { return miny; }
-		double getMaxX() { return maxx; }
-		double getMaxY() { return maxy; }
+		double getSmoothX() { return smoothx; }
+		double getSmoothY() { return smoothy; }
+
+		Rect getBounds() { return Rect(minx, miny, maxx, maxy); }
 		
 	protected:
 		void cubicToRec( const Point& a, const Point& b, const Point& c, const Point& d, double k, int iteration=0 );
+
+		void doSetup( double _x=0, double _y=0, bool hasMoveTo=true, int _fillStyle0=-1, int _fillStyle1=-1, int _lineStyle=-1);
+
+		void ellipseSegment( double cx, double cy, double rx, double ry, double phi, double theta, double dTheta);
 	
 		void minmax( double x, double y ) {
 			if( !have_first ) {
@@ -88,13 +92,15 @@ class ShapeMaker {
 		List<ShapeItem>* edges;
 		double factorx, factory;
 		double offsetx, offsety;
-		double lastx, lasty;
 		double diffx, diffy;
+		double lastx, lasty;
+		double lastsetupx, lastsetupy;
 		double minx, miny, maxx, maxy;
+		double smoothx, smoothy;
 		bool have_first;
 	
 		int fillStyle0, fillStyle1, lineStyle;
-		
+
 		// rounding error accumulation compensation
 		double roundx, roundy;
 		int roundX( double x ) { return round( x, &roundx ); }

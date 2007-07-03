@@ -10,7 +10,7 @@ class Tag : public Item {
 	public:
 		Tag();
 		void setTypeAndLength( int t, int l );
-		int setType( int t ) { type = t; }
+		void setType( int t ) { type = t; }
 		int getType() { return type; }
 		int getLength() { return len; }
 		

@@ -43,6 +43,7 @@ class List {
 						return mFirst = mLast = new ListItem<T>( data, NULL, user_data );
 					} else {
 						WARNING("Linked List has First but no Last item\n");
+						return NULL;
 					}
 				} else {
 					return mLast = new ListItem<T>( data, mLast, user_data );

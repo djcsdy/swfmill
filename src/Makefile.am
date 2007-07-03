@@ -35,6 +35,7 @@ BUILT_SOURCES = \
 
 swfmill_SOURCES = \
 	base64.c \
+	Geom.cpp \
 	SWFReader.cpp \
 	SWFWriter.cpp \
 	SWFFile.cpp \
@@ -61,6 +62,7 @@ swfmill_SOURCES = \
 
 noinst_HEADERS = \
 	base64.h \
+	Geom.h \
 	SWFBasic.h \
 	SWFReader.h \
 	SWFWriter.h \

@@ -43,7 +43,7 @@ struct Context {
 class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mode="baseclass"/> {
 	public:
 		<xsl:value-of select="@name"/>();
-		~<xsl:value-of select="@name"/>();
+		virtual ~<xsl:value-of select="@name"/>();
 		
 		virtual bool parse( Reader *r, int end, Context *ctx );
 		virtual void dump( int indent, Context *ctx );

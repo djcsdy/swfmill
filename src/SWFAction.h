@@ -8,6 +8,7 @@ namespace SWF {
 class Action : public Item {
 	public:
 		Action();
+		virtual ~Action() {}
 		void setTypeAndLength( int t, int l ) {
 			// must be called before parse()!
 			type = t;

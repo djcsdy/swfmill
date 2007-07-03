@@ -9,4 +9,4 @@ autoconf
 cd src
 xsltproc codegen/mk.xsl codegen/source.xml
 cd ..
-./configure
+./configure $*

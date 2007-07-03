@@ -202,10 +202,11 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 
 		Rectangle *r = new Rectangle();
         
-		r->setleft( (int)shaper.getMinX() );
-		r->settop( (int)shaper.getMinY() );
-		r->setright( (int)shaper.getMaxX() );
-		r->setbottom( (int)shaper.getMaxY() );
+		Rect rect = shaper.getBounds();
+		r->setleft( (int)rect.left );
+		r->settop( (int)rect.top );
+		r->setright( (int)rect.right );
+		r->setbottom( (int)rect.bottom );
         
 		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
 		bounds->append(r);

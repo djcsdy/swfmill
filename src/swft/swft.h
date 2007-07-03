@@ -5,7 +5,9 @@
 #include <string>
 #include <stack>
 #include <map>
-	
+#include "SVGGradient.h"
+#include "SVGStyle.h"
+
 void swft_register();
 	
 // utility functoins for import (in swft_import.cpp)
@@ -18,6 +20,8 @@ unsigned char *swft_get_filename( xmlChar *string );
 
 class swft_ctx {
 public:
+	std::stack<SWF::SVGStyle> styles;
+	std::map<std::string, SWF::SVGGradient*> gradients;
 
 	int last_id;
 	int last_depth;
@@ -56,31 +60,5 @@ public:
 		m[oldID] = newID;
 	}
 };
-
-// CSS style stuff
-
-struct CSSColor {
-	CSSColor() {
-			r=g=b=a=0;
-		};
-		
-	unsigned char r, g, b, a;
-};
-
-struct CSSStyle {
-	CSSStyle() {
-		no_fill = no_stroke = false;
-		width = 0;
-	}
-	
-	bool no_fill, no_stroke;
-	CSSColor fill;
-	CSSColor stroke;
-	double width;
-	
-	std::map<std::string,std::string> styles;
-};
-
-void parse_css_simple( const char *style_str, CSSStyle *style );
 
 #endif

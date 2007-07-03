@@ -8,6 +8,7 @@ namespace SWF {
 class Filter : public Item {
 	public:
 		Filter();
+		virtual ~Filter() {}
 		void setTypeAndLength( int t, int l ) { 
 			type = t; 
 			len = l;

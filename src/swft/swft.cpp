@@ -10,6 +10,7 @@
 #define TMP_STRLEN 0xFF
 #define SWFT_MAPSIZE 32
 
+using namespace SWF;
 
 void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI );
 void swft_shutdown( xsltTransformContextPtr ctx, const xmlChar *URI, void *data );
@@ -41,10 +42,54 @@ void swft_path( xmlXPathParserContextPtr ctx, int nargs );
 void swft_bounds( xmlXPathParserContextPtr ctx, int nargs );
 void swft_transform( xmlXPathParserContextPtr ctx, int nargs );
 
-// in swft_css
-void swft_css( xmlXPathParserContextPtr ctx, int nargs );
-void swft_unit( xmlXPathParserContextPtr ctx, int nargs );
-void swft_css_lookup( xmlXPathParserContextPtr ctx, int nargs );
+static void swft_pushgradient( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr com ) {
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( ctx, SWFT_NAMESPACE );
+	xmlChar *id, *href;
+	SVGGradient *gradient;
+
+	id = xmlGetProp(node, (const xmlChar *)"id");
+	if(id) {
+		if(!xmlStrcmp(node->name, (const xmlChar *)"linearGradient")) {
+			gradient = new SVGLinearGradient();
+		} else if(!xmlStrcmp(node->name, (const xmlChar *)"radialGradient")) {
+			gradient = new SVGRadialGradient();
+		}
+
+		href = xmlGetProp(node, (const xmlChar *)"href");
+		if (href) {
+			string hrefStr = (const char *)href;
+			hrefStr.erase(0, 1);
+
+			map<string, SVGGradient*>::iterator i = c->gradients.find(hrefStr);
+			if(i != c->gradients.end()) {
+				*gradient = *((*i).second);
+			}			
+
+			xmlFree(href);
+		}
+
+		gradient->parse(node);
+		c->gradients[(char *)id] = gradient;
+		xmlFree(id);
+	}
+
+}
+
+static void swft_popstyle( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr com ) {
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( ctx, SWFT_NAMESPACE );
+	c->styles.pop();
+}
+
+static void swft_pushstyle( xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr com ) {
+	swft_ctx *c = (swft_ctx*)xsltGetExtData( ctx, SWFT_NAMESPACE );
+
+	SVGStyle style;
+	if(c->styles.size() > 0) {
+		style = c->styles.top();
+	}
+	style.parseNode(node, c->gradients);
+	c->styles.push(style);
+}
 
 static void swft_nextid( xmlXPathParserContextPtr ctx, int nargs ) {
 	char tmp[TMP_STRLEN];
@@ -145,7 +190,7 @@ static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs ) {
 	// (int)xmlXPathStringEvalNumber()
 	oldID = obj->stringval;
 	newID = c->doMap((const char*)oldID);
-	
+
 	xmlFree( oldID );
 	
 	snprintf(tmp,TMP_STRLEN,"%i", newID );
@@ -179,10 +224,10 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "document", SWFT_NAMESPACE, swft_document);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "path", SWFT_NAMESPACE, swft_path);
 //	xsltRegisterExtFunction( ctx, (const xmlChar *) "bounds", SWFT_NAMESPACE, swft_bounds);
-	xsltRegisterExtFunction( ctx, (const xmlChar *) "css", SWFT_NAMESPACE, swft_css);
-	xsltRegisterExtFunction( ctx, (const xmlChar *) "css-lookup", SWFT_NAMESPACE, swft_css_lookup);
-	xsltRegisterExtFunction( ctx, (const xmlChar *) "unit", SWFT_NAMESPACE, swft_unit);
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "transform", SWFT_NAMESPACE, swft_transform);
+	xsltRegisterExtElement( ctx, (const xmlChar *) "push-style", SWFT_NAMESPACE, swft_pushstyle);
+	xsltRegisterExtElement( ctx, (const xmlChar *) "pop-style", SWFT_NAMESPACE, swft_popstyle);
+	xsltRegisterExtElement( ctx, (const xmlChar *) "push-gradient", SWFT_NAMESPACE, swft_pushgradient);
 
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-jpeg", SWFT_NAMESPACE, swft_import_jpeg );
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-jpega", SWFT_NAMESPACE, swft_import_jpega );
@@ -198,4 +243,5 @@ void swft_shutdown( xsltTransformContextPtr ctx, const xmlChar *URI, void *data 
 	swft_ctx *c = (swft_ctx*)data;
 	delete c;
 }
+
 

@@ -33,8 +33,11 @@
 			<xsl:when test="name()='use'">
 				<xsl:value-of select="swft:map-id(substring(@xlink:href,2))"/>
 			</xsl:when>
-			<xsl:otherwise>
+			<xsl:when test="@id">
 				<xsl:value-of select="swft:map-id(@id)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="swft:map-id(generate-id(.))"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
@@ -52,8 +55,11 @@ multiple instances with the same name. -->
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
-			<xsl:otherwise>
+			<xsl:when test="@id">
 				<xsl:value-of select="@id"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="generate-id(.)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
@@ -78,7 +84,16 @@ included in their definition. -->
 <!-- named template for redundant wrappers -->
 <xsl:template name="wrapElement">
 	<xsl:param name="innerid" />
-	<xsl:variable name="id" select="swft:map-id(@id)" />
+	<xsl:variable name="id">
+		<xsl:choose>
+			<xsl:when test="@id">
+				<xsl:value-of select="swft:map-id(@id)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="swft:map-id(generate-id(.))"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
 			<PlaceObject2 replace="0" depth="{swft:next-depth()}" 
@@ -93,25 +108,26 @@ objectID="{$innerid}">
 
 <!-- named template for redundant exports -->
 <xsl:template name="exportElement">
-	<xsl:variable name="id" select="swft:map-id(@id)" />
-	<xsl:variable name="name" select="@id" />
 	<!-- export the element. -->
 	<xsl:if test="@id">
+		<xsl:variable name="id" select="swft:map-id(@id)"/>
+		<xsl:variable name="name" select="@id" />
+
 		<Export>
 			<symbols>
 				<Symbol objectID="{$id}" name="{$name}"/>
 			</symbols>
 		</Export>
 	</xsl:if>
+
 	<!-- define a class, if applicable. -->
-	<xsl:variable name="class" select="@class"/>
-	<xsl:if test="string-length($class) > 0">
+	<xsl:variable name="swfClass" select="@swfClass"/>
+	<xsl:if test="string-length($swfClass) > 0">
 		<xsl:call-template name="register-class">
-			<xsl:with-param name="class" select="$class"/>
-			<xsl:with-param name="linkage-id" select="$name"/>
+			<xsl:with-param name="class" select="$swfClass"/>
+			<xsl:with-param name="linkage-id" select="@id"/>
 		</xsl:call-template>
 	</xsl:if>
-
 </xsl:template>
 
 
@@ -119,6 +135,9 @@ objectID="{$innerid}">
 for placing the elements. -->
 <xsl:template match="svg:svg" mode="svg">
 	<xsl:param name="id"/>
+	<!-- initiate the gradient pass. -->
+	<xsl:apply-templates mode="gradient1" />
+	<xsl:apply-templates mode="gradient2" />
 	<!-- initiate the definition pass. -->
 	<xsl:apply-templates mode="queue" />
 	<!-- define svg root as sprite. -->
@@ -132,27 +151,62 @@ for placing the elements. -->
 	</DefineSprite>
 </xsl:template>
 
-<xsl:template match="svg:g|svg:path|svg:rect|svg:use|svg:text|svg:flowRoot" 
+<xsl:template match="svg:linearGradient[not(@xlink:href)]|svg:radialGradient[not(@xlink:href)]" mode="gradient1">
+	<swft:push-gradient />
+</xsl:template>
+
+<xsl:template match="svg:linearGradient[@xlink:href]|svg:radialGradient[@xlink:href]" mode="gradient2">
+	<swft:push-gradient />
+</xsl:template>
+
+<xsl:template match="svg:g|svg:path|svg:rect|svg:circle|svg:ellipse|svg:line|svg:polyline|svg:polygon|svg:use|svg:text|svg:flowRoot" 
 mode="queue">
-	<xsl:variable name="id"><xsl:value-of 
-select="swft:map-id(@id)"/></xsl:variable>
-	<xsl:variable name="name" select="@id"/>
+	<xsl:if test="name()='g'">
+		<swft:push-style />
+	</xsl:if>
+
+	<xsl:variable name="id">
+		<xsl:choose>
+			<xsl:when test="@id">
+				<xsl:value-of select="swft:map-id(@id)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="swft:map-id(generate-id(.))"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="name">
+		<xsl:choose>
+			<xsl:when test="@id">
+				<xsl:value-of select="@id"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="generate-id(.)"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 	<!-- first define the subparts, so that we get the innermost ones queued 
 first. -->
 	<xsl:apply-templates mode="queue" />
+
 	<!-- now define this element, which is based on the subparts. -->
 	<xsl:apply-templates select="." mode="definition">
 		<xsl:with-param name="id" select="$id"/>
 		<xsl:with-param name="name" select="$name"/>
 	</xsl:apply-templates>
 
+	<xsl:if test="name()='g'">
+		<swft:pop-style />
+	</xsl:if>
 </xsl:template>
 
-<xsl:template match="svg:g|svg:path|svg:rect|svg:use|svg:text|svg:flowRoot" 
+<xsl:template match="svg:g|svg:path|svg:rect|svg:circle|svg:ellipse|svg:line|svg:polyline|svg:polygon|svg:use|svg:text|svg:flowRoot" 
 mode="placement">
-	<!-- no definition. just place this element. -->
-	<xsl:call-template name="placeObject" />
+	<xsl:if test="not(ancestor::svg:defs) or parent::svg:g">
+		<!-- no definition. just place this element. -->
+		<xsl:call-template name="placeObject" />
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="svg:g" mode="definition" priority="-1">
@@ -188,57 +242,19 @@ select="swft:next-id()"/></xsl:variable>
 			</xsl:call-template>
 		</xsl:otherwise>
 	</xsl:choose>
+
+
 	<!-- export -->
 	<xsl:call-template name="exportElement" />
-
 </xsl:template>
 
-<xsl:template match="svg:path" mode="definition">
+<xsl:template match="svg:rect|svg:circle|svg:ellipse|svg:line|svg:polyline|svg:polygon|svg:path" mode="definition">
 	<xsl:param name="id"/>
 	<xsl:variable name="shapeid"><xsl:value-of 
 select="swft:next-id()"/></xsl:variable>
 
 	<!-- define the path -->
-	<xsl:copy-of select="swft:path( @d, $shapeid, @style )"/>
-	<!-- wrap in sprite -->
-	<xsl:call-template name="wrapElement">
-		<xsl:with-param name="innerid" select="$shapeid" />
-	</xsl:call-template>
-	<!-- export -->
-	<xsl:call-template name="exportElement" />
-</xsl:template>
-
-<xsl:template match="svg:rect" mode="definition">
-	<xsl:param name="id"/>
-	<xsl:param name="name"/>
-	<xsl:variable name="shapeid"><xsl:value-of 
-select="swft:next-id()"/></xsl:variable>
-
-	<!-- define the element -->
-	<DefineShape3 objectID="{$shapeid}">
-		<bounds>
-			<Rectangle left="{@x}" right="{(@x+@width)*20}" top="{@y}" 
-bottom="{(@y+@height)*20}"/>
-		</bounds>
-		<styles>
-			<StyleList>
-				<xsl:copy-of select="swft:css(@style)/tmp/*"/>
-			</StyleList>
-		</styles>
-		<shapes>
-			<Shape>
-				<edges>
-					<ShapeSetup x="{(@x+@width)*20}" y="{(@y+@height)*20}" fillStyle0="1" 
-lineStyle="1"/>
-					<LineTo x="-{(@width)*20}" y="0"/>
-					<LineTo x="0" y="-{(@height)*20}"/>
-					<LineTo x="{(@width)*20}" y="0"/>
-					<LineTo x="0" y="{(@height)*20}"/>
-					<ShapeSetup/>
-				</edges>
-			</Shape>
-		</shapes>
-	</DefineShape3>
+	<xsl:copy-of select="swft:path(., $shapeid, $movie-version)"/>
 	<!-- wrap in sprite -->
 	<xsl:call-template name="wrapElement">
 		<xsl:with-param name="innerid" select="$shapeid" />
@@ -296,8 +312,8 @@ leading="40" variableName="{@name}">
 		<xsl:apply-templates mode="svg-text"/>
 	</xsl:attribute>
 	<size>
-		<Rectangle left="{@x * 20}" right="{@x * 30}" top="{@y * 20}" bottom="{@y 
-* 30}"/>
+		<Rectangle left="{@x * 20}" right="{(@x + 200) * 20}" top="{@y * 20 - 240}" bottom="{@y 
+* 20}"/>
 	</size>
 	<color>
 		<Color red="0" green="0" blue="0" alpha="255"/>

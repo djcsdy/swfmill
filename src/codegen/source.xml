@@ -92,7 +92,8 @@
         <integer name="endCapStyle" size="2" constant-size="true" prop="true"/>
 
         <if expression="jointStyle==2">
-            <word name="miterLimitFactor" prop="true"/>
+		<fixedpoint2 name="miterLimitFactor" signed="false" size="16" constant-size="true" exp="8" prop="true"/>
+            	<!-- <word name="miterLimitFactor" prop="true"/>-->
         </if>
 
         <if expression="hasFill">
@@ -613,7 +614,7 @@
 	</if>
 	<integer name="count" size="4" constant-size="true"/>
 	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
-	<word name="shift" prop="true"/>
+	<fixedpoint2 name="shift" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
 </style>
 
 <style name="TiledBitmap" id="0x40">

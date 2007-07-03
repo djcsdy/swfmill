@@ -23,16 +23,32 @@ libswft_la_SOURCES = \
 	swft.cpp \
 	swft_document.cpp \
 	swft_path.cpp \
-	swft_css.cpp \
 	swft_import.cpp \
 	swft_import_jpeg.cpp \
 	swft_import_png.cpp \
 	swft_import_ttf.cpp \
 	swft_import_mp3.cpp \
+	Parser.cpp \
+	SVGStyle.cpp \
+	SVGGradient.cpp \
+	SVGColor.cpp \
+	SVGPathParser.cpp \
+	SVGPointsParser.cpp \
+	SVGTransformParser.cpp \
+	SVGAttributeParser.cpp \
 	readpng.c \
 	$(NULL)
 
 noinst_HEADERS = \
 	swft.h \
+	Parser.h \
+	SVGStyle.h \
+	SVGGradient.h \
+	SVGColor.h \
+	SVGColors.h \
+	SVGPathParser.h \
+	SVGPointsParser.h \
+	SVGTransformParser.h \
+	SVGAttributeParser.h \
 	readpng.h \
 	$(NULL)

@@ -11,7 +11,7 @@ class GlyphList : public Item {
 	/* glyph lists have strange offsetting stuff, so we do them manually */
 	public:
 		GlyphList();
-		~GlyphList();
+		virtual ~GlyphList();
 		virtual bool parse( Reader *r, int end, Context *ctx );
 		virtual void dump( int indent, Context *ctx );
 		virtual size_t calcSize( Context *ctx, int start_at );

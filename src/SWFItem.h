@@ -15,6 +15,7 @@ long SWFMaxBitsNeeded( bool is_signed, int how_many, ... );
 class Item {
 	public:
 		Item();
+		virtual ~Item() {}
 	
 		virtual bool parse( Reader *r, int end, Context *ctx ) = 0;
 		virtual void dump( int indent, Context *ctx ) = 0;
@@ -39,7 +40,7 @@ class Item {
 class Rest : public Item {
 	public:
 		Rest();
-		~Rest();
+		virtual ~Rest();
 		virtual bool parse( Reader *r, int end, Context *ctx );
 		virtual void dump( int indent, Context *ctx );
 		virtual size_t calcSize( Context *ctx, int start_at );

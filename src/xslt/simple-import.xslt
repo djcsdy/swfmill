@@ -56,9 +56,11 @@
 		</xsl:when>
 		-->
 		<xsl:when test="$ext = 'svg'">
+			<swft:push-map/>
 			<xsl:apply-templates select="document($file)" mode="svg">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
+			<swft:pop-map/>
 		</xsl:when>
 		<xsl:when test="$ext = 'mp3'">
 			<xsl:apply-templates select="swft:import-mp3($file)" mode="makeswf">
