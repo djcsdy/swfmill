@@ -135,11 +135,14 @@ objectID="{$innerid}">
 for placing the elements. -->
 <xsl:template match="svg:svg" mode="svg">
 	<xsl:param name="id"/>
+	<xsl:param name="export"/>
 	<!-- initiate the gradient pass. -->
 	<xsl:apply-templates mode="gradient1" />
 	<xsl:apply-templates mode="gradient2" />
 	<!-- initiate the definition pass. -->
-	<xsl:apply-templates mode="queue" />
+	<xsl:apply-templates mode="queue">
+		<xsl:with-param name="export" select="$export"/>
+	</xsl:apply-templates>
 	<!-- define svg root as sprite. -->
 	<DefineSprite objectID="{$id}" frames="1">
 		<tags>
@@ -161,6 +164,8 @@ for placing the elements. -->
 
 <xsl:template match="svg:g|svg:path|svg:rect|svg:circle|svg:ellipse|svg:line|svg:polyline|svg:polygon|svg:use|svg:text|svg:flowRoot" 
 mode="queue">
+	<xsl:param name="export"/>
+
 	<xsl:if test="name()='g'">
 		<swft:push-style />
 	</xsl:if>
@@ -188,12 +193,15 @@ mode="queue">
 
 	<!-- first define the subparts, so that we get the innermost ones queued 
 first. -->
-	<xsl:apply-templates mode="queue" />
+	<xsl:apply-templates mode="queue">
+		<xsl:with-param name="export" select="$export"/>
+	</xsl:apply-templates>
 
 	<!-- now define this element, which is based on the subparts. -->
 	<xsl:apply-templates select="." mode="definition">
 		<xsl:with-param name="id" select="$id"/>
 		<xsl:with-param name="name" select="$name"/>
+		<xsl:with-param name="export" select="$export"/>
 	</xsl:apply-templates>
 
 	<xsl:if test="name()='g'">
@@ -212,6 +220,7 @@ mode="placement">
 <xsl:template match="svg:g" mode="definition" priority="-1">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
+	<xsl:param name="export"/>
 
 	<!-- test if a wrapper is needed for a group transform -->
 	<xsl:choose>
@@ -245,11 +254,14 @@ select="swft:next-id()"/></xsl:variable>
 
 
 	<!-- export -->
-	<xsl:call-template name="exportElement" />
+	<xsl:if test="$export = 'all' or $export = 'groups'">
+		<xsl:call-template name="exportElement" />
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="svg:rect|svg:circle|svg:ellipse|svg:line|svg:polyline|svg:polygon|svg:path" mode="definition">
 	<xsl:param name="id"/>
+	<xsl:param name="export"/>
 	<xsl:variable name="shapeid"><xsl:value-of 
 select="swft:next-id()"/></xsl:variable>
 
@@ -260,12 +272,15 @@ select="swft:next-id()"/></xsl:variable>
 		<xsl:with-param name="innerid" select="$shapeid" />
 	</xsl:call-template>
 	<!-- export -->
-	<xsl:call-template name="exportElement" />
+	<xsl:if test="$export = 'all'">
+		<xsl:call-template name="exportElement" />
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="svg:flowRoot" mode="definition">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
+	<xsl:param name="export"/>
 	<xsl:variable name="shapeid"><xsl:value-of 
 select="swft:next-id()"/></xsl:variable>
 
@@ -293,12 +308,15 @@ top="{svg:flowRegion/svg:rect/@y * 20}" bottom="{(svg:flowRegion/svg:rect/@y
 		<xsl:with-param name="innerid" select="$shapeid" />
 	</xsl:call-template>
 	<!-- export -->
-	<xsl:call-template name="exportElement" />
+	<xsl:if test="$export = 'all'">
+		<xsl:call-template name="exportElement" />
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="svg:text" mode="definition">
 	<xsl:param name="id"/>
 	<xsl:param name="name"/>
+	<xsl:param name="export"/>
 	<xsl:variable name="shapeid"><xsl:value-of 
 select="swft:next-id()"/></xsl:variable>
 
@@ -324,7 +342,9 @@ leading="40" variableName="{@name}">
 		<xsl:with-param name="innerid" select="$shapeid" />
 	</xsl:call-template>
 	<!-- export -->
-	<xsl:call-template name="exportElement" />
+	<xsl:if test="$export = 'all'">
+		<xsl:call-template name="exportElement" />
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="svg:flowRegion" mode="svg-text">

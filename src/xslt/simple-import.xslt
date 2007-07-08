@@ -59,6 +59,12 @@
 			<swft:push-map/>
 			<xsl:apply-templates select="document($file)" mode="svg">
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+				<xsl:with-param name="export">
+					<xsl:choose>
+						<xsl:when test="@export"><xsl:value-of select="@export"/></xsl:when>
+						<xsl:otherwise>all</xsl:otherwise>
+					</xsl:choose>
+				</xsl:with-param>
 			</xsl:apply-templates>
 			<swft:pop-map/>
 		</xsl:when>
