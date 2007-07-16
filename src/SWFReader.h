@@ -21,11 +21,15 @@ class Reader {
 		uint16_t getWord();
 		uint32_t getInt();
 		uint64_t getInt64();
+		uint32_t getU30();
+		int getS24();
 		float getFloat();
 		double getDouble();
+		double getDouble2();
 		double getFixed( int bytesize, int decimals );
 		char *getString();
 		char *getPString();
+		char *getPStringU30();
 	
 		// this one cares about the current bit position
 		long getNBitInt( int n, bool is_signed = false );

@@ -10,7 +10,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	xmlNodePtr node2;
 	xmlChar *tmp;
@@ -54,7 +54,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	</xsl:template>
 
 
-<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double" mode="has">
+<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|u30|s24" mode="has">
 	if( <xsl:if test="../@negative">!</xsl:if>xmlHasProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" ) ) has = true;
 </xsl:template>
 
@@ -102,7 +102,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 </xsl:template>
 
 
-<xsl:template match="byte|word|byteOrWord|bit|uint32" mode="parsexml">
+<xsl:template match="byte|word|byteOrWord|bit|uint32|u30|s24" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 		int tmp_int;
@@ -112,7 +112,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="float|double" mode="parsexml">
+<xsl:template match="float|double|double2" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 		double tmp_float;
@@ -203,7 +203,10 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 			<xsl:if test="@length and not(@constant-length)">
 				<xsl:value-of select="@length"/>=0;
 			</xsl:if>
-			
+			<xsl:if test="@end">
+				size_t l = 0;
+			</xsl:if>
+
 			xmlNodePtr child = node2->children;
 			while( child ) {
 				if( !xmlNodeIsText( child ) ) {
@@ -214,11 +217,26 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 						<xsl:if test="@length and not(@constant-length)">
 							<xsl:value-of select="@length"/>++;
 						</xsl:if>
+						<xsl:if test="@end">
+							l += item->getSize(ctx, l);
+						</xsl:if>
 					}
 				}
 				child = child->next;
 			}
 			
+			<xsl:if test="@length and @length-add">
+				<xsl:value-of select="@length"/> -= <xsl:value-of select="@length-add"/>;
+			</xsl:if>
+			<xsl:if test="@length and @length-sub">
+				if( <xsl:value-of select="@length"/> > 0 ) {
+					<xsl:value-of select="@length"/> += <xsl:value-of select="@length-sub"/>;
+				}
+			</xsl:if>
+			<xsl:if test="@end">
+				<xsl:value-of select="@end"/> = (l/8)<xsl:if test="@end-offset"> - (<xsl:value-of select="@end-offset"/>)</xsl:if>;
+			</xsl:if>
+
 			node2=NULL;
 		} else {
 			node2 = node2->next;
@@ -263,8 +281,11 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 			currentChild = currentChild->next;
 		}
 
+		<!-- FIXME: standardize string handling on xmlString. this should be deleted somewhere, and checked... -->
 		if (child == NULL) {
 			fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> child element in %s element\n", (const char *)node->name );
+
+			<xsl:value-of select="@name"/> = strdup("[undefined]");
 		} else {
 			xmlDocPtr out = xmlNewDoc((const xmlChar*)"1.0");
 			out->xmlRootNode = xmlCopyNode( child, 1 );

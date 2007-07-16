@@ -14,9 +14,9 @@ void swft_addFileName( xmlNodePtr node, const char *filename ) {
 	basename = b ? b+1 : filename;
 	
 	l = strlen(basename);
-	name = new char[l];
-	strncpy( name, basename, l );
-	
+	name = new char[l + 1];
+	strncpy( name, basename, l + 1 ); // copy string including null terminator
+		
 	// separate extension (set position of last . as end of string)
 	b = strrchr( name, '.' );
 	if( b ) b[0]=0;

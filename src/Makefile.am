@@ -43,8 +43,7 @@ swfmill_SOURCES = \
 	SWFTag.cpp \
 	SWFAction.cpp \
 	SWFFilter.cpp \
-	SWFStackItem.cpp \
-	SWFStyle.cpp \
+	SWFTrait.cpp \
 	SWFShapeItem.cpp \
 	SWFGlyphList.cpp \
 	SWFShapeMaker.cpp \
@@ -68,11 +67,12 @@ noinst_HEADERS = \
 	SWFWriter.h \
 	SWFFile.h \
 	SWFItem.h \
+	SWFIdItem.h \
+	SWFIdItems.h \
 	SWFTag.h \
 	SWFAction.h \
 	SWFFilter.h \
-	SWFStackItem.h \
-	SWFStyle.h \
+	SWFTrait.h \
 	SWFShapeItem.h \
 	SWFGlyphList.h \
 	SWFList.h \

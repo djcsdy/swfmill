@@ -8,7 +8,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="tag|action|filter|style|stackitem">
+<xsl:for-each select="tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	size_t r = start_at;
 	<xsl:apply-templates select="*[@context]" mode="size-context"/>
@@ -89,7 +89,7 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 <xsl:template match="float" mode="size">
 	r += 32;
 </xsl:template>
-<xsl:template match="double" mode="size">
+<xsl:template match="double|double2" mode="size">
 	r += 64;
 </xsl:template>
 
@@ -141,9 +141,25 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	if( r%8 != 0 ) r += 8-(r%8);
 </xsl:template>
 
+<xsl:template match="u30" mode="size">
+	{
+		int bytes = 1;
+	
+		uint32_t limit = 0x80;
+		for(; <xsl:value-of select="@name"/> > limit - 1; limit *= 0x80) {
+			bytes++;
+		}
+
+		r += bytes * 8;
+	}
+</xsl:template>
+
+<xsl:template match="s24" mode="size">
+	r += 24;
+</xsl:template>
+
 <xsl:template match="context" mode="size">
 	ctx-><xsl:value-of select="@param"/> = <xsl:value-of select="@value"/>;
 </xsl:template>
-
 
 </xsl:stylesheet>

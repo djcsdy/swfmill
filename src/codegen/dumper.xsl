@@ -11,7 +11,7 @@ void print_indent( int n ) {
 	for( int i=0; i&lt;n; i++ ) printf("  ");
 }
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 void <xsl:value-of select="@name"/>::dump( int indent, Context *ctx ) {
 	print_indent(indent);
 	<xsl:if test="@id">
@@ -55,7 +55,7 @@ void <xsl:value-of select="@name"/>::dump( int indent, Context *ctx ) {
 
 
 
-<xsl:template match="byte|word|byteOrWord|integer|fixedpoint|fixedpoint2|bit" mode="dump">
+<xsl:template match="byte|word|byteOrWord|integer|fixedpoint|fixedpoint2|bit|u30|s24" mode="dump">
 	printf("<xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/>);
 </xsl:template>
 

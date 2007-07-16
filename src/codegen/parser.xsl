@@ -9,7 +9,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 //////////////////////////////////// <xsl:value-of select="@name"/>
 
 bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
@@ -61,7 +61,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|xml" mode="parse">
+<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|xml|u30|s24" mode="parse">
 	<xsl:value-of select="@name"/> = <xsl:apply-templates select="." mode="get"/>;
 	if( ctx->debugTrace ) fprintf( stderr, "PARSE <xsl:value-of select="@name"/>: <xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/> );
 	<xsl:if test="@context">
@@ -83,11 +83,15 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 <xsl:template match="uint32" mode="get">r->getInt()</xsl:template>
 <xsl:template match="float" mode="get">r->getFloat()</xsl:template>
 <xsl:template match="double" mode="get">r->getDouble()</xsl:template>
+<xsl:template match="double2" mode="get">r->getDouble2()</xsl:template>
 <xsl:template match="bit" mode="get">r->getNBitInt(1)</xsl:template>
 <xsl:template match="integer" mode="get">r->getNBitInt(<xsl:value-of select="@size"/>
 			<xsl:if test="@size-add">+<xsl:value-of select="@size-add"/></xsl:if>
 			<xsl:if test="@signed">,true</xsl:if>)</xsl:template>
+<xsl:template match="u30" mode="get">r->getU30()</xsl:template>
+<xsl:template match="s24" mode="get">r->getS24()</xsl:template>
 <xsl:template match="string[@mode='pascal']" mode="get">r->getPString()</xsl:template>
+<xsl:template match="string[@mode='pascalU30']" mode="get">r->getPStringU30()</xsl:template>
 <xsl:template match="string" mode="get" priority="-1">r->getString()</xsl:template>
 <xsl:template match="xml" mode="get" priority="-1">r->getString()</xsl:template>
 
@@ -116,10 +120,26 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 </xsl:template>
 
 <xsl:template match="list[@length]" mode="parse" priority="1">
+	<xsl:variable name="length">
+		<xsl:choose>
+			<xsl:when test="@length-add">
+				( <xsl:value-of select="@length"/> + <xsl:value-of select="@length-add"/> )
+			</xsl:when>
+			<xsl:when test="@length-sub">
+				( <xsl:value-of select="@length"/> &lt; <xsl:value-of select="@length-sub"/>
+				  ? 0
+				  : <xsl:value-of select="@length"/> - <xsl:value-of select="@length-sub"/> )
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="@length"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	{
-		if( ctx->debugTrace ) fprintf( stderr, "PARSE list&lt;<xsl:value-of select="@type"/>&gt; <xsl:value-of select="@name"/>: %i items, @%i-%i :%i\n",  <xsl:value-of select="@length"/>, r->getPosition(), r->getBits(), end );
+		if( ctx->debugTrace ) fprintf( stderr, "PARSE list&lt;<xsl:value-of select="@type"/>&gt; <xsl:value-of select="@name"/>: %i items, @%i-%i :%i\n",  <xsl:value-of select="$length"/>, r->getPosition(), r->getBits(), end );
 		<xsl:value-of select="@type"/> *item;
-		for( int i=0; i&lt;<xsl:value-of select="@length"/>; i++ ) {
+		for( int i=0; i&lt;<xsl:value-of select="$length"/>; i++ ) {
 			item = <xsl:value-of select="@type"/>::get(r,end,ctx);
 			<xsl:value-of select="@name"/>.append( item );
 		}

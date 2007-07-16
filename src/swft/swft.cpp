@@ -33,6 +33,7 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_png( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs );
 void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs );
+void swft_import_binary( xmlXPathParserContextPtr ctx, int nargs );
 
 // in swft_document
 void swft_document( xmlXPathParserContextPtr ctx, int nargs );
@@ -234,6 +235,7 @@ void *swft_init( xsltTransformContextPtr ctx, const xmlChar *URI ) {
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-png", SWFT_NAMESPACE, swft_import_png );
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-ttf", SWFT_NAMESPACE, swft_import_ttf );
 	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-mp3", SWFT_NAMESPACE, swft_import_mp3 );
+	xsltRegisterExtFunction( ctx, (const xmlChar *) "import-binary", SWFT_NAMESPACE, swft_import_binary );
 	
 	swft_ctx *c = new swft_ctx;
 	return c;

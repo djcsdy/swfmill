@@ -9,7 +9,7 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 //////////////////////////////////// <xsl:value-of select="@name"/>
 
 void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
@@ -24,14 +24,6 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 		if( <xsl:value-of select="@name"/> > ctx-><xsl:value-of select="@name"/> ) ctx-><xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
 	</xsl:for-each>
 -->
-	<!-- calculate end offsets for some lists -->
-	<xsl:for-each select=".//list[@end]">
-		{
-			int r = 0;
-			<xsl:apply-templates select="." mode="size"/>
-			<xsl:value-of select="@end"/> = (r/8)<xsl:if test="@end-offset"> - (<xsl:value-of select="@end-offset"/>)</xsl:if>;
-		}
-	</xsl:for-each>
 	<!-- calculate "next" offsets for some other lists-->
 	<xsl:for-each select="*[@next]">
 		if( !ctx->isLast ) {
@@ -84,7 +76,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|xml" mode="write">
+<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|xml|u30|s24" mode="write">
 	<xsl:apply-templates select="." mode="put"/>;
 	<xsl:if test="@context">
 		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
@@ -95,14 +87,18 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 <xsl:template match="uint32" mode="put">w->putInt(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="float" mode="put">w->putFloat(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="double" mode="put">w->putDouble(<xsl:value-of select="@name"/>)</xsl:template>
+<xsl:template match="double2" mode="put">w->putDouble2(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="fixedpoint" mode="put">w->putNBitFixed(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>,<xsl:value-of select="@exp"/><xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="fixedpoint2" mode="put">w->putNBitFixed2(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>,<xsl:value-of select="@exp"/><xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="bit" mode="put">w->putNBitInt(<xsl:value-of select="@name"/>,1)</xsl:template>
 <xsl:template match="integer" mode="put">w->putNBitInt(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/><xsl:if test="@size-add">+<xsl:value-of select="@size-add"/></xsl:if><xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="string[@mode='pascal']" mode="put">w->putPString(<xsl:value-of select="@name"/>)</xsl:template>
+<xsl:template match="string[@mode='pascalU30']" mode="put">w->putPStringU30(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="string" mode="put" priority="-1">w->putString(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="data" mode="put">w->putData(<xsl:value-of select="@name"/>,<xsl:value-of select="@size"/>)</xsl:template>
 <xsl:template match="xml" mode="put" priority="-1">w->putString(<xsl:value-of select="@name"/>)</xsl:template>
+<xsl:template match="u30" mode="put">w->putU30(<xsl:value-of select="@name"/>)</xsl:template>
+<xsl:template match="s24" mode="put">w->putS24(<xsl:value-of select="@name"/>)</xsl:template>
 
 <xsl:template match="byteOrWord" mode="write">
     {
@@ -125,13 +121,29 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 </xsl:template>
 
 <xsl:template match="list[@length]" mode="write" priority="1">
+	<xsl:variable name="length">
+		<xsl:choose>
+			<xsl:when test="@length-add">
+				( <xsl:value-of select="@length"/> + <xsl:value-of select="@length-add"/> )
+			</xsl:when>
+			<xsl:when test="@length-sub">
+				( <xsl:value-of select="@length"/> &lt; <xsl:value-of select="@length-sub"/>
+				  ? 0
+				  : <xsl:value-of select="@length"/> - <xsl:value-of select="@length-sub"/> )
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="@length"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
 	{
 		<xsl:value-of select="@type"/> *item;
 		ListItem&lt;<xsl:value-of select="@type"/>&gt;* i;
 		i = <xsl:value-of select="@name"/>.first();
-		for( int j=0; j&lt;<xsl:value-of select="@length"/>; j++ ) {
+		for( int j=0; j&lt;<xsl:value-of select="$length"/>; j++ ) {
 			if( !i || !i->data() ) {
-				printf("WARNING: list <xsl:value-of select="@name"/> has %i items (%i expected)\n", j, <xsl:value-of select="@length"/> );
+				printf("WARNING: list <xsl:value-of select="@name"/> has %i items (%i expected)\n", j, <xsl:value-of select="$length"/> );
 			} else {
 				i->data()->write( w, ctx );
 			}

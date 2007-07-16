@@ -22,11 +22,15 @@ class Writer {
 		void putWord(uint16_t);
 		void putInt(uint32_t);
 		void putInt64(uint64_t);
+		void putU30(uint32_t);
+		void putS24(int);
 		void putFloat(float);
 		void putDouble(double);
+		void putDouble2(double);
 		void putFixed( double v, int bytesize, int decimals );
 		void putString( const char * );
 		void putPString( const char * );
+		void putPStringU30( const char * );
 	
 		// this one cares about the current bit position
 		void putNBitInt( int64_t v, int n, bool is_signed = false );

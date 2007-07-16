@@ -173,6 +173,32 @@
 	</xsl:if>
 </xsl:template>
 
+<xsl:template match="binary[@import]">
+	<xsl:variable name="id">
+		<xsl:choose>
+			<xsl:when test="@id">
+				<xsl:value-of select="swft:map-id(@id)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="swft:next-id()"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="file">
+		<xsl:value-of select="@import"/>
+	</xsl:variable>
+	
+	<xsl:apply-templates select="swft:import-binary($file)" mode="makeswf">
+		<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+	</xsl:apply-templates>
+
+	<xsl:if test="ancestor::library">
+		<xsl:apply-templates select="*|@*" mode="export">
+			<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+		</xsl:apply-templates>
+	</xsl:if>
+</xsl:template>
+
 <!-- device fonts -->
 <xsl:template match="font" priority="-1">
 	<xsl:variable name="id">
@@ -388,6 +414,16 @@
 		</tags>
 	</DefineSprite>
 	<swft:pop-map/>
+</xsl:template>
+
+<!-- binary import -->
+<xsl:template match="binary" mode="makeswf">
+	<xsl:param name="id"/>
+	<DefineBinaryData objectID="{$id}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineBinaryData>
 </xsl:template>
 
 <!-- global id remapping -->

@@ -17,6 +17,33 @@
 	if( <xsl:value-of select="@name"/> ) delete <xsl:value-of select="@name"/>;
 </xsl:template>
 
+<xsl:template name="objectList">
+	<xsl:param name="class"/>
+	<xsl:param name="itemName"/>
+
+	<xsl:variable name="tag">
+		<xsl:value-of select="translate($class,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
+	</xsl:variable>
+
+	<xsl:for-each select="*[name() = $tag]">
+		<xsl:value-of select="$class"/> *<xsl:value-of select="@name"/>Factory() {
+			return (<xsl:value-of select="$class"/>*)new <xsl:value-of select="@name"/>;
+		}
+	</xsl:for-each>
+
+	template&lt;&gt; IdItem&lt;<xsl:value-of select="$class"/>&gt;::Description IdItem&lt;<xsl:value-of select="$class"/>&gt;::Registry[] = {
+	<xsl:for-each select="*[name() = $tag]">
+			{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
+	</xsl:for-each>
+		{ 0, NULL }
+	};
+	template&lt;&gt; int IdItem&lt;<xsl:value-of select="$class"/>&gt;::nRegistered = <xsl:value-of select="count(*[name() = $tag])"/>;
+
+	template&lt;&gt; char* IdItem&lt;<xsl:value-of select="$class"/>&gt;::itemName = "<xsl:value-of select="$itemName"/>";
+
+</xsl:template>
+
+<!-- *************** -->
 
 	<xsl:template name="basics">
 <xsl:document href="g{/format/@format}Basics.cpp" method="text">
@@ -43,7 +70,7 @@ Context::Context() {
 
 // ------------ basic object functions
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 
 <xsl:value-of select="@name"/>::<xsl:value-of select="@name"/>() {
 	<xsl:apply-templates mode="ctor"/>
@@ -71,86 +98,56 @@ Context::Context() {
 
 // ------------ object lists
 
-<xsl:for-each select="tag">
-Tag *<xsl:value-of select="@name"/>Factory() {
-	return (Tag*)new <xsl:value-of select="@name"/>;
-}
-</xsl:for-each>
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">Tag</xsl:with-param>
+	<xsl:with-param name="itemName">tag</xsl:with-param>
+</xsl:call-template>
 
-Tag::Description Tag::Registry[] = {
-<xsl:for-each select="tag">
-	{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
-</xsl:for-each>
-	{ 0, NULL }
-};
-int Tag::nRegistered = <xsl:value-of select="count(tag)"/>;
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">Action</xsl:with-param>
+	<xsl:with-param name="itemName">action</xsl:with-param>
+</xsl:call-template>
 
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">Filter</xsl:with-param>
+	<xsl:with-param name="itemName">filter</xsl:with-param>
+</xsl:call-template>
 
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">Style</xsl:with-param>
+	<xsl:with-param name="itemName">fill style</xsl:with-param>
+</xsl:call-template>
 
-<xsl:for-each select="action">
-Action *<xsl:value-of select="@name"/>Factory() {
-	return (Action*)new <xsl:value-of select="@name"/>;
-}
-</xsl:for-each>
-
-Action::Description Action::Registry[] = {
-<xsl:for-each select="action">
-	{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
-</xsl:for-each>
-	{ 0, NULL }
-};
-int Action::nRegistered = <xsl:value-of select="count(action)"/>;
-
-
-<xsl:for-each select="filter">
-Filter *<xsl:value-of select="@name"/>Factory() {
-	return (Filter*)new <xsl:value-of select="@name"/>;
-}
-</xsl:for-each>
-
-Filter::Description Filter::Registry[] = {
-<xsl:for-each select="filter">
-	{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
-</xsl:for-each>
-	{ 0, NULL }
-};
-int Filter::nRegistered = <xsl:value-of select="count(filter)"/>;
-
-
-
-<xsl:for-each select="style">
-Style *<xsl:value-of select="@name"/>Factory() {
-	return (Style*)new <xsl:value-of select="@name"/>;
-}
-</xsl:for-each>
-
-Style::Description Style::Registry[] = {
-<xsl:for-each select="style">
-	{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
-</xsl:for-each>
-	{ 0, NULL }
-};
-int Style::nRegistered = <xsl:value-of select="count(style)"/>;
-
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">StackItem</xsl:with-param>
+	<xsl:with-param name="itemName">stack item</xsl:with-param>
+</xsl:call-template>
 
 <xsl:for-each select="stackitem">
-StackItem *<xsl:value-of select="@name"/>Factory() {
-	return (StackItem*)new <xsl:value-of select="@name"/>;
-}
-
 <xsl:if test="@id">
 int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 </xsl:if>
 </xsl:for-each>
 
-StackItem::Description StackItem::Registry[] = {
-<xsl:for-each select="stackitem">
-	{ <xsl:value-of select="@id"/>, "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/>Factory },
-</xsl:for-each>
-	{ 0, NULL }
-};
-int StackItem::nRegistered = <xsl:value-of select="count(stackitem)"/>;
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">NamespaceConstant</xsl:with-param>
+	<xsl:with-param name="itemName">namespace constant</xsl:with-param>
+</xsl:call-template>
 
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">MultinameConstant</xsl:with-param>
+	<xsl:with-param name="itemName">multiname constant</xsl:with-param>
+</xsl:call-template>
+
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">Trait</xsl:with-param>
+	<xsl:with-param name="itemName">trait</xsl:with-param>
+</xsl:call-template>
+
+<xsl:call-template name="objectList">
+	<xsl:with-param name="class">OpCode</xsl:with-param>
+	<xsl:with-param name="itemName">opcode</xsl:with-param>
+</xsl:call-template>
 }
 </xsl:document>
 	</xsl:template>
@@ -161,7 +158,7 @@ int StackItem::nRegistered = <xsl:value-of select="count(stackitem)"/>;
 	<xsl:apply-templates mode="defineAccessors"/>
 </xsl:template>
 <xsl:template match="fill-byte|context" mode="defineAccessors"/>
-<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer[@constant-size]|uint32" mode="defineAccessors">
+<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer[@constant-size]|uint32|u30|s24" mode="defineAccessors">
 	// Constant Size Primitive
 	<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>
 	<xsl:value-of select="ancestor::*[@name]/@name"/>::get<xsl:value-of select="@name"/>() {

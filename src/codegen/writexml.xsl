@@ -11,7 +11,7 @@ namespace <xsl:value-of select="/format/@format"/> {
 
 #define TMP_STRLEN 0xFF
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 	char tmp[TMP_STRLEN];
 	xmlNodePtr node = xml;
@@ -60,12 +60,12 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="double|float|fixedpoint|fixedpoint2" mode="writexml">
+<xsl:template match="double|double2|float|fixedpoint|fixedpoint2" mode="writexml">
 	snprintf(tmp,TMP_STRLEN,"%#.*g", 16, <xsl:value-of select="@name"/>);
 	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmp );
 </xsl:template>
 
-<xsl:template match="byte|word|byteOrWord|integer|bit|uint32" mode="writexml">
+<xsl:template match="byte|word|byteOrWord|integer|bit|uint32|u30|s24" mode="writexml">
 	snprintf(tmp,TMP_STRLEN,"<xsl:apply-templates select="." mode="printf"/>", <xsl:value-of select="@name"/>);
 	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmp );
 </xsl:template>
@@ -119,12 +119,14 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 	{
 		if(<xsl:value-of select="@name"/> ) {
 			xmlDocPtr doc = xmlParseMemory(<xsl:value-of select="@name"/>, strlen(<xsl:value-of select="@name"/>));
-			xmlNodePtr child = doc->children;
+			if( doc ) {
+				xmlNodePtr child = doc->children;
 
-			child = xmlDocCopyNode(child, node->doc, 1);
-			xmlAddChild(node, child);
+				child = xmlDocCopyNode(child, node->doc, 1);
+				xmlAddChild(node, child);
 
-			xmlFreeDoc(doc);
+				xmlFreeDoc(doc);
+			}
 		}
 	}
 </xsl:template>

@@ -9,11 +9,11 @@
 #include &lt;<xsl:value-of select="/format/@format"/>Tag.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Action.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Filter.h&gt;
+#include &lt;<xsl:value-of select="/format/@format"/>Trait.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>List.h&gt;
-#include &lt;<xsl:value-of select="/format/@format"/>Style.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>ShapeItem.h&gt;
-#include &lt;<xsl:value-of select="/format/@format"/>StackItem.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>GlyphList.h&gt;
+#include &lt;<xsl:value-of select="/format/@format"/>IdItems.h&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
 
@@ -39,7 +39,7 @@ struct Context {
 		</xsl:for-each>
 };
 
-<xsl:for-each select="type|tag|action|filter|style|stackitem">
+<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mode="baseclass"/> {
 	public:
 		<xsl:value-of select="@name"/>();
@@ -87,7 +87,7 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 		<xsl:apply-templates mode="declareAccessors"/>
 	</xsl:template>
 	<xsl:template match="fill-byte|context" mode="declareAccessors"/>
-	<xsl:template match="byte|word|byteOrWord|string|fixedpoint|fixedpoint2|bit|integer|uint32|float|double" mode="declareAccessors" priority="-1">
+	<xsl:template match="byte|word|byteOrWord|string|fixedpoint|fixedpoint2|bit|integer|uint32|float|double|double2|u30|s24" mode="declareAccessors" priority="-1">
 			<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>get<xsl:value-of select="@name"/>();
 			void set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> );
 	</xsl:template>
@@ -120,5 +120,9 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 	<xsl:template match="filter" mode="baseclass">Filter</xsl:template>
 	<xsl:template match="style" mode="baseclass">Style</xsl:template>
 	<xsl:template match="stackitem" mode="baseclass">StackItem</xsl:template>
+	<xsl:template match="namespaceconstant" mode="baseclass">NamespaceConstant</xsl:template>
+	<xsl:template match="multinameconstant" mode="baseclass">MultinameConstant</xsl:template>
+	<xsl:template match="trait" mode="baseclass">Trait</xsl:template>
+	<xsl:template match="opcode" mode="baseclass">OpCode</xsl:template>
 
 </xsl:stylesheet>

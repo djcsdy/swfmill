@@ -74,6 +74,41 @@ uint64_t Reader::getInt64() {
 	return( val );
 }
 
+uint32_t Reader::getU30() {
+	uint32_t r = 0;
+	unsigned char c;
+
+	for( int i = 0; i < 5; i++ ) {
+		c = data[pos++];
+		r |= (c & 0x7F) << (7 * i);
+		
+		if( !(c & 0x80) ) {
+			return r;
+		}
+
+		if( pos > length ) {
+			err = SWFR_EOF;
+			pos = length+1;
+			return 0;
+		}
+	}
+
+	return r;
+}
+
+int Reader::getS24() {
+	if( pos+3 > length ) {
+		err = SWFR_EOF;
+		pos = length+1;
+		return 0;
+	}
+
+	int r = data[pos++];
+	r += data[pos++]<<8;
+	r += ((signed char)data[pos++])<<16;
+	return r;
+}
+
 float Reader::getFloat() {
     /*
 	if( pos+4 > length ) {
@@ -125,6 +160,27 @@ double Reader::getDouble() {
     return u.d;
 }
 
+double Reader::getDouble2() {
+	if( pos+8 > length ) {
+		err = SWFR_EOF;
+		pos = length+1;
+		return 0;
+	}
+	
+	union {
+		double d;
+		char c[8];
+	} u;
+
+	
+	// FIXME x86-centric?
+	for( int i = 0; i < 8; i++ ) {
+		u.c[i] =  data[pos++];
+	}
+
+	return u.d;
+}
+
 double Reader::getFixed( int bytesize, int exp ) {
 	/* putFixed/getFixed are deprecated: they implicitly to byteAlign */
 	
@@ -151,6 +207,15 @@ char *Reader::getString() {
 char *Reader::getPString() {
 	byteAlign();
 	int len = getByte();
+	char *dst = new char[len+1];
+	getData( dst, len );
+	dst[len]=0;
+	return( dst );
+}
+
+char *Reader::getPStringU30() {
+	byteAlign();
+	uint32_t len = getU30();
 	char *dst = new char[len+1];
 	getData( dst, len );
 	dst[len]=0;

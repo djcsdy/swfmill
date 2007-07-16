@@ -58,6 +58,39 @@ void Writer::putInt64( uint64_t value ) {
 	putInt( value & 0xffffffff );
 }
 
+void Writer::putU30( uint32_t value ) {
+	byteAlign();
+		
+	int bytes = 1;
+	uint32_t limit = 0x80;
+	for(; value > limit - 1; limit *= 0x80) {
+		bytes++;
+	}
+
+	if( !assure( bytes ) ) return;
+	// FIXME x86-centric?
+	
+	for(; bytes > 0; bytes--) {
+		data[pos] = value & 0x7F;
+		
+		if(bytes > 1) {
+			value = value >> 7;
+			data[pos] |= 0x80;
+		}
+		pos++;
+	}
+}
+
+void Writer::putS24( int value ) {
+	byteAlign();
+	if( !assure( 3 ) ) return;
+	// FIXME x86-centric?
+	value = (unsigned int)value;
+	data[pos++] = value&0xFF;
+	data[pos++] = (value>>8)&0xFF;
+	data[pos++] = (value>>16)&0xFF;
+}
+
 void Writer::putFloat( float v ) {
     /*
 	byteAlign();
@@ -87,6 +120,17 @@ void Writer::putDouble( double v ) {
     putInt64(u.ull);
 }
 
+void Writer::putDouble2( double v ) {
+    union {
+        double d;
+        char c[8];
+    } u;
+    u.d = v;
+    for( int i=0; i < 8; i++ ) {
+	data[pos++] = u.c[i];
+    }
+}
+
 void Writer::putFixed( double value, int bytesize, int exp ) {
 	/* putFixed/getFixed are deprecated: they implicitly to byteAlign */
 	
@@ -112,6 +156,15 @@ void Writer::putPString( const char *value ) {
 	int len = strlen(value);
 	if( !assure( len+1 ) ) return;
 	putByte(len);
+	memcpy( &data[pos], value, len );
+	pos += len;
+}
+
+void Writer::putPStringU30( const char *value ) {
+	byteAlign();
+	int len = strlen(value);
+	if( !assure( len+1 ) ) return;
+	putU30(len);
 	memcpy( &data[pos], value, len );
 	pos += len;
 }

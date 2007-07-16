@@ -4,10 +4,6 @@
 
 namespace SWF {
 
-Tag::Tag() {
-	type = len = 0;
-}
-	
 Tag *Tag::get( Reader *r, int end, Context *ctx ) {
 	uint16_t h = r->getWord();
 	int type = h>>6;
@@ -23,41 +19,17 @@ Tag *Tag::get( Reader *r, int end, Context *ctx ) {
 		return NULL;
 	}
 
-	Tag *ret = NULL;
-	
-	for( int i=0; !ret && i<nRegistered; i++ ) {
-		if( Registry[i].type == type ) {
-			ret = Registry[i].factory();
-		}
-	}
+	Tag *ret = getByType( type );
 	
 	if( !ret ) {
 		ret = new UnknownTag;
 	}
 	
-	ret->setTypeAndLength( type, len );
+	ret->setType( type );
+	ret->setLength( len );
 	ret->parse( r, r->getPosition()+len, ctx );
 
 	return ret;
-}
-
-Tag *Tag::getByName( const char *name ) {
-	Tag *ret = NULL;
-	
-	for( int i=0; i<nRegistered; i++ ) {
-		if( !strcmp( Registry[i].name, name ) ) {
-			ret = Registry[i].factory();
-			ret->setType( Registry[i].type );
-			return ret;
-		}
-	}
-	return NULL;
-}
-	
-void Tag::setTypeAndLength( int t, int l ) {
-	// must be called before parse()!
-	type = t;
-	len = l;
 }
 
 void Tag::writeHeader( Writer *w, Context *ctx, size_t len ) {

@@ -132,7 +132,7 @@ bool Rest::parse( Reader *r, int end, Context *ctx ) {
 	file_offset = r->getPosition();
 
 	size = end - r->getPosition();
-	if( size ) {
+	if( size > 0 ) {
 		data = new unsigned char[size];
 		r->getData( data, size );
 	}
