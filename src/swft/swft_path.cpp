@@ -134,7 +134,7 @@ void swft_path(xmlXPathParserContextPtr ctx, int nargs) {
 	xmlSetProp( node, (const xmlChar*)"objectID", idString );
 
 	// bounds
-	shaper.boundsWriteXML(shapeNode, style.getStrokeWidth());
+	shaper.boundsWriteXML(shapeNode, (style.hasStroke() ? style.getStrokeWidth() / 2 : 0));
 	
 	// stroke bounds
 	if(movieVersion > 7)

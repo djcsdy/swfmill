@@ -384,7 +384,9 @@ void ShapeMaker::boundsWriteXML( xmlNodePtr parent, double border ) {
 		node = xmlNewChild(parent, NULL, (const xmlChar *)"bounds", NULL); 
 	} else {
 		node = xmlNewChild(parent, NULL, (const xmlChar *)"strokeBounds", NULL); 
+		border = 0;
 	}
+
 	node = xmlNewChild(node, NULL, (const xmlChar *)"Rectangle", NULL);
 	snprintf(tmp, TMP_STRLEN, "%f", minx - border * 20);
 	xmlSetProp(node, (const xmlChar *)"left", (const xmlChar *)&tmp);
