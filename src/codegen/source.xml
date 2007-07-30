@@ -1632,16 +1632,16 @@
 	<word name="argc" prop="true"/>
 	<byte name="regc" prop="true"/>
 	
-	<bit name="preloadThis" prop="true"/>
-	<bit name="suppressThis" prop="true"/>
-	<bit name="preloadArguments" prop="true"/>
-	<bit name="suppressArguments" prop="true"/>
-	<bit name="preloadSuper" prop="true"/>
-	<bit name="suppressSuper" prop="true"/>
-	<bit name="preloadRoot" prop="true"/>
 	<bit name="preloadParent" prop="true"/>
-	<bit name="preloadGlobal" prop="true"/>
+	<bit name="preloadRoot" prop="true"/>
+	<bit name="suppressSuper" prop="true"/>
+	<bit name="preloadSuper" prop="true"/>
+	<bit name="suppressArguments" prop="true"/>
+	<bit name="preloadArguments" prop="true"/>
+	<bit name="suppressThis" prop="true"/>
+	<bit name="preloadThis" prop="true"/>
 	<integer name="reserved" size="7" constant-size="true" prop="true"/>
+	<bit name="preloadGlobal" prop="true"/>
 	
 	<list name="args" type="Parameter" length="argc" prop="true"/>
 	<word name="length"/>
