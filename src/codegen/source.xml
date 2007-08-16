@@ -1473,6 +1473,12 @@
 	<uint32 name="reserved"/>
 	<object type="Rest" name="data" prop="true"/>
 </tag>
+
+<tag name="DefineFontName" id="0x58">
+	<word name="objectID" prop="true"/>
+	<string name="name" prop="true"/>
+	<string name="copyright" prop="true"/>
+</tag>
     
 <!-- ******************** ACTIONS ****************** -->
 
