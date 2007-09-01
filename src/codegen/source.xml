@@ -225,8 +225,8 @@
 		<integer name="reserved" size="3" constant-size="true"/>
 		<bit name="hasFont"/>
 		<bit name="hasColor"/>
-		<bit name="hasMoveX"/>
 		<bit name="hasMoveY"/>
+		<bit name="hasMoveX"/>
 		<flagged flag="hasFont">
 			<word name="objectID" prop="true"/>
 		</flagged>
@@ -256,8 +256,8 @@
 		<integer name="reserved" size="3" constant-size="true"/>
 		<bit name="hasFont"/>
 		<bit name="hasColor"/>
-		<bit name="hasMoveX"/>
 		<bit name="hasMoveY"/>
+		<bit name="hasMoveX"/>
 		<flagged flag="hasFont">
 			<word name="objectID" prop="true"/>
 		</flagged>
@@ -286,8 +286,8 @@
 	<integer name="reserved" size="3" constant-size="true"/>
 	<bit name="hasFont"/>
 	<bit name="hasColor"/>
-	<bit name="hasMoveX"/>
 	<bit name="hasMoveY"/>
+	<bit name="hasMoveX"/>
 	<flagged flag="hasFont">
 		<word name="objectID" prop="true"/>
 	</flagged>
@@ -318,8 +318,8 @@
 	<integer name="reserved" size="3" constant-size="true"/>
 	<bit name="hasFont"/>
 	<bit name="hasColor"/>
-	<bit name="hasMoveX"/>
 	<bit name="hasMoveY"/>
+	<bit name="hasMoveX"/>
 	<flagged flag="hasFont">
 		<word name="fontRef" prop="true"/>
 	</flagged>
