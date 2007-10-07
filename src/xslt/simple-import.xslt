@@ -534,4 +534,8 @@
 	</DefineSound>
 </xsl:template>
 
+<xsl:template match="include[@file]">
+	<xsl:apply-templates select="document(@file)/movie/*"/>	
+</xsl:template>
+
 </xsl:stylesheet>
