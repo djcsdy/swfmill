@@ -79,6 +79,12 @@
 			<xsl:otherwise>0</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="as3">
+		<xsl:choose>
+			<xsl:when test="@as3">1</xsl:when>
+			<xsl:otherwise>0</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 	<swf version="{$version}" compressed="{$compressed}">
 		<Header framerate="{$framerate}" frames="{$frames}">
@@ -86,8 +92,8 @@
 				<Rectangle left="{$left}" right="{$right}" top="{$top}" bottom="{$bottom}"/>
 			</size>
 			<tags>
-				<xsl:if test="$version = 8">
-					<FileAttributes hasMetaData="{$hasMetaData}" useNetwork="{$useNetwork}"/>
+				<xsl:if test="$version >= 8">
+					<FileAttributes hasMetaData="{$hasMetaData}" useNetwork="{$useNetwork}" allowABC="{$as3}"/>
 				</xsl:if>
 				<xsl:apply-templates/>
 				<End/>

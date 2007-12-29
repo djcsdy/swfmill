@@ -444,7 +444,7 @@
 </xsl:template>
 
 <!-- for tags that are "globalized" -->
-<xsl:template match="SetBackgroundColor" mode="sprite-global"/>
+<xsl:template match="SetBackgroundColor|FileAttributes" mode="sprite-global"/>
 <xsl:template match="DoAction|End|FrameLabel|PlaceObject|PlaceObject2|RemoveObject|RemoveObject2|ShowFrame|SoundStreamBlock|SoundStreamHead|StartSound" mode="sprite-global"/>
 <xsl:template match="*|@*|text()" mode="sprite-global" priority="-1">
 	<xsl:apply-templates select="." mode="idmap"/>
