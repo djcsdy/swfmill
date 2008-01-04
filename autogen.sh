@@ -3,7 +3,7 @@
 set -x
 aclocal -I autoconfig/m4
 libtoolize --force --copy
-autoheader
+#autoheader
 automake --add-missing --copy
 autoconf
 cd src
