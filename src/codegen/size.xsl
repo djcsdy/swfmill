@@ -106,7 +106,19 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 </xsl:template>
 
 <xsl:template match="string" mode="size">
-	r += ((<xsl:value-of select="@name"/> ? strlen( <xsl:value-of select="@name"/> ) : 0)+1)*8;
+	{
+		int bytes = 1;
+		<xsl:if test="@mode='pascalU30'">
+			if( <xsl:value-of select="@name"/> ) {
+				int len = strlen( <xsl:value-of select="@name"/> );
+				uint32_t limit = 0x80;
+				for(; len > limit - 1; limit *= 0x80) {
+					bytes++;
+				}
+			}
+		</xsl:if>
+		r += ((<xsl:value-of select="@name"/> ? strlen( <xsl:value-of select="@name"/> ) : 0)+bytes)*8;
+	}
 </xsl:template>
 
 <xsl:template match="xml" mode="size">
