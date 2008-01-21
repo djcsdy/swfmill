@@ -433,6 +433,7 @@ int main( int argc, char *argv[] ) {
 					case 'n':
 						nonet = true;
 						break;
+					case 'h':
 					case '?':
 						usage();
 						goto fail;
