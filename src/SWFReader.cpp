@@ -199,9 +199,12 @@ double Reader::getFixed( int bytesize, int exp ) {
 
 char *Reader::getString() {
 	byteAlign();
-	int len = strlen((const char *)&data[pos]);
-	pos += len+1;
-	return strdup( (const char *)&data[pos-(len+1)] );
+	const char *src = (const char *)&data[pos];
+	size_t len = strlen(src) + 1;
+	char *dst = new char[len];
+	strcpy(dst, src);
+	pos += len;
+	return( dst );
 }
 
 char *Reader::getPString() {

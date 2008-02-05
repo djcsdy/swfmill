@@ -10,6 +10,12 @@
 
 namespace <xsl:value-of select="/format/@format"/> {
 
+char *strdupx(const char *src) {
+	char *t = new char[strlen(src)+1];
+	strcpy(t, src);
+	return  t;
+}
+
 <xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	xmlNodePtr node2;
@@ -163,13 +169,13 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 </xsl:template>
 
 <xsl:template match="string" mode="parsexml">
-	<!-- FIXME: standardize string handling on xmlString. this should be deleted somewhere, and checked... -->
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		<xsl:value-of select="@name"/> = strdup((const char *)tmp);
+		<xsl:value-of select="@name"/> = strdupx((const char *)tmp);
+                xmlFree(tmp);
 	} else {
 		fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> property in %s element\n", (const char *)node->name );
-		<xsl:value-of select="@name"/> = strdup("[undefined]");
+		<xsl:value-of select="@name"/> = strdupx("[undefined]");
 	}
 </xsl:template>
 
@@ -284,8 +290,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 		<!-- FIXME: standardize string handling on xmlString. this should be deleted somewhere, and checked... -->
 		if (child == NULL) {
 			fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> child element in %s element\n", (const char *)node->name );
-
-			<xsl:value-of select="@name"/> = strdup("[undefined]");
+			<xsl:value-of select="@name"/> = strdupx("[undefined]");
 		} else {
 			xmlDocPtr out = xmlNewDoc((const xmlChar*)"1.0");
 			out->xmlRootNode = xmlCopyNode( child, 1 );

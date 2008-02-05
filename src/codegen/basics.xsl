@@ -14,7 +14,7 @@
 </xsl:template>
 
 <xsl:template match="string|data" mode="dtor">
-	if( <xsl:value-of select="@name"/> ) delete <xsl:value-of select="@name"/>;
+	if( <xsl:value-of select="@name"/> ) delete[] <xsl:value-of select="@name"/>;
 </xsl:template>
 
 <xsl:template name="objectList">
