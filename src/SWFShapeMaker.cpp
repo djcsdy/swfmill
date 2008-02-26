@@ -230,8 +230,8 @@ void ShapeMaker::close(bool stroke) {
 	// diffx/diffy captures rounding errors. they can accumulate a bit! FIXME
 	
 	if( diffx || diffy ) {
-		fprintf(stderr,"WARNING: shape not closed; closing (%f/%f).\n", diffx, diffy);
-		fprintf(stderr,"DEBUG: accumulated rounding error (%f/%f).\n", roundx, roundy);
+		/*fprintf(stderr,"WARNING: shape not closed; closing (%f/%f).\n", diffx, diffy);
+		fprintf(stderr,"DEBUG: accumulated rounding error (%f/%f).\n", roundx, roundy);*/
 		
 		if(!stroke) {
 			doSetup( 0, 0, false, -1, -1, 0 );
