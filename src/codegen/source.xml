@@ -2108,6 +2108,13 @@
 <opcode name="OpSetLocal1" id="0xD5"/>
 <opcode name="OpSetLocal2" id="0xD6"/>
 <opcode name="OpSetLocal3" id="0xD7"/>
+
+<opcode name="OpDebugReg" id="0xEF">
+	<byte name="unknown" prop="true"/>
+	<u30 name="name" prop="true"/>
+	<u30 name="reg" prop="true"/>
+	<u30 name="line" prop="true"/>
+</opcode>
 <opcode name="OpDebugLine" id="0xF0">
 	<u30 name="line" prop="true"/>
 </opcode>
