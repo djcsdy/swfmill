@@ -15,6 +15,10 @@ File::File() {
 	header = NULL;
 }
 
+File::~File() {
+	delete header;
+}
+
 void File::dump() {
 	Context ctx;
 	if( !header ) {

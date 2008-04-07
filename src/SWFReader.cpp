@@ -21,6 +21,7 @@ bool Reader::getData( void *dst, size_t len ) {
 	} else {
 		memcpy( dst, &data[pos], len );
 		pos += len;
+		return true;
 	}
 }
 
