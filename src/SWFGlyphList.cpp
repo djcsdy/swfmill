@@ -12,8 +12,8 @@ GlyphList::GlyphList() {
 }
 
 GlyphList::~GlyphList() {
-	if( glyphs ) delete glyphs;
-	if( map ) delete map;
+	delete[] glyphs;
+	delete[] map;
 }
 
 bool GlyphList::parse( Reader *r, int end, Context *ctx ) {
@@ -242,8 +242,8 @@ void GlyphList::parseXML( xmlNodePtr node, Context *ctx ) {
 }
 
 void GlyphList::allocate( int n ) {
-	if( map ) delete map;
-	if( glyphs ) delete glyphs;
+	delete[] map;
+	delete[] glyphs;
 
 	nGlyphs = n;
 	glyphs = new GlyphShape[ nGlyphs ];

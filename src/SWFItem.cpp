@@ -125,7 +125,7 @@ Rest::Rest() {
 }
 
 Rest::~Rest() {
-	if( data ) delete data;
+	delete[] data;
 }
 
 bool Rest::parse( Reader *r, int end, Context *ctx ) {
@@ -211,7 +211,7 @@ void Rest::parseXML( xmlNodePtr node, Context *ctx ) {
 			data = new unsigned char[ lout ];
 			memcpy( data, dst, lout );
 		}
-		delete dst;
+		delete[] dst;
 		xmlFree( xmld );
 	} 
 }
@@ -222,7 +222,7 @@ void Rest::getdata( unsigned char **d, int *s ) {
 }
 
 void Rest::setdata( unsigned char *d, int s ) {
-	if( data ) delete data;
+	delete[] data;
 	data = NULL;
 	size = s;
 	

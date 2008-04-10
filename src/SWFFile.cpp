@@ -102,7 +102,7 @@ int File::load( FILE *fp, Context *_ctx, unsigned int filesize ) {
 	return length+8;
 	
 fail:
-	if( data ) delete data;
+	if( data ) delete[] data;
 	if( !_ctx && ctx ) delete ctx;
 	return 0;
 }
@@ -157,14 +157,14 @@ int File::save( FILE *fp, Context *_ctx ) {
 	}
 
 	delete w;
-	delete data;
-	if( !_ctx && ctx ) delete ctx;
+	delete[] data;
+	if( !_ctx ) delete ctx;
 	return( length+8 );
 	
 fail:
-	if( w ) delete w;
-	if( data ) delete data;
-	if( !_ctx && ctx ) delete ctx;
+	delete w;
+	delete[] data;
+	if( !_ctx ) delete ctx;
 	return 0;
 }
 
@@ -172,7 +172,7 @@ xmlDocPtr File::getXML( Context *_ctx ) {
 	Context *ctx;
 	ctx = _ctx ? _ctx : new Context;
 
-	xmlDocPtr doc;
+	xmlDocPtr doc = 0;
 	xmlNodePtr root;
 	
 	if( !header ) {
@@ -193,12 +193,12 @@ xmlDocPtr File::getXML( Context *_ctx ) {
 	ctx->swfVersion = version;
 	header->writeXML( root, ctx );
 	
-	if( !_ctx && ctx ) delete ctx;
+	if( !_ctx ) delete ctx;
 	return doc;
 	
 fail:
-	if( doc ) xmlFree( doc );
-	if( !_ctx && ctx ) delete ctx;
+	if (doc) xmlFreeDoc(doc);
+	if( !_ctx ) delete ctx;
 	return NULL;
 }
 
@@ -213,11 +213,12 @@ int File::saveXML( FILE *fp, Context *ctx ) {
 	
 	if( size ) fwrite( data, size, 1, fp );
 
-	if( data ) delete[] data;
+	if( data ) xmlFree(data);
+	xmlFreeDoc(doc);
 	return size;
 	
 fail:
-	if( data ) delete[] data;
+	if( data ) xmlFree(data);
 	return 0;
 }
 
@@ -267,12 +268,12 @@ int File::setXML( xmlNodePtr root, Context *_ctx ) {
 	header->parseXML( headerNode, ctx );
 
 	length = (header->getSize(ctx,0)/8);
-		
-	if( !_ctx && ctx ) delete ctx;
+
+	if( !_ctx ) delete ctx;
 	return length+8;
 	
 fail:
-	if( !_ctx && ctx ) delete ctx;
+	if( !_ctx ) delete ctx;
 	return 0;
 }
 
@@ -289,7 +290,7 @@ int File::loadXML( const char *filename, Context *ctx ) {
 	
 	root = doc->xmlRootNode;
 	length = setXML( root, ctx );
-		
+
 	xmlFreeDoc( doc );
 	return length;
 	
