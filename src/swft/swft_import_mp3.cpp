@@ -8,6 +8,9 @@
 
 #define TMP_STRLEN 0xff
 
+#define ERROR_NO_MP3              -1
+#define ERROR_WRONG_SAMPLING_RATE -2
+
 const int mp3SamplesPerFrame = 1152;
 const int mp3Bitrates[] = {0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320};
 
@@ -25,7 +28,7 @@ int findFrame( const unsigned char* data, int size, int start ) {
 
 int getFrameSize( const unsigned char* data, int size, int pos ) {
 	if( pos + 2 >= size ) {
-		return -1;
+		return ERROR_NO_MP3;
 	}
 
 	unsigned char c = data[pos + 1];
@@ -36,7 +39,7 @@ int getFrameSize( const unsigned char* data, int size, int pos ) {
 	//mpegVersion == 3 --> MPEG version 1
 	//layer == 1 --> Layer 3
 	if( mpegVersion != 3 || layer != 1) {
-		return -1;
+		return ERROR_NO_MP3;
 	}
 
 	c = data[pos + 2];
@@ -47,7 +50,7 @@ int getFrameSize( const unsigned char* data, int size, int pos ) {
 	//only 44100Hz is supported
 	//this seems to be the only common sampling rate in flash and mp3
 	if( samplingRate != 0 ) {
-		return -1;
+		return ERROR_WRONG_SAMPLING_RATE;
 	}
 
 	//Calculate the frame size in bytes
@@ -61,12 +64,14 @@ struct MP3Info {
 	int frames;
 	int stereo;
 	bool validMP3;
+	bool wrongSamplingRate;
 };
 
 void getMP3Info( MP3Info& info, const unsigned char* data, int size ) {
 	info.frames = 0;
 	info.stereo = 0;
 	info.validMP3 = true;
+	info.wrongSamplingRate = false;
 	int pos = 0;
 	bool first = true;
 	
@@ -84,10 +89,17 @@ void getMP3Info( MP3Info& info, const unsigned char* data, int size ) {
 			pos += frameSize;
 			info.frames++;
 		} else {
-			info.validMP3 = false;
+			if ( frameSize == ERROR_WRONG_SAMPLING_RATE ) {
+				info.wrongSamplingRate = true;
+			} else {
+				info.validMP3 = false;
+			}
 			return;
 		}
 	}
+
+	//no frames found -> no valid mp3
+	info.validMP3 = false;
 }
 
 
@@ -144,7 +156,7 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 	if( stat( (const char *)filename, &filestat ) ) goto fail;
 	size = filestat.st_size;
 	
-	// flash requires a initial latency value in front of the mp3 data
+	// flash requires an initial latency value in front of the mp3 data
 	// TODO: check the meaning of this value and set it correctly
 	data = new unsigned char[size + 2];
 	data[0] = 0;
@@ -169,12 +181,17 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 		goto fail;
 	}
 
+	if( info.wrongSamplingRate ) {
+		fprintf(stderr,"WARNING: MP3 file %s has a wrong sampling rate (not 44.1kHz)\n", filename );
+		goto fail;
+	}
+
 	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)"2" ); //MP3
 	xmlSetProp( node, (const xmlChar *)"rate", (const xmlChar *)"3" );
-	xmlSetProp( node, (const xmlChar *)"is16bit", (const xmlChar *)"1" ); //MP3 is allways 16bit
+	xmlSetProp( node, (const xmlChar *)"is16bit", (const xmlChar *)"1" ); //MP3 is always 16bit
 	snprintf(tmp,TMP_STRLEN,"%i", info.stereo);
 	xmlSetProp( node, (const xmlChar *)"stereo", (const xmlChar *)&tmp );
-	snprintf(tmp,TMP_STRLEN,"%i", info.frames * 1152); //Each frame has 1152 samples.
+	snprintf(tmp,TMP_STRLEN,"%i", info.frames * 1152); //each frame has 1152 samples
 	xmlSetProp( node, (const xmlChar *)"samples", (const xmlChar *)&tmp );
 	
 	if( !quiet ) {
