@@ -338,8 +338,8 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 	
 #define SCALING_FACTOR ((int)1024)
 
-	tag->setascent( 1+((SCALING_FACTOR * face->ascender) / face->units_per_EM) );
-	tag->setdescent( 1+((SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
+	tag->setascent( (1+((SCALING_FACTOR * face->ascender) / face->units_per_EM)) * 20 );
+	tag->setdescent( (1+((SCALING_FACTOR * labs(face->descender)) / face->units_per_EM)) * 20 );
 	tag->setleading( 0 ) ;// (1+(SCALING_FACTOR * face->ascender) / face->units_per_EM) + (1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
 			//1+(SCALING_FACTOR * face->height) / face->units_per_EM );
 	
