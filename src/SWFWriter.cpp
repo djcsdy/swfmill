@@ -103,32 +103,71 @@ void Writer::putFloat( float v ) {
 	data[pos++] = (value>>16)&0xFF;
 	data[pos++] = (value>>24)&0xFF;
     */
-    union {
-        float f;
-        uint32_t ul;
-    } u;
-    u.f = v;
-    putInt(u.ul);
+	union {
+		float f;
+		uint32_t ul;
+	} u;
+	u.f = v;
+	putInt(u.ul);
 }
 
 void Writer::putDouble( double v ) {
-    union {
-        double d;
-        uint64_t ull;
-    } u;
-    u.d = v;
-    putInt64(u.ull);
+	union {
+		double d;
+		uint64_t ull;
+	} u;
+	u.d = v;
+	putInt64(u.ull);
 }
 
 void Writer::putDouble2( double v ) {
-    union {
-        double d;
-        char c[8];
-    } u;
-    u.d = v;
-    for( int i=0; i < 8; i++ ) {
-	data[pos++] = u.c[i];
-    }
+	union {
+		double d;
+		char c[8];
+	} u;
+	u.d = v;
+	for( int i=0; i < 8; i++ ) {
+		data[pos++] = u.c[i];
+	}
+}
+
+void Writer::putHalf( float v ) {
+	union {
+		float f;
+		uint32_t ul;
+	} u;
+	u.f = v;
+
+	int sign = u.ul >> 31;
+	int exp = (u.ul >> 23) & 0xFF;
+	int man = (u.ul & 0x007FFFFF);
+
+	if( exp == 0 ) {
+		man = 0;
+	} else if( exp == 0xFF ) {
+		exp = 0x1F;
+		if( man != 0 ) {
+			man = 1;
+		}
+	} else {
+		exp -= 127;
+		if( exp < -14 ) {
+			if( exp >= -24 ) {
+				man = (man | 0x800000) >> (-exp - 14 + 13);
+			} else {
+				man = 0;
+			}
+			exp = 0;
+		} else if( exp > 15 ) {
+			exp = 0x1F;
+			man = 0;
+		} else {
+			exp += 15;
+			man >>= 13;
+		}
+	}
+
+	putWord((sign << 15) | (exp << 10) | man);
 }
 
 void Writer::putFixed( double value, int bytesize, int exp ) {

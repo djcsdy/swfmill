@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
+<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="http://exslt.org/common" version='1.0'>
 	<xsl:template name="header">
 <xsl:document href="{/format/@format}.h" method="text">
 #ifndef <xsl:value-of select="/format/@format"/>_H
@@ -32,8 +32,11 @@ struct Context {
 		bool alpha;
 		bool many_shapes;
 		
-		<xsl:for-each select="//*[@context]">
-			<xsl:apply-templates select="." mode="ctype"/>
+		<xsl:for-each select="contextvariable">
+			<xsl:variable name="tmp">
+				<xsl:element name="{@type}"/>
+			</xsl:variable>
+			<xsl:apply-templates select="exslt:node-set($tmp)" mode="ctype"/>
 			<xsl:text> </xsl:text>
 			<xsl:value-of select="@name"/>;
 		</xsl:for-each>
@@ -87,7 +90,7 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 		<xsl:apply-templates mode="declareAccessors"/>
 	</xsl:template>
 	<xsl:template match="fill-byte|context" mode="declareAccessors"/>
-	<xsl:template match="byte|word|byteOrWord|string|fixedpoint|fixedpoint2|bit|integer|uint32|float|double|double2|u30|s24" mode="declareAccessors" priority="-1">
+	<xsl:template match="byte|word|byteOrWord|string|fixedpoint|fixedpoint2|bit|integer|uint32|float|double|double2|half|u30|s24" mode="declareAccessors" priority="-1">
 			<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>get<xsl:value-of select="@name"/>();
 			void set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> );
 	</xsl:template>

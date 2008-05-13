@@ -16,6 +16,7 @@
 <xsl:template mode="ctype" match="float">float</xsl:template>
 <xsl:template mode="ctype" match="double">double</xsl:template>
 <xsl:template mode="ctype" match="double2">double</xsl:template>
+<xsl:template mode="ctype" match="half">float</xsl:template>
 <xsl:template mode="ctype" match="xml">char *</xsl:template>
 <xsl:template mode="ctype" match="u30" >unsigned int</xsl:template>
 <xsl:template mode="ctype" match="s24" >int</xsl:template>
@@ -30,13 +31,13 @@
 <xsl:template mode="printf" match="integer">%i</xsl:template>
 <xsl:template mode="printf" match="object|list|data">%p</xsl:template>
 <xsl:template mode="printf" match="uint32">%i</xsl:template>
-<xsl:template mode="printf" match="float|double|double2">%g</xsl:template>
+<xsl:template mode="printf" match="float|double|double2|half">%g</xsl:template>
 <xsl:template mode="printf" match="xml">%s</xsl:template>
 <xsl:template mode="printf" match="u30">%i</xsl:template>
 <xsl:template mode="printf" match="s24">%i</xsl:template>
 
 <xsl:template mode="default" match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer">0</xsl:template>
-<xsl:template mode="default" match="uint32|float|double|double2|u30|s24">0</xsl:template>
+<xsl:template mode="default" match="uint32|float|double|double2|half|u30|s24">0</xsl:template>
 <xsl:template mode="default" match="string|data|xml">NULL</xsl:template>
 
 </xsl:stylesheet>

@@ -1,5 +1,15 @@
 <format format="SWF">
 
+<!-- **************** CONTEXT VARIABLES **************** -->
+
+<contextvariable name="fillBits" type="integer"/>
+<contextvariable name="lineBits" type="integer"/>
+<contextvariable name="glyphBits" type="byte"/>
+<contextvariable name="advanceBits" type="byte"/>
+<contextvariable name="wideGlyphOffsets" type="bit"/>
+<contextvariable name="wideMap" type="bit"/>
+<contextvariable name="glyphCount" type="word"/>
+
 <!-- ******************** BASIC TYPES ****************** -->
 
 <type name="Rectangle">
@@ -214,8 +224,8 @@
 </type>
 
 <type name="TextEntry2">
-	<integer name="glyph" size="ctx->glyphBits2" prop="true"/>
-	<integer name="advance" signed="true" size="ctx->advanceBits2" prop="true"/>
+	<integer name="glyph" size="ctx->glyphBits" prop="true"/>
+	<integer name="advance" signed="true" size="ctx->advanceBits" prop="true"/>
 </type>
 
 
@@ -637,6 +647,19 @@
 	<list type="MethodBody" name="methodBodies" length="methodBodyCount" prop="true"/>
 </type>
 
+<type name="ZoneData">
+	<half name="position" prop="true"/>
+	<half name="size" prop="true"/>
+</type>
+
+<type name="ZoneArray">
+	<byte name="count"/>
+	<list type="ZoneData" name="zones" length="count" prop="true"/>
+	<integer name="zoneX" size="1" constant-size="true" prop="true"/>
+	<integer name="zoneY" size="1" constant-size="true" prop="true"/>
+	<integer name="reserved" size="6" constant-size="true"/>
+</type>
+
 <!-- ******************** FILTERS ****************** -->
 
 <filter name="UnknownFilter" id="-1">
@@ -869,8 +892,8 @@
 	<word name="objectID" prop="true"/>
 	<object type="Rectangle" name="bounds" prop="true"/>
 	<object type="Transform" name="transform" prop="true"/>
-	<byte name="glyphBits2" context="true"/>
-	<byte name="advanceBits2" context="true"/>
+	<byte name="glyphBits" context="true"/>
+	<byte name="advanceBits" context="true"/>
 	<list name="records" type="TextRecord2" prop="true"/>
 </tag>
 
@@ -1253,10 +1276,40 @@
 
 	<object type="GlyphList" name="glyphs" prop="true"/>
 	
-<!--
-	<object type="Rest" name="data" prop="true"/>
--->
+	<flagged flag="hasLayout">
+		<word name="ascent" signed="true" prop="true"/>
+		<word name="descent" signed="true" prop="true"/>
+		<word name="leading" signed="true" prop="true"/>
+		<list name="advance" type="Short" length="glyphCount" prop="true"/>
+		<list name="bounds" type="Rectangle" length="glyphCount" prop="true"/>
+		<word name="kerningCount" signed="true"/>
+		<flagged flag="wideMap">
+			<list name="wideKerning" type="WideKerning" length="kerningCount" prop="true"/>
+		</flagged>
+		<flagged flag="wideMap" negative="true">
+			<list name="kerning" type="Kerning" length="kerningCount" prop="true"/>
+		</flagged>
+	</flagged>
+</tag>
 
+<tag name="DefineFont3" id="0x4B">
+	<context param="tagVersion" value="2"/>
+	<word name="objectID" prop="true"/>
+	<bit name="hasLayout"/>
+	<bit name="isShiftJIS" prop="true"/>
+	<bit name="isUnicode" prop="true"/>
+	<bit name="isANSII" prop="true"/>
+	<bit name="wideGlyphOffsets" prop="true" context="inverse"/>
+	<bit name="wideMap" context="inverse"/>
+	<bit name="italic" prop="true"/>
+	<bit name="bold" prop="true"/>
+	<byte name="language" prop="true"/>
+	<string mode="pascal" name="name" prop="true"/>
+
+	<word name="glyphCount" context="true"/>
+
+	<object type="GlyphList" name="glyphs" prop="true"/>
+	
 	<flagged flag="hasLayout">
 		<word name="ascent" signed="true" prop="true"/>
 		<word name="descent" signed="true" prop="true"/>
@@ -1422,10 +1475,11 @@
 	<integer name="reserved3" size="24" constant-size="true"/>
 </tag>
 
-<tag name="DefineFontInfo3" id="0x49">
+<tag name="DefineFontAlignZones" id="0x49">
 	<word name="objectID" prop="true"/>
-	<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
+	<integer name="csmTableHint" prop="true" size="2" constant-size="true"/>
+	<integer name="reserved" size="6" constant-size="true"/>
+	<list name="zoneArrays" type="ZoneArray" length="ctx->glyphCount" prop="true"/>
 </tag>
 
 <tag name="CSMTextSettings" id="0x4A">
@@ -1436,12 +1490,6 @@
 	<float name="thickness" prop="true"/>
 	<float name="sharpness" prop="true"/>
 	<byte name="reserved2"/>
-</tag>
-
-<tag name="DefineFont3" id="0x4B">
-	<word name="objectID" prop="true"/>
-	<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
 </tag>
 
 <tag name="Metadata" id="0x4D">

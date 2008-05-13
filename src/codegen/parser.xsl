@@ -61,7 +61,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|xml|u30|s24" mode="parse">
+<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|xml|u30|s24" mode="parse">
 	<xsl:value-of select="@name"/> = <xsl:apply-templates select="." mode="get"/>;
 	if( ctx->debugTrace ) fprintf( stderr, "PARSE <xsl:value-of select="@name"/>: <xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/> );
 	<xsl:if test="@context">
@@ -84,6 +84,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 <xsl:template match="float" mode="get">r->getFloat()</xsl:template>
 <xsl:template match="double" mode="get">r->getDouble()</xsl:template>
 <xsl:template match="double2" mode="get">r->getDouble2()</xsl:template>
+<xsl:template match="half" mode="get">r->getHalf()</xsl:template>
 <xsl:template match="bit" mode="get">r->getNBitInt(1)</xsl:template>
 <xsl:template match="integer" mode="get">r->getNBitInt(<xsl:value-of select="@size"/>
 			<xsl:if test="@size-add">+<xsl:value-of select="@size-add"/></xsl:if>

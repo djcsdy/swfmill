@@ -162,7 +162,7 @@
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:apply-templates select="swft:import-ttf($file,@glyphs,@name,$offset)" mode="makeswf">
+	<xsl:apply-templates select="swft:import-ttf($file,$movie-version,@glyphs,@name,$offset)" mode="makeswf">
 		<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 	</xsl:apply-templates>
 
@@ -519,9 +519,18 @@
 <!-- TTF import -->
 <xsl:template match="ttf" mode="makeswf">
 	<xsl:param name="id"/>
-	<DefineFont2 objectID="{$id}">
-		<xsl:copy-of select="DefineFont2/*|DefineFont2/@*[name() != 'objectID']"/>
-	</DefineFont2>
+	<xsl:choose>
+		<xsl:when test="$movie-version >= 8">
+			<DefineFont3 objectID="{$id}">
+				<xsl:copy-of select="DefineFont3/*|DefineFont3/@*[name() != 'objectID']"/>
+			</DefineFont3>
+		</xsl:when>
+		<xsl:otherwise>
+			<DefineFont2 objectID="{$id}">
+				<xsl:copy-of select="DefineFont2/*|DefineFont2/@*[name() != 'objectID']"/>
+			</DefineFont2>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <!-- MP3 import -->

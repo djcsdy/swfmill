@@ -27,6 +27,7 @@ class Writer {
 		void putFloat(float);
 		void putDouble(double);
 		void putDouble2(double);
+		void putHalf(float);
 		void putFixed( double v, int bytesize, int decimals );
 		void putString( const char * );
 		void putPString( const char * );

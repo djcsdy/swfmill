@@ -182,6 +182,37 @@ double Reader::getDouble2() {
 	return u.d;
 }
 
+float Reader::getHalf() {
+	uint16_t r = getWord();
+	
+	int sign = (r & 0x8000) >> 15;
+	int exp = (r & 0x7C00) >> 10;
+	int man = (r & 0x3FF);
+
+	if(exp == 0) {
+		if(man != 0) {
+			while(!(man & 0x400)) {
+				man <<= 1;
+				exp -= 1;
+			}
+			exp += 1 - 15 + 127;
+			man &= 0x3FF;
+		}
+	} else if(exp == 0x1F) {
+		exp = 0xFF;
+	} else {
+		exp += -15 + 127;
+	}
+
+    union {
+        float f;
+        uint32_t ul;
+    } u;
+
+	u.ul = (sign << 31) | (exp << 23) | (man << 13);
+	return u.f;
+}
+
 double Reader::getFixed( int bytesize, int exp ) {
 	/* putFixed/getFixed are deprecated: they implicitly to byteAlign */
 	
