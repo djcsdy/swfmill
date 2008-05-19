@@ -1,5 +1,6 @@
 #include "SVGStyle.h"
 #include "SVGAttributeParser.h"
+#include <string.h>
 
 #define TMP_STRLEN 0xFF
 
