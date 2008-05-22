@@ -100,7 +100,9 @@ void getMP3Info( MP3Info& info, const unsigned char* data, int size ) {
 	}
 
 	//no frames found -> no valid mp3
-	info.validMP3 = false;
+	if( info.frames == 0 ) {
+		info.validMP3 = false;
+	}
 }
 
 
