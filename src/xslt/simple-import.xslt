@@ -73,6 +73,13 @@
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
+      
+      <xsl:when test="$ext = 'wav'">
+			<xsl:apply-templates select="swft:import-wav($file)" mode="makeswf">
+				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+			</xsl:apply-templates>
+		</xsl:when>
+
 		<xsl:otherwise>
 			<xsl:message>WARNING: Cannot import <xsl:value-of select="$file"/> (unknown extension), skipping.</xsl:message>
 		</xsl:otherwise>
@@ -535,6 +542,15 @@
 
 <!-- MP3 import -->
 <xsl:template match="mp3" mode="makeswf">
+	<xsl:param name="id"/>
+	<DefineSound objectID="{$id}" format="{@format}" rate="{@rate}" is16bit="{@is16bit}" stereo="{@stereo}" samples="{@samples}">
+		<data>
+			<xsl:copy-of select="data"/>
+		</data>
+	</DefineSound>
+</xsl:template>
+
+<xsl:template match="wav" mode="makeswf">
 	<xsl:param name="id"/>
 	<DefineSound objectID="{$id}" format="{@format}" rate="{@rate}" is16bit="{@is16bit}" stereo="{@stereo}" samples="{@samples}">
 		<data>

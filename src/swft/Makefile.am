@@ -28,6 +28,7 @@ libswft_la_SOURCES = \
 	swft_import_png.cpp \
 	swft_import_ttf.cpp \
 	swft_import_mp3.cpp \
+	swft_import_wav.cpp \
 	swft_import_binary.cpp \
 	Parser.cpp \
 	SVGStyle.cpp \
