@@ -13,46 +13,46 @@
 #define ERROR_WRONG_SAMPLING_RATE -2
 
 enum {
-   MPEG_V25 = 0,
-   MPEG_RESERVED,
-   MPEG_V2,
-   MPEG_V1,
+	MPEG_V25 = 0,
+	MPEG_RESERVED,
+	MPEG_V2,
+	MPEG_V1,
 };
 
 const int mpegVersionBitrate[] = {
-   1, // V2.5, bitrates same as V2
-   -1, 
-   1, // V2
-   0  // V1
+	1, // V2.5, bitrates same as V2
+	-1, 
+	1, // V2
+	0  // V1
 }; 
 
 // Only Layer3 is supported
 const int mp3Bitrates[][15] = {
-   {0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320}, // V1
-   {0,  8, 16, 24, 32, 40, 48, 56,  64,  80,  96, 112, 128, 144, 160},   // V2 & V2.5
+	{0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320}, // V1
+	{0,  8, 16, 24, 32, 40, 48, 56,  64,  80,  96, 112, 128, 144, 160},   // V2 & V2.5
 };
 
 
 /* As required in DefineSound, as a function of mpegVersion */
 const int flashSamplingRates[] = {
-   1, // V25 -> 11025,   
-   -1, // dummy
-   2, // V2 -> 22050,   
-   3, // V1 -> 44100;
+	1,  // V25 -> 11025,   
+	-1, // dummy
+	2,  // V2 -> 22050,   
+	3,  // V1 -> 44100;
 };
 
 
 const int samplingRates[][4] = {
-   {11025,  12000,    8000,  -1},   // V2.5
-   {   -1,     -1,      -1,  -1}, // dummy
-   {22050,  24000,   12000,  -1},   // V2
-   {44100,  48000,   32000,  -1},   // V1
+	{11025,  12000,    8000,  -1}, // V2.5
+	{   -1,     -1,      -1,  -1}, // dummy
+	{22050,  24000,   12000,  -1}, // V2
+	{44100,  48000,   32000,  -1}, // V1
 };
 
 struct MP3Info {
-   int samplingRate;
-   int samplesPerFrame;
-   int flashSamplingRateFlag;
+	int samplingRate;
+	int samplesPerFrame;
+	int flashSamplingRateFlag;
 	int frames;
 	int stereo;
 	bool validMP3;
@@ -63,8 +63,9 @@ int findFrame( const unsigned char* data, int size, int start ) {
 	int pos = start;
 
 	while( pos < size ) {
-		if( data[pos] == 0xFF && (data[pos + 1] & 0xE0) == 0xE0 ) 
+		if( data[pos] == 0xFF && (data[pos + 1] & 0xE0) == 0xE0 ) {
 			return pos;
+		}
 		pos++;
 	}
 
@@ -76,40 +77,38 @@ int getFrameSize( const unsigned char* data, int size, int pos, MP3Info &info) {
 		return ERROR_NO_MP3;
 	}
 
-   //fprintf(stderr, "Head bytes: %x %x %x %x\n", data[pos], data[pos+1], data[pos+2], data[pos+3]);
-   
 	unsigned char c = data[pos + 1];
 	int mpegVersion = (c & 0x18) >> 3;  // 0:V2.5   1:reserved  2:V2  3:V1
 	int layer = (c & 0x06) >> 1;  // 1 means Layer III
 	
-   // An MP3 file is Layer III, MPEG version any
+	// An MP3 file is Layer III, MPEG version any
 	if( layer != 1) {
-      fprintf(stderr, "Error: Layer should be III.\n");
+		fprintf(stderr, "Error: Layer should be III.\n");
 		return ERROR_NO_MP3;
 	}
 
-   if (mpegVersion == MPEG_RESERVED) {
-      fprintf(stderr, "Error: Unknown MPEG version (reserved).\n");
-   }
+	if (mpegVersion == MPEG_RESERVED) {
+		fprintf(stderr, "Error: Unknown MPEG version (reserved).\n");
+	}
 
 	c = data[pos + 2];
 	int bitrate = (c & 0xF0) >> 4;
 	int samplingRate = (c & 0x0C) >> 2;
 	int padding = (c & 0x02) >> 1;
 
-   info.samplingRate = samplingRates[mpegVersion][samplingRate];
-   info.flashSamplingRateFlag = flashSamplingRates[mpegVersion];
+	info.samplingRate = samplingRates[mpegVersion][samplingRate];
+	info.flashSamplingRateFlag = flashSamplingRates[mpegVersion];
 
-   if( samplingRate != 0 ) {
-      fprintf(stderr, "Sampling rate: %d\n", info.samplingRate);
-      fprintf(stderr, "Error: Flash only supports sampling rates of 44100, 22050 and 11025 Hz\n");
+	if( samplingRate != 0 ) {
+		fprintf(stderr, "Sampling rate: %d\n", info.samplingRate);
+		fprintf(stderr, "Error: Flash only supports sampling rates of 44100, 22050 and 11025 Hz\n");
 		return ERROR_WRONG_SAMPLING_RATE;
 	}
    
-   info.samplesPerFrame = mpegVersion == MPEG_V1 ? 1152 : 576; // Since we deal with Layer III only
+	info.samplesPerFrame = mpegVersion == MPEG_V1 ? 1152 : 576; // Since we deal with Layer III only
 
 	//Calculate the frame size in bytes
-   int br_table = mpegVersionBitrate[mpegVersion];
+	int br_table = mpegVersionBitrate[mpegVersion];
 	int frameSize = (info.samplesPerFrame / 8) * (mp3Bitrates[br_table][bitrate] * 1000) / info.samplingRate + padding;
 
 	return frameSize;
@@ -238,30 +237,25 @@ void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 
 	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)"2" ); //MP3
 	
-   snprintf(tmp,TMP_STRLEN,"%i", info.flashSamplingRateFlag);
+	snprintf(tmp,TMP_STRLEN,"%i", info.flashSamplingRateFlag);
 	xmlSetProp( node, (const xmlChar *)"rate", (const xmlChar *)&tmp );
 	
-   xmlSetProp( node, (const xmlChar *)"is16bit", (const xmlChar *)"1" ); //MP3 is always 16bit
+	xmlSetProp( node, (const xmlChar *)"is16bit", (const xmlChar *)"1" ); //MP3 is always 16bit
 	
-   snprintf(tmp,TMP_STRLEN,"%i", info.stereo);
+	snprintf(tmp,TMP_STRLEN,"%i", info.stereo);
 	xmlSetProp( node, (const xmlChar *)"stereo", (const xmlChar *)&tmp );
 	
-   snprintf(tmp,TMP_STRLEN,"%i", info.frames * info.samplesPerFrame); 
+	snprintf(tmp,TMP_STRLEN,"%i", info.frames * info.samplesPerFrame); 
 	xmlSetProp( node, (const xmlChar *)"samples", (const xmlChar *)&tmp );
 	
 	if( !quiet ) {
-		fprintf(stderr, "Importing MP3: '%s', sampling rate: %d (flag %d), %s\n", 
-         filename, 
-         info.samplingRate, 
-         info.flashSamplingRateFlag,
-         info.stereo ? "stereo" : "mono"
-      );
+		fprintf(stderr, "Importing MP3: '%s'\n", filename); 
 	}
 	
 	swft_addData( node, (char*)data, size + 2 );
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 
-fail:	
+fail:
 	if( fp ) fclose(fp);
 	if( data ) delete data;
 }
