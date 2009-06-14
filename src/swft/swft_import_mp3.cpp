@@ -89,12 +89,18 @@ int getFrameSize( const unsigned char* data, int size, int pos, MP3Info &info) {
 
 	if (mpegVersion == MPEG_RESERVED) {
 		fprintf(stderr, "Error: Unknown MPEG version (reserved).\n");
+		return ERROR_NO_MP3;
 	}
 
 	c = data[pos + 2];
 	int bitrate = (c & 0xF0) >> 4;
 	int samplingRate = (c & 0x0C) >> 2;
 	int padding = (c & 0x02) >> 1;
+	
+	if (bitrate > 14) {
+		fprintf(stderr, "MP3 bitrate field invalid. Corrupt MP3 file?");
+		return ERROR_NO_MP3;
+	}
 
 	info.samplingRate = samplingRates[mpegVersion][samplingRate];
 	info.flashSamplingRateFlag = flashSamplingRates[mpegVersion];
