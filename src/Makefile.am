@@ -19,7 +19,11 @@ swfmill_CXXFLAGS = $(swfmill_CFLAGS)
 swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) swft/libswft.la xslt/libswfmillxslt.la
 swfmill_LDFLAGS = $(ADDLDFLAGS)
 
-BUILT_SOURCES = \
+BUILTSOURCES = \
+	SWF.h \
+	$(NULL)
+
+GENERATED_FILES = \
 	gSWFParseXML.cpp \
 	gSWFWriteXML.cpp \
 	gSWFParser.cpp \
@@ -29,9 +33,8 @@ BUILT_SOURCES = \
 	gSWFSize.cpp \
 	$(NULL)
 	
-# rule to build the generated sources from xsl
-#gSWFParseXML.cpp gSWFWriteXML.cpp gSWFParser.cpp gSWFWriter.cpp gSWFDumper.cpp gSWFBasics.cpp gSWFSize.cpp : xsl/mk.xsl xsl/source.xml xsl/basic.xsl xsl/basics.xsl xsl/header.xsl xsl/parser.xsl xsl/parsexml.xsl xsl/size.xsl xsl/writer.xsl xsl/writexml.xsl
-#	xsltproc xsl/mk.sh xsl/source.xml
+$(GENERATED_FILES):
+	xsltproc $(srcdir)/codegen/mk.xsl $(srcdir)/codegen/source.xml
 
 swfmill_SOURCES = \
 	base64.c \
@@ -84,3 +87,6 @@ SUBDIRS = \
 	swft \
 	xslt \
 	$(NULL)
+
+
+CLEANFILES = $(BUILT_SOURCES) $(GENERATED_FILES)
