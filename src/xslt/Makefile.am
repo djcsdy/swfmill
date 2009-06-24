@@ -40,7 +40,7 @@ NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
 SUFFIXES = .cpp .xml
 
 .xml.cpp: assemble.xsl $(ALL_XSLT)
-	xsltproc assemble.xsl $< > $(@:%.xml=%.cpp) 
+	xsltproc $(srcdir)/assemble.xsl $< > $(@:%.xml=%.cpp) 
 	echo "#include \"xslt.h\"" > $@
 	echo "const char *xslt_$* = " >> $@
 	sed -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:%.xml=%.cpp) >> $@

@@ -19,7 +19,7 @@ swfmill_CXXFLAGS = $(swfmill_CFLAGS)
 swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) swft/libswft.la xslt/libswfmillxslt.la
 swfmill_LDFLAGS = $(ADDLDFLAGS)
 
-BUILTSOURCES = \
+BUILT_SOURCES = \
 	SWF.h \
 	$(NULL)
 
@@ -33,7 +33,7 @@ GENERATED_FILES = \
 	gSWFSize.cpp \
 	$(NULL)
 	
-$(GENERATED_FILES):
+$(GENERATED_FILES) $(BUILT_SOURCES):
 	xsltproc $(srcdir)/codegen/mk.xsl $(srcdir)/codegen/source.xml
 
 swfmill_SOURCES = \
