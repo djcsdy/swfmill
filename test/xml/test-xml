@@ -16,6 +16,6 @@ fi
 diff -q ${file} ${target}
 ret=$?
 
-if [ ret -ne 0 ]
+if [ ${ret} -ne 0 ]; then
 	exit 1
 fi

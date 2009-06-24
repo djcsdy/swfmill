@@ -6,7 +6,7 @@ passes=0
 fails=0
 
 for testcase in `ls ${testdir}/*.xml`; do
-	${testdir}/xml-test $testcase
+	sh ${testdir}/test-xml $testcase
 	ret=$?
 	if [ ${ret} -eq 0 ]; then
 		((passes++))
