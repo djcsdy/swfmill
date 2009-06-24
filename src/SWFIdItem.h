@@ -2,7 +2,7 @@
 #define SWF_IDITEM_H
 
 #include <SWFItem.h>
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 

@@ -1,7 +1,7 @@
 #ifndef F_List_H
 #define F_List_H
 
-#include <stdio.h>
+#include <cstdio>
 #define WARNING printf
 
 namespace SWF {

@@ -1,6 +1,6 @@
 #include "SWFItem.h"
-#include <string.h>
-#include <ctype.h>
+#include <cstring>
+#include <cctype>
 #include "base64.h"
 #include <sys/types.h>
 

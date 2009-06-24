@@ -5,7 +5,7 @@
 #include "swft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <string.h>
+#include <cstring>
 
 #define TMP_STRLEN 0xff
 

@@ -2,7 +2,7 @@
 #include <libxslt/xsltutils.h>
 #include <libxml/xpathInternals.h>
 #include "base64.h"
-#include <string.h>
+#include <cstring>
 
 void swft_addFileName( xmlNodePtr node, const char *filename ) {
 	char *name, *b;

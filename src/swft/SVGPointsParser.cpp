@@ -1,7 +1,7 @@
 #include "SVGPointsParser.h"
 
 #include <iostream>
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 

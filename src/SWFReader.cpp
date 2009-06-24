@@ -1,7 +1,7 @@
 #include "SWFReader.h"
 #include "SWFTag.h"
 #include "SWFAction.h"
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 

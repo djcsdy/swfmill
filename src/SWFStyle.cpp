@@ -1,5 +1,5 @@
 #include <SWFStyle.h>
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 

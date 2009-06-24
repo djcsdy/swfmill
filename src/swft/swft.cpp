@@ -3,8 +3,8 @@
 #include <libxslt/xsltutils.h>
 #include <libxslt/variables.h>
 #include <libxml/xpathInternals.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include "swft.h"
 
 #define TMP_STRLEN 0xFF

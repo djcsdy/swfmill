@@ -2,8 +2,8 @@
 #include "SWFFile.h"
 #include "swft.h"
 #include "xslt.h"
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

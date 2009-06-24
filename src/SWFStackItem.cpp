@@ -1,6 +1,6 @@
 #include <SWFStackItem.h>
 #include "SWF.h"
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 
