@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<swf version="9" compressed="1">
+  <Header framerate="25" frames="1">
+    <size>
+      <Rectangle left="0" right="8000" top="0" bottom="6000"/>
+    </size>
+    <tags>
+      <FileAttributes hasMetaData="0" allowABC="1" suppressCrossDomainCaching="0" swfRelativeURLs="0" useNetwork="0"/>
+      <DefineSceneAndFrameLabelData>
+        <scenes>
+          <Scene offset="0" name="Scene 1"/>
+        </scenes>
+        <frames/>
+      </DefineSceneAndFrameLabelData>
+      <DoABCDefine flags="0" name="">
+        <actions>
+          <Action3 minorVersion="16" majorVersion="46">
+            <constants>
+              <Constants>
+                <ints/>
+                <uints/>
+                <doubles/>
+                <strings>
+                  <String2 value="AS3"/>
+                  <String2 value="A"/>
+                  <String2 value="MovieClip"/>
+                  <String2 value="Object"/>
+                  <String2 value="EventDispatcher"/>
+                  <String2 value="DisplayObject"/>
+                  <String2 value="InteractiveObject"/>
+                  <String2 value="DisplayObjectContainer"/>
+                  <String2 value="Sprite"/>
+                  <String2 value="trace"/>
+                  <String2 value="as3.as"/>
+                  <String2 value="flash.display"/>
+                  <String2 value=""/>
+                  <String2 value="flash.events"/>
+                </strings>
+                <namespaces>
+                  <ProtectedNamespace index="2"/>
+                  <PackageNamespace index="11"/>
+                  <PackageNamespace index="12"/>
+                  <PackageNamespace index="13"/>
+                  <PackageNamespace index="14"/>
+                </namespaces>
+                <namespaceSets/>
+                <multinames>
+                  <QName namespaceIndex="2" nameIndex="2"/>
+                  <QName namespaceIndex="3" nameIndex="3"/>
+                  <QName namespaceIndex="4" nameIndex="4"/>
+                  <QName namespaceIndex="5" nameIndex="5"/>
+                  <QName namespaceIndex="3" nameIndex="6"/>
+                  <QName namespaceIndex="3" nameIndex="7"/>
+                  <QName namespaceIndex="3" nameIndex="8"/>
+                  <QName namespaceIndex="3" nameIndex="9"/>
+                  <QName namespaceIndex="4" nameIndex="10"/>
+                </multinames>
+              </Constants>
+            </constants>
+            <methods>
+              <MethodInfo retType="0" nameIndex="0" hasParamNames="0" setSDXNs="0" isExplicit="0" ignoreRest="0" hasOptional="0" needRest="0" needActivation="0" needArguments="0">
+                <paramTypes/>
+              </MethodInfo>
+              <MethodInfo retType="0" nameIndex="0" hasParamNames="0" setSDXNs="0" isExplicit="0" ignoreRest="0" hasOptional="0" needRest="0" needActivation="0" needArguments="0">
+                <paramTypes/>
+              </MethodInfo>
+              <MethodInfo retType="0" nameIndex="0" hasParamNames="0" setSDXNs="0" isExplicit="0" ignoreRest="0" hasOptional="0" needRest="0" needActivation="0" needArguments="0">
+                <paramTypes/>
+              </MethodInfo>
+            </methods>
+            <metadata/>
+            <instances>
+              <InstanceInfo nameIndex="1" superIndex="2" hasProtectedNS="1" interface="0" final="0" sealed="1" protectedNS="1" iInitIndex="1">
+                <interfaces/>
+                <traits/>
+              </InstanceInfo>
+            </instances>
+            <classes>
+              <ClassInfo cInitIndex="2">
+                <traits/>
+              </ClassInfo>
+            </classes>
+            <scripts>
+              <ScriptInfo initIndex="0">
+                <traits>
+                  <TraitInfo nameIndex="1" override="0" final="0">
+                    <trait>
+                      <Class slotID="1" classInfo="0"/>
+                    </trait>
+                  </TraitInfo>
+                </traits>
+              </ScriptInfo>
+            </scripts>
+            <methodBodies>
+              <MethodBody methodInfo="0" maxStack="3" maxRegs="1" scopeDepth="0" maxScope="8" exceptionCount="0">
+                <code>
+                  <OpGetLocal0/>
+                  <OpPushScope/>
+                  <OpGetGlobalScope/>
+                  <OpGetLex name="3"/>
+                  <OpPushScope/>
+                  <OpGetLex name="4"/>
+                  <OpPushScope/>
+                  <OpGetLex name="5"/>
+                  <OpPushScope/>
+                  <OpGetLex name="6"/>
+                  <OpPushScope/>
+                  <OpGetLex name="7"/>
+                  <OpPushScope/>
+                  <OpGetLex name="8"/>
+                  <OpPushScope/>
+                  <OpGetLex name="2"/>
+                  <OpDup/>
+                  <OpPushScope/>
+                  <OpNewClass classIndex="0"/>
+                  <OpPopScope/>
+                  <OpPopScope/>
+                  <OpPopScope/>
+                  <OpPopScope/>
+                  <OpPopScope/>
+                  <OpPopScope/>
+                  <OpPopScope/>
+                  <OpSetSlot slotID="1"/>
+                  <OpReturnVoid/>
+                </code>
+                <exceptions/>
+                <traits/>
+              </MethodBody>
+              <MethodBody methodInfo="1" maxStack="2" maxRegs="1" scopeDepth="8" maxScope="8" exceptionCount="0">
+                <code>
+                  <OpGetLocal0/>
+                  <OpConstructSuper argc="0"/>
+                  <OpFindPropStrict name="9"/>
+                  <OpPushString index="1"/>
+                  <OpCallPropVoid name="9" argc="1"/>
+                  <OpReturnVoid/>
+                </code>
+                <exceptions/>
+                <traits/>
+              </MethodBody>
+              <MethodBody methodInfo="2" maxStack="1" maxRegs="1" scopeDepth="8" maxScope="9" exceptionCount="0">
+                <code>
+                  <OpGetLocal0/>
+                  <OpPushScope/>
+                  <OpReturnVoid/>
+                </code>
+                <exceptions/>
+                <traits/>
+              </MethodBody>
+            </methodBodies>
+          </Action3>
+        </actions>
+      </DoABCDefine>
+      <SymbolClass>
+        <symbols>
+          <Symbol objectID="0" name="as3.as.A"/>
+        </symbols>
+      </SymbolClass>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>
