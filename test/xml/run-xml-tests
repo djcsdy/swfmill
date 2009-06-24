@@ -5,22 +5,22 @@ testdir=$1
 passes=0
 fails=0
 
-for testcase in `ls *.xml`; do
-	$(testdir)/xml-test $testcase
+for testcase in `ls ${testdir}/*.xml`; do
+	${testdir}/xml-test $testcase
 	ret=$?
-	if [ $(ret) -eq 0 ]; then
+	if [ ${ret} -eq 0 ]; then
 		((passes++))
-		echo $(testcase) PASSED
+		echo ${testcase} PASSED
 	else
 		((fails++))
-		echo $(testcase) FAILED
+		echo ${testcase} FAILED
 	fi
 done
 
-echo PASSES $(passes)
-echo FAILS $(fails)
+echo PASSES ${passes}
+echo FAILS ${fails}
 
-if [ fails -ne 0 ]; then
+if [ ${fails} -ne 0 ]; then
 	exit 1
 fi
 

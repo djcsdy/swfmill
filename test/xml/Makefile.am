@@ -15,6 +15,6 @@ check_SCRIPTS = \
 	$(NULL)
 
 run-tests:
-	$(srcdir)/run-xml-tests $(srcdir)
+	sh $(srcdir)/run-xml-tests $(srcdir)
 
 CLEANFILES = *.swf *.xml.swf
