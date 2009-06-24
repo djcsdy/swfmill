@@ -14,7 +14,7 @@
 </xsl:template>
 
 <xsl:template match="string|data" mode="dtor">
-	if( <xsl:value-of select="@name"/> ) delete[] <xsl:value-of select="@name"/>;
+	delete[] <xsl:value-of select="@name"/>;
 </xsl:template>
 
 <xsl:template name="objectList">
@@ -192,7 +192,7 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	}
 	
 	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
-		if( <xsl:value-of select="@name"/> ) delete <xsl:value-of select="@name"/>;
+		delete <xsl:value-of select="@name"/>;
 		<xsl:value-of select="@name"/> = v;
 	}
 </xsl:template>
@@ -202,7 +202,7 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 			*size = <xsl:value-of select="@size"/>;
 		}
 		void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( const unsigned char *src, int size ) {
-			if( <xsl:value-of select="@name"/> ) delete <xsl:value-of select="@name"/>;
+			delete <xsl:value-of select="@name"/>;
 			<xsl:value-of select="@size"/> = size;
 			<xsl:value-of select="@name"/> = new unsigned char[ size ];
 			memcpy( <xsl:value-of select="@name"/>, src, size ); 
@@ -227,7 +227,7 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	}
 	
 	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
-		if( <xsl:value-of select="@name"/> ) delete <xsl:value-of select="@name"/>;
+		delete <xsl:value-of select="@name"/>;
 		<xsl:value-of select="@name"/> = v;
 	}
 </xsl:template>
