@@ -5,7 +5,7 @@
 
 #include "<xsl:value-of select="/format/@format"/>.h"
 #include "base64.h"
-#include "string.h"
+#include &lt;cstring&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
 
