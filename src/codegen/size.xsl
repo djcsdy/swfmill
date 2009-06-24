@@ -72,6 +72,15 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	r += 8;
 </xsl:template>
 
+<xsl:template match="encodedu32" mode="size">
+    {
+         unsigned int i = <xsl:value-of select="@name"/>;
+	 do {
+	     r += 8;
+	 } while ((i>>=7) > 0);
+    }
+</xsl:template>
+
 <xsl:template match="byteOrWord" mode="size">
     if( <xsl:value-of select="@name"/> &gt;= 255 ) {
         r += 24;

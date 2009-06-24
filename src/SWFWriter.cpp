@@ -91,6 +91,17 @@ void Writer::putS24( int value ) {
 	data[pos++] = (value>>16)&0xFF;
 }
 
+void Writer::putEncodedU32(unsigned int value) {
+	for (size_t i = 0; i < 5; ++i) {
+		if (value < 0x80) {
+			data[pos++] = value;
+			return;
+		}
+		data[pos++] = (value & 0x7f) | 0x80;
+		value >>= 7;
+	}
+}
+
 void Writer::putFloat( float v ) {
     /*
 	byteAlign();

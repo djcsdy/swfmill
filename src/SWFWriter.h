@@ -32,6 +32,7 @@ class Writer {
 		void putString( const char * );
 		void putPString( const char * );
 		void putPStringU30( const char * );
+		void putEncodedU32(unsigned int);
 	
 		// this one cares about the current bit position
 		void putNBitInt( int64_t v, int n, bool is_signed = false );

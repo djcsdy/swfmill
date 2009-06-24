@@ -60,7 +60,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	</xsl:template>
 
 
-<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|u30|s24" mode="has">
+<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|u30|s24|encodedu32" mode="has">
 	if( <xsl:if test="../@negative">!</xsl:if>xmlHasProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" ) ) has = true;
 </xsl:template>
 

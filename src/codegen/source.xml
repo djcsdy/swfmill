@@ -183,6 +183,16 @@
 	<string name="name" prop="true"/>
 </type>
 
+<type name="Frame">
+	<encodedu32 name="number" prop="true"/>
+	<string name="label" prop="true"/>
+</type>
+
+<type name="Scene">
+	<encodedu32 name="offset" prop="true"/>
+	<string name="name" prop="true"/>
+</type>
+
 <type name="Parameter">
 	<byte name="reg" prop="true"/>
 	<string name="name" prop="true"/>
@@ -1514,6 +1524,13 @@
 <tag name="SymbolClass" id="0x4C">
 	<word name="count"/>
 	<list name="symbols" type="Symbol" length="count" prop="true"/>
+</tag>
+
+<tag name="DefineSceneAndFrameLabelData" id="0x56">
+	<encodedu32 name="sceneCount"/>
+	<list name="scenes" type="Scene" length="sceneCount" prop="true"/>
+	<encodedu32 name="frameCount"/>
+	<list name="frames" type="Frame" length="frameCount" prop="true"/>
 </tag>
 
 <tag name="DefineBinaryData" id="0x57">
