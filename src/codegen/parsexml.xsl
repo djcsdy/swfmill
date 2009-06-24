@@ -4,8 +4,9 @@
 <xsl:document href="g{/format/@format}ParseXML.cpp" method="text">
 
 #include "<xsl:value-of select="/format/@format"/>.h"
-#include &lt;string.h&gt;
-#include &lt;ctype.h&gt;
+#include &lt;cstring&gt;
+#include &lt;cctype&gt;
+#include &lt;cstdlib&gt;
 #include "base64.h"
 
 namespace <xsl:value-of select="/format/@format"/> {
@@ -111,29 +112,26 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="byte|word|byteOrWord|bit|uint32|u30|s24" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		int tmp_int;
-		sscanf( (char *)tmp, "<xsl:apply-templates select="." mode="printf"/>", &amp;tmp_int );
-		<xsl:value-of select="@name"/> = tmp_int;
-		xmlFree( tmp );
+	    <xsl:value-of select="@name"/> =
+	        std::strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
+	    xmlFree( tmp );
 	}
 </xsl:template>
 
 <xsl:template match="float|double|double2|half" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		double tmp_float;
-		sscanf( (char *)tmp, "%lg", &amp;tmp_float );
-		<xsl:value-of select="@name"/> = tmp_float;
-		xmlFree( tmp );
+	    <xsl:value-of select="@name"/> =
+	        std::strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
+	    xmlFree( tmp );
 	}
 </xsl:template>
 
 <xsl:template match="fixedpoint|fixedpoint2" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		double t;
-		sscanf( (char *)tmp, "%lg", &amp;t);
-		<xsl:value-of select="@name"/> = t;
+	        <xsl:value-of select="@name"/> =
+	            std::strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->
@@ -152,7 +150,8 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="integer" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		sscanf( (char *)tmp, "<xsl:apply-templates select="." mode="printf"/>", &amp;<xsl:value-of select="@name"/>);
+	        <xsl:value-of select="@name"/> =
+	           std::strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->
