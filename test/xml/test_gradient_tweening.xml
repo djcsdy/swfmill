@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<swf version="6" compressed="1">
+  <Header framerate="30" frames="60">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineMorphShape objectID="1">
+        <data>
+          <data>cMGpJoyUZEhyPU/wkFixuFYAAAABErm0xtMNYWpagLjz5ukuusH2RzHKeYgCAP////849GAo//8AAAD/2TAJ0P8BFAAUAAAAAP8AAAD/ESWMLsqexhZ0sV9k9TpnVC9jCzpYr7J6nTOqAAAFyPof3dWzISOri7H/WTV7jrHROD1bMhI6uLsf9ZNXuOsdE4IA</data>
+        </data>
+      </DefineMorphShape>
+      <PlaceObject2 replace="0" depth="1" objectID="1">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="2260"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="4520"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="6780"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="9039"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="11299"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="13559"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="15819"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="18079"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="20339"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="22599"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="24858"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="27118"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="29378"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="31638"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="33898"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="36158"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="38418"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="40678"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="42937"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="45197"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="47457"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="49717"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="51977"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="54237"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="56497"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="58756"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="61016"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="63276"/>
+      <ShowFrame/>
+      <DefineMorphShape objectID="2">
+        <data>
+          <data>cj1P8JBYsbhpUJ8yJ+YCAGUAAAABErjz5ukuusH2RzHKeYi8pppKmzWa7Fqm06CAAjj0YCj/OCzxRP/ZMAnQ/5mgNIv/ARQAFAAAAAD/AAAA/xElyPof3erZkJHVxdj/rJq9x1jonBC9WzISOri7H/WTV7jrHROCAAAFpUxf13B9Xt+6Un2v3+DISe9rcJT3B9Xt+6Un2v3+DISe9rcJSAA=</data>
+        </data>
+      </DefineMorphShape>
+      <PlaceObject2 replace="1" depth="1" objectID="2" morph="0"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="2185"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="4369"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="6554"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="8738"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="10923"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="13107"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="15292"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="17476"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="19661"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="21845"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="24030"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="26214"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="28399"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="30583"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="32768"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="34953"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="37137"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="39322"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="41506"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="43691"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="45875"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="48060"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="50244"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="52429"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="54613"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="56798"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="58982"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="61167"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="63351"/>
+      <ShowFrame/>
+      <RemoveObject2 depth="1"/>
+      <DefineShape objectID="3">
+        <bounds>
+          <Rectangle left="1346" right="3993" top="638" bottom="3076"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <RadialGradient>
+                <matrix>
+                  <Transform scaleX="0.08134460449218750" scaleY="0.1432037353515625" skewX="-0.01016235351562500" skewY="-0.01683044433593750" transX="2669" transY="1857"/>
+                </matrix>
+                <gradientColors>
+                  <GradientItem position="56">
+                    <color>
+                      <Color red="244" green="96" blue="40"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="217">
+                    <color>
+                      <Color red="48" green="9" blue="208"/>
+                    </color>
+                  </GradientItem>
+                </gradientColors>
+              </RadialGradient>
+              <RadialGradient>
+                <matrix>
+                  <Transform scaleX="0.08134460449218750" scaleY="0.1432037353515625" skewX="-0.01016235351562500" skewY="-0.01683044433593750" transX="2669" transY="1857"/>
+                </matrix>
+                <gradientColors>
+                  <GradientItem position="56">
+                    <color>
+                      <Color red="44" green="241" blue="68"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="217">
+                    <color>
+                      <Color red="48" green="9" blue="208"/>
+                    </color>
+                  </GradientItem>
+                </gradientColors>
+              </RadialGradient>
+              <RadialGradient>
+                <matrix>
+                  <Transform scaleX="0.08134460449218750" scaleY="0.1432037353515625" skewX="-0.01016235351562500" skewY="-0.01683044433593750" transX="2669" transY="1857"/>
+                </matrix>
+                <gradientColors>
+                  <GradientItem position="56">
+                    <color>
+                      <Color red="44" green="241" blue="68"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="153">
+                    <color>
+                      <Color red="48" green="9" blue="208"/>
+                    </color>
+                  </GradientItem>
+                </gradientColors>
+              </RadialGradient>
+              <RadialGradient>
+                <matrix>
+                  <Transform scaleX="0.08134460449218750" scaleY="0.1432037353515625" skewX="-0.01016235351562500" skewY="-0.01683044433593750" transX="2669" transY="1857"/>
+                </matrix>
+                <gradientColors>
+                  <GradientItem position="56">
+                    <color>
+                      <Color red="44" green="241" blue="68"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="153">
+                    <color>
+                      <Color red="160" green="52" blue="139"/>
+                    </color>
+                  </GradientItem>
+                </gradientColors>
+              </RadialGradient>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="1605" y="945" fillStyle1="4" lineStyle="1"/>
+              <LineTo x="2378" y="-297"/>
+              <LineTo x="-251" y="2121"/>
+              <LineTo x="-2376" y="297"/>
+              <LineTo x="249" y="-2121"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="1" objectID="3">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

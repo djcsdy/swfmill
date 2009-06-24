@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="30" frames="30">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineShape objectID="1">
+        <bounds>
+          <Rectangle left="-2149" right="4010" top="-1770" bottom="1810"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="3240" y="-680" fillStyle0="1" fillStyle1="1" lineStyle="2"/>
+              <LineTo x="0" y="460"/>
+              <LineTo x="-1000" y="0"/>
+              <LineTo x="0" y="-460"/>
+              <ShapeSetup fillStyle1="0" lineStyle="1"/>
+              <LineTo x="-2680" y="0"/>
+              <ShapeSetup fillStyle1="1" lineStyle="2"/>
+              <LineTo x="0" y="340"/>
+              <LineTo x="-939" y="0"/>
+              <LineTo x="0" y="-340"/>
+              <ShapeSetup fillStyle1="0" lineStyle="1"/>
+              <LineTo x="-760" y="0"/>
+              <LineTo x="0" y="2480"/>
+              <LineTo x="6139" y="0"/>
+              <LineTo x="0" y="-2480"/>
+              <LineTo x="-760" y="0"/>
+              <ShapeSetup lineStyle="2"/>
+              <LineTo x="0" y="-1020"/>
+              <LineTo x="-1000" y="0"/>
+              <LineTo x="0" y="1020"/>
+              <ShapeSetup x="-1379" y="-680" fillStyle0="0" fillStyle1="1"/>
+              <LineTo x="0" y="-1080"/>
+              <LineTo x="939" y="0"/>
+              <LineTo x="0" y="1080"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="2" frames="1">
+        <tags>
+          <PlaceObject2 replace="0" depth="1" objectID="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="1" objectID="2" name="bobo">
+        <transform>
+          <Transform transX="4601" transY="3094"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9994964599609375" scaleY="1.004150390625000" skewX="0.02653503417968750" skewY="-0.009399414062500000" transX="4601" transY="3069"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9983062744140625" scaleY="1.008132934570312" skewX="0.05305480957031250" skewY="-0.02217102050781250" transX="4603" transY="3045"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9963989257812500" scaleY="1.012084960937500" skewX="0.07951354980468750" skewY="-0.03173828125000000" transX="4605" transY="3020"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9934234619140625" scaleY="1.015777587890625" skewX="0.1091766357421875" skewY="-0.04469299316406250" transX="4608" transY="2992"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9900512695312500" scaleY="1.019500732421875" skewX="0.1355133056640625" skewY="-0.05442810058593750" transX="4611" transY="2967"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9859619140625000" scaleY="1.022903442382812" skewX="0.1617279052734375" skewY="-0.06758117675781250" transX="4615" transY="2943"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9805297851562500" scaleY="1.026123046875000" skewX="0.1910552978515625" skewY="-0.08081054687500000" transX="4620" transY="2916"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9749908447265625" scaleY="1.029525756835938" skewX="0.2170104980468750" skewY="-0.09080505371093750" transX="4627" transY="2891"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9687500000000000" scaleY="1.032455444335938" skewX="0.2428131103515625" skewY="-0.1042022705078125" transX="4632" transY="2867"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9609222412109375" scaleY="1.035598754882812" skewX="0.2715911865234375" skewY="-0.1143341064453125" transX="4639" transY="2841"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9532470703125000" scaleY="1.038223266601562" skewX="0.2969970703125000" skewY="-0.1279144287109375" transX="4646" transY="2816"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9449005126953125" scaleY="1.041137695312500" skewX="0.3222045898437500" skewY="-0.1381835937500000" transX="4654" transY="2793"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9347229003906250" scaleY="1.043441772460938" skewX="0.3502349853515625" skewY="-0.1519470214843750" transX="4665" transY="2767"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9249725341796875" scaleY="1.045562744140625" skewX="0.3749084472656250" skewY="-0.1657714843750000" transX="4674" transY="2744"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9145812988281250" scaleY="1.048110961914062" skewX="0.3993530273437500" skewY="-0.1762542724609375" transX="4684" transY="2721"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9021148681640625" scaleY="1.049911499023438" skewX="0.4264526367187500" skewY="-0.1902465820312500" transX="4694" transY="2694"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8903503417968750" scaleY="1.052215576171875" skewX="0.4502563476562500" skewY="-0.2008361816406250" transX="4706" transY="2674"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8779754638671875" scaleY="1.053680419921875" skewX="0.4737396240234375" skewY="-0.2149658203125000" transX="4718" transY="2652"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8633270263671875" scaleY="1.055709838867188" skewX="0.4997100830078125" skewY="-0.2257080078125000" transX="4732" transY="2627"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8496246337890625" scaleY="1.056869506835938" skewX="0.5224456787109375" skewY="-0.2399749755859375" transX="4745" transY="2606"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8353576660156250" scaleY="1.057815551757812" skewX="0.5448303222656250" skewY="-0.2543029785156250" transX="4757" transY="2585"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8186187744140625" scaleY="1.059448242187500" skewX="0.5695037841796875" skewY="-0.2652130126953125" transX="4773" transY="2561"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8031005859375000" scaleY="1.060043334960938" skewX="0.5910491943359375" skewY="-0.2796630859375000" transX="4789" transY="2542"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7870178222656250" scaleY="1.061447143554688" skewX="0.6121520996093750" skewY="-0.2906951904296875" transX="4804" transY="2523"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7682952880859375" scaleY="1.061691284179688" skewX="0.6353759765625000" skewY="-0.3052520751953125" transX="4823" transY="2501"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7510681152343750" scaleY="1.062805175781250" skewX="0.6555480957031250" skewY="-0.3163757324218750" transX="4838" transY="2482"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7332916259765625" scaleY="1.062713623046875" skewX="0.6752624511718750" skewY="-0.3310394287109375" transX="4855" transY="2464"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7127227783203125" scaleY="1.062408447265625" skewX="0.6968536376953125" skewY="-0.3457641601562500" transX="4874" transY="2443"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="bobo"/>
+              <String value="_rotation"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+              <StackInteger value="30"/>
+            </items>
+          </PushData>
+          <SetMember/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6949462890625000" scaleY="1.063415527343750" skewX="0.7167816162109375" skewY="-0.3595428466796875" transX="4891" transY="2426"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

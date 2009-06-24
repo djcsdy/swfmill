@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="10">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <PushData>
+            <items>
+              <StackString value="onEnterFrame"/>
+            </items>
+          </PushData>
+          <DeclareFunction name="" argc="0" length="28">
+            <args/>
+          </DeclareFunction>
+          <PushData>
+            <items>
+              <StackString value="onEnterFrame "/>
+              <StackString value=""/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <AddTyped/>
+          <Trace/>
+          <SetVariable/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <PushData>
+            <items>
+              <StackString value="frame 10 actions"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <GotoFrame frame="9"/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="2">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <PushData>
+            <items>
+              <StackString value="frame 1 actions"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <PushData>
+            <items>
+              <StackString value="frame 2 actions"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

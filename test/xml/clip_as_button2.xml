@@ -1,0 +1,1786 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineFont2 objectID="1" isShiftJIS="0" isUnicode="0" isANSII="0" wideGlyphOffsets="0" italic="0" bold="0" language="1" name="Times New Roman" ascent="913" descent="222" leading="111">
+        <glyphs>
+          <Glyph map="32">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="97">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="292" y="-66" fillStyle0="1"/>
+                <CurveTo x1="-71" y1="55" x2="-18" y2="8"/>
+                <CurveTo x1="-27" y1="13" x2="-30" y2="0"/>
+                <CurveTo x1="-48" y1="0" x2="-30" y2="-33"/>
+                <CurveTo x1="-31" y1="-32" x2="0" y2="-53"/>
+                <CurveTo x1="0" y1="-34" x2="15" y2="-24"/>
+                <CurveTo x1="20" y1="-34" x2="51" y2="-30"/>
+                <CurveTo x1="51" y1="-30" x2="118" y2="-43"/>
+                <LineTo x="0" y="-18"/>
+                <CurveTo x1="0" y1="-69" x2="-22" y2="-25"/>
+                <CurveTo x1="-22" y1="-26" x2="-41" y2="0"/>
+                <CurveTo x1="-32" y1="0" x2="-18" y2="17"/>
+                <CurveTo x1="-19" y1="17" x2="0" y2="22"/>
+                <LineTo x="1" y="29"/>
+                <CurveTo x1="0" y1="23" x2="-12" y2="13"/>
+                <CurveTo x1="-12" y1="12" x2="-19" y2="0"/>
+                <CurveTo x1="-18" y1="0" x2="-12" y2="-13"/>
+                <CurveTo x1="-12" y1="-13" x2="0" y2="-22"/>
+                <CurveTo x1="0" y1="-43" x2="44" y2="-36"/>
+                <CurveTo x1="44" y1="-36" x2="80" y2="0"/>
+                <CurveTo x1="61" y1="0" x2="39" y2="20"/>
+                <CurveTo x1="29" y1="16" x2="14" y2="33"/>
+                <CurveTo x1="9" y1="21" x2="0" y2="67"/>
+                <LineTo x="0" y="155"/>
+                <CurveTo x1="0" y1="66" x2="3" y2="15"/>
+                <CurveTo x1="2" y1="14" x2="6" y2="5"/>
+                <CurveTo x1="6" y1="5" x2="7" y2="0"/>
+                <LineTo x="14" y="-3"/>
+                <LineTo x="41" y="-37"/>
+                <LineTo x="0" y="28"/>
+                <CurveTo x1="-56" y1="75" x2="-51" y2="0"/>
+                <CurveTo x1="-25" y1="0" x2="-14" y2="-17"/>
+                <CurveTo x1="-15" y1="-17" x2="0" y2="-41"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="292" y="-98"/>
+                <LineTo x="0" y="-175"/>
+                <CurveTo x1="-76" y1="30" x2="-22" y2="13"/>
+                <CurveTo x1="-39" y1="22" x2="-17" y2="24"/>
+                <CurveTo x1="-17" y1="24" x2="0" y2="28"/>
+                <CurveTo x1="0" y1="36" x2="21" y2="24"/>
+                <CurveTo x1="22" y1="24" x2="28" y2="0"/>
+                <CurveTo x1="38" y1="0" x2="62" y2="-50"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="98">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="158" y="-379" fillStyle0="1"/>
+                <CurveTo x1="66" y1="-92" x2="77" y2="0"/>
+                <CurveTo x1="71" y1="0" x2="52" y2="60"/>
+                <CurveTo x1="53" y1="60" x2="0" y2="105"/>
+                <CurveTo x1="0" y1="122" x2="-81" y2="74"/>
+                <CurveTo x1="-70" y1="64" x2="-85" y2="0"/>
+                <CurveTo x1="-40" y1="0" x2="-41" y2="-14"/>
+                <CurveTo x1="-42" y1="-15" x2="-43" y2="-29"/>
+                <LineTo x="0" y="-474"/>
+                <LineTo x="-3" y="-96"/>
+                <CurveTo x1="-4" y1="-18" x2="-8" y2="-7"/>
+                <LineTo x="-20" y="-6"/>
+                <LineTo x="-35" y="8"/>
+                <LineTo x="-7" y="-18"/>
+                <LineTo x="137" y="-56"/>
+                <LineTo x="23" y="0"/>
+                <LineTo x="0" y="332"/>
+                <ShapeSetup x="158" y="-347"/>
+                <LineTo x="0" y="274"/>
+                <CurveTo x1="25" y1="25" x2="28" y2="13"/>
+                <CurveTo x1="27" y1="13" x2="28" y2="0"/>
+                <CurveTo x1="46" y1="0" x2="39" y2="-50"/>
+                <CurveTo x1="39" y1="-50" x2="0" y2="-96"/>
+                <CurveTo x1="0" y1="-88" x2="-39" y2="-47"/>
+                <CurveTo x1="-39" y1="-47" x2="-50" y2="0"/>
+                <CurveTo x1="-27" y1="0" x2="-26" y2="13"/>
+                <LineTo x="-51" y="40"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="99">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="421" y="-174" fillStyle0="1"/>
+                <CurveTo x1="-18" y1="91" x2="-54" y2="49"/>
+                <CurveTo x1="-54" y1="48" x2="-66" y2="0"/>
+                <CurveTo x1="-78" y1="0" x2="-58" y2="-65"/>
+                <CurveTo x1="-58" y1="-66" x2="0" y2="-111"/>
+                <CurveTo x1="0" y1="-108" x2="65" y2="-68"/>
+                <CurveTo x1="64" y1="-67" x2="90" y2="0"/>
+                <CurveTo x1="67" y1="0" x2="44" y2="36"/>
+                <CurveTo x1="43" y1="35" x2="0" y2="39"/>
+                <CurveTo x1="0" y1="19" x2="-12" y2="12"/>
+                <CurveTo x1="-12" y1="11" x2="-22" y2="0"/>
+                <CurveTo x1="-30" y1="0" x2="-15" y2="-19"/>
+                <CurveTo x1="-8" y1="-10" x2="-3" y2="-30"/>
+                <CurveTo x1="-3" y1="-29" x2="-17" y2="-16"/>
+                <CurveTo x1="-18" y1="-15" x2="-31" y2="0"/>
+                <CurveTo x1="-50" y1="0" x2="-30" y2="37"/>
+                <CurveTo x1="-41" y1="49" x2="0" y2="81"/>
+                <CurveTo x1="0" y1="82" x2="41" y2="63"/>
+                <CurveTo x1="40" y1="62" x2="68" y2="0"/>
+                <CurveTo x1="49" y1="0" x2="39" y2="-33"/>
+                <CurveTo x1="28" y1="-23" x2="26" y2="-61"/>
+                <LineTo x="14" y="7"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="100">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="356" y="-51" fillStyle0="1"/>
+                <CurveTo x1="-34" y1="35" x2="-32" y2="15"/>
+                <CurveTo x1="-32" y1="15" x2="-37" y2="0"/>
+                <CurveTo x1="-75" y1="0" x2="-56" y2="-62"/>
+                <CurveTo x1="-56" y1="-63" x2="0" y2="-99"/>
+                <CurveTo x1="0" y1="-98" x2="62" y2="-82"/>
+                <CurveTo x1="62" y1="-82" x2="98" y2="0"/>
+                <CurveTo x1="60" y1="0" x2="40" y2="39"/>
+                <LineTo x="0" y="-85"/>
+                <CurveTo x1="0" y1="-78" x2="-4" y2="-18"/>
+                <CurveTo x1="-4" y1="-18" x2="-8" y2="-7"/>
+                <LineTo x="-20" y="-6"/>
+                <LineTo x="-34" y="8"/>
+                <LineTo x="-7" y="-18"/>
+                <LineTo x="137" y="-56"/>
+                <LineTo x="22" y="0"/>
+                <LineTo x="0" y="530"/>
+                <CurveTo x1="0" y1="80" x2="4" y2="18"/>
+                <CurveTo x1="4" y1="18" x2="8" y2="7"/>
+                <CurveTo x1="8" y1="7" x2="11" y2="0"/>
+                <CurveTo x1="14" y1="0" x2="22" y2="-9"/>
+                <LineTo x="6" y="18"/>
+                <LineTo x="-136" y="56"/>
+                <LineTo x="-23" y="0"/>
+                <LineTo x="0" y="-65"/>
+                <ShapeSetup x="356" y="-86"/>
+                <LineTo x="0" y="-236"/>
+                <CurveTo x1="-3" y1="-34" x2="-15" y2="-28"/>
+                <CurveTo x1="-15" y1="-28" x2="-25" y2="-14"/>
+                <CurveTo x1="-25" y1="-15" x2="-23" y2="0"/>
+                <CurveTo x1="-44" y1="0" x2="-35" y2="40"/>
+                <CurveTo x1="-45" y1="52" x2="0" y2="100"/>
+                <CurveTo x1="0" y1="101" x2="44" y2="54"/>
+                <CurveTo x1="44" y1="53" x2="54" y2="0"/>
+                <CurveTo x1="45" y1="0" x2="43" y2="-45"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="101">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="109" y="-285" fillStyle0="1"/>
+                <CurveTo x1="0" y1="102" x2="50" y2="58"/>
+                <CurveTo x1="50" y1="58" x2="67" y2="0"/>
+                <CurveTo x1="45" y1="0" x2="34" y2="-25"/>
+                <CurveTo x1="33" y1="-25" x2="22" y2="-60"/>
+                <LineTo x="16" y="10"/>
+                <CurveTo x1="-11" y1="69" x2="-50" y2="56"/>
+                <CurveTo x1="-51" y1="56" x2="-76" y2="0"/>
+                <CurveTo x1="-82" y1="0" x2="-59" y2="-64"/>
+                <CurveTo x1="-59" y1="-64" x2="0" y2="-109"/>
+                <CurveTo x1="0" y1="-117" x2="61" y2="-66"/>
+                <CurveTo x1="60" y1="-66" x2="91" y2="0"/>
+                <CurveTo x1="77" y1="0" x2="49" y2="51"/>
+                <CurveTo x1="50" y1="51" x2="0" y2="85"/>
+                <LineTo x="-317" y="0"/>
+                <ShapeSetup x="109" y="-314"/>
+                <LineTo x="212" y="0"/>
+                <CurveTo x1="-2" y1="-44" x2="-8" y2="-18"/>
+                <CurveTo x1="-13" y1="-28" x2="-24" y2="-16"/>
+                <CurveTo x1="-25" y1="-16" x2="-27" y2="0"/>
+                <CurveTo x1="-42" y1="0" x2="-32" y2="32"/>
+                <CurveTo x1="-33" y1="32" x2="-6" y2="58"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="102">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="211" y="-422" fillStyle0="1"/>
+                <LineTo x="0" y="301"/>
+                <CurveTo x1="0" y1="64" x2="14" y2="17"/>
+                <CurveTo x1="19" y1="22" x2="31" y2="0"/>
+                <LineTo x="41" y="0"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-273" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="20" y="0"/>
+                <CurveTo x1="20" y1="0" x2="17" y2="-10"/>
+                <CurveTo x1="16" y1="-10" x2="7" y2="-17"/>
+                <CurveTo x1="6" y1="-17" x2="0" y2="-49"/>
+                <LineTo x="0" y="-301"/>
+                <LineTo x="-89" y="0"/>
+                <LineTo x="0" y="-36"/>
+                <LineTo x="89" y="0"/>
+                <LineTo x="0" y="-30"/>
+                <CurveTo x1="0" y1="-68" x2="22" y2="-48"/>
+                <CurveTo x1="22" y1="-47" x2="45" y2="-29"/>
+                <CurveTo x1="45" y1="-30" x2="57" y2="0"/>
+                <CurveTo x1="52" y1="0" x2="44" y2="34"/>
+                <CurveTo x1="29" y1="23" x2="0" y2="28"/>
+                <CurveTo x1="0" y1="15" x2="-13" y2="13"/>
+                <CurveTo x1="-13" y1="13" x2="-15" y2="0"/>
+                <CurveTo x1="-11" y1="0" x2="-13" y2="-8"/>
+                <CurveTo x1="-13" y1="-8" x2="-18" y2="-27"/>
+                <CurveTo x1="-19" y1="-28" x2="-15" y2="-9"/>
+                <CurveTo x1="-16" y1="-10" x2="-19" y2="0"/>
+                <CurveTo x1="-23" y1="0" x2="-16" y2="13"/>
+                <CurveTo x1="-16" y1="12" x2="-7" y2="26"/>
+                <CurveTo x1="-7" y1="25" x2="0" y2="107"/>
+                <LineTo x="0" y="33"/>
+                <LineTo x="118" y="0"/>
+                <LineTo x="0" y="36"/>
+                <LineTo x="-118" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="103">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="155" y="-167" fillStyle0="1"/>
+                <CurveTo x1="-42" y1="-20" x2="-23" y2="-37"/>
+                <CurveTo x1="-22" y1="-37" x2="0" y2="-44"/>
+                <CurveTo x1="0" y1="-68" x2="51" y2="-49"/>
+                <CurveTo x1="51" y1="-49" x2="80" y2="0"/>
+                <CurveTo x1="66" y1="0" x2="48" y2="32"/>
+                <LineTo x="97" y="0"/>
+                <LineTo x="25" y="1"/>
+                <LineTo x="5" y="4"/>
+                <LineTo x="3" y="16"/>
+                <LineTo x="-3" y="18"/>
+                <LineTo x="-5" y="4"/>
+                <LineTo x="-25" y="2"/>
+                <LineTo x="-60" y="0"/>
+                <CurveTo x1="28" y1="36" x2="0" y2="56"/>
+                <CurveTo x1="0" y1="64" x2="-49" y2="45"/>
+                <CurveTo x1="-49" y1="46" x2="-82" y2="0"/>
+                <LineTo x="-70" y="-10"/>
+                <CurveTo x1="-22" y1="19" x2="-7" y2="14"/>
+                <CurveTo x1="-8" y1="14" x2="0" y2="10"/>
+                <CurveTo x1="0" y1="9" x2="8" y2="8"/>
+                <CurveTo x1="8" y1="8" x2="24" y2="3"/>
+                <LineTo x="70" y="4"/>
+                <LineTo x="134" y="7"/>
+                <CurveTo x1="46" y1="6" x2="28" y2="28"/>
+                <CurveTo x1="28" y1="28" x2="0" y2="41"/>
+                <CurveTo x1="0" y1="57" x2="-53" y2="49"/>
+                <CurveTo x1="-78" y1="73" x2="-126" y2="0"/>
+                <CurveTo x1="-96" y1="0" x2="-67" y2="-43"/>
+                <CurveTo x1="-37" y1="-25" x2="0" y2="-27"/>
+                <CurveTo x1="0" y1="-12" x2="5" y2="-12"/>
+                <LineTo x="35" y="-52"/>
+                <LineTo x="51" y="-54"/>
+                <CurveTo x1="-26" y1="-15" x2="-10" y2="-12"/>
+                <CurveTo x1="-11" y1="-13" x2="0" y2="-15"/>
+                <CurveTo x1="0" y1="-18" x2="14" y2="-23"/>
+                <CurveTo x1="14" y1="-24" x2="52" y2="-43"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="242" y="-447"/>
+                <CurveTo x1="-37" y1="0" x2="-25" y2="29"/>
+                <CurveTo x1="-25" y1="30" x2="0" y2="61"/>
+                <CurveTo x1="0" y1="79" x2="34" y2="43"/>
+                <CurveTo x1="26" y1="33" x2="40" y2="0"/>
+                <CurveTo x1="38" y1="0" x2="24" y2="-28"/>
+                <CurveTo x1="25" y1="-29" x2="0" y2="-61"/>
+                <CurveTo x1="0" y1="-79" x2="-35" y2="-45"/>
+                <CurveTo x1="-25" y1="-33" x2="-40" y2="0"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="150" y="0"/>
+                <CurveTo x1="-24" y1="26" x2="-12" y2="22"/>
+                <CurveTo x1="-12" y1="22" x2="0" y2="18"/>
+                <CurveTo x1="0" y1="24" x2="29" y2="18"/>
+                <CurveTo x1="50" y1="31" x2="95" y2="0"/>
+                <CurveTo x1="90" y1="0" x2="43" y2="-31"/>
+                <CurveTo x1="42" y1="-32" x2="0" y2="-36"/>
+                <CurveTo x1="0" y1="-26" x2="-25" y2="-11"/>
+                <CurveTo x1="-26" y1="-11" x2="-77" y2="-2"/>
+                <LineTo x="-173" y="-12"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="104">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="167" y="-711" fillStyle0="1"/>
+                <LineTo x="0" y="335"/>
+                <CurveTo x1="55" y1="-61" x2="33" y2="-17"/>
+                <CurveTo x1="32" y1="-17" x2="33" y2="0"/>
+                <CurveTo x1="39" y1="0" x2="28" y2="21"/>
+                <CurveTo x1="28" y1="22" x2="13" y2="46"/>
+                <CurveTo x1="10" y1="32" x2="0" y2="85"/>
+                <LineTo x="0" y="162"/>
+                <CurveTo x1="0" y1="43" x2="7" y2="16"/>
+                <CurveTo x1="5" y1="12" x2="12" y2="7"/>
+                <LineTo x="44" y="7"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-225" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="10" y="0"/>
+                <CurveTo x1="32" y1="0" x2="13" y2="-9"/>
+                <CurveTo x1="12" y1="-10" x2="5" y2="-19"/>
+                <LineTo x="2" y="-47"/>
+                <LineTo x="0" y="-162"/>
+                <CurveTo x1="0" y1="-75" x2="-8" y2="-24"/>
+                <CurveTo x1="-8" y1="-23" x2="-17" y2="-12"/>
+                <CurveTo x1="-17" y1="-12" x2="-24" y2="0"/>
+                <CurveTo x1="-24" y1="0" x2="-27" y2="13"/>
+                <CurveTo x1="-26" y1="13" x2="-37" y2="40"/>
+                <LineTo x="0" y="242"/>
+                <CurveTo x1="0" y1="47" x2="5" y2="11"/>
+                <CurveTo x1="5" y1="12" x2="15" y2="8"/>
+                <LineTo x="49" y="7"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-227" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="48" y="-9"/>
+                <CurveTo x1="10" y1="-5" x2="6" y2="-14"/>
+                <CurveTo x1="6" y1="-14" x2="0" y2="-43"/>
+                <LineTo x="0" y="-415"/>
+                <CurveTo x1="0" y1="-78" x2="-4" y2="-18"/>
+                <LineTo x="-11" y="-25"/>
+                <LineTo x="-21" y="-6"/>
+                <LineTo x="-34" y="8"/>
+                <LineTo x="-7" y="-18"/>
+                <LineTo x="137" y="-56"/>
+                <LineTo x="23" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="105">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="149" y="-711" fillStyle0="1"/>
+                <CurveTo x1="21" y1="0" x2="15" y2="15"/>
+                <CurveTo x1="14" y1="15" x2="0" y2="21"/>
+                <CurveTo x1="0" y1="21" x2="-14" y2="15"/>
+                <CurveTo x1="-15" y1="15" x2="-21" y2="0"/>
+                <CurveTo x1="-21" y1="0" x2="-15" y2="-15"/>
+                <CurveTo x1="-15" y1="-15" x2="0" y2="-21"/>
+                <CurveTo x1="0" y1="-21" x2="15" y2="-15"/>
+                <CurveTo x1="14" y1="-15" x2="22" y2="0"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="190" y="-471"/>
+                <LineTo x="0" y="368"/>
+                <CurveTo x1="0" y1="43" x2="7" y2="14"/>
+                <CurveTo x1="6" y1="14" x2="12" y2="7"/>
+                <LineTo x="45" y="7"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-223" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="45" y="-6"/>
+                <LineTo x="19" y="-22"/>
+                <CurveTo x1="6" y1="-15" x2="0" y2="-42"/>
+                <LineTo x="0" y="-177"/>
+                <CurveTo x1="0" y1="-74" x2="-4" y2="-22"/>
+                <LineTo x="-11" y="-22"/>
+                <LineTo x="-21" y="-7"/>
+                <CurveTo x1="-14" y1="0" x2="-20" y2="8"/>
+                <LineTo x="-7" y="-18"/>
+                <LineTo x="138" y="-56"/>
+                <LineTo x="22" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="106">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="148" y="-711" fillStyle0="1"/>
+                <CurveTo x1="22" y1="0" x2="15" y2="15"/>
+                <CurveTo x1="15" y1="15" x2="0" y2="21"/>
+                <CurveTo x1="0" y1="21" x2="-15" y2="15"/>
+                <CurveTo x1="-15" y1="15" x2="-22" y2="0"/>
+                <CurveTo x1="-21" y1="0" x2="-15" y2="-15"/>
+                <CurveTo x1="-15" y1="-15" x2="0" y2="-21"/>
+                <CurveTo x1="0" y1="-21" x2="15" y2="-15"/>
+                <CurveTo x1="15" y1="-15" x2="21" y2="0"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="191" y="-471"/>
+                <LineTo x="0" y="461"/>
+                <CurveTo x1="0" y1="117" x2="-50" y2="57"/>
+                <CurveTo x1="-50" y1="57" x2="-80" y2="0"/>
+                <CurveTo x1="-45" y1="0" x2="-22" y2="-16"/>
+                <CurveTo x1="-22" y1="-17" x2="0" y2="-17"/>
+                <CurveTo x1="0" y1="-18" x2="12" y2="-12"/>
+                <CurveTo x1="12" y1="-13" x2="17" y2="0"/>
+                <CurveTo x1="13" y1="0" x2="13" y2="7"/>
+                <LineTo x="33" y="25"/>
+                <CurveTo x1="24" y1="22" x2="17" y2="0"/>
+                <LineTo x="23" y="-9"/>
+                <CurveTo x1="12" y1="-10" x2="5" y2="-21"/>
+                <CurveTo x1="6" y1="-22" x2="0" y2="-73"/>
+                <LineTo x="0" y="-326"/>
+                <LineTo x="-5" y="-97"/>
+                <LineTo x="-11" y="-22"/>
+                <LineTo x="-20" y="-7"/>
+                <LineTo x="-34" y="8"/>
+                <LineTo x="-7" y="-18"/>
+                <LineTo x="138" y="-56"/>
+                <LineTo x="21" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="107">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="168" y="-711" fillStyle0="1"/>
+                <LineTo x="0" y="456"/>
+                <LineTo x="116" y="-106"/>
+                <LineTo x="43" y="-43"/>
+                <LineTo x="4" y="-12"/>
+                <CurveTo x1="0" y1="-10" x2="-8" y2="-7"/>
+                <CurveTo x1="-8" y1="-8" x2="-19" y2="-1"/>
+                <LineTo x="0" y="-16"/>
+                <LineTo x="199" y="0"/>
+                <LineTo x="0" y="16"/>
+                <CurveTo x1="-41" y1="1" x2="-27" y2="12"/>
+                <CurveTo x1="-28" y1="11" x2="-32" y2="30"/>
+                <LineTo x="-118" y="108"/>
+                <LineTo x="118" y="149"/>
+                <LineTo x="66" y="78"/>
+                <LineTo x="42" y="30"/>
+                <LineTo x="43" y="5"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-222" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="26" y="-5"/>
+                <CurveTo x1="6" y1="-6" x2="0" y2="-9"/>
+                <CurveTo x1="0" y1="-12" x2="-20" y2="-25"/>
+                <LineTo x="-140" y="-180"/>
+                <LineTo x="0" y="152"/>
+                <CurveTo x1="0" y1="45" x2="6" y2="14"/>
+                <CurveTo x1="6" y1="14" x2="12" y2="6"/>
+                <LineTo x="50" y="6"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-233" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <CurveTo x1="35" y1="0" x2="17" y2="-8"/>
+                <LineTo x="16" y="-17"/>
+                <CurveTo x1="8" y1="-17" x2="0" y2="-40"/>
+                <LineTo x="0" y="-417"/>
+                <CurveTo x1="0" y1="-80" x2="-4" y2="-17"/>
+                <CurveTo x1="-3" y1="-18" x2="-8" y2="-7"/>
+                <CurveTo x1="-8" y1="-7" x2="-13" y2="0"/>
+                <LineTo x="-32" y="9"/>
+                <LineTo x="-8" y="-18"/>
+                <LineTo x="136" y="-56"/>
+                <LineTo x="23" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="108">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="190" y="-711" fillStyle0="1"/>
+                <LineTo x="0" y="608"/>
+                <CurveTo x1="0" y1="43" x2="6" y2="14"/>
+                <CurveTo x1="6" y1="14" x2="13" y2="7"/>
+                <CurveTo x1="13" y1="7" x2="36" y2="0"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-225" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="43" y="-6"/>
+                <CurveTo x1="12" y1="-7" x2="6" y2="-15"/>
+                <CurveTo x1="7" y1="-15" x2="0" y2="-42"/>
+                <LineTo x="0" y="-416"/>
+                <CurveTo x1="0" y1="-78" x2="-4" y2="-17"/>
+                <LineTo x="-11" y="-25"/>
+                <LineTo x="-20" y="-6"/>
+                <LineTo x="-33" y="8"/>
+                <LineTo x="-8" y="-18"/>
+                <LineTo x="136" y="-56"/>
+                <LineTo x="23" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="109">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="168" y="-374" fillStyle0="1"/>
+                <LineTo x="59" y="-57"/>
+                <CurveTo x1="23" y1="-19" x2="26" y2="-11"/>
+                <LineTo x="51" y="-10"/>
+                <CurveTo x1="43" y1="0" x2="31" y2="25"/>
+                <CurveTo x1="31" y1="25" x2="11" y2="47"/>
+                <CurveTo x1="51" y1="-60" x2="36" y2="-18"/>
+                <CurveTo x1="35" y1="-19" x2="38" y2="0"/>
+                <CurveTo x1="36" y1="0" x2="29" y2="19"/>
+                <CurveTo x1="28" y1="18" x2="16" y2="43"/>
+                <CurveTo x1="11" y1="29" x2="0" y2="62"/>
+                <LineTo x="0" y="197"/>
+                <CurveTo x1="0" y1="43" x2="7" y2="16"/>
+                <CurveTo x1="5" y1="11" x2="13" y2="8"/>
+                <CurveTo x1="14" y1="7" x2="30" y2="0"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-226" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="10" y="0"/>
+                <CurveTo x1="29" y1="0" x2="17" y2="-11"/>
+                <CurveTo x1="11" y1="-8" x2="5" y2="-18"/>
+                <LineTo x="2" y="-48"/>
+                <LineTo x="0" y="-197"/>
+                <CurveTo x1="0" y1="-56" x2="-13" y2="-23"/>
+                <CurveTo x1="-20" y1="-32" x2="-43" y2="0"/>
+                <LineTo x="-53" y="13"/>
+                <CurveTo x1="-27" y1="13" x2="-38" y2="36"/>
+                <LineTo x="-1" y="6"/>
+                <LineTo x="1" y="21"/>
+                <LineTo x="0" y="219"/>
+                <CurveTo x1="0" y1="47" x2="6" y2="11"/>
+                <CurveTo x1="5" y1="12" x2="14" y2="8"/>
+                <LineTo x="50" y="7"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-232" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <CurveTo x1="38" y1="0" x2="15" y2="-9"/>
+                <CurveTo x1="14" y1="-9" x2="5" y2="-18"/>
+                <LineTo x="3" y="-49"/>
+                <LineTo x="0" y="-197"/>
+                <CurveTo x1="0" y1="-56" x2="-17" y2="-25"/>
+                <CurveTo x1="-22" y1="-32" x2="-39" y2="0"/>
+                <CurveTo x1="-27" y1="0" x2="-27" y2="15"/>
+                <CurveTo x1="-41" y1="22" x2="-23" y2="27"/>
+                <LineTo x="0" y="246"/>
+                <CurveTo x1="0" y1="45" x2="7" y2="13"/>
+                <CurveTo x1="6" y1="14" x2="12" y2="7"/>
+                <LineTo x="50" y="6"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-227" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="44" y="-6"/>
+                <CurveTo x1="13" y1="-7" x2="6" y2="-15"/>
+                <CurveTo x1="7" y1="-15" x2="0" y2="-42"/>
+                <LineTo x="0" y="-175"/>
+                <LineTo x="-5" y="-98"/>
+                <LineTo x="-11" y="-22"/>
+                <CurveTo x1="-7" y1="-7" x2="-13" y2="0"/>
+                <LineTo x="-34" y="8"/>
+                <LineTo x="-7" y="-18"/>
+                <LineTo x="138" y="-56"/>
+                <LineTo x="21" y="0"/>
+                <LineTo x="0" y="97"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="110">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="166" y="-374" fillStyle0="1"/>
+                <CurveTo x1="80" y1="-97" x2="73" y2="0"/>
+                <CurveTo x1="38" y1="0" x2="27" y2="19"/>
+                <CurveTo x1="27" y1="18" x2="16" y2="43"/>
+                <CurveTo x1="11" y1="30" x2="0" y2="62"/>
+                <LineTo x="0" y="196"/>
+                <CurveTo x1="0" y1="43" x2="7" y2="16"/>
+                <CurveTo x1="5" y1="12" x2="13" y2="7"/>
+                <CurveTo x1="12" y1="7" x2="33" y2="0"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-227" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="10" y="0"/>
+                <CurveTo x1="32" y1="0" x2="13" y2="-9"/>
+                <CurveTo x1="12" y1="-10" x2="5" y2="-19"/>
+                <LineTo x="2" y="-47"/>
+                <LineTo x="0" y="-188"/>
+                <CurveTo x1="0" y1="-62" x2="-16" y2="-28"/>
+                <CurveTo x1="-16" y1="-29" x2="-39" y2="0"/>
+                <CurveTo x1="-59" y1="0" x2="-59" y2="65"/>
+                <LineTo x="0" y="242"/>
+                <CurveTo x1="0" y1="46" x2="5" y2="11"/>
+                <CurveTo x1="7" y1="15" x2="13" y2="7"/>
+                <LineTo x="49" y="6"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-226" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="10" y="0"/>
+                <CurveTo x1="35" y1="0" x2="12" y2="-17"/>
+                <CurveTo x1="12" y1="-18" x2="0" y2="-50"/>
+                <LineTo x="0" y="-170"/>
+                <LineTo x="-3" y="-101"/>
+                <CurveTo x1="-4" y1="-18" x2="-8" y2="-6"/>
+                <LineTo x="-21" y="-7"/>
+                <LineTo x="-33" y="8"/>
+                <LineTo x="-8" y="-18"/>
+                <LineTo x="138" y="-56"/>
+                <LineTo x="22" y="0"/>
+                <LineTo x="0" y="97"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="111">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="256" y="-471" fillStyle0="1"/>
+                <CurveTo x1="104" y1="0" x2="63" y2="79"/>
+                <CurveTo x1="54" y1="67" x2="0" y2="88"/>
+                <CurveTo x1="0" y1="61" x2="-30" y2="63"/>
+                <CurveTo x1="-29" y1="63" x2="-52" y2="32"/>
+                <CurveTo x1="-52" y1="32" x2="-63" y2="0"/>
+                <CurveTo x1="-104" y1="0" x2="-61" y2="-82"/>
+                <CurveTo x1="-51" y1="-70" x2="0" y2="-86"/>
+                <CurveTo x1="0" y1="-63" x2="31" y2="-62"/>
+                <CurveTo x1="31" y1="-63" x2="51" y2="-29"/>
+                <CurveTo x1="51" y1="-30" x2="57" y2="0"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="241" y="-439"/>
+                <CurveTo x1="-27" y1="0" x2="-26" y2="16"/>
+                <CurveTo x1="-27" y1="16" x2="-17" y2="39"/>
+                <CurveTo x1="-16" y1="40" x2="0" y2="62"/>
+                <CurveTo x1="0" y1="100" x2="40" y2="72"/>
+                <CurveTo x1="39" y1="73" x2="65" y2="0"/>
+                <CurveTo x1="49" y1="0" x2="31" y2="-40"/>
+                <CurveTo x1="32" y1="-40" x2="0" y2="-98"/>
+                <CurveTo x1="0" y1="-122" x2="-53" y2="-70"/>
+                <CurveTo x1="-35" y1="-48" x2="-55" y2="0"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="112">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="-1" y="-412" fillStyle0="1"/>
+                <LineTo x="141" y="-57"/>
+                <LineTo x="19" y="0"/>
+                <LineTo x="0" y="107"/>
+                <CurveTo x1="36" y1="-61" x2="36" y2="-24"/>
+                <CurveTo x1="35" y1="-24" x2="40" y2="0"/>
+                <CurveTo x1="69" y1="0" x2="46" y2="54"/>
+                <CurveTo x1="56" y1="66" x2="0" y2="106"/>
+                <CurveTo x1="0" y1="118" x2="-68" y2="78"/>
+                <CurveTo x1="-56" y1="63" x2="-85" y2="0"/>
+                <LineTo x="-64" y="-10"/>
+                <CurveTo x1="-20" y1="-8" x2="-25" y2="-22"/>
+                <LineTo x="0" y="139"/>
+                <CurveTo x1="0" y1="47" x2="6" y2="13"/>
+                <CurveTo x1="6" y1="13" x2="14" y2="7"/>
+                <LineTo x="52" y="8"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-240" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="12" y="0"/>
+                <CurveTo x1="28" y1="0" x2="19" y2="-11"/>
+                <LineTo x="15" y="-17"/>
+                <LineTo x="5" y="-63"/>
+                <LineTo x="0" y="-433"/>
+                <CurveTo x1="0" y1="-44" x2="-4" y2="-12"/>
+                <LineTo x="-12" y="-18"/>
+                <LineTo x="-24" y="-6"/>
+                <LineTo x="-31" y="7"/>
+                <LineTo x="-6" y="-16"/>
+                <ShapeSetup x="159" y="-333"/>
+                <LineTo x="0" y="171"/>
+                <CurveTo x1="0" y1="56" x2="5" y2="17"/>
+                <CurveTo x1="7" y1="29" x2="27" y2="22"/>
+                <CurveTo x1="27" y1="22" x2="42" y2="0"/>
+                <CurveTo x1="50" y1="0" x2="31" y2="-39"/>
+                <CurveTo x1="40" y1="-51" x2="0" y2="-92"/>
+                <CurveTo x1="0" y1="-105" x2="-46" y2="-57"/>
+                <CurveTo x1="-32" y1="-39" x2="-44" y2="0"/>
+                <CurveTo x1="-24" y1="0" x2="-23" y2="12"/>
+                <CurveTo x1="-18" y1="9" x2="-42" y2="45"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="113">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="438" y="-471" fillStyle0="1"/>
+                <LineTo x="0" y="589"/>
+                <CurveTo x1="0" y1="44" x2="6" y2="12"/>
+                <LineTo x="19" y="20"/>
+                <LineTo x="49" y="7"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-231" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="10" y="0"/>
+                <CurveTo x1="28" y1="0" x2="14" y2="-8"/>
+                <CurveTo x1="10" y1="-6" x2="6" y2="-14"/>
+                <CurveTo x1="6" y1="-14" x2="0" y2="-41"/>
+                <LineTo x="0" y="-197"/>
+                <CurveTo x1="-45" y1="54" x2="-34" y2="20"/>
+                <CurveTo x1="-34" y1="19" x2="-37" y2="0"/>
+                <CurveTo x1="-66" y1="0" x2="-52" y2="-60"/>
+                <CurveTo x1="-53" y1="-61" x2="0" y2="-101"/>
+                <CurveTo x1="0" y1="-117" x2="69" y2="-73"/>
+                <CurveTo x1="69" y1="-73" x2="98" y2="0"/>
+                <LineTo x="52" y="8"/>
+                <LineTo x="43" y="24"/>
+                <LineTo x="56" y="-32"/>
+                <LineTo x="17" y="0"/>
+                <ShapeSetup x="355" y="-111"/>
+                <LineTo x="0" y="-215"/>
+                <CurveTo x1="0" y1="-37" x2="-9" y2="-22"/>
+                <CurveTo x1="-10" y1="-21" x2="-25" y2="-15"/>
+                <CurveTo x1="-25" y1="-15" x2="-32" y2="0"/>
+                <CurveTo x1="-56" y1="0" x2="-40" y2="47"/>
+                <CurveTo x1="-40" y1="48" x2="0" y2="96"/>
+                <CurveTo x1="0" y1="93" x2="41" y2="48"/>
+                <CurveTo x1="41" y1="48" x2="57" y2="0"/>
+                <CurveTo x1="30" y1="0" x2="23" y2="-13"/>
+                <CurveTo x1="23" y1="-13" x2="22" y2="-29"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="114">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="166" y="-471" fillStyle0="1"/>
+                <LineTo x="0" y="103"/>
+                <CurveTo x1="58" y1="-103" x2="60" y2="0"/>
+                <CurveTo x1="28" y1="0" x2="18" y2="17"/>
+                <CurveTo x1="18" y1="16" x2="0" y2="22"/>
+                <CurveTo x1="0" y1="20" x2="-13" y2="13"/>
+                <CurveTo x1="-13" y1="14" x2="-18" y2="0"/>
+                <CurveTo x1="-18" y1="0" x2="-21" y2="-17"/>
+                <CurveTo x1="-22" y1="-18" x2="-11" y2="0"/>
+                <CurveTo x1="-9" y1="0" x2="-10" y2="10"/>
+                <CurveTo x1="-23" y1="21" x2="-24" y2="47"/>
+                <LineTo x="0" y="219"/>
+                <CurveTo x1="0" y1="38" x2="10" y2="20"/>
+                <CurveTo x1="6" y1="13" x2="17" y2="9"/>
+                <CurveTo x1="16" y1="9" x2="31" y2="0"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-234" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <CurveTo x1="35" y1="0" x2="17" y2="-11"/>
+                <CurveTo x1="12" y1="-8" x2="5" y2="-17"/>
+                <LineTo x="3" y="-49"/>
+                <LineTo x="0" y="-177"/>
+                <LineTo x="-3" y="-95"/>
+                <LineTo x="-12" y="-23"/>
+                <CurveTo x1="-9" y1="-7" x2="-13" y2="0"/>
+                <LineTo x="-35" y="8"/>
+                <LineTo x="-5" y="-18"/>
+                <LineTo x="138" y="-56"/>
+                <LineTo x="21" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="115">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="328" y="-471" fillStyle0="1"/>
+                <LineTo x="0" y="156"/>
+                <LineTo x="-16" y="0"/>
+                <CurveTo x1="-19" y1="-74" x2="-30" y2="-26"/>
+                <CurveTo x1="-30" y1="-27" x2="-46" y2="0"/>
+                <CurveTo x1="-35" y1="0" x2="-21" y2="19"/>
+                <CurveTo x1="-22" y1="18" x2="0" y2="23"/>
+                <CurveTo x1="0" y1="28" x2="16" y2="20"/>
+                <CurveTo x1="16" y1="20" x2="47" y2="23"/>
+                <LineTo x="73" y="36"/>
+                <CurveTo x1="102" y1="49" x2="0" y2="81"/>
+                <CurveTo x1="0" y1="63" x2="-47" y2="38"/>
+                <CurveTo x1="-48" y1="38" x2="-58" y2="0"/>
+                <LineTo x="-96" y="-15"/>
+                <LineTo x="-27" y="-5"/>
+                <CurveTo x1="-12" y1="0" x2="-6" y2="13"/>
+                <LineTo x="-17" y="0"/>
+                <LineTo x="0" y="-163"/>
+                <LineTo x="17" y="0"/>
+                <CurveTo x1="14" y1="70" x2="39" y2="35"/>
+                <CurveTo x1="40" y1="36" x2="49" y2="0"/>
+                <CurveTo x1="34" y1="0" x2="22" y2="-20"/>
+                <CurveTo x1="22" y1="-21" x2="0" y2="-28"/>
+                <CurveTo x1="0" y1="-35" x2="-24" y2="-23"/>
+                <CurveTo x1="-25" y1="-24" x2="-72" y2="-36"/>
+                <CurveTo x1="-73" y1="-36" x2="-22" y2="-29"/>
+                <CurveTo x1="-23" y1="-28" x2="0" y2="-44"/>
+                <CurveTo x1="0" y1="-56" x2="39" y2="-38"/>
+                <CurveTo x1="39" y1="-38" x2="61" y2="0"/>
+                <LineTo x="66" y="11"/>
+                <LineTo x="34" y="8"/>
+                <LineTo x="12" y="-4"/>
+                <LineTo x="11" y="-15"/>
+                <LineTo x="16" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="116">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="165" y="-608" fillStyle0="1"/>
+                <LineTo x="0" y="150"/>
+                <LineTo x="107" y="0"/>
+                <LineTo x="0" y="35"/>
+                <LineTo x="-107" y="0"/>
+                <LineTo x="0" y="297"/>
+                <CurveTo x1="0" y1="45" x2="13" y2="15"/>
+                <CurveTo x1="13" y1="16" x2="20" y2="0"/>
+                <CurveTo x1="16" y1="0" x2="16" y2="-10"/>
+                <CurveTo x1="15" y1="-11" x2="9" y2="-20"/>
+                <LineTo x="19" y="0"/>
+                <CurveTo x1="-17" y1="49" x2="-32" y2="25"/>
+                <CurveTo x1="-32" y1="25" x2="-34" y2="0"/>
+                <CurveTo x1="-23" y1="0" x2="-22" y2="-13"/>
+                <CurveTo x1="-22" y1="-13" x2="-11" y2="-23"/>
+                <CurveTo x1="-10" y1="-24" x2="0" y2="-50"/>
+                <LineTo x="0" y="-308"/>
+                <LineTo x="-73" y="0"/>
+                <LineTo x="0" y="-16"/>
+                <CurveTo x1="28" y1="-11" x2="29" y2="-26"/>
+                <CurveTo x1="28" y1="-27" x2="23" y2="-36"/>
+                <LineTo x="32" y="-69"/>
+                <LineTo x="15" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="117">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="434" y="-458" fillStyle0="1"/>
+                <LineTo x="0" y="278"/>
+                <CurveTo x1="0" y1="79" x2="4" y2="18"/>
+                <CurveTo x1="3" y1="18" x2="9" y2="7"/>
+                <CurveTo x1="8" y1="7" x2="11" y2="0"/>
+                <LineTo x="35" y="-9"/>
+                <LineTo x="7" y="18"/>
+                <LineTo x="-137" y="56"/>
+                <LineTo x="-23" y="0"/>
+                <LineTo x="0" y="-97"/>
+                <CurveTo x1="-59" y1="64" x2="-31" y2="17"/>
+                <CurveTo x1="-31" y1="16" x2="-34" y2="0"/>
+                <CurveTo x1="-39" y1="0" x2="-28" y2="-22"/>
+                <CurveTo x1="-28" y1="-22" x2="-11" y2="-35"/>
+                <CurveTo x1="-11" y1="-35" x2="0" y2="-64"/>
+                <LineTo x="0" y="-205"/>
+                <CurveTo x1="0" y1="-32" x2="-7" y2="-13"/>
+                <LineTo x="-21" y="-19"/>
+                <LineTo x="-50" y="-6"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="161" y="0"/>
+                <LineTo x="0" y="307"/>
+                <CurveTo x1="0" y1="64" x2="22" y2="20"/>
+                <CurveTo x1="22" y1="20" x2="32" y2="0"/>
+                <CurveTo x1="21" y1="0" x2="28" y2="-14"/>
+                <CurveTo x1="27" y1="-13" x2="37" y2="-38"/>
+                <LineTo x="0" y="-260"/>
+                <CurveTo x1="0" y1="-39" x2="-14" y2="-13"/>
+                <CurveTo x1="-14" y1="-14" x2="-45" y2="-1"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="156" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="118">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="9" y="-458" fillStyle0="1"/>
+                <LineTo x="215" y="0"/>
+                <LineTo x="0" y="19"/>
+                <LineTo x="-14" y="0"/>
+                <CurveTo x1="-19" y1="0" x2="-10" y2="9"/>
+                <CurveTo x1="-11" y1="10" x2="0" y2="16"/>
+                <CurveTo x1="0" y1="17" x2="11" y2="24"/>
+                <LineTo x="106" y="253"/>
+                <LineTo x="107" y="-262"/>
+                <CurveTo x1="12" y1="-28" x2="0" y2="-15"/>
+                <LineTo x="-4" y="-11"/>
+                <LineTo x="-14" y="-10"/>
+                <LineTo x="-35" y="-3"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="150" y="0"/>
+                <LineTo x="0" y="19"/>
+                <CurveTo x1="-26" y1="2" x2="-10" y2="8"/>
+                <CurveTo x1="-18" y1="15" x2="-14" y2="35"/>
+                <LineTo x="-162" y="393"/>
+                <LineTo x="-21" y="0"/>
+                <LineTo x="-163" y="-386"/>
+                <LineTo x="-21" y="-39"/>
+                <LineTo x="-26" y="-20"/>
+                <LineTo x="-33" y="-8"/>
+                <LineTo x="0" y="-19"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="119">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="7" y="-458" fillStyle0="1"/>
+                <LineTo x="192" y="0"/>
+                <LineTo x="0" y="19"/>
+                <LineTo x="-35" y="9"/>
+                <CurveTo x1="-8" y1="8" x2="0" y2="14"/>
+                <CurveTo x1="0" y1="15" x2="8" y2="22"/>
+                <LineTo x="98" y="264"/>
+                <LineTo x="99" y="-215"/>
+                <LineTo x="-26" y="-67"/>
+                <CurveTo x1="-12" y1="-30" x2="-20" y2="-12"/>
+                <LineTo x="-41" y="-8"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="218" y="0"/>
+                <LineTo x="0" y="19"/>
+                <CurveTo x1="-36" y1="1" x2="-15" y2="12"/>
+                <CurveTo x1="-10" y1="8" x2="0" y2="17"/>
+                <LineTo x="4" y="21"/>
+                <LineTo x="104" y="263"/>
+                <LineTo x="97" y="-254"/>
+                <LineTo x="10" y="-43"/>
+                <LineTo x="-10" y="-17"/>
+                <LineTo x="-38" y="-8"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="144" y="0"/>
+                <LineTo x="0" y="19"/>
+                <CurveTo x1="-43" y1="6" x2="-21" y2="53"/>
+                <LineTo x="-153" y="394"/>
+                <LineTo x="-20" y="0"/>
+                <LineTo x="-115" y="-292"/>
+                <LineTo x="-133" y="292"/>
+                <LineTo x="-19" y="0"/>
+                <LineTo x="-147" y="-385"/>
+                <CurveTo x1="-14" y1="-36" x2="-14" y2="-13"/>
+                <CurveTo x1="-14" y1="-13" x2="-30" y2="-6"/>
+                <LineTo x="0" y="-19"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="120">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="14" y="-458" fillStyle0="1"/>
+                <LineTo x="215" y="0"/>
+                <LineTo x="0" y="19"/>
+                <LineTo x="-28" y="7"/>
+                <CurveTo x1="-9" y1="7" x2="0" y2="11"/>
+                <CurveTo x1="0" y1="12" x2="18" y2="25"/>
+                <LineTo x="16" y="25"/>
+                <LineTo x="33" y="52"/>
+                <LineTo x="37" y="-52"/>
+                <CurveTo x1="36" y1="-49" x2="0" y2="-13"/>
+                <CurveTo x1="0" y1="-11" x2="-8" y2="-7"/>
+                <LineTo x="-28" y="-7"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="155" y="0"/>
+                <LineTo x="0" y="19"/>
+                <CurveTo x1="-24" y1="1" x2="-18" y2="12"/>
+                <CurveTo x1="-25" y1="17" x2="-42" y2="57"/>
+                <LineTo x="-63" y="84"/>
+                <LineTo x="114" y="164"/>
+                <CurveTo x1="42" y1="60" x2="18" y2="13"/>
+                <CurveTo x1="18" y1="12" x2="29" y2="1"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-216" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <CurveTo x1="22" y1="0" x2="13" y2="-10"/>
+                <CurveTo x1="9" y1="-7" x2="0" y2="-11"/>
+                <CurveTo x1="0" y1="-12" x2="-32" y2="-46"/>
+                <LineTo x="-67" y="-98"/>
+                <LineTo x="-73" y="98"/>
+                <CurveTo x1="-34" y1="45" x2="0" y2="9"/>
+                <CurveTo x1="0" y1="12" x2="11" y2="10"/>
+                <CurveTo x1="11" y1="9" x2="23" y2="1"/>
+                <LineTo x="0" y="18"/>
+                <LineTo x="-150" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <CurveTo x1="18" y1="-2" x2="14" y2="-10"/>
+                <LineTo x="64" y="-74"/>
+                <LineTo x="96" y="-128"/>
+                <LineTo x="-87" y="-126"/>
+                <CurveTo x1="-37" y1="-54" x2="-20" y2="-13"/>
+                <CurveTo x1="-21" y1="-14" x2="-30" y2="0"/>
+                <LineTo x="0" y="-19"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="121">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="6" y="-458" fillStyle0="1"/>
+                <LineTo x="214" y="0"/>
+                <LineTo x="0" y="19"/>
+                <LineTo x="-11" y="0"/>
+                <CurveTo x1="-22" y1="0" x2="-11" y2="10"/>
+                <CurveTo x1="-12" y1="9" x2="0" y2="15"/>
+                <CurveTo x1="0" y1="19" x2="17" y2="35"/>
+                <LineTo x="111" y="231"/>
+                <LineTo x="103" y="-253"/>
+                <CurveTo x1="8" y1="-21" x2="0" y2="-20"/>
+                <LineTo x="-3" y="-13"/>
+                <LineTo x="-13" y="-9"/>
+                <LineTo x="-30" y="-3"/>
+                <LineTo x="0" y="-19"/>
+                <LineTo x="149" y="0"/>
+                <LineTo x="0" y="19"/>
+                <CurveTo x1="-18" y1="2" x2="-10" y2="6"/>
+                <LineTo x="-22" y="22"/>
+                <LineTo x="-17" y="39"/>
+                <LineTo x="-187" y="457"/>
+                <CurveTo x1="-27" y1="66" x2="-43" y2="34"/>
+                <CurveTo x1="-44" y1="34" x2="-41" y2="0"/>
+                <CurveTo x1="-29" y1="0" x2="-19" y2="-17"/>
+                <CurveTo x1="-19" y1="-17" x2="0" y2="-22"/>
+                <CurveTo x1="0" y1="-21" x2="14" y2="-12"/>
+                <CurveTo x1="13" y1="-13" x2="24" y2="0"/>
+                <CurveTo x1="17" y1="0" x2="28" y2="11"/>
+                <LineTo x="25" y="7"/>
+                <CurveTo x1="15" y1="0" x2="18" y2="-15"/>
+                <CurveTo x1="18" y1="-16" x2="18" y2="-44"/>
+                <LineTo x="32" y="-80"/>
+                <LineTo x="-164" y="-345"/>
+                <LineTo x="-24" y="-39"/>
+                <LineTo x="-21" y="-23"/>
+                <CurveTo x1="-11" y1="-8" x2="-26" y2="-6"/>
+                <LineTo x="0" y="-19"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="122">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="430" y="-140" fillStyle0="1"/>
+                <LineTo x="-5" y="140"/>
+                <LineTo x="-404" y="0"/>
+                <LineTo x="0" y="-18"/>
+                <LineTo x="304" y="-405"/>
+                <LineTo x="-150" y="0"/>
+                <LineTo x="-64" y="7"/>
+                <CurveTo x1="-15" y1="6" x2="-9" y2="17"/>
+                <CurveTo x1="-14" y1="25" x2="-2" y2="37"/>
+                <LineTo x="-20" y="0"/>
+                <LineTo x="3" y="-127"/>
+                <LineTo x="384" y="0"/>
+                <LineTo x="0" y="19"/>
+                <LineTo x="-307" y="406"/>
+                <LineTo x="167" y="0"/>
+                <LineTo x="72" y="-9"/>
+                <CurveTo x1="18" y1="-9" x2="12" y2="-22"/>
+                <CurveTo x1="8" y1="-16" x2="5" y2="-51"/>
+                <LineTo x="17" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+        </glyphs>
+        <advance>
+          <Short value="256"/>
+          <Short value="455"/>
+          <Short value="512"/>
+          <Short value="455"/>
+          <Short value="512"/>
+          <Short value="455"/>
+          <Short value="341"/>
+          <Short value="512"/>
+          <Short value="512"/>
+          <Short value="285"/>
+          <Short value="285"/>
+          <Short value="512"/>
+          <Short value="285"/>
+          <Short value="797"/>
+          <Short value="512"/>
+          <Short value="512"/>
+          <Short value="512"/>
+          <Short value="512"/>
+          <Short value="341"/>
+          <Short value="399"/>
+          <Short value="285"/>
+          <Short value="512"/>
+          <Short value="512"/>
+          <Short value="740"/>
+          <Short value="512"/>
+          <Short value="512"/>
+          <Short value="455"/>
+        </advance>
+        <bounds>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+          <Rectangle left="0" right="0" top="0" bottom="0"/>
+        </bounds>
+        <wideKerning/>
+      </DefineFont2>
+      <DefineText objectID="2">
+        <bounds>
+          <Rectangle left="3" right="1955" top="78" bottom="442"/>
+        </bounds>
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+        <records>
+          <TextRecord>
+            <records>
+              <TextRecord6 isSetup="1" objectID="1" y="360" fontHeight="400">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="13" advance="311"/>
+                  <TextEntry glyph="15" advance="200"/>
+                  <TextEntry glyph="22" advance="200"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="5" advance="178"/>
+                  <TextEntry glyph="0" advance="100"/>
+                  <TextEntry glyph="3" advance="178"/>
+                  <TextEntry glyph="12" advance="111"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="16" advance="200"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs/>
+              </TextRecord6>
+            </records>
+          </TextRecord>
+        </records>
+      </DefineText>
+      <PlaceObject2 replace="0" depth="1" objectID="2">
+        <transform>
+          <Transform transX="509" transY="274"/>
+        </transform>
+      </PlaceObject2>
+      <DefineText objectID="3">
+        <bounds>
+          <Rectangle left="-1" right="1277" top="78" bottom="361"/>
+        </bounds>
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+        <records>
+          <TextRecord>
+            <records>
+              <TextRecord6 isSetup="1" objectID="1" y="360" fontHeight="400">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="2" advance="200"/>
+                  <TextEntry glyph="21" advance="200"/>
+                  <TextEntry glyph="20" advance="111"/>
+                  <TextEntry glyph="20" advance="111"/>
+                  <TextEntry glyph="15" advance="200"/>
+                  <TextEntry glyph="14" advance="200"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs/>
+              </TextRecord6>
+            </records>
+          </TextRecord>
+        </records>
+      </DefineText>
+      <PlaceObject2 replace="0" depth="2" objectID="3">
+        <transform>
+          <Transform transX="5568" transY="274"/>
+        </transform>
+      </PlaceObject2>
+      <DefineEditText objectID="4" wordWrap="0" multiLine="0" password="0" readOnly="1" autoSize="0" hasLayout="1" notSelectable="0" hasBorder="0" isHTML="0" useOutlines="1" fontRef="1" fontHeight="460" align="2" leftMargin="0" rightMargin="0" indent="0" leading="40" variableName="status">
+        <size>
+          <Rectangle left="-40" right="10939" top="-40" bottom="550"/>
+        </size>
+        <color>
+          <Color red="0" green="0" blue="0" alpha="255"/>
+        </color>
+      </DefineEditText>
+      <PlaceObject2 replace="0" depth="3" objectID="4">
+        <transform>
+          <Transform transX="20" transY="7390"/>
+        </transform>
+      </PlaceObject2>
+      <DefineShape objectID="5">
+        <bounds>
+          <Rectangle left="-1150" right="1150" top="-1010" bottom="1050"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="51" green="0" blue="204"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="255" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="806" y="-702" fillStyle1="1" lineStyle="1"/>
+              <CurveTo x1="334" y1="299" x2="0" y2="423"/>
+              <CurveTo x1="0" y1="423" x2="-334" y2="298"/>
+              <CurveTo x1="-334" y1="299" x2="-472" y2="0"/>
+              <CurveTo x1="-472" y1="0" x2="-334" y2="-299"/>
+              <CurveTo x1="-334" y1="-298" x2="0" y2="-423"/>
+              <CurveTo x1="0" y1="-423" x2="334" y2="-299"/>
+              <CurveTo x1="334" y1="-298" x2="472" y2="0"/>
+              <CurveTo x1="472" y1="0" x2="334" y2="298"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineShape objectID="6">
+        <bounds>
+          <Rectangle left="-1150" right="1150" top="-1010" bottom="1050"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="51" green="0" blue="204"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="255" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="806" y="-702" fillStyle1="1" lineStyle="1"/>
+              <CurveTo x1="334" y1="299" x2="0" y2="423"/>
+              <CurveTo x1="0" y1="423" x2="-334" y2="298"/>
+              <CurveTo x1="-334" y1="299" x2="-472" y2="0"/>
+              <CurveTo x1="-472" y1="0" x2="-334" y2="-299"/>
+              <CurveTo x1="-334" y1="-298" x2="0" y2="-423"/>
+              <CurveTo x1="0" y1="-423" x2="334" y2="-299"/>
+              <CurveTo x1="334" y1="-298" x2="472" y2="0"/>
+              <CurveTo x1="472" y1="0" x2="334" y2="298"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineShape objectID="7">
+        <bounds>
+          <Rectangle left="-1150" right="1150" top="-1010" bottom="1050"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="255" blue="102"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="255" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="806" y="-702" fillStyle1="1" lineStyle="1"/>
+              <CurveTo x1="334" y1="299" x2="0" y2="423"/>
+              <CurveTo x1="0" y1="423" x2="-334" y2="298"/>
+              <CurveTo x1="-334" y1="299" x2="-472" y2="0"/>
+              <CurveTo x1="-472" y1="0" x2="-334" y2="-299"/>
+              <CurveTo x1="-334" y1="-298" x2="0" y2="-423"/>
+              <CurveTo x1="0" y1="-423" x2="334" y2="-299"/>
+              <CurveTo x1="334" y1="-298" x2="472" y2="0"/>
+              <CurveTo x1="472" y1="0" x2="334" y2="298"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineButton2 objectID="8" menu="0" buttonsSize="31">
+        <buttons>
+          <Button hitTest="0" down="0" over="0" up="1" objectID="5" depth="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+            <colorTransform>
+              <ColorTransform2/>
+            </colorTransform>
+          </Button>
+          <Button hitTest="0" down="0" over="1" up="0" objectID="6" depth="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+            <colorTransform>
+              <ColorTransform2/>
+            </colorTransform>
+          </Button>
+          <Button hitTest="0" down="1" over="0" up="0" objectID="7" depth="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+            <colorTransform>
+              <ColorTransform2/>
+            </colorTransform>
+          </Button>
+          <Button hitTest="1" down="0" over="0" up="0" objectID="7" depth="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+            <colorTransform>
+              <ColorTransform2/>
+            </colorTransform>
+          </Button>
+          <Button hitTest="0" down="0" over="0" up="0"/>
+        </buttons>
+        <conditions>
+          <Condition next="44" menuEnter="0" pointerReleaseOutside="0" pointerDragEnter="0" pointerDragLeave="0" pointerReleaseInside="0" pointerPush="1" pointerLeave="0" pointerEnter="0" key="0" menuLeave="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="_root"/>
+                </items>
+              </PushData>
+              <GetVariable/>
+              <PushData>
+                <items>
+                  <StackString value="status"/>
+                  <StackString value="button pressed"/>
+                </items>
+              </PushData>
+              <SetMember/>
+              <EndAction/>
+            </actions>
+          </Condition>
+          <Condition next="0" menuEnter="0" pointerReleaseOutside="0" pointerDragEnter="0" pointerDragLeave="0" pointerReleaseInside="1" pointerPush="0" pointerLeave="0" pointerEnter="0" key="0" menuLeave="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="_root"/>
+                </items>
+              </PushData>
+              <GetVariable/>
+              <PushData>
+                <items>
+                  <StackString value="status"/>
+                  <StackString value=""/>
+                </items>
+              </PushData>
+              <SetMember/>
+              <EndAction/>
+            </actions>
+          </Condition>
+        </conditions>
+      </DefineButton2>
+      <PlaceObject2 replace="0" depth="4" objectID="8">
+        <transform>
+          <Transform transX="8639" transY="1957"/>
+        </transform>
+      </PlaceObject2>
+      <DefineShape objectID="9">
+        <bounds>
+          <Rectangle left="-2470" right="-670" top="-4250" bottom="-2550"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="255" green="255" blue="102"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-941" y="-3994" fillStyle1="1" lineStyle="1"/>
+              <CurveTo x1="261" y1="246" x2="0" y2="348"/>
+              <CurveTo x1="0" y1="348" x2="-261" y2="246"/>
+              <CurveTo x1="-260" y1="246" x2="-369" y2="0"/>
+              <CurveTo x1="-369" y1="0" x2="-261" y2="-246"/>
+              <CurveTo x1="-260" y1="-246" x2="0" y2="-348"/>
+              <CurveTo x1="0" y1="-348" x2="260" y2="-246"/>
+              <CurveTo x1="261" y1="-246" x2="369" y2="0"/>
+              <CurveTo x1="369" y1="0" x2="260" y2="246"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineShape3 objectID="10">
+        <bounds>
+          <Rectangle left="-2470" right="-670" top="-4250" bottom="-2550"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="55" green="55" blue="55" alpha="120"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0" alpha="255"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-941" y="-3994" fillStyle1="1" lineStyle="1"/>
+              <CurveTo x1="261" y1="246" x2="0" y2="348"/>
+              <CurveTo x1="0" y1="348" x2="-261" y2="246"/>
+              <CurveTo x1="-260" y1="246" x2="-369" y2="0"/>
+              <CurveTo x1="-369" y1="0" x2="-261" y2="-246"/>
+              <CurveTo x1="-260" y1="-246" x2="0" y2="-348"/>
+              <CurveTo x1="0" y1="-348" x2="260" y2="-246"/>
+              <CurveTo x1="261" y1="-246" x2="369" y2="0"/>
+              <CurveTo x1="369" y1="0" x2="260" y2="246"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape3>
+      <DefineSprite objectID="11" frames="2">
+        <tags>
+          <DoAction>
+            <actions>
+              <Stop/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="0" depth="1" objectID="9">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1" objectID="10"/>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="6" objectID="11" allflags1="3072" allflags2="0">
+        <transform>
+          <Transform transX="5142" transY="5280"/>
+        </transform>
+        <events>
+          <Event flags1="1024" flags2="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="_root"/>
+                </items>
+              </PushData>
+              <GetVariable/>
+              <PushData>
+                <items>
+                  <StackString value="status"/>
+                  <StackString value="movie clip pressed"/>
+                </items>
+              </PushData>
+              <SetMember/>
+              <GotoFrame frame="1"/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="2048" flags2="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="_root"/>
+                </items>
+              </PushData>
+              <GetVariable/>
+              <PushData>
+                <items>
+                  <StackString value="status"/>
+                  <StackString value=""/>
+                </items>
+              </PushData>
+              <SetMember/>
+              <GotoFrame frame="0"/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="0" flags2="0"/>
+        </events>
+      </PlaceObject2>
+      <DefineShape objectID="12">
+        <bounds>
+          <Rectangle left="-3671" right="1112" top="-3830" bottom="-1270"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="255" blue="204"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="1102" y="-1280" fillStyle1="1" lineStyle="1"/>
+              <LineTo x="-4763" y="0"/>
+              <LineTo x="0" y="-2540"/>
+              <LineTo x="4763" y="0"/>
+              <LineTo x="0" y="2540"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="13" frames="1">
+        <tags>
+          <PlaceObject2 replace="0" depth="1" objectID="12">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <PlaceObject2 replace="0" depth="2" objectID="11" allflags1="3072" allflags2="0">
+            <transform>
+              <Transform transX="1137" transY="880"/>
+            </transform>
+            <events>
+              <Event flags1="1024" flags2="0">
+                <actions>
+                  <PushData>
+                    <items>
+                      <StackString value="_root"/>
+                    </items>
+                  </PushData>
+                  <GetVariable/>
+                  <PushData>
+                    <items>
+                      <StackString value="status"/>
+                      <StackString value="small movie clip pressed"/>
+                    </items>
+                  </PushData>
+                  <SetMember/>
+                  <GotoFrame frame="1"/>
+                  <EndAction/>
+                </actions>
+              </Event>
+              <Event flags1="2048" flags2="0">
+                <actions>
+                  <PushData>
+                    <items>
+                      <StackString value="_root"/>
+                    </items>
+                  </PushData>
+                  <GetVariable/>
+                  <PushData>
+                    <items>
+                      <StackString value="status"/>
+                      <StackString value=""/>
+                    </items>
+                  </PushData>
+                  <SetMember/>
+                  <GotoFrame frame="0"/>
+                  <EndAction/>
+                </actions>
+              </Event>
+              <Event flags1="0" flags2="0"/>
+            </events>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="8" objectID="13" allflags1="3072" allflags2="0">
+        <transform>
+          <Transform transX="4022" transY="8237"/>
+        </transform>
+        <events>
+          <Event flags1="1024" flags2="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="_root"/>
+                </items>
+              </PushData>
+              <GetVariable/>
+              <PushData>
+                <items>
+                  <StackString value="status"/>
+                  <StackString value="big movie clip pressed"/>
+                </items>
+              </PushData>
+              <SetMember/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="2048" flags2="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="_root"/>
+                </items>
+              </PushData>
+              <GetVariable/>
+              <PushData>
+                <items>
+                  <StackString value="status"/>
+                  <StackString value=""/>
+                </items>
+              </PushData>
+              <SetMember/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="0" flags2="0"/>
+        </events>
+      </PlaceObject2>
+      <PlaceObject2 replace="0" depth="11" objectID="13">
+        <transform>
+          <Transform transX="9189" transY="8237"/>
+        </transform>
+      </PlaceObject2>
+      <DefineText objectID="14">
+        <bounds>
+          <Rectangle left="3" right="4166" top="78" bottom="442"/>
+        </bounds>
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+        <records>
+          <TextRecord>
+            <records>
+              <TextRecord6 isSetup="1" objectID="1" y="360" fontHeight="400">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="13" advance="311"/>
+                  <TextEntry glyph="15" advance="200"/>
+                  <TextEntry glyph="22" advance="200"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="5" advance="178"/>
+                  <TextEntry glyph="0" advance="100"/>
+                  <TextEntry glyph="3" advance="178"/>
+                  <TextEntry glyph="12" advance="111"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="16" advance="200"/>
+                  <TextEntry glyph="0" advance="100"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="14" advance="200"/>
+                  <TextEntry glyph="0" advance="100"/>
+                  <TextEntry glyph="13" advance="311"/>
+                  <TextEntry glyph="15" advance="200"/>
+                  <TextEntry glyph="22" advance="200"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="5" advance="178"/>
+                  <TextEntry glyph="0" advance="100"/>
+                  <TextEntry glyph="3" advance="178"/>
+                  <TextEntry glyph="12" advance="111"/>
+                  <TextEntry glyph="9" advance="111"/>
+                  <TextEntry glyph="16" advance="200"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs/>
+              </TextRecord6>
+            </records>
+          </TextRecord>
+        </records>
+      </DefineText>
+      <PlaceObject2 replace="0" depth="14" objectID="14">
+        <transform>
+          <Transform transX="401" transY="3894"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="0" depth="15" objectID="14">
+        <transform>
+          <Transform transX="5568" transY="3894"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

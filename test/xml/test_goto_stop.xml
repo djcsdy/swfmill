@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineShape objectID="1">
+        <bounds>
+          <Rectangle left="-6698" right="-5978" top="-1680" bottom="-960"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="102" blue="255"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-6698" y="-1680" fillStyle1="1"/>
+              <LineTo x="720" y="0"/>
+              <LineTo x="0" y="720"/>
+              <LineTo x="-720" y="0"/>
+              <LineTo x="0" y="-720"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineShape objectID="2">
+        <bounds>
+          <Rectangle left="-6698" right="-5978" top="-1680" bottom="-960"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="255" blue="102"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-6698" y="-1680" fillStyle1="1"/>
+              <LineTo x="720" y="0"/>
+              <LineTo x="0" y="720"/>
+              <LineTo x="-720" y="0"/>
+              <LineTo x="0" y="-720"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="3" frames="2">
+        <tags>
+          <DoAction>
+            <actions>
+              <Stop/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="0" depth="1" objectID="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <DoAction>
+            <actions>
+              <Stop/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="1" depth="1" objectID="2"/>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="1" objectID="3" name="x" allflags1="3072" allflags2="0">
+        <transform>
+          <Transform scaleX="5.250000000000000" scaleY="6.313888549804688" transX="38567" transY="12095"/>
+        </transform>
+        <events>
+          <Event flags1="1024" flags2="0">
+            <actions>
+              <GotoFrame frame="1"/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="2048" flags2="0">
+            <actions>
+              <GotoFrame frame="0"/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="0" flags2="0"/>
+        </events>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

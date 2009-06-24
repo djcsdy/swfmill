@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<swf version="3" compressed="0">
+  <Header framerate="12" frames="53">
+    <size>
+      <Rectangle left="0" right="1500" top="0" bottom="1500"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <UnknownTag id="0x18"/>
+      <DefineMorphShape objectID="1">
+        <data>
+          <data>YPycGNejUGDiIAjXo1BjAAAAAQAAAAD//wAA/wEAAAAAAAAAAAAAAAARLWzU1/sJ2arVfbKBsomyx6rbVSbqk2VbVcbE/sUGzFbt+3aJo1bbcx03E6ZjNdAlruDME1Z+rE1aG1Y3dqBsaVbpTuMrb0mz7CgAAAVrnNfMsABsI53mlcF0LCU+vAO5QD+45m2zmfRZYyjaQ10lPAlW6nNiP3KluYDcsUwVVmVtOMtqic1pVwmQs4V49J80hFwF8oDBp1S6dV0BgktsBpLy6S/h1riet98+0omOSsaT5JT1JtokR5U72uXoAA==</data>
+        </data>
+      </DefineMorphShape>
+      <PlaceObject2 replace="0" depth="1" objectID="1">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="2849"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="5699"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="8548"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="11398"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="14247"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="17096"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="19946"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="22795"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="25645"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="28494"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="31343"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="34193"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="37042"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="39891"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="42741"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="45590"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="48440"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="51289"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="54138"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="56988"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="59837"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="62687"/>
+      <ShowFrame/>
+      <RemoveObject2 depth="1"/>
+      <DefineShape objectID="2">
+        <bounds>
+          <Rectangle left="452" right="1025" top="431" bottom="1130"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="255" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="989" y="525" fillStyle1="1"/>
+              <CurveTo x1="31" y1="47" x2="0" y2="59"/>
+              <CurveTo x1="0" y1="63" x2="-36" y2="57"/>
+              <CurveTo x1="-37" y1="57" x2="-97" y2="69"/>
+              <CurveTo x1="-58" y1="40" x2="-19" y2="16"/>
+              <LineTo x="-46" y="41"/>
+              <LineTo x="298" y="0"/>
+              <LineTo x="0" y="156"/>
+              <LineTo x="-573" y="0"/>
+              <CurveTo x1="10" y1="-85" x2="50" y2="-74"/>
+              <CurveTo x1="50" y1="-75" x2="137" y2="-102"/>
+              <CurveTo x1="84" y1="-62" x2="24" y2="-33"/>
+              <CurveTo x1="23" y1="-32" x2="0" y2="-29"/>
+              <CurveTo x1="0" y1="-32" x2="-23" y2="-22"/>
+              <CurveTo x1="-23" y1="-22" x2="-35" y2="0"/>
+              <CurveTo x1="-37" y1="0" x2="-23" y2="23"/>
+              <CurveTo x1="-23" y1="23" x2="-8" y2="58"/>
+              <LineTo x="-192" y="-16"/>
+              <CurveTo x1="12" y1="-80" x2="30" y2="-45"/>
+              <CurveTo x1="30" y1="-46" x2="54" y2="-24"/>
+              <CurveTo x1="55" y1="-24" x2="96" y2="0"/>
+              <CurveTo x1="101" y1="0" x2="56" y2="23"/>
+              <CurveTo x1="56" y1="23" x2="33" y2="48"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="1" objectID="2">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <RemoveObject2 depth="1"/>
+      <DefineMorphShape objectID="3">
+        <data>
+          <data>YOIgCNejUGD8nBjXo1CKAAAAAQD/AAD/AAAA/wEAAAAAAAAAAAAAAAARLWvM1/MrAJmJZ0ElcF0LCU+vAO5QD+45m2zmfRZYyjaQ10lPAlW6nNiQ3KjuYDcsUwVVmVtOMtqic1paslfUCmXWSwaRY5QGDTql06roDPUMkQdqcukv4dbbb62xXtMFXovq50xlPUm2jW44bV/4zGAAAAVs1NfsJ2S2q+2UDZRNlk1W2qk3VJsquq82J/YoNmM3cBu0bRk23ZfpqL02k66hHXRIYJq2NWJqx9qdxbUrTzrtKeylr2sra2EbMUAA</data>
+        </data>
+      </DefineMorphShape>
+      <PlaceObject2 replace="0" depth="1" objectID="3">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="2731"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="5461"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="8192"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="10923"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="13653"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="16384"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="19115"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="21845"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="24576"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="27307"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="30037"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="32768"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="35499"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="38229"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="40960"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="43691"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="46421"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="49152"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="51883"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="54613"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="57344"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="60075"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="62805"/>
+      <ShowFrame/>
+      <RemoveObject2 depth="1"/>
+      <DefineShape objectID="4">
+        <bounds>
+          <Rectangle left="505" right="899" top="431" bottom="1130"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="505" y="615" fillStyle1="1"/>
+              <CurveTo x1="98" y1="-31" x2="54" y2="-44"/>
+              <CurveTo x1="54" y1="-44" x2="30" y2="-65"/>
+              <LineTo x="158" y="0"/>
+              <LineTo x="0" y="699"/>
+              <LineTo x="-193" y="0"/>
+              <LineTo x="0" y="-458"/>
+              <CurveTo x1="-47" y1="36" x2="-44" y2="22"/>
+              <LineTo x="-110" y="42"/>
+              <LineTo x="0" y="-157"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="1" objectID="4">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <GotoFrame frame="0"/>
+          <Play/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

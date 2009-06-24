@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="a"/>
+              <String value="a value"/>
+              <String value="String"/>
+              <String value="fromCharCode"/>
+              <String value="charCodeAt"/>
+              <String value="toLowerCase"/>
+              <String value="Hello"/>
+              <String value="toUpperCase"/>
+              <String value="hello"/>
+              <String value="Test"/>
+              <String value="indexOf"/>
+              <String value="st"/>
+              <String value="Testst"/>
+              <String value="long string jones"/>
+              <String value="substring"/>
+              <String value="hello dolly"/>
+              <String value="stinkypants"/>
+              <String value="b"/>
+              <String value="Stringobj"/>
+              <String value="c"/>
+              <String value="myProperty"/>
+              <String value="z"/>
+              <String value="Object"/>
+              <String value="toString"/>
+              <String value="myObj"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <DeclareLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <SetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackInteger value="67"/>
+              <StackInteger value="66"/>
+              <StackInteger value="65"/>
+              <StackInteger value="3"/>
+              <StackDictionaryLookup index="2"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="3"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <SetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDouble value="0.000000000000000"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="4"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="1"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="4"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="2"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="4"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDouble value="0.000000000000000"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="5"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDouble value="0.000000000000000"/>
+              <StackDictionaryLookup index="6"/>
+              <StackDictionaryLookup index="7"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="8"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="9"/>
+              <StackDictionaryLookup index="10"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="11"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="12"/>
+              <StackDictionaryLookup index="10"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="3"/>
+              <StackDictionaryLookup index="11"/>
+              <StackInteger value="2"/>
+              <StackDictionaryLookup index="12"/>
+              <StackDictionaryLookup index="10"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="11"/>
+              <StackInteger value="5"/>
+              <StackInteger value="2"/>
+              <StackDictionaryLookup index="13"/>
+              <StackDictionaryLookup index="14"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDouble value="0.000000000000000"/>
+              <StackInteger value="5"/>
+              <StackInteger value="2"/>
+              <StackDictionaryLookup index="15"/>
+              <StackDictionaryLookup index="14"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="6"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="16"/>
+              <StackDictionaryLookup index="14"/>
+            </items>
+          </PushData>
+          <CallMethod/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="17"/>
+              <StackDictionaryLookup index="18"/>
+              <StackInteger value="1"/>
+              <StackDictionaryLookup index="2"/>
+            </items>
+          </PushData>
+          <New/>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="17"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="19"/>
+              <StackDictionaryLookup index="17"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="19"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="20"/>
+              <StackInteger value="42"/>
+            </items>
+          </PushData>
+          <SetMember/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="17"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="20"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="19"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="20"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="20"/>
+              <StackInteger value="27"/>
+            </items>
+          </PushData>
+          <SetMember/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="20"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="21"/>
+              <StackDouble value="0.000000000000000"/>
+              <StackDictionaryLookup index="22"/>
+            </items>
+          </PushData>
+          <New/>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="21"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="21"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="23"/>
+            </items>
+          </PushData>
+          <DeclareFunction name="" argc="0" length="6">
+            <args/>
+          </DeclareFunction>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="24"/>
+            </items>
+          </PushData>
+          <Return/>
+          <SetMember/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="21"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

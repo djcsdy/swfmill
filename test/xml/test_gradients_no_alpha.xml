@@ -1,0 +1,421 @@
+<?xml version="1.0"?>
+<swf version="6" compressed="1">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineShape3 objectID="1">
+        <bounds>
+          <Rectangle left="170" right="10309" top="370" bottom="7729"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="255" blue="255" alpha="255"/>
+                </color>
+              </Solid>
+              <RadialGradient>
+                <matrix>
+                  <Transform scaleX="0.1948242187500000" scaleY="0.1948242187500000" transX="2699" transY="5759"/>
+                </matrix>
+                <gradientColors>
+                  <GradientItem position="0">
+                    <color>
+                      <Color red="153" green="255" blue="0" alpha="64"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="36">
+                    <color>
+                      <Color red="0" green="51" blue="204" alpha="128"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="76">
+                    <color>
+                      <Color red="204" green="0" blue="51" alpha="192"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="108">
+                    <color>
+                      <Color red="89" green="148" blue="0" alpha="255"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="144">
+                    <color>
+                      <Color red="0" green="102" blue="102" alpha="192"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="186">
+                    <color>
+                      <Color red="153" green="0" blue="51" alpha="128"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="225">
+                    <color>
+                      <Color red="24" green="39" blue="0" alpha="0"/>
+                    </color>
+                  </GradientItem>
+                  <GradientItem position="255">
+                    <color>
+                      <Color red="0" green="0" blue="0" alpha="0"/>
+                    </color>
+                  </GradientItem>
+                </gradientColors>
+              </RadialGradient>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0" alpha="255"/>
+                </color>
+              </LineStyle>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0" alpha="255"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="420" y="3800" fillStyle1="1" lineStyle="1"/>
+              <LineTo x="0" y="-860"/>
+              <LineTo x="9199" y="0"/>
+              <LineTo x="0" y="3559"/>
+              <LineTo x="-4400" y="0"/>
+              <ShapeSetup fillStyle1="2" lineStyle="2"/>
+              <LineTo x="0" y="1220"/>
+              <LineTo x="-5039" y="0"/>
+              <LineTo x="0" y="-3919"/>
+              <LineTo x="240" y="0"/>
+              <ShapeSetup fillStyle0="1"/>
+              <LineTo x="4799" y="0"/>
+              <LineTo x="0" y="2699"/>
+              <ShapeSetup x="0" y="0" fillStyle0="0" fillStyle1="0" lineStyle="0">
+                <styles>
+                  <StyleList>
+                    <fillStyles>
+                      <RadialGradient>
+                        <matrix>
+                          <Transform scaleX="0.07736206054687500" scaleY="0.09913635253906250" skewX="-0.09355163574218750" skewY="0.1198730468750000" transX="3029" transY="2809"/>
+                        </matrix>
+                        <gradientColors>
+                          <GradientItem position="0">
+                            <color>
+                              <Color red="153" green="255" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="36">
+                            <color>
+                              <Color red="0" green="51" blue="204" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="76">
+                            <color>
+                              <Color red="204" green="0" blue="51" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="108">
+                            <color>
+                              <Color red="89" green="148" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="144">
+                            <color>
+                              <Color red="0" green="102" blue="102" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="186">
+                            <color>
+                              <Color red="153" green="0" blue="51" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="225">
+                            <color>
+                              <Color red="24" green="39" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="255">
+                            <color>
+                              <Color red="0" green="0" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                        </gradientColors>
+                      </RadialGradient>
+                      <LinearGradient>
+                        <matrix>
+                          <Transform scaleX="0.08534240722656250" scaleY="0.08534240722656250" skewX="0.04927062988281250" skewY="-0.04927062988281250" transX="8093" transY="3655"/>
+                        </matrix>
+                        <gradientColors>
+                          <GradientItem position="0">
+                            <color>
+                              <Color red="153" green="255" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="36">
+                            <color>
+                              <Color red="0" green="51" blue="204" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="76">
+                            <color>
+                              <Color red="204" green="0" blue="51" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="108">
+                            <color>
+                              <Color red="89" green="148" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="144">
+                            <color>
+                              <Color red="0" green="102" blue="102" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="186">
+                            <color>
+                              <Color red="153" green="0" blue="51" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="225">
+                            <color>
+                              <Color red="24" green="39" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="255">
+                            <color>
+                              <Color red="0" green="0" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                        </gradientColors>
+                      </LinearGradient>
+                      <RadialGradient>
+                        <matrix>
+                          <Transform scaleX="0.06787109375000000" scaleY="0.1191406250000000" transX="4519" transY="5999"/>
+                        </matrix>
+                        <gradientColors>
+                          <GradientItem position="0">
+                            <color>
+                              <Color red="255" green="255" blue="255" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="108">
+                            <color>
+                              <Color red="0" green="0" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="255">
+                            <color>
+                              <Color red="255" green="255" blue="255" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                        </gradientColors>
+                      </RadialGradient>
+                      <RadialGradient>
+                        <matrix>
+                          <Transform scaleX="0.3322753906250000" scaleY="0.3322753906250000" transX="5629" transY="4669"/>
+                        </matrix>
+                        <gradientColors>
+                          <GradientItem position="0">
+                            <color>
+                              <Color red="153" green="255" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="36">
+                            <color>
+                              <Color red="0" green="51" blue="204" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="76">
+                            <color>
+                              <Color red="204" green="0" blue="51" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="108">
+                            <color>
+                              <Color red="89" green="148" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="144">
+                            <color>
+                              <Color red="0" green="102" blue="102" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="186">
+                            <color>
+                              <Color red="153" green="0" blue="51" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="225">
+                            <color>
+                              <Color red="24" green="39" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="255">
+                            <color>
+                              <Color red="0" green="0" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                        </gradientColors>
+                      </RadialGradient>
+                      <RadialGradient>
+                        <matrix>
+                          <Transform transX="0" transY="0"/>
+                        </matrix>
+                        <gradientColors>
+                          <GradientItem position="0">
+                            <color>
+                              <Color red="153" green="255" blue="0" alpha="64"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="36">
+                            <color>
+                              <Color red="0" green="51" blue="204" alpha="128"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="76">
+                            <color>
+                              <Color red="204" green="0" blue="51" alpha="192"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="108">
+                            <color>
+                              <Color red="89" green="148" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="144">
+                            <color>
+                              <Color red="0" green="102" blue="102" alpha="192"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="186">
+                            <color>
+                              <Color red="153" green="0" blue="51" alpha="128"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="225">
+                            <color>
+                              <Color red="24" green="39" blue="0" alpha="0"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="255">
+                            <color>
+                              <Color red="0" green="0" blue="0" alpha="0"/>
+                            </color>
+                          </GradientItem>
+                        </gradientColors>
+                      </RadialGradient>
+                      <RadialGradient>
+                        <matrix>
+                          <Transform scaleX="0.1691284179687500" scaleY="0.1691284179687500" transX="6885" transY="1472"/>
+                        </matrix>
+                        <gradientColors>
+                          <GradientItem position="0">
+                            <color>
+                              <Color red="153" green="255" blue="0" alpha="64"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="36">
+                            <color>
+                              <Color red="0" green="51" blue="204" alpha="128"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="76">
+                            <color>
+                              <Color red="204" green="0" blue="51" alpha="192"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="108">
+                            <color>
+                              <Color red="89" green="148" blue="0" alpha="255"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="144">
+                            <color>
+                              <Color red="0" green="102" blue="102" alpha="192"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="186">
+                            <color>
+                              <Color red="153" green="0" blue="51" alpha="128"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="225">
+                            <color>
+                              <Color red="24" green="39" blue="0" alpha="0"/>
+                            </color>
+                          </GradientItem>
+                          <GradientItem position="255">
+                            <color>
+                              <Color red="0" green="0" blue="0" alpha="0"/>
+                            </color>
+                          </GradientItem>
+                        </gradientColors>
+                      </RadialGradient>
+                    </fillStyles>
+                    <lineStyles>
+                      <LineStyle width="20">
+                        <color>
+                          <Color red="0" green="0" blue="0" alpha="255"/>
+                        </color>
+                      </LineStyle>
+                      <LineStyle width="20">
+                        <color>
+                          <Color red="0" green="0" blue="0" alpha="255"/>
+                        </color>
+                      </LineStyle>
+                    </lineStyles>
+                  </StyleList>
+                </styles>
+              </ShapeSetup>
+              <ShapeSetup x="9431" y="2564" fillStyle0="2" fillStyle1="6" lineStyle="2"/>
+              <LineTo x="0" y="1"/>
+              <LineTo x="-2572" y="0"/>
+              <ShapeSetup fillStyle1="0" lineStyle="1"/>
+              <LineTo x="-971" y="1682"/>
+              <LineTo x="2796" y="1614"/>
+              <LineTo x="1615" y="-2796"/>
+              <LineTo x="-868" y="-501"/>
+              <ShapeSetup fillStyle0="6" lineStyle="2"/>
+              <LineTo x="0" y="-2184"/>
+              <LineTo x="-5092" y="0"/>
+              <LineTo x="0" y="480"/>
+              <ShapeSetup fillStyle1="1"/>
+              <LineTo x="0" y="1705"/>
+              <LineTo x="360" y="0"/>
+              <ShapeSetup fillStyle1="0"/>
+              <LineTo x="2160" y="0"/>
+              <ShapeSetup x="5919" y="7359" fillStyle0="0" fillStyle1="3"/>
+              <LineTo x="-1800" y="0"/>
+              <LineTo x="0" y="-1800"/>
+              <LineTo x="1800" y="0"/>
+              <LineTo x="0" y="1800"/>
+              <ShapeSetup x="4699" y="2565" fillStyle1="1"/>
+              <LineTo x="0" y="2194"/>
+              <LineTo x="-3340" y="0"/>
+              <LineTo x="0" y="-3899"/>
+              <LineTo x="2980" y="0"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape3>
+      <PlaceObject2 replace="0" depth="2" objectID="1">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

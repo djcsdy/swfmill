@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="1---"/>
+              <String value="2---"/>
+              <String value="3---"/>
+              <String value="4---"/>
+              <String value="5---"/>
+              <String value="hello"/>
+              <String value="6---"/>
+              <String value="afalse"/>
+              <String value="a"/>
+              <String value="7---"/>
+              <String value="falsea"/>
+              <String value="8---"/>
+              <String value="0"/>
+              <String value=""/>
+              <String value="9---"/>
+              <String value="A---"/>
+              <String value="B---"/>
+              <String value="undefined"/>
+              <String value="null"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackNull/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackUndefined/>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackUndefined/>
+              <StackNull/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackNull/>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackNull/>
+              <StackNull/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="2"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="3"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="4"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="1"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="5"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackNull/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="6"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="2"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="2"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="7"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="8"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <AddTyped/>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="9"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="2"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackInteger value="2"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="10"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="10"/>
+            </items>
+          </PushData>
+          <TypeOf/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="11"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackNull/>
+              <StackInteger value="1"/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackUndefined/>
+              <StackDictionaryLookup index="5"/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="12"/>
+              <StackNull/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="13"/>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="14"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDouble value="0.000000000000000"/>
+              <StackNull/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="12"/>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+              <StackNull/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="15"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="16"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDouble value="0.000000000000000"/>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="17"/>
+              <StackUndefined/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="18"/>
+              <StackNull/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackBoolean value="0"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

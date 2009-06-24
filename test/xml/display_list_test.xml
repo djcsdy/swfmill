@@ -1,0 +1,1984 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="30" frames="93">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineShape objectID="1">
+        <bounds>
+          <Rectangle left="-1245" right="1246" top="-1157" bottom="1158"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles/>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-994" y="-507" lineStyle="1"/>
+              <CurveTo x1="-14" y1="77" x2="-74" y2="104"/>
+              <CurveTo x1="-95" y1="133" x2="-22" y2="46"/>
+              <CurveTo x1="-113" y1="240" x2="238" y2="360"/>
+              <CurveTo x1="241" y1="365" x2="244" y2="103"/>
+              <CurveTo x1="58" y1="24" x2="157" y2="42"/>
+              <CurveTo x1="143" y1="39" x2="97" y2="47"/>
+              <CurveTo x1="233" y1="113" x2="170" y2="-58"/>
+              <CurveTo x1="69" y1="-24" x2="96" y2="-62"/>
+              <LineTo x="192" y="-129"/>
+              <CurveTo x1="192" y1="-126" x2="81" y2="-201"/>
+              <CurveTo x1="33" y1="-84" x2="74" y2="-349"/>
+              <CurveTo x1="21" y1="-98" x2="75" y2="-108"/>
+              <LineTo x="109" y="-159"/>
+              <CurveTo x1="44" y1="-85" x2="-32" y2="-82"/>
+              <CurveTo x1="-39" y1="-98" x2="-158" y2="-130"/>
+              <CurveTo x1="-281" y1="-231" x2="-518" y2="-178"/>
+              <CurveTo x1="-161" y1="-55" x2="-166" y2="-44"/>
+              <LineTo x="-134" y="-32"/>
+              <CurveTo x1="-162" y1="13" x2="-167" y2="43"/>
+              <CurveTo x1="-332" y1="88" x2="-19" y2="156"/>
+              <CurveTo x1="-30" y1="250" x2="-30" y2="110"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="1" objectID="1">
+        <transform>
+          <Transform scaleX="0.02210998535156250" scaleY="0.02210998535156250" skewX="-0.9996795654296875" skewY="0.9996795654296875" transX="-1236" transY="1621"/>
+        </transform>
+      </PlaceObject2>
+      <DefineFont2 objectID="2" isShiftJIS="0" isUnicode="0" isANSII="0" wideGlyphOffsets="0" italic="0" bold="1" language="1" name="Loki Cola">
+        <glyphs>
+          <Glyph map="32">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="84">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="279" y="-348" fillStyle0="1"/>
+                <CurveTo x1="-55" y1="0" x2="-36" y2="-31"/>
+                <CurveTo x1="-36" y1="-31" x2="0" y2="-55"/>
+                <CurveTo x1="0" y1="-48" x2="32" y2="-53"/>
+                <CurveTo x1="66" y1="-110" x2="120" y2="-66"/>
+                <CurveTo x1="121" y1="-66" x2="129" y2="0"/>
+                <LineTo x="144" y="21"/>
+                <CurveTo x1="93" y1="21" x2="41" y2="0"/>
+                <CurveTo x1="21" y1="0" x2="59" y2="-22"/>
+                <LineTo x="6" y="2"/>
+                <LineTo x="2" y="6"/>
+                <CurveTo x1="0" y1="34" x2="-49" y2="33"/>
+                <CurveTo x1="-45" y1="31" x2="-36" y2="0"/>
+                <CurveTo x1="-37" y1="0" x2="-113" y2="-40"/>
+                <CurveTo x1="-112" y1="-40" x2="-66" y2="0"/>
+                <CurveTo x1="-140" y1="0" x2="-130" y2="135"/>
+                <CurveTo x1="-83" y1="87" x2="0" y2="74"/>
+                <CurveTo x1="0" y1="34" x2="20" y2="25"/>
+                <CurveTo x1="19" y1="24" x2="32" y2="0"/>
+                <CurveTo x1="83" y1="0" x2="60" y2="-74"/>
+                <CurveTo x1="56" y1="-68" x2="0" y2="-85"/>
+                <CurveTo x1="0" y1="-24" x2="-20" y2="0"/>
+                <CurveTo x1="-22" y1="0" x2="-24" y2="51"/>
+                <CurveTo x1="-19" y1="39" x2="-6" y2="32"/>
+                <LineTo x="-52" y="31"/>
+                <LineTo x="-49" y="35"/>
+                <LineTo x="-5" y="-16"/>
+                <CurveTo x1="0" y1="-84" x2="44" y2="-64"/>
+                <CurveTo x1="49" y1="-74" x2="80" y2="0"/>
+                <CurveTo x1="71" y1="0" x2="0" y2="96"/>
+                <LineTo x="0" y="10"/>
+                <CurveTo x1="0" y1="92" x2="-60" y2="69"/>
+                <CurveTo x1="-59" y1="69" x2="-94" y2="0"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="747" y="-658"/>
+                <LineTo x="-11" y="22"/>
+                <CurveTo x1="-30" y1="48" x2="-22" y2="113"/>
+                <LineTo x="-18" y="93"/>
+                <CurveTo x1="-43" y1="181" x2="-123" y2="99"/>
+                <CurveTo x1="-123" y1="100" x2="-185" y2="0"/>
+                <CurveTo x1="-90" y1="0" x2="-57" y2="-27"/>
+                <CurveTo x1="-78" y1="-36" x2="0" y2="-81"/>
+                <CurveTo x1="0" y1="-47" x2="32" y2="-33"/>
+                <CurveTo x1="31" y1="-33" x2="47" y2="0"/>
+                <CurveTo x1="31" y1="0" x2="21" y2="17"/>
+                <CurveTo x1="22" y1="16" x2="0" y2="29"/>
+                <CurveTo x1="0" y1="43" x2="-32" y2="13"/>
+                <LineTo x="-57" y="12"/>
+                <CurveTo x1="-36" y1="12" x2="0" y2="23"/>
+                <CurveTo x1="0" y1="36" x2="54" y2="20"/>
+                <CurveTo x1="41" y1="16" x2="43" y2="0"/>
+                <CurveTo x1="95" y1="0" x2="76" y2="-60"/>
+                <CurveTo x1="69" y1="-54" x2="44" y2="-92"/>
+                <LineTo x="102" y="-230"/>
+                <CurveTo x1="36" y1="-76" x2="68" y2="-72"/>
+                <CurveTo x1="59" y1="-63" x2="23" y2="0"/>
+                <CurveTo x1="11" y1="0" x2="0" y2="11"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="97">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="451" y="-399" fillStyle0="1"/>
+                <CurveTo x1="-15" y1="59" x2="-60" y2="91"/>
+                <CurveTo x1="-64" y1="99" x2="-18" y2="47"/>
+                <LineTo x="9" y="6"/>
+                <CurveTo x1="41" y1="-13" x2="32" y2="-48"/>
+                <LineTo x="39" y="-51"/>
+                <LineTo x="4" y="0"/>
+                <LineTo x="4" y="12"/>
+                <CurveTo x1="0" y1="42" x2="-71" y2="73"/>
+                <CurveTo x1="-72" y1="73" x2="-42" y2="0"/>
+                <CurveTo x1="-33" y1="0" x2="-12" y2="-16"/>
+                <CurveTo x1="-4" y1="-4" x2="-14" y2="-41"/>
+                <CurveTo x1="-34" y1="61" x2="-61" y2="0"/>
+                <CurveTo x1="-28" y1="0" x2="-20" y2="-23"/>
+                <CurveTo x1="-21" y1="-24" x2="0" y2="-28"/>
+                <CurveTo x1="0" y1="-77" x2="104" y2="-121"/>
+                <CurveTo x1="104" y1="-120" x2="76" y2="0"/>
+                <CurveTo x1="10" y1="0" x2="19" y2="11"/>
+                <CurveTo x1="20" y1="10" x2="9" y2="1"/>
+                <LineTo x="7" y="-13"/>
+                <LineTo x="43" y="-9"/>
+                <LineTo x="48" y="3"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="334" y="-351"/>
+                <CurveTo x1="-3" y1="-13" x2="-16" y2="0"/>
+                <CurveTo x1="-13" y1="0" x2="-17" y2="13"/>
+                <LineTo x="0" y="-1"/>
+                <CurveTo x1="-50" y1="42" x2="-46" y2="68"/>
+                <CurveTo x1="-53" y1="78" x2="0" y2="54"/>
+                <CurveTo x1="0" y1="21" x2="17" y2="0"/>
+                <CurveTo x1="23" y1="0" x2="75" y2="-116"/>
+                <CurveTo x1="66" y1="-103" x2="17" y2="-43"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="99">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="343" y="-345" fillStyle0="1"/>
+                <CurveTo x1="0" y1="30" x2="-22" y2="30"/>
+                <CurveTo x1="-23" y1="35" x2="-28" y2="0"/>
+                <CurveTo x1="-6" y1="0" x2="-14" y2="-10"/>
+                <LineTo x="-5" y="-17"/>
+                <CurveTo x1="0" y1="-24" x2="23" y2="-21"/>
+                <CurveTo x1="22" y1="-21" x2="23" y2="4"/>
+                <CurveTo x1="0" y1="-17" x2="-28" y2="0"/>
+                <CurveTo x1="-49" y1="0" x2="-67" y2="111"/>
+                <CurveTo x1="-64" y1="106" x2="0" y2="55"/>
+                <CurveTo x1="0" y1="25" x2="18" y2="0"/>
+                <CurveTo x1="43" y1="0" x2="44" y2="-37"/>
+                <LineTo x="66" y="-69"/>
+                <CurveTo x1="33" y1="-36" x2="12" y2="0"/>
+                <LineTo x="4" y="5"/>
+                <CurveTo x1="0" y1="11" x2="-62" y2="78"/>
+                <CurveTo x1="-87" y1="108" x2="-92" y2="0"/>
+                <CurveTo x1="-86" y1="0" x2="0" y2="-82"/>
+                <CurveTo x1="0" y1="-28" x2="17" y2="-50"/>
+                <CurveTo x1="15" y1="-46" x2="16" y2="-26"/>
+                <CurveTo x1="109" y1="-170" x2="125" y2="0"/>
+                <CurveTo x1="24" y1="0" x2="19" y2="16"/>
+                <CurveTo x1="20" y1="17" x2="0" y2="23"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="100">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="575" y="-683" fillStyle0="1"/>
+                <LineTo x="-85" y="195"/>
+                <LineTo x="-57" y="120"/>
+                <CurveTo x1="-34" y1="68" x2="-32" y2="47"/>
+                <CurveTo x1="-60" y1="91" x2="-23" y2="59"/>
+                <LineTo x="9" y="6"/>
+                <CurveTo x1="41" y1="-13" x2="30" y2="-46"/>
+                <CurveTo x1="29" y1="-45" x2="12" y2="-8"/>
+                <LineTo x="4" y="0"/>
+                <LineTo x="4" y="12"/>
+                <CurveTo x1="0" y1="42" x2="-71" y2="73"/>
+                <CurveTo x1="-72" y1="73" x2="-42" y2="0"/>
+                <CurveTo x1="-33" y1="0" x2="-12" y2="-16"/>
+                <CurveTo x1="-4" y1="-4" x2="-14" y2="-41"/>
+                <CurveTo x1="-34" y1="61" x2="-61" y2="0"/>
+                <CurveTo x1="-28" y1="0" x2="-20" y2="-23"/>
+                <CurveTo x1="-21" y1="-24" x2="0" y2="-28"/>
+                <CurveTo x1="0" y1="-87" x2="144" y2="-150"/>
+                <CurveTo x1="77" y1="-81" x2="63" y2="0"/>
+                <CurveTo x1="10" y1="0" x2="19" y2="11"/>
+                <CurveTo x1="20" y1="10" x2="10" y2="1"/>
+                <LineTo x="7" y="-14"/>
+                <LineTo x="36" y="-92"/>
+                <CurveTo x1="57" y1="-137" x2="38" y2="-77"/>
+                <LineTo x="58" y="-2"/>
+                <CurveTo x1="23" y1="0" x2="12" y2="19"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="324" y="-351"/>
+                <CurveTo x1="-3" y1="-13" x2="-16" y2="0"/>
+                <CurveTo x1="-13" y1="0" x2="-17" y2="13"/>
+                <LineTo x="0" y="-1"/>
+                <CurveTo x1="-50" y1="42" x2="-46" y2="68"/>
+                <CurveTo x1="-53" y1="78" x2="0" y2="54"/>
+                <CurveTo x1="0" y1="21" x2="17" y2="0"/>
+                <CurveTo x1="23" y1="0" x2="75" y2="-116"/>
+                <CurveTo x1="66" y1="-103" x2="17" y2="-43"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="101">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="322" y="-330" fillStyle0="1"/>
+                <CurveTo x1="0" y1="72" x2="-75" y2="53"/>
+                <CurveTo x1="-59" y1="43" x2="-82" y2="18"/>
+                <CurveTo x1="-15" y1="39" x2="0" y2="21"/>
+                <CurveTo x1="0" y1="25" x2="18" y2="0"/>
+                <CurveTo x1="43" y1="0" x2="44" y2="-37"/>
+                <LineTo x="65" y="-69"/>
+                <CurveTo x1="33" y1="-36" x2="12" y2="0"/>
+                <LineTo x="5" y="5"/>
+                <CurveTo x1="0" y1="11" x2="-63" y2="78"/>
+                <CurveTo x1="-87" y1="108" x2="-91" y2="0"/>
+                <CurveTo x1="-86" y1="0" x2="0" y2="-82"/>
+                <CurveTo x1="0" y1="-99" x2="87" y2="-108"/>
+                <CurveTo x1="92" y1="-113" x2="96" y2="0"/>
+                <CurveTo x1="63" y1="0" x2="0" y2="71"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="279" y="-339"/>
+                <LineTo x="-5" y="-24"/>
+                <LineTo x="-10" y="-2"/>
+                <CurveTo x1="-33" y1="0" x2="-53" y2="83"/>
+                <CurveTo x1="-40" y1="61" x2="-24" y2="55"/>
+                <CurveTo x1="57" y1="-14" x2="51" y2="-50"/>
+                <CurveTo x1="57" y1="-54" x2="0" y2="-55"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="104">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="404" y="-137" fillStyle0="1"/>
+                <CurveTo x1="-5" y1="24" x2="-38" y2="42"/>
+                <CurveTo x1="-37" y1="42" x2="-24" y2="12"/>
+                <CurveTo x1="-32" y1="17" x2="-53" y2="0"/>
+                <CurveTo x1="-70" y1="0" x2="0" y2="-63"/>
+                <CurveTo x1="0" y1="-21" x2="56" y2="-101"/>
+                <CurveTo x1="55" y1="-100" x2="0" y2="-58"/>
+                <LineTo x="0" y="-12"/>
+                <LineTo x="-1" y="1"/>
+                <CurveTo x1="-2" y1="-18" x2="-19" y2="0"/>
+                <CurveTo x1="-13" y1="0" x2="-14" y2="9"/>
+                <CurveTo x1="-47" y1="63" x2="-49" y2="93"/>
+                <LineTo x="-81" y="164"/>
+                <CurveTo x1="-37" y1="19" x2="-81" y2="0"/>
+                <CurveTo x1="60" y1="-107" x2="109" y2="-216"/>
+                <CurveTo x1="108" y1="-216" x2="59" y2="-104"/>
+                <CurveTo x1="30" y1="-20" x2="23" y2="0"/>
+                <LineTo x="57" y="1"/>
+                <LineTo x="-70" y="153"/>
+                <CurveTo x1="-56" y1="124" x2="-12" y2="10"/>
+                <LineTo x="-2" y="4"/>
+                <LineTo x="1" y="2"/>
+                <LineTo x="9" y="0"/>
+                <LineTo x="35" y="-6"/>
+                <LineTo x="34" y="-5"/>
+                <CurveTo x1="27" y1="0" x2="15" y2="20"/>
+                <CurveTo x1="15" y1="20" x2="0" y2="27"/>
+                <CurveTo x1="0" y1="48" x2="-53" y2="102"/>
+                <LineTo x="-54" y="107"/>
+                <CurveTo x1="0" y1="7" x2="13" y2="8"/>
+                <CurveTo x1="52" y1="0" x2="45" y2="-36"/>
+                <LineTo x="44" y="-37"/>
+                <LineTo x="3" y="1"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="105">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="264" y="-488" fillStyle0="1"/>
+                <CurveTo x1="0" y1="36" x2="-12" y2="11"/>
+                <CurveTo x1="-12" y1="12" x2="-37" y2="0"/>
+                <CurveTo x1="-41" y1="0" x2="0" y2="-20"/>
+                <LineTo x="0" y="-45"/>
+                <CurveTo x1="0" y1="-14" x2="26" y2="-12"/>
+                <LineTo x="41" y="-13"/>
+                <CurveTo x1="35" y1="0" x2="0" y2="45"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="214" y="-191"/>
+                <CurveTo x1="0" y1="46" x2="-73" y2="72"/>
+                <CurveTo x1="-72" y1="71" x2="-48" y2="0"/>
+                <CurveTo x1="-49" y1="0" x2="0" y2="-68"/>
+                <CurveTo x1="0" y1="-37" x2="27" y2="-48"/>
+                <LineTo x="46" y="-80"/>
+                <LineTo x="54" y="-123"/>
+                <LineTo x="109" y="0"/>
+                <CurveTo x1="-83" y1="145" x2="-40" y2="117"/>
+                <LineTo x="10" y="7"/>
+                <CurveTo x1="39" y1="-13" x2="26" y2="-42"/>
+                <CurveTo x1="29" y1="-47" x2="17" y2="-9"/>
+                <LineTo x="5" y="0"/>
+                <LineTo x="3" y="9"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="108">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="556" y="-745" fillStyle0="1"/>
+                <CurveTo x1="0" y1="35" x2="-24" y2="41"/>
+                <CurveTo x1="-98" y1="174" x2="-191" y2="165"/>
+                <LineTo x="-98" y="82"/>
+                <CurveTo x1="-14" y1="13" x2="-18" y2="54"/>
+                <CurveTo x1="-15" y1="50" x2="-1" y2="26"/>
+                <LineTo x="11" y="24"/>
+                <LineTo x="5" y="1"/>
+                <CurveTo x1="21" y1="0" x2="41" y2="-48"/>
+                <CurveTo x1="41" y1="-48" x2="13" y2="0"/>
+                <LineTo x="5" y="5"/>
+                <CurveTo x1="0" y1="13" x2="-45" y2="53"/>
+                <CurveTo x1="-90" y1="106" x2="-41" y2="0"/>
+                <CurveTo x1="-26" y1="0" x2="-17" y2="-19"/>
+                <CurveTo x1="-17" y1="-19" x2="0" y2="-25"/>
+                <CurveTo x1="0" y1="-64" x2="36" y2="-96"/>
+                <CurveTo x1="66" y1="-176" x2="129" y2="-170"/>
+                <CurveTo x1="160" y1="-212" x2="112" y2="0"/>
+                <CurveTo x1="55" y1="0" x2="0" y2="35"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="525" y="-726"/>
+                <LineTo x="-18" y="-20"/>
+                <CurveTo x1="-68" y1="0" x2="-133" y2="193"/>
+                <CurveTo x1="-113" y1="164" x2="-37" y2="102"/>
+                <CurveTo x1="85" y1="-57" x2="129" y2="-145"/>
+                <CurveTo x1="142" y1="-160" x2="13" y2="-77"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="109">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="662" y="-147" fillStyle0="1"/>
+                <CurveTo x1="-4" y1="21" x2="-38" y2="43"/>
+                <CurveTo x1="-38" y1="42" x2="-23" y2="13"/>
+                <CurveTo x1="-33" y1="18" x2="-53" y2="0"/>
+                <CurveTo x1="-69" y1="0" x2="0" y2="-64"/>
+                <CurveTo x1="0" y1="-20" x2="45" y2="-88"/>
+                <CurveTo x1="45" y1="-88" x2="0" y2="-52"/>
+                <LineTo x="0" y="-14"/>
+                <LineTo x="-1" y="1"/>
+                <CurveTo x1="-2" y1="-17" x2="-14" y2="0"/>
+                <CurveTo x1="-14" y1="0" x2="-39" y2="40"/>
+                <LineTo x="-48" y="54"/>
+                <CurveTo x1="-12" y1="15" x2="-36" y2="94"/>
+                <CurveTo x1="-36" y1="94" x2="0" y2="15"/>
+                <CurveTo x1="0" y1="18" x2="25" y2="12"/>
+                <LineTo x="-125" y="8"/>
+                <CurveTo x1="-3" y1="-5" x2="0" y2="-9"/>
+                <CurveTo x1="0" y1="-43" x2="50" y2="-106"/>
+                <CurveTo x1="50" y1="-105" x2="0" y2="-53"/>
+                <LineTo x="2" y="-13"/>
+                <LineTo x="-1" y="1"/>
+                <CurveTo x1="-2" y1="-17" x2="-13" y2="0"/>
+                <CurveTo x1="-30" y1="0" x2="-68" y2="89"/>
+                <CurveTo x1="-33" y1="43" x2="-27" y2="81"/>
+                <LineTo x="-49" y="129"/>
+                <LineTo x="-128" y="8"/>
+                <LineTo x="100" y="-214"/>
+                <LineTo x="25" y="-45"/>
+                <CurveTo x1="16" y1="-31" x2="0" y2="-13"/>
+                <CurveTo x1="0" y1="-16" x2="-9" y2="0"/>
+                <LineTo x="-31" y="29"/>
+                <CurveTo x1="-27" y1="30" x2="-8" y2="0"/>
+                <LineTo x="-4" y="-2"/>
+                <LineTo x="-1" y="-3"/>
+                <CurveTo x1="2" y1="-19" x2="56" y2="-61"/>
+                <CurveTo x1="56" y1="-60" x2="18" y2="0"/>
+                <CurveTo x1="47" y1="0" x2="0" y2="79"/>
+                <CurveTo x1="0" y1="9" x2="5" y2="0"/>
+                <LineTo x="50" y="-34"/>
+                <CurveTo x1="53" y1="-33" x2="31" y2="0"/>
+                <CurveTo x1="70" y1="0" x2="-1" y2="71"/>
+                <LineTo x="63" y="-46"/>
+                <CurveTo x1="41" y1="-25" x2="32" y2="0"/>
+                <CurveTo x1="68" y1="0" x2="0" y2="69"/>
+                <CurveTo x1="0" y1="44" x2="-43" y2="87"/>
+                <LineTo x="-44" y="96"/>
+                <CurveTo x1="0" y1="5" x2="13" y2="9"/>
+                <CurveTo x1="53" y1="0" x2="46" y2="-36"/>
+                <LineTo x="44" y="-37"/>
+                <LineTo x="1" y="2"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="110">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="457" y="-148" fillStyle0="1"/>
+                <CurveTo x1="-3" y1="22" x2="-38" y2="43"/>
+                <CurveTo x1="-39" y1="42" x2="-23" y2="13"/>
+                <CurveTo x1="-33" y1="18" x2="-53" y2="0"/>
+                <CurveTo x1="-69" y1="0" x2="0" y2="-64"/>
+                <CurveTo x1="0" y1="-20" x2="45" y2="-88"/>
+                <CurveTo x1="45" y1="-88" x2="0" y2="-52"/>
+                <LineTo x="0" y="-14"/>
+                <LineTo x="-1" y="1"/>
+                <CurveTo x1="-2" y1="-17" x2="-14" y2="0"/>
+                <LineTo x="-2" y="-2"/>
+                <CurveTo x1="-15" y1="1" x2="-35" y2="38"/>
+                <LineTo x="-44" y="52"/>
+                <CurveTo x1="-28" y1="41" x2="-31" y2="84"/>
+                <LineTo x="-50" y="128"/>
+                <LineTo x="-127" y="8"/>
+                <LineTo x="100" y="-214"/>
+                <LineTo x="25" y="-45"/>
+                <CurveTo x1="16" y1="-31" x2="0" y2="-13"/>
+                <CurveTo x1="0" y1="-16" x2="-9" y2="0"/>
+                <LineTo x="-31" y="29"/>
+                <CurveTo x1="-27" y1="30" x2="-8" y2="0"/>
+                <LineTo x="-4" y="-2"/>
+                <LineTo x="-1" y="-3"/>
+                <CurveTo x1="2" y1="-19" x2="56" y2="-61"/>
+                <CurveTo x1="56" y1="-60" x2="18" y2="0"/>
+                <CurveTo x1="47" y1="0" x2="0" y2="79"/>
+                <CurveTo x1="0" y1="9" x2="5" y2="0"/>
+                <LineTo x="50" y="-34"/>
+                <CurveTo x1="53" y1="-33" x2="31" y2="0"/>
+                <CurveTo x1="68" y1="0" x2="0" y2="69"/>
+                <CurveTo x1="0" y1="44" x2="-43" y2="87"/>
+                <CurveTo x1="-43" y1="88" x2="0" y2="8"/>
+                <LineTo x="12" y="14"/>
+                <CurveTo x1="53" y1="0" x2="46" y2="-36"/>
+                <LineTo x="44" y="-37"/>
+                <LineTo x="1" y="1"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="111">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="374" y="-245" fillStyle0="1"/>
+                <CurveTo x1="0" y1="13" x2="-30" y2="7"/>
+                <LineTo x="-42" y="6"/>
+                <LineTo x="-22" y="0"/>
+                <CurveTo x1="-39" y1="73" x2="-53" y2="60"/>
+                <CurveTo x1="-73" y1="82" x2="-59" y2="0"/>
+                <CurveTo x1="-81" y1="0" x2="0" y2="-74"/>
+                <CurveTo x1="0" y1="-90" x2="89" y2="-112"/>
+                <CurveTo x1="93" y1="-117" x2="88" y2="0"/>
+                <CurveTo x1="70" y1="0" x2="0" y2="64"/>
+                <CurveTo x1="0" y1="22" x2="-22" y2="62"/>
+                <LineTo x="18" y="3"/>
+                <LineTo x="24" y="-3"/>
+                <LineTo x="25" y="-3"/>
+                <CurveTo x1="14" y1="0" x2="0" y2="7"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="286" y="-326"/>
+                <CurveTo x1="0" y1="-34" x2="-27" y2="0"/>
+                <CurveTo x1="-19" y1="0" x2="-23" y2="18"/>
+                <CurveTo x1="-24" y1="19" x2="0" y2="19"/>
+                <CurveTo x1="0" y1="20" x2="21" y2="17"/>
+                <CurveTo x1="21" y1="17" x2="20" y2="0"/>
+                <LineTo x="5" y="-1"/>
+                <LineTo x="0" y="-1"/>
+                <CurveTo x1="10" y1="0" x2="9" y2="-32"/>
+                <LineTo x="7" y="-42"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="250" y="-226"/>
+                <CurveTo x1="-56" y1="-6" x2="-23" y2="-49"/>
+                <CurveTo x1="-18" y1="20" x2="-34" y2="68"/>
+                <LineTo x="0" y="-1"/>
+                <LineTo x="-16" y="43"/>
+                <CurveTo x1="-12" y1="26" x2="0" y2="18"/>
+                <CurveTo x1="0" y1="20" x2="20" y2="0"/>
+                <CurveTo x1="66" y1="0" x2="73" y2="-139"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="112">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="357" y="-296" fillStyle0="1"/>
+                <CurveTo x1="0" y1="86" x2="-77" y2="100"/>
+                <CurveTo x1="-80" y1="105" x2="-84" y2="0"/>
+                <CurveTo x1="-8" y1="0" x2="-20" y2="-11"/>
+                <CurveTo x1="-20" y1="-12" x2="-10" y2="0"/>
+                <LineTo x="-33" y="64"/>
+                <LineTo x="-85" y="153"/>
+                <LineTo x="-101" y="13"/>
+                <LineTo x="206" y="-377"/>
+                <LineTo x="45" y="-74"/>
+                <CurveTo x1="27" y1="-44" x2="11" y2="-31"/>
+                <LineTo x="-9" y="-6"/>
+                <CurveTo x1="-40" y1="12" x2="-30" y2="46"/>
+                <CurveTo x1="-34" y1="50" x2="-7" y2="3"/>
+                <LineTo x="-5" y="0"/>
+                <LineTo x="-4" y="-11"/>
+                <CurveTo x1="0" y1="-42" x2="72" y2="-73"/>
+                <CurveTo x1="71" y1="-74" x2="42" y2="0"/>
+                <CurveTo x1="43" y1="0" x2="8" y2="23"/>
+                <LineTo x="12" y="39"/>
+                <CurveTo x1="2" y1="2" x2="5" y2="0"/>
+                <LineTo x="23" y="-4"/>
+                <LineTo x="23" y="-4"/>
+                <CurveTo x1="57" y1="0" x2="0" y2="67"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="263" y="-276"/>
+                <LineTo x="-4" y="-38"/>
+                <LineTo x="-1" y="1"/>
+                <CurveTo x1="-1" y1="-15" x2="-14" y2="-4"/>
+                <CurveTo x1="-16" y1="8" x2="-25" y2="45"/>
+                <LineTo x="-34" y="61"/>
+                <LineTo x="-48" y="80"/>
+                <LineTo x="-42" y="82"/>
+                <CurveTo x1="4" y1="13" x2="14" y2="0"/>
+                <CurveTo x1="15" y1="0" x2="16" y2="-13"/>
+                <LineTo x="0" y="1"/>
+                <CurveTo x1="47" y1="-39" x2="41" y2="-61"/>
+                <CurveTo x1="48" y1="-72" x2="0" y2="-49"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="114">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="363" y="-334" fillStyle0="1"/>
+                <CurveTo x1="0" y1="29" x2="-21" y2="31"/>
+                <CurveTo x1="-24" y1="35" x2="-28" y2="0"/>
+                <CurveTo x1="-5" y1="0" x2="-13" y2="-10"/>
+                <LineTo x="-7" y="-18"/>
+                <CurveTo x1="0" y1="-23" x2="23" y2="-21"/>
+                <CurveTo x1="23" y1="-21" x2="22" y2="4"/>
+                <LineTo x="0" y="-9"/>
+                <CurveTo x1="0" y1="-15" x2="-31" y2="0"/>
+                <LineTo x="-6" y="0"/>
+                <CurveTo x1="-14" y1="0" x2="-56" y2="49"/>
+                <CurveTo x1="-55" y1="48" x2="-13" y2="19"/>
+                <CurveTo x1="-30" y1="46" x2="-33" y2="70"/>
+                <LineTo x="-52" y="120"/>
+                <LineTo x="-103" y="-2"/>
+                <LineTo x="100" y="-214"/>
+                <LineTo x="25" y="-45"/>
+                <CurveTo x1="16" y1="-31" x2="0" y2="-13"/>
+                <CurveTo x1="0" y1="-16" x2="-9" y2="0"/>
+                <LineTo x="-31" y="29"/>
+                <CurveTo x1="-27" y1="30" x2="-8" y2="0"/>
+                <LineTo x="-4" y="-2"/>
+                <LineTo x="-1" y="-3"/>
+                <CurveTo x1="1" y1="-18" x2="57" y2="-61"/>
+                <CurveTo x1="57" y1="-61" x2="17" y2="0"/>
+                <CurveTo x1="47" y1="0" x2="0" y2="79"/>
+                <CurveTo x1="0" y1="9" x2="4" y2="0"/>
+                <CurveTo x1="105" y1="-69" x2="26" y2="0"/>
+                <CurveTo x1="18" y1="0" x2="15" y2="18"/>
+                <CurveTo x1="15" y1="17" x2="0" y2="19"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="115">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="291" y="-192" fillStyle0="1"/>
+                <CurveTo x1="0" y1="72" x2="-63" y2="63"/>
+                <CurveTo x1="-64" y1="63" x2="-73" y2="0"/>
+                <CurveTo x1="-44" y1="0" x2="-34" y2="-21"/>
+                <CurveTo x1="-39" y1="-25" x2="0" y2="-41"/>
+                <CurveTo x1="0" y1="-24" x2="16" y2="-16"/>
+                <CurveTo x1="16" y1="-17" x2="25" y2="0"/>
+                <CurveTo x1="46" y1="0" x2="0" y2="48"/>
+                <CurveTo x1="0" y1="17" x2="-12" y2="13"/>
+                <CurveTo x1="-11" y1="14" x2="-17" y2="0"/>
+                <LineTo x="-17" y="0"/>
+                <CurveTo x1="18" y1="18" x2="24" y2="0"/>
+                <CurveTo x1="63" y1="0" x2="31" y2="-102"/>
+                <CurveTo x1="21" y1="-72" x2="0" y2="-83"/>
+                <LineTo x="0" y="-33"/>
+                <LineTo x="-71" y="63"/>
+                <CurveTo x1="-60" y1="56" x2="-4" y2="0"/>
+                <CurveTo x1="-10" y1="0" x2="0" y2="-11"/>
+                <CurveTo x1="0" y1="-8" x2="51" y2="-47"/>
+                <LineTo x="68" y="-62"/>
+                <CurveTo x1="38" y1="-37" x2="21" y2="-34"/>
+                <CurveTo x1="15" y1="-27" x2="11" y2="0"/>
+                <CurveTo x1="16" y1="0" x2="0" y2="15"/>
+                <LineTo x="-17" y="24"/>
+                <CurveTo x1="-17" y1="21" x2="0" y2="11"/>
+                <CurveTo x1="0" y1="8" x2="37" y2="58"/>
+                <CurveTo x1="36" y1="58" x2="0" y2="38"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="116">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="387" y="-688" fillStyle0="1"/>
+                <LineTo x="-81" y="155"/>
+                <LineTo x="76" y="0"/>
+                <LineTo x="-7" y="27"/>
+                <LineTo x="-89" y="0"/>
+                <LineTo x="-171" y="323"/>
+                <CurveTo x1="-18" y1="35" x2="0" y2="43"/>
+                <LineTo x="11" y="24"/>
+                <LineTo x="5" y="1"/>
+                <CurveTo x1="21" y1="0" x2="41" y2="-48"/>
+                <CurveTo x1="41" y1="-48" x2="13" y2="0"/>
+                <LineTo x="5" y="5"/>
+                <CurveTo x1="0" y1="13" x2="-45" y2="53"/>
+                <CurveTo x1="-90" y1="106" x2="-41" y2="0"/>
+                <CurveTo x1="-26" y1="0" x2="-17" y2="-19"/>
+                <CurveTo x1="-17" y1="-19" x2="0" y2="-25"/>
+                <CurveTo x1="0" y1="-85" x2="55" y2="-120"/>
+                <LineTo x="101" y="-190"/>
+                <LineTo x="123" y="-226"/>
+                <LineTo x="110" y="-5"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="117">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="453" y="-398" fillStyle0="1"/>
+                <LineTo x="-86" y="145"/>
+                <LineTo x="-45" y="73"/>
+                <CurveTo x1="-24" y1="40" x2="-14" y2="37"/>
+                <LineTo x="9" y="6"/>
+                <CurveTo x1="41" y1="-13" x2="32" y2="-48"/>
+                <LineTo x="39" y="-51"/>
+                <LineTo x="4" y="0"/>
+                <LineTo x="4" y="12"/>
+                <CurveTo x1="0" y1="42" x2="-71" y2="73"/>
+                <CurveTo x1="-72" y1="73" x2="-42" y2="0"/>
+                <CurveTo x1="-33" y1="0" x2="-12" y2="-16"/>
+                <CurveTo x1="-4" y1="-4" x2="-14" y2="-41"/>
+                <CurveTo x1="-34" y1="61" x2="-61" y2="0"/>
+                <CurveTo x1="-28" y1="0" x2="-20" y2="-23"/>
+                <CurveTo x1="-21" y1="-24" x2="0" y2="-28"/>
+                <CurveTo x1="0" y1="-20" x2="10" y2="-23"/>
+                <LineTo x="119" y="-262"/>
+                <LineTo x="119" y="-9"/>
+                <CurveTo x1="-41" y1="54" x2="-39" y2="75"/>
+                <CurveTo x1="-47" y1="91" x2="0" y2="48"/>
+                <CurveTo x1="0" y1="12" x2="5" y2="13"/>
+                <CurveTo x1="6" y1="16" x2="10" y2="0"/>
+                <CurveTo x1="27" y1="0" x2="80" y2="-132"/>
+                <CurveTo x1="61" y1="-99" x2="30" y2="-69"/>
+                <LineTo x="112" y="-9"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="118">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="474" y="-278" fillStyle0="1"/>
+                <LineTo x="-11" y="17"/>
+                <CurveTo x1="-97" y1="94" x2="-62" y2="0"/>
+                <LineTo x="-25" y="0"/>
+                <CurveTo x1="-17" y1="32" x2="-45" y2="42"/>
+                <CurveTo x1="-44" y1="43" x2="-34" y2="20"/>
+                <CurveTo x1="-33" y1="21" x2="-36" y2="0"/>
+                <CurveTo x1="-28" y1="0" x2="-20" y2="-23"/>
+                <CurveTo x1="-21" y1="-24" x2="0" y2="-28"/>
+                <CurveTo x1="0" y1="-20" x2="10" y2="-23"/>
+                <LineTo x="119" y="-262"/>
+                <LineTo x="119" y="-9"/>
+                <CurveTo x1="-41" y1="54" x2="-39" y2="75"/>
+                <CurveTo x1="-47" y1="91" x2="0" y2="48"/>
+                <CurveTo x1="0" y1="10" x2="6" y2="16"/>
+                <CurveTo x1="7" y1="15" x2="8" y2="0"/>
+                <CurveTo x1="59" y1="0" x2="58" y2="-88"/>
+                <CurveTo x1="-31" y1="-32" x2="0" y2="-40"/>
+                <CurveTo x1="0" y1="-53" x2="36" y2="-65"/>
+                <CurveTo x1="40" y1="-71" x2="50" y2="0"/>
+                <CurveTo x1="44" y1="0" x2="0" y2="60"/>
+                <CurveTo x1="0" y1="75" x2="-101" y2="117"/>
+                <LineTo x="9" y="0"/>
+                <CurveTo x1="36" y1="0" x2="62" y2="-50"/>
+                <LineTo x="61" y="-49"/>
+                <CurveTo x1="8" y1="0" x2="0" y2="7"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup x="366" y="-337"/>
+                <CurveTo x1="0" y1="-18" x2="-20" y2="0"/>
+                <CurveTo x1="-35" y1="0" x2="-29" y2="36"/>
+                <CurveTo x1="-28" y1="36" x2="0" y2="35"/>
+                <CurveTo x1="0" y1="32" x2="21" y2="23"/>
+                <CurveTo x1="91" y1="-105" x2="0" y2="-39"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="120">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="639" y="-350" fillStyle0="1"/>
+                <CurveTo x1="-81" y1="46" x2="-151" y2="176"/>
+                <LineTo x="-74" y="83"/>
+                <CurveTo x1="-55" y1="51" x2="-38" y2="0"/>
+                <CurveTo x1="-94" y1="0" x2="0" y2="-167"/>
+                <CurveTo x1="-30" y1="74" x2="-29" y2="39"/>
+                <CurveTo x1="-47" y1="64" x2="-54" y2="0"/>
+                <CurveTo x1="-53" y1="0" x2="0" y2="-53"/>
+                <CurveTo x1="0" y1="-58" x2="50" y2="0"/>
+                <CurveTo x1="49" y1="0" x2="8" y2="52"/>
+                <CurveTo x1="50" y1="-39" x2="35" y2="-76"/>
+                <CurveTo x1="34" y1="-74" x2="0" y2="-66"/>
+                <CurveTo x1="0" y1="-23" x2="-16" y2="0"/>
+                <CurveTo x1="-14" y1="0" x2="-42" y2="39"/>
+                <CurveTo x1="-43" y1="40" x2="-9" y2="0"/>
+                <LineTo x="-4" y="-1"/>
+                <LineTo x="-2" y="-5"/>
+                <CurveTo x1="2" y1="-22" x2="75" y2="-66"/>
+                <CurveTo x1="76" y1="-65" x2="23" y2="0"/>
+                <CurveTo x1="64" y1="0" x2="0" y2="119"/>
+                <LineTo x="-4" y="44"/>
+                <CurveTo x1="28" y1="-74" x2="21" y2="-32"/>
+                <CurveTo x1="40" y1="-61" x2="49" y2="0"/>
+                <CurveTo x1="26" y1="0" x2="17" y2="14"/>
+                <CurveTo x1="18" y1="14" x2="0" y2="25"/>
+                <CurveTo x1="0" y1="52" x2="-50" y2="0"/>
+                <CurveTo x1="-52" y1="0" x2="0" y2="-45"/>
+                <LineTo x="4" y="-19"/>
+                <CurveTo x1="-52" y1="31" x2="-37" y2="149"/>
+                <CurveTo x1="-23" y1="93" x2="0" y2="43"/>
+                <CurveTo x1="0" y1="22" x2="16" y2="0"/>
+                <CurveTo x1="18" y1="0" x2="75" y2="-86"/>
+                <LineTo x="141" y="-156"/>
+                <CurveTo x1="82" y1="-85" x2="37" y2="0"/>
+                <LineTo x="16" y="3"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+          <Glyph map="121">
+            <GlyphShape>
+              <edges>
+                <ShapeSetup x="459" y="-177" fillStyle0="1"/>
+                <CurveTo x1="-113" y1="110" x2="-104" y2="36"/>
+                <CurveTo x1="-158" y1="304" x2="-143" y2="0"/>
+                <CurveTo x1="-37" y1="0" x2="-27" y2="-19"/>
+                <CurveTo x1="-31" y1="-21" x2="0" y2="-36"/>
+                <CurveTo x1="0" y1="-123" x2="294" y2="-95"/>
+                <LineTo x="27" y="-47"/>
+                <LineTo x="-1" y="-2"/>
+                <CurveTo x1="-34" y1="61" x2="-62" y2="0"/>
+                <CurveTo x1="-27" y1="0" x2="-21" y2="-23"/>
+                <CurveTo x1="-20" y1="-24" x2="0" y2="-28"/>
+                <CurveTo x1="0" y1="-35" x2="59" y2="-102"/>
+                <LineTo x="59" y="-108"/>
+                <LineTo x="-6" y="-8"/>
+                <CurveTo x1="-10" y1="0" x2="-33" y2="30"/>
+                <LineTo x="-39" y="29"/>
+                <LineTo x="-3" y="-1"/>
+                <LineTo x="-3" y="-3"/>
+                <CurveTo x1="5" y1="-22" x2="58" y2="-49"/>
+                <CurveTo x1="58" y1="-49" x2="22" y2="0"/>
+                <CurveTo x1="54" y1="0" x2="-1" y2="69"/>
+                <CurveTo x1="-24" y1="36" x2="-34" y2="74"/>
+                <CurveTo x1="-38" y1="83" x2="0" y2="30"/>
+                <CurveTo x1="0" y1="21" x2="17" y2="0"/>
+                <CurveTo x1="24" y1="0" x2="74" y2="-116"/>
+                <CurveTo x1="67" y1="-103" x2="16" y2="-43"/>
+                <LineTo x="7" y="0"/>
+                <LineTo x="6" y="-13"/>
+                <LineTo x="8" y="-16"/>
+                <LineTo x="6" y="-13"/>
+                <LineTo x="43" y="-9"/>
+                <LineTo x="48" y="3"/>
+                <CurveTo x1="-7" y1="27" x2="-52" y2="94"/>
+                <CurveTo x1="-74" y1="138" x2="-53" y2="84"/>
+                <CurveTo x1="67" y1="-23" x2="105" y2="-93"/>
+                <LineTo x="31" y="-5"/>
+                <ShapeSetup x="133" y="-1"/>
+                <CurveTo x1="-85" y1="29" x2="-69" y2="47"/>
+                <CurveTo x1="-95" y1="66" x2="0" y2="63"/>
+                <CurveTo x1="0" y1="48" x2="50" y2="0"/>
+                <CurveTo x1="72" y1="0" x2="127" y2="-253"/>
+                <LineTo x="0" y="0"/>
+                <ShapeSetup/>
+              </edges>
+            </GlyphShape>
+          </Glyph>
+        </glyphs>
+      </DefineFont2>
+      <DefineText objectID="3">
+        <bounds>
+          <Rectangle left="-3343" right="5471" top="0" bottom="1839"/>
+        </bounds>
+        <transform>
+          <Transform transX="-3342" transY="0"/>
+        </transform>
+        <records>
+          <TextRecord>
+            <records>
+              <TextRecord6 isSetup="1" objectID="2" x="500" y="640" fontHeight="800">
+                <color>
+                  <Color red="204" green="0" blue="0"/>
+                </color>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="1" advance="492"/>
+                  <TextEntry glyph="6" advance="278"/>
+                  <TextEntry glyph="7" advance="151"/>
+                  <TextEntry glyph="14" advance="219"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="15" advance="185"/>
+                  <TextEntry glyph="5" advance="235"/>
+                  <TextEntry glyph="18" advance="333"/>
+                  <TextEntry glyph="15" advance="185"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="14" advance="219"/>
+                  <TextEntry glyph="6" advance="278"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="16" advance="331"/>
+                  <TextEntry glyph="8" advance="179"/>
+                  <TextEntry glyph="4" advance="310"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="4" advance="310"/>
+                  <TextEntry glyph="7" advance="151"/>
+                  <TextEntry glyph="14" advance="219"/>
+                  <TextEntry glyph="2" advance="330"/>
+                  <TextEntry glyph="12" advance="267"/>
+                  <TextEntry glyph="12" advance="267"/>
+                  <TextEntry glyph="5" advance="235"/>
+                  <TextEntry glyph="2" advance="330"/>
+                  <TextEntry glyph="13" advance="235"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="2" advance="330"/>
+                  <TextEntry glyph="10" advance="301"/>
+                  <TextEntry glyph="4" advance="310"/>
+                  <TextEntry glyph="0" advance="135"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="1" x="0" y="1620"/>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="15" advance="185"/>
+                  <TextEntry glyph="6" advance="278"/>
+                  <TextEntry glyph="5" advance="235"/>
+                  <TextEntry glyph="10" advance="301"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="9" advance="460"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="17" advance="278"/>
+                  <TextEntry glyph="7" advance="151"/>
+                  <TextEntry glyph="5" advance="235"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="14" advance="219"/>
+                  <TextEntry glyph="6" advance="278"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="16" advance="331"/>
+                  <TextEntry glyph="8" advance="179"/>
+                  <TextEntry glyph="4" advance="310"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="8" advance="179"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="12" advance="267"/>
+                  <TextEntry glyph="0" advance="135"/>
+                  <TextEntry glyph="3" advance="251"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="10" advance="301"/>
+                  <TextEntry glyph="15" advance="185"/>
+                  <TextEntry glyph="7" advance="151"/>
+                  <TextEntry glyph="10" advance="301"/>
+                  <TextEntry glyph="16" advance="331"/>
+                  <TextEntry glyph="11" advance="246"/>
+                  <TextEntry glyph="16" advance="331"/>
+                  <TextEntry glyph="14" advance="219"/>
+                  <TextEntry glyph="8" advance="179"/>
+                  <TextEntry glyph="19" advance="310"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs/>
+              </TextRecord6>
+            </records>
+          </TextRecord>
+        </records>
+      </DefineText>
+      <PlaceObject2 replace="0" depth="2" objectID="3">
+        <transform>
+          <Transform transX="3420" transY="1200"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.1524505615234375" scaleY="0.1524505615234375" skewX="-0.9874114990234375" skewY="0.9874114990234375" transX="-818" transY="1631"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.2803039550781250" scaleY="0.2803039550781250" skewX="-0.9582977294921875" skewY="0.9582977294921875" transX="-400" transY="1639"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.4032440185546875" scaleY="0.4032440185546875" skewX="-0.9126892089843750" skewY="0.9126892089843750" transX="17" transY="1649"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.5220031738281250" scaleY="0.5220031738281250" skewX="-0.8497314453125000" skewY="0.8497314453125000" transX="435" transY="1657"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6287231445312500" scaleY="0.6287231445312500" skewX="-0.7735443115234375" skewY="0.7735443115234375" transX="854" transY="1665"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7245635986328125" scaleY="0.7245635986328125" skewX="-0.6840972900390625" skewY="0.6840972900390625" transX="1273" transY="1675"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8098297119140625" scaleY="0.8098297119140625" skewX="-0.5803070068359375" skewY="0.5803070068359375" transX="1690" transY="1683"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8788909912109375" scaleY="0.8788909912109375" skewX="-0.4689941406250000" skewY="0.4689941406250000" transX="2108" transY="1693"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9327545166015625" scaleY="0.9327545166015625" skewX="-0.3496856689453125" skewY="0.3496856689453125" transX="2527" transY="1702"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9712371826171875" scaleY="0.9712371826171875" skewX="-0.2248992919921875" skewY="0.2248992919921875" transX="2945" transY="1710"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9968719482421875" scaleY="0.9968719482421875" skewX="0.0004272460937500000" skewY="-0.0004272460937500000" transX="3410" transY="1721"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9703521728515625" scaleY="0.9703521728515625" skewX="0.2252502441406250" skewY="-0.2252502441406250" transX="3874" transY="1730"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8923339843750000" scaleY="0.8923339843750000" skewX="0.4413757324218750" skewY="-0.4413757324218750" transX="4338" transY="1741"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7670440673828125" scaleY="0.7670440673828125" skewX="0.6340637207031250" skewY="-0.6340637207031250" transX="4803" transY="1751"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6036529541015625" scaleY="0.6036529541015625" skewX="0.7911682128906250" skewY="-0.7911682128906250" transX="5266" transY="1762"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.4062194824218750" scaleY="0.4062194824218750" skewX="0.9088134765625000" skewY="-0.9088134765625000" transX="5730" transY="1771"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.1904754638671875" scaleY="0.1904754638671875" skewX="0.9776611328125000" skewY="-0.9776611328125000" transX="6196" transY="1781"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.03507995605468750" scaleY="-0.03507995605468750" skewX="0.9958801269531250" skewY="-0.9958801269531250" transX="6658" transY="1792"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.2587890625000000" scaleY="-0.2587890625000000" skewX="0.9615173339843750" skewY="-0.9615173339843750" transX="7124" transY="1801"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.4731597900390625" scaleY="-0.4731597900390625" skewX="0.8770446777343750" skewY="-0.8770446777343750" transX="7589" transY="1812"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.6307678222656250" scaleY="-0.6307678222656250" skewX="0.7695922851562500" skewY="-0.7695922851562500" transX="8054" transY="1822"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.7664184570312500" scaleY="-0.7664184570312500" skewX="0.6348724365234375" skewY="-0.6348724365234375" transX="8518" transY="1833"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.8724212646484375" scaleY="-0.8724212646484375" skewX="0.4796752929687500" skewY="-0.4796752929687500" transX="8981" transY="1843"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9485168457031250" scaleY="-0.9485168457031250" skewX="0.3043365478515625" skewY="-0.3043365478515625" transX="9446" transY="1853"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9898986816406250" scaleY="-0.9898986816406250" skewX="0.1177673339843750" skewY="-0.1177673339843750" transX="9911" transY="1863"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9947052001953125" scaleY="-0.9947052001953125" skewX="-0.06991577148437500" skewY="0.06991577148437500" transX="10374" transY="1873"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9626617431640625" scaleY="-0.9626617431640625" skewX="-0.2583312988281250" skewY="0.2583312988281250" transX="10837" transY="1883"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.8967132568359375" scaleY="-0.8967132568359375" skewX="-0.4343566894531250" skewY="0.4343566894531250" transX="11302" transY="1893"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.7970581054687500" scaleY="-0.7970581054687500" skewX="-0.5977020263671875" skewY="0.5977020263671875" transX="11767" transY="1902"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.6691436767578125" scaleY="-0.6691436767578125" skewX="-0.7404022216796875" skewY="0.7404022216796875" transX="12232" transY="1912"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.02210998535156250" scaleY="0.02210998535156250" skewX="-0.9996795654296875" skewY="0.9996795654296875" transX="-1236" transY="1621"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.1524505615234375" scaleY="0.1524505615234375" skewX="-0.9874114990234375" skewY="0.9874114990234375" transX="-818" transY="1631"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.2803039550781250" scaleY="0.2803039550781250" skewX="-0.9582977294921875" skewY="0.9582977294921875" transX="-400" transY="1639"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.4032440185546875" scaleY="0.4032440185546875" skewX="-0.9126892089843750" skewY="0.9126892089843750" transX="17" transY="1649"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.5220031738281250" scaleY="0.5220031738281250" skewX="-0.8497314453125000" skewY="0.8497314453125000" transX="435" transY="1657"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6287231445312500" scaleY="0.6287231445312500" skewX="-0.7735443115234375" skewY="0.7735443115234375" transX="854" transY="1665"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7245635986328125" scaleY="0.7245635986328125" skewX="-0.6840972900390625" skewY="0.6840972900390625" transX="1273" transY="1675"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8098297119140625" scaleY="0.8098297119140625" skewX="-0.5803070068359375" skewY="0.5803070068359375" transX="1690" transY="1683"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8788909912109375" scaleY="0.8788909912109375" skewX="-0.4689941406250000" skewY="0.4689941406250000" transX="2108" transY="1693"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9327545166015625" scaleY="0.9327545166015625" skewX="-0.3496856689453125" skewY="0.3496856689453125" transX="2527" transY="1702"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9712371826171875" scaleY="0.9712371826171875" skewX="-0.2248992919921875" skewY="0.2248992919921875" transX="2945" transY="1710"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9968719482421875" scaleY="0.9968719482421875" skewX="0.0004272460937500000" skewY="-0.0004272460937500000" transX="3410" transY="1721"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9703521728515625" scaleY="0.9703521728515625" skewX="0.2252502441406250" skewY="-0.2252502441406250" transX="3874" transY="1730"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8923339843750000" scaleY="0.8923339843750000" skewX="0.4413757324218750" skewY="-0.4413757324218750" transX="4338" transY="1741"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7670440673828125" scaleY="0.7670440673828125" skewX="0.6340637207031250" skewY="-0.6340637207031250" transX="4803" transY="1751"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6036529541015625" scaleY="0.6036529541015625" skewX="0.7911682128906250" skewY="-0.7911682128906250" transX="5266" transY="1762"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.4062194824218750" scaleY="0.4062194824218750" skewX="0.9088134765625000" skewY="-0.9088134765625000" transX="5730" transY="1771"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.1904754638671875" scaleY="0.1904754638671875" skewX="0.9776611328125000" skewY="-0.9776611328125000" transX="6196" transY="1781"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.03507995605468750" scaleY="-0.03507995605468750" skewX="0.9958801269531250" skewY="-0.9958801269531250" transX="6658" transY="1792"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.2587890625000000" scaleY="-0.2587890625000000" skewX="0.9615173339843750" skewY="-0.9615173339843750" transX="7124" transY="1801"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.4731597900390625" scaleY="-0.4731597900390625" skewX="0.8770446777343750" skewY="-0.8770446777343750" transX="7589" transY="1812"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.6307678222656250" scaleY="-0.6307678222656250" skewX="0.7695922851562500" skewY="-0.7695922851562500" transX="8054" transY="1822"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.7664184570312500" scaleY="-0.7664184570312500" skewX="0.6348724365234375" skewY="-0.6348724365234375" transX="8518" transY="1833"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.8724212646484375" scaleY="-0.8724212646484375" skewX="0.4796752929687500" skewY="-0.4796752929687500" transX="8981" transY="1843"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9485168457031250" scaleY="-0.9485168457031250" skewX="0.3043365478515625" skewY="-0.3043365478515625" transX="9446" transY="1853"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9898986816406250" scaleY="-0.9898986816406250" skewX="0.1177673339843750" skewY="-0.1177673339843750" transX="9911" transY="1863"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9947052001953125" scaleY="-0.9947052001953125" skewX="-0.06991577148437500" skewY="0.06991577148437500" transX="10374" transY="1873"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9626617431640625" scaleY="-0.9626617431640625" skewX="-0.2583312988281250" skewY="0.2583312988281250" transX="10837" transY="1883"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.8967132568359375" scaleY="-0.8967132568359375" skewX="-0.4343566894531250" skewY="0.4343566894531250" transX="11302" transY="1893"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.7970581054687500" scaleY="-0.7970581054687500" skewX="-0.5977020263671875" skewY="0.5977020263671875" transX="11767" transY="1902"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.6691436767578125" scaleY="-0.6691436767578125" skewX="-0.7404022216796875" skewY="0.7404022216796875" transX="12232" transY="1912"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <RemoveObject2 depth="2"/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.02210998535156250" scaleY="0.02210998535156250" skewX="-0.9996795654296875" skewY="0.9996795654296875" transX="-1236" transY="1621"/>
+        </transform>
+      </PlaceObject2>
+      <DefineShape objectID="4">
+        <bounds>
+          <Rectangle left="-990" right="990" top="-630" bottom="630"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="51" green="255" blue="255"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-980" y="-620" fillStyle1="1" lineStyle="1"/>
+              <LineTo x="1960" y="0"/>
+              <LineTo x="0" y="1240"/>
+              <LineTo x="-1960" y="0"/>
+              <LineTo x="0" y="-1240"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="5" frames="71">
+        <tags>
+          <PlaceObject2 replace="0" depth="1" objectID="4">
+            <transform>
+              <Transform transX="-4990" transY="-2150"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4418" transY="-2327"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-3846" transY="-2500"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-3272" transY="-2670"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-2711" transY="-2838"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-2154" transY="-3000"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-1576" transY="-3124"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-971" transY="-3151"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-359" transY="-3168"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="239" transY="-3216"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="825" transY="-3234"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1418" transY="-3160"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1984" transY="-2966"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2504" transY="-2662"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3003" transY="-2317"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3534" transY="-2022"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4053" transY="-1750"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4509" transY="-1374"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4727" transY="-821"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4713" transY="-211"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4596" transY="389"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4457" transY="979"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4351" transY="1578"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4269" transY="2174"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4197" transY="2742"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="4075" transY="3316"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3641" transY="3635"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3083" transY="3371"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2593" transY="3004"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2103" transY="2654"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1588" transY="2340"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1053" transY="2057"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="495" transY="1797"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-64" transY="1551"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-205" transY="1339"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="426" transY="1378"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1052" transY="1429"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1687" transY="1476"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2303" transY="1519"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2897" transY="1563"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3473" transY="1629"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3746" transY="1954"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="3232" transY="2307"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2695" transY="2601"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="2198" transY="2929"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1779" transY="3353"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="1451" transY="3848"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="878" transY="3942"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="273" transY="3785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-313" transY="3597"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-913" transY="3462"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-1515" transY="3415"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-2099" transY="3333"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-2669" transY="3158"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-3194" transY="2872"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-3652" transY="2481"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4034" transY="2014"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4352" transY="1505"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4739" transY="1050"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5223" transY="696"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5776" transY="456"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-6365" transY="316"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-6986" transY="246"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-7479" transY="75"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-7004" transY="-308"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-6535" transY="-679"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-6099" transY="-1060"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5535" transY="-1118"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4965" transY="-1000"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4930" transY="-1577"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5051" transY="-2160"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="2" objectID="5" morph="62">
+        <transform>
+          <Transform transX="6677" transY="4317"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.1524505615234375" scaleY="0.1524505615234375" skewX="-0.9874114990234375" skewY="0.9874114990234375" transX="-818" transY="1631"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.2803039550781250" scaleY="0.2803039550781250" skewX="-0.9582977294921875" skewY="0.9582977294921875" transX="-400" transY="1639"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.4032440185546875" scaleY="0.4032440185546875" skewX="-0.9126892089843750" skewY="0.9126892089843750" transX="17" transY="1649"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.5220031738281250" scaleY="0.5220031738281250" skewX="-0.8497314453125000" skewY="0.8497314453125000" transX="435" transY="1657"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6287231445312500" scaleY="0.6287231445312500" skewX="-0.7735443115234375" skewY="0.7735443115234375" transX="854" transY="1665"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7245635986328125" scaleY="0.7245635986328125" skewX="-0.6840972900390625" skewY="0.6840972900390625" transX="1273" transY="1675"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8098297119140625" scaleY="0.8098297119140625" skewX="-0.5803070068359375" skewY="0.5803070068359375" transX="1690" transY="1683"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8788909912109375" scaleY="0.8788909912109375" skewX="-0.4689941406250000" skewY="0.4689941406250000" transX="2108" transY="1693"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9327545166015625" scaleY="0.9327545166015625" skewX="-0.3496856689453125" skewY="0.3496856689453125" transX="2527" transY="1702"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9712371826171875" scaleY="0.9712371826171875" skewX="-0.2248992919921875" skewY="0.2248992919921875" transX="2945" transY="1710"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9968719482421875" scaleY="0.9968719482421875" skewX="0.0004272460937500000" skewY="-0.0004272460937500000" transX="3410" transY="1721"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.9703521728515625" scaleY="0.9703521728515625" skewX="0.2252502441406250" skewY="-0.2252502441406250" transX="3874" transY="1730"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.8923339843750000" scaleY="0.8923339843750000" skewX="0.4413757324218750" skewY="-0.4413757324218750" transX="4338" transY="1741"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.7670440673828125" scaleY="0.7670440673828125" skewX="0.6340637207031250" skewY="-0.6340637207031250" transX="4803" transY="1751"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.6036529541015625" scaleY="0.6036529541015625" skewX="0.7911682128906250" skewY="-0.7911682128906250" transX="5266" transY="1762"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.4062194824218750" scaleY="0.4062194824218750" skewX="0.9088134765625000" skewY="-0.9088134765625000" transX="5730" transY="1771"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="0.1904754638671875" scaleY="0.1904754638671875" skewX="0.9776611328125000" skewY="-0.9776611328125000" transX="6196" transY="1781"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.03507995605468750" scaleY="-0.03507995605468750" skewX="0.9958801269531250" skewY="-0.9958801269531250" transX="6658" transY="1792"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.2587890625000000" scaleY="-0.2587890625000000" skewX="0.9615173339843750" skewY="-0.9615173339843750" transX="7124" transY="1801"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.4731597900390625" scaleY="-0.4731597900390625" skewX="0.8770446777343750" skewY="-0.8770446777343750" transX="7589" transY="1812"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.6307678222656250" scaleY="-0.6307678222656250" skewX="0.7695922851562500" skewY="-0.7695922851562500" transX="8054" transY="1822"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.7664184570312500" scaleY="-0.7664184570312500" skewX="0.6348724365234375" skewY="-0.6348724365234375" transX="8518" transY="1833"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.8724212646484375" scaleY="-0.8724212646484375" skewX="0.4796752929687500" skewY="-0.4796752929687500" transX="8981" transY="1843"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9485168457031250" scaleY="-0.9485168457031250" skewX="0.3043365478515625" skewY="-0.3043365478515625" transX="9446" transY="1853"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9898986816406250" scaleY="-0.9898986816406250" skewX="0.1177673339843750" skewY="-0.1177673339843750" transX="9911" transY="1863"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9947052001953125" scaleY="-0.9947052001953125" skewX="-0.06991577148437500" skewY="0.06991577148437500" transX="10374" transY="1873"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.9626617431640625" scaleY="-0.9626617431640625" skewX="-0.2583312988281250" skewY="0.2583312988281250" transX="10837" transY="1883"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.8967132568359375" scaleY="-0.8967132568359375" skewX="-0.4343566894531250" skewY="0.4343566894531250" transX="11302" transY="1893"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.7970581054687500" scaleY="-0.7970581054687500" skewX="-0.5977020263671875" skewY="0.5977020263671875" transX="11767" transY="1902"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <GotoFrame frame="62"/>
+          <Play/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <PlaceObject2 replace="1" depth="1">
+        <transform>
+          <Transform scaleX="-0.6691436767578125" scaleY="-0.6691436767578125" skewX="-0.7404022216796875" skewY="0.7404022216796875" transX="12232" transY="1912"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

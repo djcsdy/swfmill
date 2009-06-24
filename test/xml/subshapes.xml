@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<swf version="5" compressed="0">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineShape2 objectID="1">
+        <bounds>
+          <Rectangle left="960" right="9759" top="520" bottom="7640"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="255" green="255" blue="0"/>
+                </color>
+              </Solid>
+              <Solid>
+                <color>
+                  <Color red="153" green="153" blue="153"/>
+                </color>
+              </Solid>
+              <Solid>
+                <color>
+                  <Color red="204" green="204" blue="204"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="200">
+                <color>
+                  <Color red="255" green="255" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="8999" y="5660" fillStyle1="3"/>
+              <LineTo x="-6319" y="0"/>
+              <LineTo x="0" y="-2720"/>
+              <LineTo x="6319" y="0"/>
+              <LineTo x="0" y="2720"/>
+              <ShapeSetup x="0" y="0" fillStyle0="0" fillStyle1="0" lineStyle="0">
+                <styles>
+                  <StyleList>
+                    <fillStyles/>
+                    <lineStyles>
+                      <LineStyle width="200">
+                        <color>
+                          <Color red="255" green="255" blue="0"/>
+                        </color>
+                      </LineStyle>
+                      <LineStyle width="200">
+                        <color>
+                          <Color red="255" green="0" blue="0"/>
+                        </color>
+                      </LineStyle>
+                      <LineStyle width="400">
+                        <color>
+                          <Color red="255" green="0" blue="0"/>
+                        </color>
+                      </LineStyle>
+                    </lineStyles>
+                  </StyleList>
+                </styles>
+              </ShapeSetup>
+              <ShapeSetup x="1160" y="7440" lineStyle="3"/>
+              <LineTo x="8399" y="-6720"/>
+              <ShapeSetup x="0" y="0" fillStyle0="0" fillStyle1="0" lineStyle="0">
+                <styles>
+                  <StyleList>
+                    <fillStyles>
+                      <Solid>
+                        <color>
+                          <Color red="0" green="0" blue="255"/>
+                        </color>
+                      </Solid>
+                    </fillStyles>
+                    <lineStyles>
+                      <LineStyle width="200">
+                        <color>
+                          <Color red="255" green="255" blue="0"/>
+                        </color>
+                      </LineStyle>
+                    </lineStyles>
+                  </StyleList>
+                </styles>
+              </ShapeSetup>
+              <ShapeSetup x="8359" y="5020" fillStyle1="1"/>
+              <LineTo x="-6219" y="0"/>
+              <LineTo x="0" y="-2800"/>
+              <LineTo x="6219" y="0"/>
+              <LineTo x="0" y="2800"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape2>
+      <PlaceObject2 replace="0" depth="3" objectID="1">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>
