@@ -3,7 +3,7 @@
 namespace SWF {
 
 void TransformParser::printWarning(const std::string& transformType) {
-	cerr << "WARNING: wrong number of parameters in " << transformType << " transformation" << endl;
+	std::cerr << "WARNING: wrong number of parameters in " << transformType << " transformation" << std::endl;
 }
 
 void TransformParser::handleData(const std::string& transformType, const std::vector<std::string>& params) {
@@ -63,7 +63,7 @@ void TransformParser::handleData(const std::string& transformType, const std::ve
 			printWarning(transformType);
 		}
 	} else {
-		cerr << "WARNING: unknown SVG transformation (" << transformType << ")" << endl;
+		std::cerr << "WARNING: unknown SVG transformation (" << transformType << ")" << std::endl;
 	}
 }
 

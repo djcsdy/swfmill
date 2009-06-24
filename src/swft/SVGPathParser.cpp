@@ -26,7 +26,7 @@ void PathParser::parse(const char *path) {
 
 			if(charType == COMMAND_ABSOLUTE || charType == COMMAND_RELATIVE) {
 				if(params.size() > 0) {
-					cerr << "WARNING: too much parameters in SVG path" << endl;
+					std::cerr << "WARNING: too much parameters in SVG path" << std::endl;
 					params.clear();
 				}
 				
@@ -48,7 +48,7 @@ void PathParser::parse(const char *path) {
 		
 	}
 	if(params.size() > 0) {
-		cerr << "WARNING: too much parameters in SVG path" << endl;
+		std::cerr << "WARNING: too much parameters in SVG path" << std::endl;
 		params.clear();
 	}
 	shaper->close(false);
@@ -145,7 +145,7 @@ void PathParser::executeCommand(char command, bool repeated) {
 			break;
 		
 		default:
-			cerr << "WARNING: SVG path command not implemented (" << command << ")" << endl;
+			std::cerr << "WARNING: SVG path command not implemented (" << command << ")" << std::endl;
 			break;
 	}
 }

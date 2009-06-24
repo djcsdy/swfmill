@@ -170,7 +170,7 @@ void SVGStyle::writeXML(xmlNodePtr parent, double movieVersion) {
 			stroke.writeXML(node);
 
 			if(_hasLineCap || _hasLineJoin) {
-				cerr << "WARNING: some svg features aren't supported before swf version 8" << endl;
+				std::cerr << "WARNING: some svg features aren't supported before swf version 8" << std::endl;
 			}
 		}
 	}

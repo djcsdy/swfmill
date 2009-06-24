@@ -57,7 +57,7 @@ bool SVGColor::parse(std::string &color) {
 				b = c[2];
 				a = 255;
 			} else {
-				cerr << "WARNING: can't parse color" << endl;
+				std::cerr << "WARNING: can't parse color" << std::endl;
 				return false;
 			}
 		} else if(color.substr(0, 3) == "rgb") {
@@ -71,7 +71,7 @@ bool SVGColor::parse(std::string &color) {
 				a = 255;
 				return true;
 			} else {
-				cerr << "WARNING: can't parse rgb color" << endl;	
+				std::cerr << "WARNING: can't parse rgb color" << std::endl;	
 				return false;
 			}
 		} else {
@@ -84,7 +84,7 @@ bool SVGColor::parse(std::string &color) {
 					return true;
 				}
 			}
-			cerr << "WARNING: color name not found (" << color << ")" << endl;	
+			std::cerr << "WARNING: color name not found (" << color << ")" << std::endl;	
 			return false;
 		}
 	}

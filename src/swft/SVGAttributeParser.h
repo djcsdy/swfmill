@@ -7,7 +7,7 @@
 #include <libxml/tree.h>
 #include "Parser.h"
 
-using namespace std;
+
 
 namespace SWF {
 

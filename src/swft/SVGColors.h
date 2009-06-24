@@ -3,7 +3,7 @@
 
 #include <string>
 
-using namespace std;
+
 
 struct ColorStruct {
 	std::string name;

@@ -8,7 +8,7 @@
 #include "Geom.h"
 #include "Parser.h"
 
-using namespace std;
+
 
 namespace SWF {
 

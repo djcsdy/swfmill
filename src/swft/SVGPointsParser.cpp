@@ -28,7 +28,7 @@ void PointsParser::parse(const char *points) {
 	}
 	
 	if(coords.size() % 2) {
-		cerr << "WARNING: odd number of coordinates in points attribute" << endl;
+		std::cerr << "WARNING: odd number of coordinates in points attribute" << std::endl;
 	}
 }
 

@@ -10,7 +10,7 @@
 #include "SWFShapeMaker.h"
 #include "SWF.h"
 
-using namespace std;
+
 
 namespace SWF {
 

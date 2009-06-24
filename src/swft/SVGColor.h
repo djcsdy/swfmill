@@ -6,7 +6,7 @@
 #include <iostream>
 #include <libxml/tree.h>
 
-using namespace std;
+
 
 namespace SWF {
 

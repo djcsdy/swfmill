@@ -9,7 +9,7 @@
 #include "SVGAttributeParser.h"
 #include "SWFShapeMaker.h"
 
-using namespace std;
+
 
 namespace SWF {
 
