@@ -23,14 +23,14 @@ SVGStyle::SVGStyle() {
 	strokeWidth = 1;
 }
 
-void SVGStyle::parseNode(xmlNodePtr node, map<string, SVGGradient*> &gradients) {
+void SVGStyle::parseNode(xmlNodePtr node, std::map<std::string, SVGGradient*> &gradients) {
 	AttributeParser parser;
 	parser.parseNode(node);
 
-	map<string, string> &attributes = parser.getAttributes();
-	for(map<string, string>::iterator iter = attributes.begin(); iter != attributes.end(); iter++) {
-		const string &attribute = (*iter).first;
-		const string &valueStr = (*iter).second;
+	std::map<std::string, std::string> &attributes = parser.getAttributes();
+	for(std::map<std::string, std::string>::iterator iter = attributes.begin(); iter != attributes.end(); iter++) {
+		const std::string &attribute = (*iter).first;
+		const std::string &valueStr = (*iter).second;
 		const char *value = valueStr.c_str();
 		
 		if(attribute == "stroke") {
@@ -67,9 +67,9 @@ void SVGStyle::parseNode(xmlNodePtr node, map<string, SVGGradient*> &gradients) 
 	}
 }
 
-SVGGradient *SVGStyle::getGradient(const string &str, map<string, SVGGradient*> &gradients) {
+SVGGradient *SVGStyle::getGradient(const std::string &str, std::map<std::string, SVGGradient*> &gradients) {
 	if(str.substr(0, 4) == "url(" && str.substr(str.length() - 1) == ")") {
-		map<string, SVGGradient*>::iterator i;
+		std::map<std::string, SVGGradient*>::iterator i;
 		i = gradients.find(str.substr(5, str.length() - 6));
 		if(i != gradients.end()) {
 			return (*i).second;

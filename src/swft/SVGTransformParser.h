@@ -23,8 +23,8 @@ class TransformParser : public Parser {
 	private:
 		Matrix transformMatrix;
 
-		void handleData(const string& transformType, const vector<string>& params);
-		void printWarning(const string& transformType);
+		void handleData(const std::string& transformType, const std::vector<std::string>& params);
+		void printWarning(const std::string& transformType);
 };
 
 }

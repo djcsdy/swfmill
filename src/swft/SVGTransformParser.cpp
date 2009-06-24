@@ -2,11 +2,11 @@
 
 namespace SWF {
 
-void TransformParser::printWarning(const string& transformType) {
+void TransformParser::printWarning(const std::string& transformType) {
 	cerr << "WARNING: wrong number of parameters in " << transformType << " transformation" << endl;
 }
 
-void TransformParser::handleData(const string& transformType, const vector<string>& params) {
+void TransformParser::handleData(const std::string& transformType, const std::vector<std::string>& params) {
 	size_t cnt = params.size();
 	Matrix m;
 

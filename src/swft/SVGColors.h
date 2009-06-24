@@ -6,7 +6,7 @@
 using namespace std;
 
 struct ColorStruct {
-	string name;
+	std::string name;
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;

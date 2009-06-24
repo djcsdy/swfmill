@@ -31,7 +31,7 @@ void SVGColor::setAlpha(double _a) {
 	a = (unsigned char)(_a * 255.0);
 }
 
-bool SVGColor::parse(string &color) {
+bool SVGColor::parse(std::string &color) {
 	if(color == "none" || color == "") {
 		return false;
 	} else {
@@ -92,7 +92,7 @@ bool SVGColor::parse(string &color) {
 }
 
 bool SVGColor::parse(const char *color) {
-	string tmp(color);
+	std::string tmp(color);
 	return parse(tmp);
 }
 

@@ -6,7 +6,7 @@
 namespace SWF {
 
 void PointsParser::parse(const char *points) {
-	string tmp;
+	std::string tmp;
 
 	coords.clear();
 	

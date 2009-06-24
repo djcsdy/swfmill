@@ -20,7 +20,7 @@ class PathParser {
 		void parse(const char *path);
 	
 	private:
-		vector<double> params;
+		std::vector<double> params;
 		ShapeMaker *shaper;
 
 		enum CharType {

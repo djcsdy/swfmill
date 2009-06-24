@@ -101,7 +101,7 @@ void SVGGradient::writeCommonXML(xmlNodePtr parentNode, Matrix& m, bool hasModes
 
 	node = xmlNewChild(parentNode, NULL, (const xmlChar *)"gradientColors", NULL);
 
-	for(map<double, SVGGradientStop>::iterator i = stops.begin(); i != stops.end(); i++) {
+	for(std::map<double, SVGGradientStop>::iterator i = stops.begin(); i != stops.end(); i++) {
 		(*i).second.writeXML(node, (*i).first);
 	}
 }
