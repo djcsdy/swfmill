@@ -37,11 +37,13 @@ NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
 			 xmlns:str=\"http:\/\/exslt.org\/strings\" \
 			 xmlns:math=\"http:\/\/exslt.org\/math\"
 
-%.cpp : %.xml assemble.xsl $(ALL_XSLT)
-	xsltproc assemble.xsl $< > $(addsuffix .xsl, $(basename $<)) 
+SUFFIXES = .cpp .xml
+
+.xml.cpp: assemble.xsl $(ALL_XSLT)
+	xsltproc $(srcdir)/assemble.xsl $< > $(@:%.xml=%.cpp) 
 	echo "#include \"xslt.h\"" > $@
 	echo "const char *xslt_$* = " >> $@
-	sed -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(addsuffix .xsl, $(basename $<)) >> $@
+	sed -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:%.xml=%.cpp) >> $@
 	echo ";" >> $@
 
 libswfmillxslt_la_SOURCES = \
