@@ -4,6 +4,7 @@ AC_PREREQ(2.54)
 AC_INIT( swfmill, 0.2.12.6, dan@subsignal.org )
 AM_INIT_AUTOMAKE( AC_PACKAGE_NAME, AC_PACKAGE_VERSION )
 
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
@@ -20,6 +21,8 @@ fi
 # cross-compile specifics
 AM_CONDITIONAL(IS_WINDOWS, [ echo $host_os | grep mingw > /dev/null ])
 AM_CONDITIONAL(IS_OSX, [ echo $host_os | grep darwin > /dev/null ])
+
+AM_PROG_CC_C_O
 
 # Checks for libraries.
 PKG_CHECK_MODULES(XML, libxml-2.0)
