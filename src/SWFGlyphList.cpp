@@ -1,7 +1,7 @@
 #include "SWFGlyphList.h"
 #include <SWFShapeItem.h>
 #include "SWF.h"
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 

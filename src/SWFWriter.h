@@ -1,7 +1,7 @@
 #ifndef SWF_Writer_H
 #define SWF_Writer_H
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdint.h>
 #include "SWFBasic.h"
 

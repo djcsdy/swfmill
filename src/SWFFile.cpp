@@ -1,8 +1,8 @@
 #include "SWFFile.h"
 #include "SWFReader.h"
 #include "SWFWriter.h"
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
 #include <zlib.h>
 
 namespace SWF {

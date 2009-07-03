@@ -1,5 +1,5 @@
 #include "Parser.h"
-#include <string.h>
+#include <cstring>
 
 namespace SWF {
 

@@ -2,9 +2,9 @@
 #define SWF_SHAPEMAKER_H
 
 #include "Geom.h"
-#include <stdio.h>
+#include <cstdio>
 #include <libxml/tree.h>
-#include <math.h>
+#include <cmath>
 
 namespace SWF {
 

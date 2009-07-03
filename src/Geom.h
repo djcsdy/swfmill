@@ -2,7 +2,7 @@
 #define GEOM_H
 
 #include <libxml/tree.h>
-#include <math.h>
+#include <cmath>
 
 using namespace std;
 

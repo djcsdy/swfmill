@@ -4,7 +4,7 @@
 <xsl:document href="g{/format/@format}Size.cpp" method="text">
 
 #include "<xsl:value-of select="/format/@format"/>.h"
-#include &lt;string.h&gt;
+#include &lt;cstring&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
 

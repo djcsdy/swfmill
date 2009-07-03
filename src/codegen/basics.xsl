@@ -50,7 +50,7 @@
 
 #include "<xsl:value-of select="/format/@format"/>.h"
 #include "<xsl:value-of select="/format/@format"/>Tag.h"
-#include &lt;string.h&gt;
+#include &lt;cstring&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
 

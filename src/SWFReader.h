@@ -1,7 +1,7 @@
 #ifndef SWF_Reader_H
 #define SWF_Reader_H
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdint.h>
 #include "SWFBasic.h"
 
