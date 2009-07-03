@@ -1,5 +1,7 @@
 #include "SVGPathParser.h"
 
+using namespace std;
+
 namespace SWF {
 
 PathParser::PathParser(ShapeMaker *shapeMaker) {
@@ -26,7 +28,7 @@ void PathParser::parse(const char *path) {
 
 			if(charType == COMMAND_ABSOLUTE || charType == COMMAND_RELATIVE) {
 				if(params.size() > 0) {
-					std::cerr << "WARNING: too much parameters in SVG path" << std::endl;
+					cerr << "WARNING: too much parameters in SVG path" << endl;
 					params.clear();
 				}
 				
@@ -48,7 +50,7 @@ void PathParser::parse(const char *path) {
 		
 	}
 	if(params.size() > 0) {
-		std::cerr << "WARNING: too much parameters in SVG path" << std::endl;
+		cerr << "WARNING: too much parameters in SVG path" << endl;
 		params.clear();
 	}
 	shaper->close(false);
@@ -145,7 +147,7 @@ void PathParser::executeCommand(char command, bool repeated) {
 			break;
 		
 		default:
-			std::cerr << "WARNING: SVG path command not implemented (" << command << ")" << std::endl;
+			cerr << "WARNING: SVG path command not implemented (" << command << ")" << endl;
 			break;
 	}
 }

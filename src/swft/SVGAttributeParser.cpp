@@ -2,6 +2,8 @@
 
 #define DPI 90.0
 
+using namespace std;
+
 namespace SWF {
 
 void AttributeParser::parseNode(xmlNodePtr node) {
@@ -24,12 +26,12 @@ void AttributeParser::parseNode(xmlNodePtr node) {
 double AttributeParser::getDouble(const char* attribute, double defaultValue, double value100) {
 	const char *tmp = getString(attribute);
 	if(tmp) {
-		std::string tmpStr = tmp;
+		string tmpStr = tmp;
 
 		char *tailPtr;
 		double value = strtod(tmpStr.c_str(), &tailPtr);
 				
-		std::string unit = tailPtr;
+		string unit = tailPtr;
 		trimString(unit);
 
 		if(unit == "in") {
@@ -53,7 +55,7 @@ double AttributeParser::getDouble(const char* attribute, double defaultValue, do
 }
 
 const char *AttributeParser::getString(const char* attribute) {
-	std::map<std::string, std::string>::iterator iter = attributes.find(attribute);
+	map<string, string>::iterator iter = attributes.find(attribute);
 	if(iter != attributes.end()) {
 		return (*iter).second.c_str();
 	} else {
@@ -65,11 +67,11 @@ const char *AttributeParser::operator[](const char* attribute) {
 	return getString(attribute);
 }
 
-std::map<std::string, std::string> &AttributeParser::getAttributes() {
+map<string, string> &AttributeParser::getAttributes() {
 	return attributes;
 }
 
-void AttributeParser::handleData(const std::string& attrib, const std::vector<std::string>& value) {
+void AttributeParser::handleData(const string& attrib, const vector<string>& value) {
 	attributes[attrib] = value[0];
 }
 

@@ -3,10 +3,12 @@
 #include <iostream>
 #include <cstring>
 
+using namespace std;
+
 namespace SWF {
 
 void PointsParser::parse(const char *points) {
-	std::string tmp;
+	string tmp;
 
 	coords.clear();
 	
@@ -28,7 +30,7 @@ void PointsParser::parse(const char *points) {
 	}
 	
 	if(coords.size() % 2) {
-		std::cerr << "WARNING: odd number of coordinates in points attribute" << std::endl;
+		cerr << "WARNING: odd number of coordinates in points attribute" << endl;
 	}
 }
 

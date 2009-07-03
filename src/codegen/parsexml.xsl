@@ -9,6 +9,8 @@
 #include &lt;cstdlib&gt;
 #include "base64.h"
 
+using namespace std;
+
 namespace <xsl:value-of select="/format/@format"/> {
 
 char *strdupx(const char *src) {
@@ -113,7 +115,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 	    <xsl:value-of select="@name"/> =
-	        std::strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
+	        strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
 	    xmlFree( tmp );
 	}
 </xsl:template>
@@ -122,7 +124,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 	    <xsl:value-of select="@name"/> =
-	        std::strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
+	        strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
 	    xmlFree( tmp );
 	}
 </xsl:template>
@@ -131,7 +133,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 	        <xsl:value-of select="@name"/> =
-	            std::strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
+	            strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->
@@ -151,7 +153,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 	        <xsl:value-of select="@name"/> =
-	           std::strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
+	           strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->

@@ -4,6 +4,8 @@
 
 #define TMP_STRLEN 0xFF
 
+using namespace std;
+
 namespace SWF {
 
 /* SVGGradient */
@@ -101,7 +103,7 @@ void SVGGradient::writeCommonXML(xmlNodePtr parentNode, Matrix& m, bool hasModes
 
 	node = xmlNewChild(parentNode, NULL, (const xmlChar *)"gradientColors", NULL);
 
-	for(std::map<double, SVGGradientStop>::iterator i = stops.begin(); i != stops.end(); i++) {
+	for(map<double, SVGGradientStop>::iterator i = stops.begin(); i != stops.end(); i++) {
 		(*i).second.writeXML(node, (*i).first);
 	}
 }

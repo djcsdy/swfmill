@@ -1,12 +1,14 @@
 #include "SVGTransformParser.h"
 
+using namespace std;
+
 namespace SWF {
 
-void TransformParser::printWarning(const std::string& transformType) {
-	std::cerr << "WARNING: wrong number of parameters in " << transformType << " transformation" << std::endl;
+void TransformParser::printWarning(const string& transformType) {
+	cerr << "WARNING: wrong number of parameters in " << transformType << " transformation" << endl;
 }
 
-void TransformParser::handleData(const std::string& transformType, const std::vector<std::string>& params) {
+void TransformParser::handleData(const string& transformType, const vector<string>& params) {
 	size_t cnt = params.size();
 	Matrix m;
 
@@ -63,7 +65,7 @@ void TransformParser::handleData(const std::string& transformType, const std::ve
 			printWarning(transformType);
 		}
 	} else {
-		std::cerr << "WARNING: unknown SVG transformation (" << transformType << ")" << std::endl;
+		cerr << "WARNING: unknown SVG transformation (" << transformType << ")" << endl;
 	}
 }
 

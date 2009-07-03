@@ -3,6 +3,8 @@
 
 #define TMP_STRLEN 0xFF
 
+using namespace std;
+
 namespace SWF {
 
 SVGColor::SVGColor() {
@@ -31,7 +33,7 @@ void SVGColor::setAlpha(double _a) {
 	a = (unsigned char)(_a * 255.0);
 }
 
-bool SVGColor::parse(std::string &color) {
+bool SVGColor::parse(string &color) {
 	if(color == "none" || color == "") {
 		return false;
 	} else {
@@ -57,7 +59,7 @@ bool SVGColor::parse(std::string &color) {
 				b = c[2];
 				a = 255;
 			} else {
-				std::cerr << "WARNING: can't parse color" << std::endl;
+				cerr << "WARNING: can't parse color" << endl;
 				return false;
 			}
 		} else if(color.substr(0, 3) == "rgb") {
@@ -71,7 +73,7 @@ bool SVGColor::parse(std::string &color) {
 				a = 255;
 				return true;
 			} else {
-				std::cerr << "WARNING: can't parse rgb color" << std::endl;	
+				cerr << "WARNING: can't parse rgb color" << endl;	
 				return false;
 			}
 		} else {
@@ -84,7 +86,7 @@ bool SVGColor::parse(std::string &color) {
 					return true;
 				}
 			}
-			std::cerr << "WARNING: color name not found (" << color << ")" << std::endl;	
+			cerr << "WARNING: color name not found (" << color << ")" << endl;	
 			return false;
 		}
 	}
@@ -92,7 +94,7 @@ bool SVGColor::parse(std::string &color) {
 }
 
 bool SVGColor::parse(const char *color) {
-	std::string tmp(color);
+	string tmp(color);
 	return parse(tmp);
 }
 
