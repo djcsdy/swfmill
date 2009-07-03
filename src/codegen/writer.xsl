@@ -76,7 +76,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|xml|u30|s24" mode="write">
+<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|xml|u30|s24|encodedu32" mode="write">
 	<xsl:apply-templates select="." mode="put"/>;
 	<xsl:if test="@context">
 		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
@@ -100,6 +100,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 <xsl:template match="xml" mode="put" priority="-1">w->putString(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="u30" mode="put">w->putU30(<xsl:value-of select="@name"/>)</xsl:template>
 <xsl:template match="s24" mode="put">w->putS24(<xsl:value-of select="@name"/>)</xsl:template>
+<xsl:template match="encodedu32" mode="put">w->putEncodedU32(<xsl:value-of select="@name"/>)</xsl:template>
 
 <xsl:template match="byteOrWord" mode="write">
     {

@@ -90,7 +90,7 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 		<xsl:apply-templates mode="declareAccessors"/>
 	</xsl:template>
 	<xsl:template match="fill-byte|context" mode="declareAccessors"/>
-	<xsl:template match="byte|word|byteOrWord|string|fixedpoint|fixedpoint2|bit|integer|uint32|float|double|double2|half|u30|s24" mode="declareAccessors" priority="-1">
+	<xsl:template match="byte|word|byteOrWord|string|fixedpoint|fixedpoint2|bit|integer|uint32|float|double|double2|half|u30|s24|encodedu32" mode="declareAccessors" priority="-1">
 			<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>get<xsl:value-of select="@name"/>();
 			void set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> );
 	</xsl:template>

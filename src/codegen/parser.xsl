@@ -61,7 +61,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|xml|u30|s24" mode="parse">
+<xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|xml|u30|s24|encodedu32" mode="parse">
 	<xsl:value-of select="@name"/> = <xsl:apply-templates select="." mode="get"/>;
 	if( ctx->debugTrace ) fprintf( stderr, "PARSE <xsl:value-of select="@name"/>: <xsl:apply-templates select="." mode="printf"/>\n", <xsl:value-of select="@name"/> );
 	<xsl:if test="@context">
@@ -91,6 +91,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 			<xsl:if test="@signed">,true</xsl:if>)</xsl:template>
 <xsl:template match="u30" mode="get">r->getU30()</xsl:template>
 <xsl:template match="s24" mode="get">r->getS24()</xsl:template>
+<xsl:template match="encodedu32" mode="get">r->getEncodedU32()</xsl:template>
 <xsl:template match="string[@mode='pascal']" mode="get">r->getPString()</xsl:template>
 <xsl:template match="string[@mode='pascalU30']" mode="get">r->getPStringU30()</xsl:template>
 <xsl:template match="string" mode="get" priority="-1">r->getString()</xsl:template>

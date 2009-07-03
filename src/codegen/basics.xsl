@@ -158,7 +158,7 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	<xsl:apply-templates mode="defineAccessors"/>
 </xsl:template>
 <xsl:template match="fill-byte|context" mode="defineAccessors"/>
-<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer[@constant-size]|uint32|u30|s24" mode="defineAccessors">
+<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer[@constant-size]|uint32|u30|s24|encodedu32" mode="defineAccessors">
 	// Constant Size Primitive
 	<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>
 	<xsl:value-of select="ancestor::*[@name]/@name"/>::get<xsl:value-of select="@name"/>() {

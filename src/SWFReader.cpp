@@ -213,6 +213,25 @@ float Reader::getHalf() {
 	return u.f;
 }
 
+unsigned int Reader::getEncodedU32() {
+    
+    unsigned int result = data[pos++];
+    if (!(result & 0x00000080)) return result;
+
+    result = (result & 0x0000007f) | data[pos++] << 7;
+    if (!(result & 0x00004000)) return result;
+
+    result = (result & 0x00003fff) | data[pos++] << 14;
+    if (!(result & 0x00200000)) return result;
+
+    result = (result & 0x001fffff) | data[pos++] << 21;
+    if (!(result & 0x10000000)) return result;
+
+    result = (result & 0x0fffffff) | data[pos++] << 28;
+    return result;
+
+}
+
 double Reader::getFixed( int bytesize, int exp ) {
 	/* putFixed/getFixed are deprecated: they implicitly to byteAlign */
 	

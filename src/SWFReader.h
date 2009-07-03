@@ -31,6 +31,8 @@ class Reader {
 		char *getString();
 		char *getPString();
 		char *getPStringU30();
+		
+		unsigned int getEncodedU32();	
 	
 		// this one cares about the current bit position
 		long getNBitInt( int n, bool is_signed = false );
@@ -43,7 +45,7 @@ class Reader {
 			buf = bits = 0; }
 				
 		int getError() { return err; }
-			
+
 		const unsigned char *getRawData() { return data; }
 		int getPosition() { return pos; }
 		int getLength() { return length; }
