@@ -2,6 +2,8 @@
 
 #define DPI 90.0
 
+using namespace std;
+
 namespace SWF {
 
 void AttributeParser::parseNode(xmlNodePtr node) {

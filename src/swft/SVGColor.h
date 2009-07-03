@@ -6,7 +6,7 @@
 #include <iostream>
 #include <libxml/tree.h>
 
-using namespace std;
+
 
 namespace SWF {
 
@@ -20,7 +20,7 @@ class SVGColor {
 		void setColor(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a = 255);
 		void setAlpha(unsigned char _a);
 		void setAlpha(double _a);
-		bool parse(string &color);
+		bool parse(std::string &color);
 		bool parse(const char *color);
 
 		void writeXML(xmlNodePtr parent);

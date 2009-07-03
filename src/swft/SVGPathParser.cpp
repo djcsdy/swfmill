@@ -1,5 +1,7 @@
 #include "SVGPathParser.h"
 
+using namespace std;
+
 namespace SWF {
 
 PathParser::PathParser(ShapeMaker *shapeMaker) {

@@ -1,5 +1,7 @@
 #include "SVGTransformParser.h"
 
+using namespace std;
+
 namespace SWF {
 
 void TransformParser::printWarning(const string& transformType) {

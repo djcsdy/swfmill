@@ -7,7 +7,7 @@
 #include <libxml/tree.h>
 #include "Parser.h"
 
-using namespace std;
+
 
 namespace SWF {
 
@@ -18,7 +18,7 @@ class AttributeParser : public Parser {
 		}
 
 		void parseNode(xmlNodePtr node);
-		map<string, string>& getAttributes();
+		std::map<std::string, std::string>& getAttributes();
 
 		double getDouble(const char* attribute, double defaultValue = 0,
 				double value100 = 1);
@@ -26,8 +26,8 @@ class AttributeParser : public Parser {
 		const char* operator[](const char* attribute);
 
 	private:
-		map<string, string> attributes;
-		void handleData(const string& attrib, const vector<string>& value);
+		std::map<std::string, std::string> attributes;
+		void handleData(const std::string& attrib, const std::vector<std::string>& value);
 };
 
 }

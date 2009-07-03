@@ -5,7 +5,7 @@
 #include <deque>
 #include "Geom.h"
 
-using namespace std;
+
 
 namespace SWF {
 

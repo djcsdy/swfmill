@@ -9,7 +9,7 @@
 #include "SVGAttributeParser.h"
 #include "SWFShapeMaker.h"
 
-using namespace std;
+
 
 namespace SWF {
 
@@ -36,7 +36,7 @@ class SVGGradient {
 		void parseSpreadMethod();
 		void writeCommonXML(xmlNodePtr node, Matrix& m, bool hasModes);
 
-		map<double, SVGGradientStop> stops;
+		std::map<double, SVGGradientStop> stops;
 		Matrix transform;
 		AttributeParser attribs;
 		SpreadMethod spreadMethod;

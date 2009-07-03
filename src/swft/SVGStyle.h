@@ -8,7 +8,7 @@
 #include "SVGGradient.h"
 #include "SWFShapeMaker.h"
 
-using namespace std;
+
 
 namespace SWF {
 
@@ -45,11 +45,11 @@ class SVGStyle {
 		bool hasStroke() { return _hasStroke; }
 		bool hasStyle() { return _hasStyle; }
 
-		void parseNode(xmlNodePtr node, map<string, SVGGradient*> &gradients);
+		void parseNode(xmlNodePtr node, std::map<std::string, SVGGradient*> &gradients);
 		void writeXML(xmlNodePtr parent, double movieVersion);
 
 	private:
-		SVGGradient *getGradient(const string &str, map<string, SVGGradient*> &gradients);
+		SVGGradient *getGradient(const std::string &str, std::map<std::string, SVGGradient*> &gradients);
 	
 		bool _hasFill;
 		bool _hasFillGradient;

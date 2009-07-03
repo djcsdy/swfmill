@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstring>
 
+using namespace std;
+
 namespace SWF {
 
 void PointsParser::parse(const char *points) {

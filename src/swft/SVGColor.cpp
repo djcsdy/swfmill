@@ -3,6 +3,8 @@
 
 #define TMP_STRLEN 0xFF
 
+using namespace std;
+
 namespace SWF {
 
 SVGColor::SVGColor() {
