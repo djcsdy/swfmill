@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<swf version="6" compressed="1">
+  <Header framerate="24" frames="25">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineMorphShape objectID="1">
+        <data>
+          <data>cH4uoIvMn6hwui4ekCyYyD4AAAABADP/mf8z/5n/ARQAFAAAAAD/AAAA/xElh/a+HwWIuRjXa376J0vCzy7ZAoXwWIuRjXa376J0vCzy7ZAoAAAFwu2kj91gldniwS69WzmkubBF0d5j34zvaK/Wd1gldniwS69WzmkubBF0d5j34zvaK/WAAA==</data>
+        </data>
+      </DefineMorphShape>
+      <PlaceObject2 replace="0" depth="1" objectID="1">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="2731"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="5461"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="8192"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="10923"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="13653"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="16384"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="19115"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="21845"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="24576"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="27307"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="30037"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="32768"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="35499"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="38229"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="40960"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="43691"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="46421"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="49152"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="51883"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="54613"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="57344"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="60075"/>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1" morph="62805"/>
+      <ShowFrame/>
+      <RemoveObject2 depth="1"/>
+      <DefineShape objectID="2">
+        <bounds>
+          <Rectangle left="1489" right="7229" top="2070" bottom="4889"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="51" green="255" blue="153"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+              <LineStyle width="20">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </LineStyle>
+            </lineStyles>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="4319" y="2080" fillStyle1="1" lineStyle="2"/>
+              <LineTo x="2900" y="2799"/>
+              <LineTo x="-5720" y="-200"/>
+              <LineTo x="2820" y="-2599"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="1" objectID="2">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

@@ -4,6 +4,7 @@ NULL=
 
 SUBDIRS = \
 	src \
+	test \
 	$(NULL)
 
 EXTRA_DIST = \

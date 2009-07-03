@@ -1,0 +1,2418 @@
+<?xml version="1.0"?>
+<swf version="6" compressed="1">
+  <Header framerate="60" frames="206">
+    <size>
+      <Rectangle left="0" right="12800" top="0" bottom="9600"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineFont objectID="1">
+        <data>
+          <data>EgBRAJsA5QAFARcBVgGGAeMBEDVohwNl4Ls53jbip7jA28K5wUxtIaHij9dzF+WP0kpGhgAS3wHU9t13vcue0qg5xfdlkAJm4AEzOYSMtl0AEDVpRpn58MWbsSunq2WmbogJZQDFnlxZh9TiR0vyjbaXXKm1KwErsAWK7xpZtxHApemU4j3S8hE9AEk4G7XHhlok3aZAkYAJmAAQNUoNZ94tvchUk4Ek4G7m/pIXUZAqR3HdxHbdh2n7B1rIAnrQAFOG4jtUk4qwymAE6nAHYOu/at3coO/pIiTZ1kCRgAqPaURYABA1ZYreefOkibly5jFt5uI8FZbLObly2kcvuI/buNIAEDVmTpn58NWbuXHmPSme4jgAEDUvPJeI805ITJQBJOBs5x4dZJNnWQJGQCowVFVGU4qwypAEyEAFA5KoO63nHh1mn7B1rYAnq4AFOG4jtUgAEDVoCuflLluaXfyVFuXLaVwUhM04ElAG7PHYXT3LlzGLbzcR+nlOVJpeAJVQAuXAEDVMhbOVMj2O9vErz9c9VcAT1sACjF7SqE3Edt1nuTZ1gCUwAJyJhm26uualxfHpl4aSFHaN2U4pwymAE6iAHYOu3Zc9y67Ru6mGLjmAJcoDitl4LwZiYEGGM7AAEDVojt5586SJuXLSPbLbNxAEtYBo1S6dQy5xK2BNxHcdgdiTdpkCRgAmfiUMT7iOAA==</data>
+        </data>
+      </DefineFont>
+      <DefineFontInfo2 objectID="1" smallTextOrUnicode="0" isShiftJIS="1" isANSII="0" isItalic="1" isBold="0" isWide="1" language="1">
+        <map>
+          <data>MgBkAGUAaQBsAG8AcgBzAHUA</data>
+        </map>
+      </DefineFontInfo2>
+      <DefineText objectID="2">
+        <bounds>
+          <Rectangle left="38" right="4860" top="188" bottom="817"/>
+        </bounds>
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+        <records>
+          <TextRecord>
+            <records>
+              <TextRecord6 isSetup="1" objectID="1" y="810" fontHeight="880">
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="7" advance="492"/>
+                  <TextEntry glyph="5" advance="490"/>
+                  <TextEntry glyph="8" advance="493"/>
+                  <TextEntry glyph="4" advance="331"/>
+                  <TextEntry glyph="6" advance="493"/>
+                  <TextEntry glyph="3" advance="326"/>
+                  <TextEntry glyph="1" advance="493"/>
+                  <TextEntry glyph="2" advance="494"/>
+                  <TextEntry glyph="0" advance="511"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs/>
+              </TextRecord6>
+            </records>
+          </TextRecord>
+        </records>
+      </DefineText>
+      <DefineSprite objectID="3" frames="206">
+        <tags>
+          <PlaceObject2 replace="0" depth="1" objectID="2">
+            <transform>
+              <Transform transX="-18398" transY="-11525"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-17929" transY="-11212"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-17461" transY="-10900"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-16993" transY="-10587"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-16524" transY="-10275"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-16056" transY="-9962"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-15587" transY="-9649"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-15119" transY="-9337"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-14650" transY="-9024"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-14182" transY="-8712"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-13713" transY="-8399"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-13245" transY="-8086"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-12776" transY="-7774"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-12308" transY="-7461"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-11839" transY="-7148"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-11371" transY="-6836"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-10903" transY="-6523"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-10434" transY="-6211"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-9966" transY="-5898"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-9497" transY="-5585"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-9029" transY="-5273"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-8560" transY="-4960"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-8092" transY="-4648"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-7623" transY="-4335"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-7155" transY="-4022"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-6686" transY="-3710"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-6218" transY="-3397"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5750" transY="-3085"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5348" transY="-2825"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5414" transY="-2878"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5481" transY="-2931"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5221" transY="-2792"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-4961" transY="-2653"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5041" transY="-2752"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5121" transY="-2852"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5261" transY="-2872"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5401" transY="-2892"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5348" transY="-2878"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5294" transY="-2865"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2851"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5301" transY="-2711"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2572"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2639"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2705"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5314" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5348" transY="-2799"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5381" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5311" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5254" transY="-2799"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5268" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <ShowFrame/>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2805"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2838"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5401" transY="-2871"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5251" transY="-2782"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5101" transY="-2693"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5111" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5121" transY="-2852"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2842"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2832"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2838"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2845"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2851"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5301" transY="-2741"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2632"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2679"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2725"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5314" transY="-2799"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5348" transY="-2825"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5381" transY="-2852"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5311" transY="-2832"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5254" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5268" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2792"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5314" transY="-2778"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5348" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5381" transY="-2791"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5301" transY="-2762"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5221" transY="-2733"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5221" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5221" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2822"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5341" transY="-2832"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5308" transY="-2818"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5274" transY="-2805"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2791"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5301" transY="-2751"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2712"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2732"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2752"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5241" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5361" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5321" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5288" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5294" transY="-2799"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <FrameLabel label="loop_start">
+            <flags/>
+          </FrameLabel>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5301" transY="-2812"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5298" transY="-2791"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5296" transY="-2771"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5253" transY="-2750"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5211" transY="-2730"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5215" transY="-2736"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5220" transY="-2743"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5224" transY="-2749"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5251" transY="-2748"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5279" transY="-2748"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5306" transY="-2727"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5334" transY="-2707"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5306" transY="-2756"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5279" transY="-2806"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5291" transY="-2795"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5304" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5291" transY="-2769"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5279" transY="-2754"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5273" transY="-2760"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5268" transY="-2767"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5262" transY="-2773"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5239" transY="-2757"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5217" transY="-2742"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5239" transY="-2761"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5262" transY="-2781"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5239" transY="-2780"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5217" transY="-2780"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5224" transY="-2764"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5232" transY="-2749"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5264" transY="-2763"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5297" transY="-2778"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5265" transY="-2774"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5232" transY="-2771"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5200" transY="-2767"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5218" transY="-2776"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5236" transY="-2786"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5270" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5305" transY="-2759"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5339" transY="-2745"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5276" transY="-2779"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5214" transY="-2814"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5218" transY="-2804"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5223" transY="-2793"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5227" transY="-2783"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5230" transY="-2807"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5233" transY="-2832"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5261" transY="-2796"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5289" transY="-2761"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5266" transY="-2775"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5244" transY="-2790"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5237" transY="-2784"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5230" transY="-2779"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5242" transY="-2753"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5255" transY="-2728"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5248" transY="-2747"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5240" transY="-2767"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5233" transY="-2786"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5226" transY="-2806"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5248" transY="-2795"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5271" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5244" transY="-2774"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5217" transY="-2764"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5229" transY="-2773"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5242" transY="-2783"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5245" transY="-2767"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5248" transY="-2752"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5265" transY="-2786"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5283" transY="-2821"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5236" transY="-2815"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5189" transY="-2810"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5221" transY="-2794"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5254" transY="-2779"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5262" transY="-2773"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5270" transY="-2768"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5287" transY="-2757"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5305" transY="-2747"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5263" transY="-2771"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5221" transY="-2796"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5232" transY="-2792"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5243" transY="-2789"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5254" transY="-2785"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5252" transY="-2759"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5250" transY="-2734"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5257" transY="-2753"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <PlaceObject2 replace="1" depth="1">
+            <transform>
+              <Transform transX="-5265" transY="-2773"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <ShowFrame/>
+          <RemoveObject2 depth="1"/>
+          <DoAction>
+            <actions>
+              <GotoFrame frame="117"/>
+              <Play/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <ShowFrame/>
+          <ShowFrame/>
+          <PlaceObject2 replace="0" depth="1" objectID="2">
+            <transform>
+              <Transform transX="-5281" transY="-2772"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="1" objectID="3">
+        <transform>
+          <Transform transX="6359" transY="4819"/>
+        </transform>
+      </PlaceObject2>
+      <DefineText objectID="4">
+        <bounds>
+          <Rectangle left="31" right="4736" top="149" bottom="649"/>
+        </bounds>
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+        <records>
+          <TextRecord>
+            <records>
+              <TextRecord6 isSetup="1" objectID="1" y="644" fontHeight="700">
+                <color>
+                  <Color red="255" green="255" blue="51"/>
+                </color>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs>
+                  <TextEntry glyph="7" advance="488"/>
+                  <TextEntry glyph="5" advance="486"/>
+                  <TextEntry glyph="8" advance="489"/>
+                  <TextEntry glyph="4" advance="360"/>
+                  <TextEntry glyph="6" advance="489"/>
+                  <TextEntry glyph="3" advance="356"/>
+                  <TextEntry glyph="1" advance="489"/>
+                  <TextEntry glyph="2" advance="490"/>
+                  <TextEntry glyph="0" advance="503"/>
+                </glyphs>
+              </TextRecord6>
+              <TextRecord6 isSetup="0">
+                <glyphs/>
+              </TextRecord6>
+            </records>
+          </TextRecord>
+        </records>
+      </DefineText>
+      <PlaceObject2 replace="0" depth="3" objectID="4">
+        <transform>
+          <Transform transX="17714" transY="-5853"/>
+        </transform>
+      </PlaceObject2>
+      <DefineShape objectID="5">
+        <bounds>
+          <Rectangle left="-7090" right="7089" top="-40" bottom="40"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="7089" y="40" fillStyle1="1"/>
+              <LineTo x="-14179" y="0"/>
+              <LineTo x="0" y="-80"/>
+              <LineTo x="14179" y="0"/>
+              <LineTo x="0" y="80"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="4" objectID="5">
+        <transform>
+          <Transform transX="-11243" transY="3701"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="17123" transY="-5567"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-10599" transY="3680"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="16532" transY="-5282"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-9955" transY="3658"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="15940" transY="-4996"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-9311" transY="3637"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="15349" transY="-4710"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-8667" transY="3615"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="14758" transY="-4425"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-8023" transY="3594"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="14167" transY="-4139"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-7379" transY="3572"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="13575" transY="-3853"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-6735" transY="3551"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="12984" transY="-3568"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-6091" transY="3529"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="12393" transY="-3282"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-5447" transY="3508"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="11802" transY="-2997"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-4803" transY="3486"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="11211" transY="-2711"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-4159" transY="3465"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="10619" transY="-2425"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-3515" transY="3443"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="10028" transY="-2140"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-2871" transY="3422"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="9437" transY="-1854"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-2227" transY="3400"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="8846" transY="-1568"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-1583" transY="3379"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="8255" transY="-1283"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-939" transY="3358"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="7663" transY="-997"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="-295" transY="3336"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="7072" transY="-711"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="349" transY="3315"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="6481" transY="-426"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="993" transY="3293"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="5890" transY="-140"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="1637" transY="3272"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="5299" transY="145"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="2281" transY="3250"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="4707" transY="431"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="2925" transY="3229"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="4116" transY="717"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="3569" transY="3207"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="3525" transY="1002"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="4213" transY="3186"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="2934" transY="1288"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="4857" transY="3164"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="2342" transY="1574"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="5501" transY="3143"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="1751" transY="1859"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="6145" transY="3121"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="3">
+        <transform>
+          <Transform transX="1160" transY="2145"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="1" depth="4">
+        <transform>
+          <Transform transX="6789" transY="3100"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="254"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="253"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="251"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="249"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="247"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="246"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="244"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="242"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="240"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="239"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="237"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="235"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="234"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="232"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="230"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="228"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="227"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="225"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="223"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="221"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="220"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="218"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="216"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="214"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="213"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="211"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="209"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="208"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="206"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="204"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="202"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="201"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="199"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="197"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="195"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="194"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="192"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="190"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="189"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="187"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="185"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="183"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="182"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="180"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="178"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="176"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="175"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="173"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="171"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="170"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="168"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="166"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="164"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="163"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="161"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="159"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="157"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="156"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="154"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="152"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="150"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="149"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="147"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="145"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="144"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="142"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="140"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="138"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="137"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="135"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="133"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="131"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="130"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="128"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="126"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="125"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="123"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="121"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="119"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="118"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="116"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="114"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="112"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="111"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="109"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="107"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="106"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="104"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="102"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="100"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="99"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="97"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="95"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="93"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="92"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="90"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="88"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="86"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="85"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="83"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="81"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="80"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="78"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="76"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="74"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="73"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="71"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="69"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="67"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="66"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="1" depth="1">
+        <colorTransform>
+          <ColorTransform2 factorRed="256" factorGreen="256" factorBlue="256" factorAlpha="64"/>
+        </colorTransform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <FrameLabel label="loop_begin">
+        <flags/>
+      </FrameLabel>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <GotoFrame frame="195"/>
+          <Play/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

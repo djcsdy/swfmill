@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<swf version="6" compressed="0">
+  <Header framerate="12" frames="3">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="temp"/>
+              <String value=""/>
+              <String value="was_here"/>
+              <String value="NOTE: Frame 2 has been executed again!!"/>
+              <String value="UNRESOLVED: _currentframe reports frame "/>
+              <String value=", can't continue test"/>
+              <String value="PASSED: _currentframe reports frame 2"/>
+              <String value="PASSED: _currentframe is correct after gotoAndPlay() call ("/>
+              <String value=")"/>
+              <String value="FAILED: _currentframe reports frame "/>
+              <String value=" instead of "/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackDictionaryLookup index="1"/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="2"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <LogicalNOT/>
+          <BranchIfTrue byteOffset="6"/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="3"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="2"/>
+              <StackBoolean value="1"/>
+            </items>
+          </PushData>
+          <SetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackInteger value="2"/>
+            </items>
+          </PushData>
+          <EqualTyped/>
+          <LogicalNOT/>
+          <LogicalNOT/>
+          <BranchIfTrue byteOffset="21"/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="4"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <AddTyped/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="5"/>
+            </items>
+          </PushData>
+          <AddTyped/>
+          <Trace/>
+          <BranchAlways byteOffset="108"/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="6"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackDictionaryLookup index="1"/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <SetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <GotoExpression play="1"/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <EqualTyped/>
+          <LogicalNOT/>
+          <BranchIfTrue byteOffset="26"/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="7"/>
+              <StackDictionaryLookup index="1"/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <AddTyped/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="8"/>
+            </items>
+          </PushData>
+          <AddTyped/>
+          <Trace/>
+          <BranchAlways byteOffset="28"/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="9"/>
+              <StackDictionaryLookup index="1"/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <AddTyped/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="10"/>
+            </items>
+          </PushData>
+          <AddTyped/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <AddTyped/>
+          <Trace/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Stop/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<swf version="6" compressed="1">
+  <Header framerate="12" frames="9">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DefineShape objectID="1">
+        <bounds>
+          <Rectangle left="219" right="999" top="-380" bottom="400"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="609" y="-380" fillStyle1="1"/>
+              <CurveTo x1="162" y1="0" x2="114" y2="114"/>
+              <CurveTo x1="114" y1="114" x2="0" y2="162"/>
+              <LineTo x="-4" y="60"/>
+              <CurveTo x1="-18" y1="124" x2="-92" y2="92"/>
+              <CurveTo x1="-114" y1="114" x2="-162" y2="0"/>
+              <CurveTo x1="-162" y1="0" x2="-114" y2="-114"/>
+              <CurveTo x1="-92" y1="-92" x2="-18" y2="-124"/>
+              <LineTo x="-4" y="-60"/>
+              <CurveTo x1="0" y1="-162" x2="114" y2="-114"/>
+              <CurveTo x1="114" y1="-114" x2="162" y2="0"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="2" frames="1">
+        <tags>
+          <PlaceObject2 replace="0" depth="1" objectID="1">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="3" objectID="2" name="ball2">
+        <transform>
+          <Transform transX="1427" transY="5784"/>
+        </transform>
+      </PlaceObject2>
+      <PlaceObject2 replace="0" depth="5" objectID="2" name="ball3">
+        <transform>
+          <Transform transX="7985" transY="1106"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <PlaceObject2 replace="0" depth="1" objectID="2" morph="1" name="ball">
+        <transform>
+          <Transform transX="968" transY="1247"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="ball"/>
+              <String value="_x"/>
+              <String value="info"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <PushData>
+            <items>
+              <StackInteger value="10"/>
+            </items>
+          </PushData>
+          <AddTyped/>
+          <SetMember/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="2"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <SetVariable/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <RemoveObject2 depth="5"/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="ball2"/>
+              <String value="_y"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <PushData>
+            <items>
+              <StackInteger value="10"/>
+            </items>
+          </PushData>
+          <Substract/>
+          <SetMember/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="ball3"/>
+              <String value="_y"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <GetMember/>
+          <PushData>
+            <items>
+              <StackInteger value="10"/>
+            </items>
+          </PushData>
+          <AddTyped/>
+          <SetMember/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <PlaceObject2 replace="0" depth="5" objectID="2" morph="7" name="ball3">
+        <transform>
+          <Transform transX="7985" transY="1106"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <GotoFrame frame="1"/>
+          <Play/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

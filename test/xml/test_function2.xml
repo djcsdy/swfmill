@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<swf version="5" compressed="0">
+  <Header framerate="30" frames="1">
+    <size>
+      <Rectangle left="0" right="2000" top="0" bottom="2000"/>
+    </size>
+    <tags>
+      <UnknownTag id="0x18"/>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <DeclareFunction name="print_two_args" argc="2" length="18">
+            <args>
+              <String value="a1"/>
+              <String value="a2"/>
+            </args>
+          </DeclareFunction>
+          <PushData>
+            <items>
+              <StackString value="a1"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackString value="a2"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackString value="Hello world"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackString value="arg a2"/>
+              <StackString value="arg a1 bobo"/>
+              <StackInteger value="2"/>
+              <StackString value="print_two_args"/>
+            </items>
+          </PushData>
+          <CallFunction/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

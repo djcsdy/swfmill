@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="1">
+    <size>
+      <Rectangle left="0" right="16000" top="0" bottom="12000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <DeclareFunction name="onEnterFrame" argc="0" length="69">
+            <args/>
+          </DeclareFunction>
+          <PushData>
+            <items>
+              <StackString value="m1instance"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <PushData>
+            <items>
+              <StackString value="onPress"/>
+            </items>
+          </PushData>
+          <DeclareFunction name="" argc="0" length="32">
+            <args/>
+          </DeclareFunction>
+          <PushData>
+            <items>
+              <StackString value="m1 instance onPress called"/>
+            </items>
+          </PushData>
+          <Trace/>
+          <SetMember/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <DefineShape objectID="1">
+        <bounds>
+          <Rectangle left="560" right="4116" top="2079" bottom="2750"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="3968" y="2650" fillStyle1="1"/>
+              <CurveTo x1="-563" y1="116" x2="-575" y2="-18"/>
+              <LineTo x="-245" y="-7"/>
+              <LineTo x="-1145" y="-25"/>
+              <CurveTo x1="-157" y1="-3" x2="-156" y2="10"/>
+              <CurveTo x1="-321" y1="20" x2="-126" y2="-249"/>
+              <LineTo x="-17" y="-13"/>
+              <CurveTo x1="-65" y1="-38" x2="-25" y2="-70"/>
+              <CurveTo x1="-21" y1="-59" x2="13" y2="-60"/>
+              <LineTo x="5" y="-15"/>
+              <CurveTo x1="55" y1="-128" x2="135" y2="-7"/>
+              <CurveTo x1="1197" y1="-72" x2="1182" y2="133"/>
+              <LineTo x="693" y="61"/>
+              <CurveTo x1="227" y1="15" x2="49" y2="199"/>
+              <CurveTo x1="42" y1="173" x2="-182" y2="37"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <PlaceObject2 replace="0" depth="1" objectID="1">
+        <transform>
+          <Transform transX="0" transY="0"/>
+        </transform>
+      </PlaceObject2>
+      <DefineShape objectID="2">
+        <bounds>
+          <Rectangle left="-2620" right="-340" top="-1460" bottom="1406"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="-1779" y="-690" fillStyle1="1"/>
+              <CurveTo x1="-249" y1="232" x2="-350" y2="37"/>
+              <CurveTo x1="-82" y1="9" x2="-21" y2="-83"/>
+              <CurveTo x1="-66" y1="-258" x2="280" y2="-138"/>
+              <CurveTo x1="245" y1="-121" x2="191" y2="-195"/>
+              <CurveTo x1="170" y1="-174" x2="202" y2="-79"/>
+              <CurveTo x1="380" y1="112" x2="-181" y2="403"/>
+              <CurveTo x1="-87" y1="195" x2="-51" y2="210"/>
+              <CurveTo x1="-144" y1="599" x2="-37" y2="616"/>
+              <CurveTo x1="494" y1="53" x2="465" y2="242"/>
+              <CurveTo x1="410" y1="30" x2="-191" y2="340"/>
+              <CurveTo x1="-50" y1="89" x2="-102" y2="-31"/>
+              <CurveTo x1="-350" y1="-109" x2="-344" y2="-131"/>
+              <CurveTo x1="-194" y1="-74" x2="-208" y2="26"/>
+              <CurveTo x1="-455" y1="196" x2="-458" y2="-187"/>
+              <CurveTo x1="-76" y1="-32" x2="23" y2="-81"/>
+              <CurveTo x1="87" y1="-319" x2="406" y2="46"/>
+              <CurveTo x1="73" y1="8" x2="60" y2="-36"/>
+              <CurveTo x1="39" y1="-638" x2="137" y2="-623"/>
+              <LineTo x="34" y="-134"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineShape objectID="3">
+        <bounds>
+          <Rectangle left="-1544" right="3021" top="-1504" bottom="1497"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="1021" y="-1058" fillStyle1="1"/>
+              <CurveTo x1="-1109" y1="62" x2="-997" y2="494"/>
+              <CurveTo x1="-145" y1="72" x2="-153" y2="17"/>
+              <CurveTo x1="-159" y1="18" x2="-2" y2="-155"/>
+              <CurveTo x1="-2" y1="-258" x2="269" y2="-105"/>
+              <CurveTo x1="359" y1="-140" x2="369" y2="-122"/>
+              <CurveTo x1="818" y1="-268" x2="851" y2="-37"/>
+              <CurveTo x1="784" y1="-139" x2="218" y2="673"/>
+              <CurveTo x1="45" y1="139" x2="-10" y2="152"/>
+              <CurveTo x1="-51" y1="752" x2="-546" y2="568"/>
+              <CurveTo x1="20" y1="10" x2="19" y2="-2"/>
+              <CurveTo x1="563" y1="-64" x2="547" y2="111"/>
+              <CurveTo x1="429" y1="88" x2="-160" y2="326"/>
+              <CurveTo x1="-52" y1="107" x2="-116" y2="-45"/>
+              <CurveTo x1="-111" y1="-42" x2="-99" y2="-69"/>
+              <CurveTo x1="-810" y1="-80" x2="-746" y2="187"/>
+              <CurveTo x1="-82" y1="21" x2="-82" y2="36"/>
+              <CurveTo x1="-619" y1="270" x2="-682" y2="-24"/>
+              <LineTo x="-931" y="-55"/>
+              <CurveTo x1="-132" y1="-11" x2="11" y2="-132"/>
+              <CurveTo x1="25" y1="-276" x2="319" y2="-6"/>
+              <CurveTo x1="587" y1="-11" x2="579" y2="-112"/>
+              <LineTo x="888" y="-167"/>
+              <CurveTo x1="633" y1="-518" x2="194" y2="-759"/>
+              <CurveTo x1="95" y1="-371" x2="-318" y2="-84"/>
+              <CurveTo x1="-246" y1="-66" x2="-262" y2="15"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineShape objectID="4">
+        <bounds>
+          <Rectangle left="-1290" right="544" top="-780" bottom="795"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="438" y="-299" fillStyle1="1"/>
+              <CurveTo x1="-33" y1="106" x2="-65" y2="93"/>
+              <CurveTo x1="379" y1="311" x2="-324" y2="360"/>
+              <CurveTo x1="-107" y1="119" x2="-154" y2="45"/>
+              <CurveTo x1="-776" y1="222" x2="-555" y2="-593"/>
+              <CurveTo x1="-210" y1="-225" x2="265" y2="-121"/>
+              <CurveTo x1="128" y1="-58" x2="90" y2="114"/>
+              <CurveTo x1="302" y1="386" x2="519" y2="-82"/>
+              <CurveTo x1="132" y1="-20" x2="111" y2="-73"/>
+              <CurveTo x1="-289" y1="-66" x2="-134" y2="-237"/>
+              <CurveTo x1="-55" y1="-97" x2="97" y2="-68"/>
+              <LineTo x="261" y="-177"/>
+              <CurveTo x1="-294" y1="160" x2="-210" y2="-184"/>
+              <CurveTo x1="-87" y1="-76" x2="80" y2="-88"/>
+              <CurveTo x1="150" y1="-164" x2="232" y2="-37"/>
+              <LineTo x="169" y="-31"/>
+              <CurveTo x1="528" y1="-7" x2="-150" y2="488"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="5" frames="1">
+        <tags>
+          <DoAction>
+            <actions>
+              <DeclareFunction name="onPress" argc="0" length="16">
+                <args/>
+              </DeclareFunction>
+              <PushData>
+                <items>
+                  <StackString value="m3 pressed"/>
+                </items>
+              </PushData>
+              <Trace/>
+              <DeclareFunction name="onRelease" argc="0" length="17">
+                <args/>
+              </DeclareFunction>
+              <PushData>
+                <items>
+                  <StackString value="m3 released"/>
+                </items>
+              </PushData>
+              <Trace/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="0" depth="1" objectID="4">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <DefineSprite objectID="6" frames="1">
+        <tags>
+          <DoAction>
+            <actions>
+              <DeclareFunction name="onPress" argc="0" length="16">
+                <args/>
+              </DeclareFunction>
+              <PushData>
+                <items>
+                  <StackString value="m2 pressed"/>
+                </items>
+              </PushData>
+              <Trace/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="0" depth="1" objectID="3">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <PlaceObject2 replace="0" depth="2" objectID="5">
+            <transform>
+              <Transform transX="4979" transY="1839"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <DefineSprite objectID="7" frames="1">
+        <tags>
+          <DoAction>
+            <actions>
+              <DeclareFunction name="onPress" argc="0" length="16">
+                <args/>
+              </DeclareFunction>
+              <PushData>
+                <items>
+                  <StackString value="m1 pressed"/>
+                </items>
+              </PushData>
+              <Trace/>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="0" depth="1" objectID="2">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <PlaceObject2 replace="0" depth="2" objectID="6" allflags1="1024" allflags2="0">
+            <transform>
+              <Transform transX="2022" transY="1844"/>
+            </transform>
+            <events>
+              <Event flags1="1024" flags2="0">
+                <actions>
+                  <PushData>
+                    <items>
+                      <StackString value="m2 instance pressed"/>
+                    </items>
+                  </PushData>
+                  <Trace/>
+                  <EndAction/>
+                </actions>
+              </Event>
+              <Event flags1="0" flags2="0"/>
+            </events>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="2" objectID="7" name="m1instance" allflags1="1024" allflags2="0">
+        <transform>
+          <Transform transX="7799" transY="3713"/>
+        </transform>
+        <events>
+          <Event flags1="1024" flags2="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="m1 instance pressed"/>
+                </items>
+              </PushData>
+              <Trace/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="0" flags2="0"/>
+        </events>
+      </PlaceObject2>
+      <PlaceObject2 replace="0" depth="5" objectID="6" allflags1="1024" allflags2="0">
+        <transform>
+          <Transform transX="942" transY="5358"/>
+        </transform>
+        <events>
+          <Event flags1="1024" flags2="0">
+            <actions>
+              <PushData>
+                <items>
+                  <StackString value="m2 instance pressed"/>
+                </items>
+              </PushData>
+              <Trace/>
+              <EndAction/>
+            </actions>
+          </Event>
+          <Event flags1="0" flags2="0"/>
+        </events>
+      </PlaceObject2>
+      <PlaceObject2 replace="0" depth="8" objectID="5">
+        <transform>
+          <Transform transX="10558" transY="2859"/>
+        </transform>
+      </PlaceObject2>
+      <DefineShape objectID="8">
+        <bounds>
+          <Rectangle left="-1525" right="981" top="-1060" bottom="1336"/>
+        </bounds>
+        <styles>
+          <StyleList>
+            <fillStyles>
+              <Solid>
+                <color>
+                  <Color red="0" green="0" blue="0"/>
+                </color>
+              </Solid>
+            </fillStyles>
+            <lineStyles/>
+          </StyleList>
+        </styles>
+        <shapes>
+          <Shape>
+            <edges>
+              <ShapeSetup x="523" y="-394" fillStyle1="1"/>
+              <CurveTo x1="88" y1="257" x2="94" y2="256"/>
+              <LineTo x="18" y="50"/>
+              <CurveTo x1="90" y1="244" x2="96" y2="242"/>
+              <CurveTo x1="125" y1="317" x2="-91" y2="297"/>
+              <CurveTo x1="-25" y1="84" x2="-91" y2="-21"/>
+              <CurveTo x1="-259" y1="-59" x2="-41" y2="-288"/>
+              <CurveTo x1="-36" y1="-247" x2="-85" y2="-240"/>
+              <LineTo x="-12" y="-35"/>
+              <LineTo x="-1183" y="144"/>
+              <CurveTo x1="-134" y1="220" x2="-117" y2="230"/>
+              <CurveTo x1="-89" y1="175" x2="-184" y2="41"/>
+              <CurveTo x1="-256" y1="57" x2="53" y2="-247"/>
+              <CurveTo x1="30" y1="-140" x2="79" y2="-125"/>
+              <CurveTo x1="543" y1="-850" x2="592" y2="-821"/>
+              <CurveTo x1="120" y1="-166" x2="192" y2="-41"/>
+              <CurveTo x1="242" y1="88" x2="-26" y2="159"/>
+              <CurveTo x1="177" y1="157" x2="90" y2="262"/>
+              <ShapeSetup x="31" y="-487"/>
+              <LineTo x="-129" y="146"/>
+              <CurveTo x1="-216" y1="249" x2="-188" y2="265"/>
+              <LineTo x="235" y="-32"/>
+              <LineTo x="514" y="-78"/>
+              <CurveTo x1="-104" y1="-276" x2="-112" y2="-274"/>
+              <ShapeSetup/>
+            </edges>
+          </Shape>
+        </shapes>
+      </DefineShape>
+      <DefineSprite objectID="9" frames="1">
+        <tags>
+          <DoAction>
+            <actions>
+              <EndAction/>
+            </actions>
+          </DoAction>
+          <PlaceObject2 replace="0" depth="1" objectID="8">
+            <transform>
+              <Transform transX="0" transY="0"/>
+            </transform>
+          </PlaceObject2>
+          <PlaceObject2 replace="0" depth="2" objectID="5">
+            <transform>
+              <Transform transX="2679" transY="1679"/>
+            </transform>
+          </PlaceObject2>
+          <ShowFrame/>
+          <End/>
+        </tags>
+      </DefineSprite>
+      <PlaceObject2 replace="0" depth="10" objectID="9">
+        <transform>
+          <Transform transX="8470" transY="9099"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>

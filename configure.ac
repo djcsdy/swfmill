@@ -50,4 +50,6 @@ AC_OUTPUT([
 	src/Makefile
 	src/swft/Makefile
 	src/xslt/Makefile
+	test/Makefile
+	test/xml/Makefile
 	])

@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<swf version="7" compressed="1">
+  <Header framerate="12" frames="36">
+    <size>
+      <Rectangle left="0" right="11000" top="0" bottom="8000"/>
+    </size>
+    <tags>
+      <SetBackgroundColor>
+        <color>
+          <Color red="255" green="255" blue="255"/>
+        </color>
+      </SetBackgroundColor>
+      <DoAction>
+        <actions>
+          <PushData>
+            <items>
+              <StackString value="onEnterFrame"/>
+            </items>
+          </PushData>
+          <DeclareFunction name="" argc="0" length="21">
+            <args/>
+          </DeclareFunction>
+          <PushData>
+            <items>
+              <StackString value="frame "/>
+              <StackString value=""/>
+              <StackInteger value="4"/>
+            </items>
+          </PushData>
+          <GetProperty/>
+          <AddTyped/>
+          <Trace/>
+          <SetVariable/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <DefineFont2 objectID="1" isShiftJIS="0" isUnicode="0" isANSII="0" wideGlyphOffsets="0" italic="0" bold="0" language="1" name="Times New Roman">
+        <glyphs/>
+      </DefineFont2>
+      <DefineEditText objectID="2" wordWrap="0" multiLine="0" password="0" readOnly="1" autoSize="0" hasLayout="1" notSelectable="0" hasBorder="0" isHTML="0" useOutlines="0" fontRef="1" fontHeight="240" align="0" leftMargin="0" rightMargin="0" indent="0" leading="40" variableName="my_frame_label_var" initialText="15">
+        <size>
+          <Rectangle left="-40" right="2919" top="-40" bottom="560"/>
+        </size>
+        <color>
+          <Color red="0" green="0" blue="0" alpha="255"/>
+        </color>
+      </DefineEditText>
+      <PlaceObject2 replace="0" depth="1" objectID="2" name="my_frame_label">
+        <transform>
+          <Transform transX="1080" transY="4225"/>
+        </transform>
+      </PlaceObject2>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="x"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackInteger value="5"/>
+            </items>
+          </PushData>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <GotoExpression play="1"/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="y"/>
+              <String value="Object"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackDouble value="0.000000000000000"/>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <New/>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <GotoExpression play="1"/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="my_frame_label_var"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <Trace/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <GotoExpression play="1"/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <GotoLabel label="20"/>
+          <Play/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <DoAction>
+        <actions>
+          <Dictionary>
+            <strings>
+              <String value="x"/>
+              <String value="25"/>
+            </strings>
+          </Dictionary>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+              <StackDictionaryLookup index="1"/>
+            </items>
+          </PushData>
+          <SetLocalVariable/>
+          <PushData>
+            <items>
+              <StackDictionaryLookup index="0"/>
+            </items>
+          </PushData>
+          <GetVariable/>
+          <GotoExpression play="1"/>
+          <EndAction/>
+        </actions>
+      </DoAction>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <ShowFrame/>
+      <End/>
+    </tags>
+  </Header>
+</swf>
