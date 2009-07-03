@@ -46,7 +46,6 @@ class Reader {
 				
 		int getError() { return err; }
 
-
 		const unsigned char *getRawData() { return data; }
 		int getPosition() { return pos; }
 		int getLength() { return length; }
