@@ -206,19 +206,25 @@
 
 	<xsl:variable name="depth"><xsl:value-of select="@depth"/></xsl:variable>
 	
-	<!-- if we have a former place with the same depth, use morph="1" replace="0"
-		 using morph="0" and replace="1" only works for the same objectID
-		 that is already placed in layer (depth) -->
+	<!-- Setting replace="1" doesn't work if we are replacing a sprite.
+		 Instead, we remove the previous sprite with RemoveObject2,
+		 and increment "morph". This strange requirement isn't
+		 documented anywhere, but this is what Flash does, and it
+		 works. See bug #409165 on Launchpad. -->
 	<xsl:variable name="replace">
 		<xsl:choose>
 			<xsl:when test="preceding-sibling::place[@depth=$depth] or ../preceding-sibling::frame/place[@depth=$depth]">1</xsl:when>
 			<xsl:otherwise>0</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="morph">
+		<xsl:value-of select="count(preceding-sibling::place[@depth=$depth] |
+				../preceding-sibling::frame/place[@depth=$depth])"/>
+	</xsl:variable>
 	<xsl:if test="$replace = '1'">
 		<RemoveObject2 depth="{@depth}"/>
 	</xsl:if>
-	<PlaceObject2 replace="0" morph="{$replace}" depth="{$depth}" objectID="{$id}">
+	<PlaceObject2 replace="0" morph="{$morph}" depth="{$depth}" objectID="{$id}">
 		<xsl:if test="@name">
 			<xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
 		</xsl:if>
