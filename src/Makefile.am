@@ -51,16 +51,10 @@ swfmill_SOURCES = \
 	SWFGlyphList.cpp \
 	SWFShapeMaker.cpp \
 	\
-	gSWFParseXML.cpp \
-	gSWFWriteXML.cpp \
-	gSWFParser.cpp \
-	gSWFWriter.cpp \
-	gSWFDumper.cpp \
-	gSWFBasics.cpp \
-	gSWFSize.cpp \
-	\
 	swfmill.cpp \
 	$(NULL)
+
+nodist_swfmill_SOURCES = $(GENERATED_FILES)
 
 noinst_HEADERS = \
 	base64.h \
@@ -86,6 +80,7 @@ noinst_HEADERS = \
 SUBDIRS = \
 	swft \
 	xslt \
+	codegen \
 	$(NULL)
 
 
