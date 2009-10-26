@@ -1,4 +1,3 @@
-# $Id: Makefile.am,v 1.3 2005/04/05 02:28:00 dan Exp $
 
 NULL=
 

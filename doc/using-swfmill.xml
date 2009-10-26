@@ -3,7 +3,6 @@
 <book id="manual">
 	<bookinfo>
 		<title>Using swfmill to create SWFs without Flash</title>
-		<releaseinfo role="meta">$Id: using-swfmill.xml,v 1.1 2005/05/30 12:48:38 dan Exp $</releaseinfo>
 		<author>
 			<surname>Winterhalder</surname>
 			<firstname>Mark</firstname>

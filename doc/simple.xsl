@@ -6,7 +6,6 @@
 	<book id="swfml-simple-ref">
 		<bookinfo>
 			<title>swfml simple profile</title>
-			<releaseinfo role="meta">$Id: simple.xsl,v 1.1 2005/05/30 12:48:38 dan Exp $</releaseinfo>
 			<author>
 				<surname>Fischer</surname>
 				<firstname>Daniel</firstname>

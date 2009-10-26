@@ -50,7 +50,6 @@
 
 <xsl:template match="bookinfo" mode="footer">
 	<small>
-		Version: <xsl:value-of select="releaseinfo"/><br />
 		Copyright <xsl:value-of select="copyright/year"/><xsl:text> </xsl:text><xsl:value-of select="copyright/holder"/><br />
 		<xsl:apply-templates select="legalnotice"/>
 	</small>

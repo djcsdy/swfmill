@@ -1,4 +1,3 @@
-# $Id: configure.ac,v 1.29 2005/06/01 10:16:06 dan Exp $
 AC_PREREQ(2.54)
 
 AC_INIT( swfmill, 0.2.12.6, dan@subsignal.org )
