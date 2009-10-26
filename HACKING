@@ -1,12 +1,20 @@
-this file contains information that might be helpful when browsing swfmills sources for whatever reason.
 
-- the classes to represent SWF elements are generated with XSLT from the file src/xsl/source.xml with
-	cd src/
-	xsltproc codegen/mk.xsl codegen/source.xml
-the resulting code is not well indented, and really the xslt step should be integrated into the makefile.
+This file contains information that might be helpful when browsing swfmill's
+sources for whatever reason.
 
-- the generated base classes are derived from SWFTag, SWFAction, SWFStyle, SWFFilter or (for <type/>s in source.xml) no base class at all (for thngs like "Rectangle"). Fonts are certainly special, both the contents of the DefineFont2 tag (not a "clean", generated class but the SWFGlyphList kludge) as well as freetype handling and conversion to the proper shape definitions.
-
-- the basic I/O code is in SWFFile (for header, compression) and SWFReader/Writer (for anything else, including SWF-style nBit numbers etc.)
-
-- the XSL stylesheet that makes up the "simple" processing mode (which is itself everything but simple) is built in src/xslt/. there's more README there.
+ * The classes to represent SWF elements are generated as part of the build
+   process, by processing codegen/source.xml through the codegen/mk.xsl XSLT
+   stylesheet. The resulting code is not well indented.
+   
+ * The generated base classes are derived from SWFTag, SWFAction, SWFStyle,
+   SWFFilter or (for <type/>s in source.xml) no base class at all (for things
+   like "Rectangle"). Fonts are certainly special, both the contents of the
+   DefineFont2 tag (not a "clean", generated class but the SWFGlyphList kludge)
+   as well as freetype handling and conversion to the proper shape definitions.
+   
+ * The basic I/O code is in SWFFile (for header, compression) and
+   SWFReader/Writer (for anything else, including SWF-style nBit numbers etc.)
+   
+ * The XSL stylesheet that makes up the "simple" processing mode (which is
+   itself everything but simple) is built in src/xslt/. there's more README
+   there.
