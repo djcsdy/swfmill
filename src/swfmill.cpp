@@ -22,7 +22,7 @@ const char *internal_stylesheet = NULL;
 void usage() {
 	fprintf( stderr,
 		"\n"PACKAGE_NAME" "PACKAGE_VERSION"\n"
-		"     XML-based SWF (Shockwave Flash) processing tool\n"
+		"    XML-based SWF processing tool\n"
 		"\n"
 		"usage: swfmill [<options>] <command>\n"
 		"\n"
