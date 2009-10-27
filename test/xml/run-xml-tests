@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 testdir=$1
 
@@ -9,10 +9,10 @@ for testcase in `ls ${testdir}/*.xml`; do
 	sh ${testdir}/test-xml $testcase
 	ret=$?
 	if [ ${ret} -eq 0 ]; then
-		((passes++))
+		passes=`expr $passes + 1`
 		echo ${testcase} PASSED
 	else
-		((fails++))
+		fails=`expr $fails + 1`
 		echo ${testcase} FAILED
 	fi
 done
