@@ -1,13 +1,9 @@
 
-Gaffer and Grip:
+swfmill was originally written by Daniel Turing.
+  
+It is maintained by Daniel Cassidy <mail@danielcassidy.me.uk>.
 
- * Daniel Fischer <dan@subsignal.org>
-
-
-Cast (in order of apperance):
-
- * Herman Narkaytis (Font import fixes)
- * Steve Webster (lots of Flash8/9 tags, fixes)
- * Juan José Silveira (mp3 import)
- * Gerrit Karius (refinement of the SVG import)
- * Ralf Fuest (still running)
+Contributors (in chronological order):
+Herman Narkaytis, Steve Webster, Juan JosÃ© Silveira, Gerrit Karius,
+Kazuaki MATSUHASHI, Lars Bonde, Alex Midgley, Jey, Ralf Fuest, INADA Naoki,
+Arthur Chan, Paul Colomiets, Robin Palotai, Benjamin Wolsey.

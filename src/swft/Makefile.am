@@ -1,4 +1,3 @@
-# $Header: /home/dan/cvs/swfmill/src/Makefile.am,v 1.15 2005/05/22 16:18:42 dan Exp $
 
 NULL = 
 MAINTAINERCLEANFILES = Makefile.in

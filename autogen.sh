@@ -3,5 +3,5 @@
 set -x
 aclocal -I autoconfig/m4
 libtoolize --force --copy
-automake --add-missing --copy
+automake --foreign --add-missing --copy
 autoconf
