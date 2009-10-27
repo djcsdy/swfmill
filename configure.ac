@@ -1,6 +1,6 @@
 AC_PREREQ(2.54)
 
-AC_INIT( swfmill, 0.2.12.6, dan@subsignal.org )
+AC_INIT( swfmill, 0.2.12.6 )
 AM_INIT_AUTOMAKE( AC_PACKAGE_NAME, AC_PACKAGE_VERSION )
 
 

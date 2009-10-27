@@ -60,9 +60,9 @@ void usage() {
 		"    -v verbose output\n"
 		"    -V extra-verbose debugging output\n"
 		"    -d dump SWF data when loaded (for debugging)\n"
-		"    -n deactivate libxml network access"
+		"    -n deactivate libxml network access\n"
 		"\n"
-		"E-mail bug reports to "PACKAGE_BUGREPORT"\n\n"
+		"Please report bugs at http://bugs.launchpad.net/swfmill/+filebug\n\n"
 	);
 }
 
