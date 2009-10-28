@@ -1108,6 +1108,9 @@
 	<byte name="format" prop="true"/>
 	<word name="width" prop="true"/>
 	<word name="height" prop="true"/>
+	<if expression="format==3">
+		<byte name="n_colormap" prop="true"/>
+	</if>
 	<object type="Rest" name="data" prop="true"/>
 </tag>
 
