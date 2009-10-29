@@ -15,9 +15,10 @@ ShapeMaker::ShapeMaker( List<ShapeItem>* e, double fx, double fy, double ofsx, d
 	factory = fy;
 	offsetx = ofsx;
 	offsety = ofsy;
-	diffx = diffy = 0;
-	lastx = lasty = 0;
-	smoothx = smoothy = 0;
+	diffx = diffy = 0.0;
+	lastx = lasty = 0.0;
+	smoothx = smoothy = 0.0;
+	minx = miny = maxx = maxy = 0.0;
 	have_first = false;
 	
 	fillStyle0 = lineStyle = fillStyle1 = -1;
