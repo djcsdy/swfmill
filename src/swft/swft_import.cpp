@@ -5,8 +5,8 @@
 #include <cstring>
 
 void swft_addFileName( xmlNodePtr node, const char *filename ) {
-	char *name, *b;
-	const char *basename;
+	char *name, *n;
+	const char *basename, *b;
 	int l;
 	
 	// figure basename (filename without path)
@@ -16,11 +16,11 @@ void swft_addFileName( xmlNodePtr node, const char *filename ) {
 	l = strlen(basename);
 	name = new char[l + 1];
 	strncpy( name, basename, l + 1 ); // copy string including null terminator
-		
+	
 	// separate extension (set position of last . as end of string)
-	b = strrchr( name, '.' );
-	if( b ) b[0]=0;
-		
+	n = strrchr( name, '.' );
+	if( n ) n[0]=0;
+	
 	xmlSetProp( node, (const xmlChar *)"name", (const xmlChar *)name );
 	
 	delete[] name;
