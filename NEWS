@@ -1,3 +1,8 @@
+    Fix compile error with GCC 4.4 due to inconsistent constancy
+    Support for colormap in DefineBitsLossless (thanks to MURAOKA Daisuke)
+    Don't refer to SWF as 'Shockwave Flash'
+    Don't require bash for XML test cases
+    Change bug report location to Launchpad
     Map objectID, sprite and fontRef attributes in simple format
     Fix writing floats
     correctly count frames for <clip>s (thanks to Alex Midgley)
