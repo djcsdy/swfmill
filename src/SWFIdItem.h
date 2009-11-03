@@ -77,7 +77,7 @@ class IdItem : public Item {
 		static Description Registry[];
 		static int nRegistered;
 
-		static char* itemName;
+		static const char* itemName;
 };
 
 }

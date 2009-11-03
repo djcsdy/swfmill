@@ -39,7 +39,7 @@
 	};
 	template&lt;&gt; int IdItem&lt;<xsl:value-of select="$class"/>&gt;::nRegistered = <xsl:value-of select="count(*[name() = $tag])"/>;
 
-	template&lt;&gt; char* IdItem&lt;<xsl:value-of select="$class"/>&gt;::itemName = "<xsl:value-of select="$itemName"/>";
+	template&lt;&gt; const char* IdItem&lt;<xsl:value-of select="$class"/>&gt;::itemName = "<xsl:value-of select="$itemName"/>";
 
 </xsl:template>
 
