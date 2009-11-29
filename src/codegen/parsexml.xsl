@@ -114,26 +114,29 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="byte|word|byteOrWord|bit|uint32|u30|s24" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-	    <xsl:value-of select="@name"/> =
-	        strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
-	    xmlFree( tmp );
+		int tmp_int;
+		sscanf( (char *)tmp, "<xsl:apply-templates select="." mode="printf"/>", &amp;tmp_int );
+		<xsl:value-of select="@name"/> = tmp_int;
+		xmlFree( tmp );
 	}
 </xsl:template>
 
 <xsl:template match="float|double|double2|half" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-	    <xsl:value-of select="@name"/> =
-	        strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
-	    xmlFree( tmp );
+		double tmp_float;
+		sscanf( (char *)tmp, "%lg", &amp;tmp_float );
+		<xsl:value-of select="@name"/> = tmp_float;
+		xmlFree( tmp );
 	}
 </xsl:template>
 
 <xsl:template match="fixedpoint|fixedpoint2" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-	        <xsl:value-of select="@name"/> =
-	            strtod(reinterpret_cast&lt;const char*&gt;(tmp), 0);
+		double t;
+		sscanf( (char *)tmp, "%lg", &amp;t);
+		<xsl:value-of select="@name"/> = t;
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->
@@ -152,8 +155,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="integer" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-	        <xsl:value-of select="@name"/> =
-	           strtol(reinterpret_cast&lt;const char*&gt;(tmp), 0, 10);
+		sscanf( (char *)tmp, "<xsl:apply-templates select="." mode="printf"/>", &amp;<xsl:value-of select="@name"/>);
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->
