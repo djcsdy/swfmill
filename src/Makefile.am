@@ -13,9 +13,9 @@ ADDCFLAGS = -DLIBXML_STATIC -DLIBXSLT_STATIC -DLIBEXSLT_STATIC
 ADDLDFLAGS = -all-static
 endif
 
-swfmill_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(ADDCFLAGS) -I$(srcdir)/swft/ -I$(srcdir)/xslt/
+swfmill_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(EXSLT_CFLAGS) $(ADDCFLAGS) -I$(srcdir)/swft/ -I$(srcdir)/xslt/
 swfmill_CXXFLAGS = $(swfmill_CFLAGS)
-swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) swft/libswft.la xslt/libswfmillxslt.la
+swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) $(EXSLT_LIBS) swft/libswft.la xslt/libswfmillxslt.la
 swfmill_LDFLAGS = $(ADDLDFLAGS)
 
 BUILT_SOURCES = \
