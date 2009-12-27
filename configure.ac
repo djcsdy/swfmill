@@ -9,14 +9,6 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
 
-dnl Check for pkgconfig first
-AC_CHECK_PROG(HAVE_PKGCONFIG, pkg-config, yes, no)
-
-dnl Give error and exit if we don't have pkgconfig
-if test "x$HAVE_PKGCONFIG" = "xno"; then
-  AC_MSG_ERROR(you need to have pkgconfig installed !)
-fi
-
 # cross-compile specifics
 AM_CONDITIONAL(IS_WINDOWS, [ echo $host_os | grep mingw > /dev/null ])
 AM_CONDITIONAL(IS_OSX, [ echo $host_os | grep darwin > /dev/null ])
