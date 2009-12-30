@@ -209,7 +209,7 @@ int File::saveXML( FILE *fp, Context *ctx ) {
 	xmlDocPtr doc = getXML( ctx );
 	if( !doc ) goto fail;
 	
-	xmlDocDumpFormatMemory( doc, (xmlChar**)&data, &size, 1 );
+	xmlDocDumpFormatMemoryEnc( doc, (xmlChar**)&data, &size, "UTF-8", 1 );
 	
 	if( size ) fwrite( data, size, 1, fp );
 
