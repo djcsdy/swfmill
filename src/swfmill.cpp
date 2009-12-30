@@ -17,6 +17,7 @@ bool quiet = false;
 bool verbose = false;
 bool dump = false;
 bool nonet = false;
+const char *swf_encoding = "UTF-8";
 const char *internal_stylesheet = NULL;
 
 void usage() {
@@ -60,6 +61,7 @@ void usage() {
 		"    -v verbose output\n"
 		"    -V extra-verbose debugging output\n"
 		"    -d dump SWF data when loaded (for debugging)\n"
+		"    -e specify text encoding in swf file. (default: UTF-8).\n"
 		"    -n deactivate libxml network access\n"
 		"\n"
 		"Please report bugs at http://bugs.launchpad.net/swfmill/+filebug\n\n"
@@ -119,6 +121,12 @@ int swfmill_swf2xml( int argc, char *argv[] ) {
 	ctx.debugTrace = verbose;
 	ctx.quiet = quiet;
 
+// setup encoding convertion.
+	if (strcmp(swf_encoding, "UTF-8")) {
+		ctx.convertEncoding = true;
+		ctx.swf_encoding = swf_encoding;
+	}
+
 		// treat input as SWF, produce XML
 		if( (size = input.load( in_fp, &ctx, filesize )) != 0 ) {
 			if( dump ) input.dump();
@@ -176,7 +184,13 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 // setup context
 	ctx.debugTrace = verbose;
 	ctx.quiet = quiet;
-	
+
+// setup encoding convertion.
+	if (strcmp(swf_encoding, "UTF-8")) {
+		ctx.convertEncoding = true;
+		ctx.swf_encoding = swf_encoding;
+	}
+
 	{
 		filename = std_in ? "-" : infile ;
 		doc = xmlParseFile( filename );
@@ -212,7 +226,7 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 		}
 		
 		// treat input as XML, produce SWF
-		input.setXML( doc->xmlRootNode, NULL );
+		input.setXML( doc->xmlRootNode, &ctx );
 		if( dump ) input.dump();
 		out_fp = std_out ? stdout : fopen( outfile, "wb" );
 		if( !out_fp ) {
@@ -437,6 +451,15 @@ int main( int argc, char *argv[] ) {
 					case '?':
 						usage();
 						goto fail;
+						break;
+					case 'e':
+						++swallow;
+						if (i+swallow < argc) {
+							swf_encoding = argv[i+swallow];
+						} else {
+							usage();
+							goto fail;
+						}
 						break;
 					default:
 						fprintf(stderr,"ERROR: unknown option %c\n",argv[i][j]);

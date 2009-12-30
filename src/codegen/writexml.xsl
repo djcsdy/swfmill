@@ -6,8 +6,60 @@
 #include "<xsl:value-of select="/format/@format"/>.h"
 #include "base64.h"
 #include &lt;cstring&gt;
+#include &lt;errno.h&gt;
+#include &lt;iconv.h&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
+
+xmlChar *toXmlChar(const Context *ctx, const char *from_str) {
+	if (ctx-&gt;convertEncoding) {
+		size_t len = strlen(from_str);
+		iconv_t cd = iconv_open("UTF-8", ctx-&gt;swf_encoding);
+		if (cd &lt; 0) {
+			fprintf(stderr, "iconv_open failed.\n");
+			return xmlCharStrdup("");
+		}
+
+		size_t buf_size = (len + 1) * 2;
+		char *dst;
+		for (;;) {
+			dst = new char[buf_size];
+			size_t inbytesleft = len;
+			size_t outbytesleft = buf_size - 1;
+			char *pin = (char*)from_str;
+			char *pout = dst;
+			bool expandbuf = false;
+
+			while (inbytesleft &gt; 0) {
+				size_t r = iconv(cd, &amp;pin, &amp;inbytesleft, &amp;pout, &amp;outbytesleft);
+				if (r == (size_t)-1) {
+					if (errno == E2BIG) {
+						// buf_size shorten
+						expandbuf = true;
+					} else {
+						//bad input charctor
+						fprintf(stderr, "iconv failed: %s\n", from_str);
+					}
+					break;
+				}
+			}
+			if (expandbuf) {
+				delete[] dst;
+				iconv(cd, 0, 0, 0, 0);
+				buf_size *= 2;
+				continue;
+			}
+                        *pout = '\0';
+			break;
+		}
+		iconv_close(cd);
+		xmlChar *ret = xmlCharStrdup(dst);
+		delete[] dst;
+		return ret;
+	} else {
+		return xmlCharStrdup(from_str);
+	}
+}
 
 #define TMP_STRLEN 0xFF
 
@@ -72,7 +124,8 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 
 <xsl:template match="string" mode="writexml">
 	if( <xsl:value-of select="@name"/> ) {
-		xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)<xsl:value-of select="@name"/> );
+		xmlChar *xmlstr = toXmlChar(ctx, <xsl:value-of select="@name"/>);
+		xmlSetProp(node, (const xmlChar *)"<xsl:value-of select="@name"/>", xmlstr);
 	}
 </xsl:template>
 

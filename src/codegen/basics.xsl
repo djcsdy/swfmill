@@ -57,7 +57,7 @@ namespace <xsl:value-of select="/format/@format"/> {
 
 // ------------ context structure
 
-Context::Context() {
+Context::Context() : swf_encoding(0) {
 	swfVersion = 0;
 	transientPropsToXML = false;
 	debugTrace = false;
@@ -65,6 +65,7 @@ Context::Context() {
 	isLast = false;
 	tagVersion = 0;
 	quiet = false;
+	convertEncoding = false;
 	<xsl:apply-templates select="//*[@context]" mode="ctor"/>
 }
 

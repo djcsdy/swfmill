@@ -8,10 +8,61 @@
 #include &lt;cctype&gt;
 #include &lt;cstdlib&gt;
 #include "base64.h"
+#include &lt;errno.h&gt;
+#include &lt;iconv.h&gt;
 
 using namespace std;
 
 namespace <xsl:value-of select="/format/@format"/> {
+
+char *fromXmlChar(const Context *ctx, const xmlChar *from_str) {
+	if (ctx-&gt;convertEncoding) {
+		size_t len = strlen((const char *)from_str);
+		iconv_t cd = iconv_open(ctx-&gt;swf_encoding, "UTF-8");
+		if (cd &lt; 0) {
+			fprintf(stderr, "iconv_open failed.\n");
+			char *buf = new char[1];
+			buf[0] = '\0';
+			return buf;
+		}
+		size_t buf_size = (len + 1) * 2;
+		for (;;) {
+			char * const dst = new char[buf_size];
+			size_t inbytesleft = len;
+			size_t outbytesleft = buf_size - 1; // reserve 1 byte for '\0'
+			char *pin = (char*)from_str;
+			char *pout = dst;
+			bool expandbuf = false;
+
+			while (inbytesleft &gt; 0) {
+				size_t r = iconv(cd, &amp;pin, &amp;inbytesleft, &amp;pout, &amp;outbytesleft);
+				if (r == (size_t)-1) {
+					if (errno == E2BIG) {
+						expandbuf = true;
+					} else {
+						// bad input charctor
+						fprintf(stderr, "iconv failed: %s\n", from_str);
+					}
+					break;
+				}
+			}
+			if (expandbuf) {
+				iconv(cd, 0, 0, 0, 0);
+				delete[] dst;
+				buf_size *= 2;
+				continue;
+			}
+			*pout = '\0';
+			iconv_close(cd);
+			return dst;
+		}
+	} else {
+		size_t len = strlen((const char *)from_str) + 1;
+		char *buf = new char[len];
+		strcpy(buf, (const char *)from_str);
+		return buf;
+	}
+}
 
 char *strdupx(const char *src) {
 	char *t = new char[strlen(src)+1];
@@ -174,8 +225,8 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="string" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		<xsl:value-of select="@name"/> = strdupx((const char *)tmp);
-                xmlFree(tmp);
+		<xsl:value-of select="@name"/> = fromXmlChar(ctx, (const xmlChar*)tmp);
+		xmlFree(tmp);
 	} else {
 		fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> property in %s element\n", (const char *)node->name );
 		<xsl:value-of select="@name"/> = strdupx("[undefined]");
