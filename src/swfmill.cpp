@@ -44,24 +44,21 @@ void usage() {
 		"        <out> is a single SWF file, or (by default) 'stdout'\n"
 		"        (for details, see README)\n"
 		"\n"
-		"    xslt <xsl> <in> [<out>"
-		//" [<param>*]"
-		"]\n"
+		"    xslt <xsl> <in> [<out>]\n"
 		"        transform <in> to <out> as described by <xsl>.\n"
 		"        <xsl> is the XSLT stylesheet,\n"
 		"            and can use the swft: extension.\n"
 		"        <in>  must be some XML (depends on <xsl>)\n"
 		"        <out> is either SWF (when it ends in .swf)\n"
 		"            or XML, by default on 'stdout'\n"
-//		"           <param>* is a whitespace-separated list of name=value\n"
-//		"                 assignments for xsl parameters\n"
 		"\n"
 		"<option>s are:\n"
 		"    -h print this help and quit\n"
 		"    -v verbose output\n"
 		"    -V extra-verbose debugging output\n"
 		"    -d dump SWF data when loaded (for debugging)\n"
-		"    -e specify text encoding in swf file. (default: UTF-8).\n"
+		"    -e specify text encoding in SWF (for SWF 5 and earlier only;\n"
+		"           default: UTF-8).\n"
 		"    -n deactivate libxml network access\n"
 		"\n"
 		"Please report bugs at http://bugs.launchpad.net/swfmill/+filebug\n\n"
@@ -73,7 +70,6 @@ xsltStylesheetPtr xsltParseStylesheetMemory( const char *buffer, int size ) {
 	xmlDocPtr doc = xmlParseMemory( buffer, size );
 	if( !doc ) return NULL;
 	xsltStylesheetPtr ret = xsltParseStylesheetDoc( doc );
-//	xmlFreeDoc( doc );
 	return ret;
 }
 
@@ -85,7 +81,7 @@ int swfmill_swf2xml( int argc, char *argv[] ) {
 
 	File input;
 	unsigned int filesize, size, xmlsize;
-    struct stat filestat;
+	struct stat filestat;
 	char sig;
 	Context ctx;
 
@@ -97,7 +93,7 @@ int swfmill_swf2xml( int argc, char *argv[] ) {
 	infile = argv[0];
 	if( argc>1 ) outfile = argv[1];
 	
-// open files
+	// open files
 	std_in = !strncmp( infile, "stdin", 5 );
 	std_out = !strncmp( outfile, "stdout", 6 );
 	in_fp = std_in ? stdin : fopen( infile, "rb" );
@@ -108,39 +104,37 @@ int swfmill_swf2xml( int argc, char *argv[] ) {
 	
 	if( !quiet ) fprintf(stderr,"Reading from %s\n", infile );
 	
-// stat filesize
-    filesize = (unsigned int)-1;
-    
-    if( !std_in ) {
-        stat( infile, &filestat );
-        filesize = filestat.st_size;
-//        fprintf(stderr,"Filesize: %u\n",filesize);
-    }
-    
-// setup context
+	// stat filesize
+	filesize = (unsigned int)-1;
+	if( !std_in ) {
+		stat( infile, &filestat );
+	filesize = filestat.st_size;
+	}
+	
+	// setup context
 	ctx.debugTrace = verbose;
 	ctx.quiet = quiet;
 
-// setup encoding convertion.
+	// setup encoding conversion.
 	if (strcmp(swf_encoding, "UTF-8")) {
 		ctx.convertEncoding = true;
 		ctx.swf_encoding = swf_encoding;
 	}
 
-		// treat input as SWF, produce XML
-		if( (size = input.load( in_fp, &ctx, filesize )) != 0 ) {
-			if( dump ) input.dump();
-			out_fp = std_out ? stdout : fopen( outfile, "wb" );
-			if( !out_fp ) {
-				fprintf(stderr,"ERROR: could not open file %s for writing\n", outfile );
-				goto fail;
-			}
-			if( !quiet ) fprintf(stderr,"Writing XML to %s\n", outfile );
-			if( (xmlsize = input.saveXML( out_fp, &ctx )) != 0 ) {
-				if( !quiet ) fprintf(stderr,"XML saved to %s (%i bytes).\n", outfile, xmlsize );
-				success = true;
-			}
+	// treat input as SWF, produce XML
+	if( (size = input.load( in_fp, &ctx, filesize )) != 0 ) {
+		if( dump ) input.dump();
+		out_fp = std_out ? stdout : fopen( outfile, "wb" );
+		if( !out_fp ) {
+			fprintf(stderr,"ERROR: could not open file %s for writing\n", outfile );
+			goto fail;
 		}
+		if( !quiet ) fprintf(stderr,"Writing XML to %s\n", outfile );
+		if( (xmlsize = input.saveXML( out_fp, &ctx )) != 0 ) {
+			if( !quiet ) fprintf(stderr,"XML saved to %s (%i bytes).\n", outfile, xmlsize );
+			success = true;
+		}
+	}
 fail:
 	if( in_fp && !std_in ) fclose(in_fp);
 	if( out_fp && !std_out ) fclose(out_fp);
@@ -170,7 +164,7 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 	infile = argv[0];
 	if( argc>1 ) outfile = argv[1];
 	
-// open files
+	// open files
 	std_in = !strncmp( infile, "stdin", 5 );
 	std_out = !strncmp( outfile, "stdout", 6 );
 	in_fp = std_in ? stdin : fopen( infile, "rb" );
@@ -181,11 +175,11 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 	
 	if( !quiet ) fprintf(stderr,"Reading from %s\n", infile );
 	
-// setup context
+	// setup context
 	ctx.debugTrace = verbose;
 	ctx.quiet = quiet;
 
-// setup encoding convertion.
+	// setup encoding conversion.
 	if (strcmp(swf_encoding, "UTF-8")) {
 		ctx.convertEncoding = true;
 		ctx.swf_encoding = swf_encoding;
