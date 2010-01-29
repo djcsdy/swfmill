@@ -101,6 +101,8 @@ swfmill_SOURCES = \
 	swft/readpng.c \
 	\
 	base64.c \
+	dtoa.c \
+	g_fmt.c \
 	Geom.cpp \
 	SWFReader.cpp \
 	SWFWriter.cpp \

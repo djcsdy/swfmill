@@ -1,4 +1,5 @@
 #include "Geom.h"
+#include "dtoa.h"
 
 #define TMP_STRLEN 0xff
 
@@ -90,18 +91,18 @@ double Matrix::getValue(int row, int col) {
 void Matrix::setXMLProps(xmlNodePtr node) {
 	char tmp[TMP_STRLEN];
 	
-	snprintf(tmp,TMP_STRLEN,"%f", values[1][0]);
-	xmlSetProp(node, (const xmlChar *)"skewX", (const xmlChar *)&tmp );
-	snprintf(tmp,TMP_STRLEN,"%f", values[0][1]);
-	xmlSetProp(node, (const xmlChar *)"skewY", (const xmlChar *)&tmp );
-	snprintf(tmp,TMP_STRLEN,"%f", values[0][0]);
-	xmlSetProp(node, (const xmlChar *)"scaleX", (const xmlChar *)&tmp );
-	snprintf(tmp,TMP_STRLEN,"%f", values[1][1]);
-	xmlSetProp(node, (const xmlChar *)"scaleY", (const xmlChar *)&tmp );
-	snprintf(tmp,TMP_STRLEN,"%f", values[0][2]);
-	xmlSetProp(node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
-	snprintf(tmp,TMP_STRLEN,"%f", values[1][2]);
-	xmlSetProp(node, (const xmlChar *)"transY", (const xmlChar *)&tmp );
+ 	g_fmt(tmp, values[1][0]);
+ 	xmlSetProp(node, (const xmlChar *)"skewX", (const xmlChar *)&tmp );
+ 	g_fmt(tmp, values[0][1]);
+ 	xmlSetProp(node, (const xmlChar *)"skewY", (const xmlChar *)&tmp );
+ 	g_fmt(tmp, values[0][0]);
+ 	xmlSetProp(node, (const xmlChar *)"scaleX", (const xmlChar *)&tmp );
+ 	g_fmt(tmp, values[1][1]);
+ 	xmlSetProp(node, (const xmlChar *)"scaleY", (const xmlChar *)&tmp );
+ 	g_fmt(tmp, values[0][2]);
+ 	xmlSetProp(node, (const xmlChar *)"transX", (const xmlChar *)&tmp );
+ 	g_fmt(tmp, values[1][2]);
+ 	xmlSetProp(node, (const xmlChar *)"transY", (const xmlChar *)&tmp );
 }
 
 }

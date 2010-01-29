@@ -3,6 +3,7 @@
 #include "SWFShapeItem.h"
 #include "SWFItem.h"
 #include "SWF.h"
+#include "dtoa.h"
 
 #define TMP_STRLEN 0xFF
 
@@ -388,15 +389,15 @@ void ShapeMaker::boundsWriteXML( xmlNodePtr parent, double border ) {
 		border = 0;
 	}
 
-	node = xmlNewChild(node, NULL, (const xmlChar *)"Rectangle", NULL);
-	snprintf(tmp, TMP_STRLEN, "%f", minx - border * 20);
-	xmlSetProp(node, (const xmlChar *)"left", (const xmlChar *)&tmp);
-	snprintf(tmp, TMP_STRLEN,"%f", miny - border * 20);
-	xmlSetProp(node, (const xmlChar *)"top", (const xmlChar *)&tmp);
-	snprintf(tmp,TMP_STRLEN,"%f", maxx + border * 20);
-	xmlSetProp(node, (const xmlChar *)"right", (const xmlChar *)&tmp);
-	snprintf(tmp,TMP_STRLEN,"%f", maxy + border * 20);
-	xmlSetProp(node, (const xmlChar *)"bottom", (const xmlChar *)&tmp);
+ 	node = xmlNewChild(node, NULL, (const xmlChar *)"Rectangle", NULL);
+ 	g_fmt(tmp, minx - border * 20);
+ 	xmlSetProp(node, (const xmlChar *)"left", (const xmlChar *)&tmp);
+ 	g_fmt(tmp, miny - border * 20);
+ 	xmlSetProp(node, (const xmlChar *)"top", (const xmlChar *)&tmp);
+ 	g_fmt(tmp, maxx + border * 20);
+ 	xmlSetProp(node, (const xmlChar *)"right", (const xmlChar *)&tmp);
+ 	g_fmt(tmp, maxy + border * 20);
+ 	xmlSetProp(node, (const xmlChar *)"bottom", (const xmlChar *)&tmp);
 }
 
 }

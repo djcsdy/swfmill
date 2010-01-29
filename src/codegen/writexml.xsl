@@ -5,6 +5,7 @@
 
 #include "<xsl:value-of select="/format/@format"/>.h"
 #include "base64.h"
+#include "dtoa.h"
 #include &lt;cstring&gt;
 #include &lt;errno.h&gt;
 #include &lt;iconv.h&gt;
@@ -113,8 +114,8 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 </xsl:template>
 
 <xsl:template match="double|double2|half|float|fixedpoint|fixedpoint2" mode="writexml">
-	snprintf(tmp,TMP_STRLEN,"%#.*g", 16, <xsl:value-of select="@name"/>);
-	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmp );
+	g_fmt(tmp, <xsl:value-of select="@name"/>);
+	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)tmp );
 </xsl:template>
 
 <xsl:template match="byte|word|byteOrWord|integer|bit|uint32|u30|s24|encodedu32" mode="writexml">

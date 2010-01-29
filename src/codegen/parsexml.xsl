@@ -8,6 +8,7 @@
 #include &lt;cctype&gt;
 #include &lt;cstdlib&gt;
 #include "base64.h"
+#include "dtoa.h"
 #include &lt;errno.h&gt;
 #include &lt;iconv.h&gt;
 
@@ -175,9 +176,8 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="float|double|double2|half" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		double tmp_float;
-		sscanf( (char *)tmp, "%lg", &amp;tmp_float );
-		<xsl:value-of select="@name"/> = tmp_float;
+		char *e;
+		<xsl:value-of select="@name"/> = strtod((const char*)tmp, &amp;e);
 		xmlFree( tmp );
 	}
 </xsl:template>
@@ -185,9 +185,8 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 <xsl:template match="fixedpoint|fixedpoint2" mode="parsexml">
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
-		double t;
-		sscanf( (char *)tmp, "%lg", &amp;t);
-		<xsl:value-of select="@name"/> = t;
+		char *e;
+		<xsl:value-of select="@name"/> = strtod((const char*)tmp, &amp;e);
 		xmlFree( tmp );
 		<xsl:choose>
 		<!-- should this be done in writer.xsl? -->
