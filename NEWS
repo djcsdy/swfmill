@@ -1,3 +1,5 @@
+    Support alternate text encodings in SWF 5 and earlier.
+
 2009-11-29 release 0.3.0
     Fix compile error with GCC 4.4 due to inconsistent constancy
     Support for colormap in DefineBitsLossless (thanks to MURAOKA Daisuke)
