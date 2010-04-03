@@ -1,3 +1,4 @@
+    Fix occasional incorrect JPEG dimensions (thanks to Piers Haken).
     Support alternate text encodings in SWF 5 and earlier.
 
 2009-11-29 release 0.3.0

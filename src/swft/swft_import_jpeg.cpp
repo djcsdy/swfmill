@@ -23,6 +23,62 @@ int getJpegWord( FILE *fp ) {
 	return r;
 }
 
+bool getJpegDimensions (FILE *infile, int &image_width, int &image_height) {
+	image_width = image_height = 0;
+	
+	if (fgetc(infile) != 0xff || fgetc(infile) != 0xd8) {
+		return false;
+	}
+	
+	while (!feof(infile)) {
+		if (fgetc(infile) != 0xff) {
+			return false;
+		}
+		
+		int marker;
+		do {
+			marker = fgetc(infile);
+		} while (marker == 0xff);
+		
+		switch (marker) {
+			case 0xc0:
+			case 0xc1:
+			case 0xc2:
+			case 0xc3:
+			case 0xc5:
+			case 0xc6:
+			case 0xc7:
+			case 0xc9:
+			case 0xca:
+			case 0xcb:
+			case 0xcd:
+			case 0xce:
+			case 0xcf:
+			getJpegWord(infile);
+			fgetc(infile);
+			image_height = getJpegWord(infile);
+			image_width = getJpegWord(infile);
+			fgetc(infile);
+			return true;
+			
+			case 0xda:
+			case 0xd9:
+			return false;
+			
+			default:
+			int length = getJpegWord(infile);
+			if (length < 2) {
+				return false;
+			} else {
+				fseek(infile, length-2, SEEK_CUR);
+			}
+			break;
+		}
+	}
+	
+	return false;
+}
+
 void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	unsigned char *filename;
@@ -51,7 +107,6 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
 	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
-
 	
 	FILE *fp = fopen( (const char *)filename, "rb" );
 	if( !fp ) {
@@ -67,28 +122,19 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	swft_addFileName( node, (const char *)filename );
 	
-	// figure width/height
-	int width=-1, height=-1;
-	while( !feof( fp ) ) { // could do a && width==-1 here, but that captures preview imgs...
-		if( fgetc(fp) == 0xff ) {
-			if( fgetc(fp) == 0xc0 ) {
-				// StartOfFrame
-				// skip length and precision (UGLY, eh?)
-				fgetc(fp); fgetc(fp); fgetc(fp);
-				
-				// read height, width
-				height = getJpegWord( fp );
-				width = getJpegWord( fp );
-			}
-		}
+	unsigned char *data = NULL;
+	int width, height;
+	if (!getJpegDimensions(fp, width, height)) {
+		fprintf(stderr, "WARNING: could not extract dimensions for jpeg %s\n", filename);
+		goto fail;
 	}
+	
 	snprintf(tmp,TMP_STRLEN,"%i", width);
 	xmlSetProp( node, (const xmlChar *)"width", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", height);
 	xmlSetProp( node, (const xmlChar *)"height", (const xmlChar *)&tmp );
 	
 	// add data
-	unsigned char *data = NULL;
 	int size, ofs;
 	struct stat filestat;
 	if( stat( (const char *)filename, &filestat ) ) goto fail;
