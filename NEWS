@@ -1,3 +1,5 @@
+    Simple dialect: Automatically detect the number of frames (previously
+        it was necessary to specify the number of frames in the <movie> tag).
     Fix occasional incorrect JPEG dimensions (thanks to Piers Haken).
     Support alternate text encodings in SWF 5 and earlier.
 

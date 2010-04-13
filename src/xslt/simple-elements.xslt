@@ -39,6 +39,7 @@
 	<xsl:variable name="frames">
 		<xsl:choose>
 			<xsl:when test="@frames"><xsl:value-of select="@frames"/></xsl:when>
+			<xsl:when test="frame"><xsl:value-of select="count(frame)"/></xsl:when>
 			<xsl:otherwise>1</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
