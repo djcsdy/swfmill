@@ -201,6 +201,7 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	// figure width/height
 	int width=-1, height=-1;
+	/*
 	while( !feof( fp ) ) { // could do a && width==-1 here, but that captures preview imgs...
 		if( fgetc(fp) == 0xff ) {
 			if( fgetc(fp) == 0xc0 ) {
@@ -214,14 +215,24 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 			}
 		}
 	}
+	*/
+
+	unsigned char *jpegdata = NULL;
+	unsigned char *data = NULL;
+
+	if (!getJpegDimensions (fp, width, height))
+	{
+		fprintf(stderr,"WARNING: could not extract dimensions for jpeg %s\n", filename );
+		goto fail;
+	}
+
+
 	snprintf(tmp,TMP_STRLEN,"%i", width);
 	xmlSetProp( node, (const xmlChar *)"width", (const xmlChar *)&tmp );
 	snprintf(tmp,TMP_STRLEN,"%i", height);
 	xmlSetProp( node, (const xmlChar *)"height", (const xmlChar *)&tmp );
 	
 	// add data
-	unsigned char *jpegdata = NULL;
-	unsigned char *data = NULL;
 	int data_size, mask_size;
 	int size, ofs;
 	struct stat filestat;
@@ -258,7 +269,7 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 		goto fail;
 	}
 
-	data_size = size + ofs + (width*height);
+	data_size = size + ofs + (width*height) + 0x4000;
 	data = new unsigned char[ data_size ];
 	memcpy( data, jpegdata, size+ofs );
 	maskdata = &data[ size+ofs ];
@@ -280,7 +291,7 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 		goto fail;
 	}
 	
-	mask_size = data_size;
+	mask_size = data_size - size - ofs;
 	if( compress( mask, width*height, maskdata, &mask_size ) ) {
 		data_size = size + ofs + mask_size;
 	} else {
