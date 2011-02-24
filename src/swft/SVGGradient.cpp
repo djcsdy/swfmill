@@ -84,7 +84,7 @@ void SVGGradient::parseSpreadMethod() {
 	}
 }
 
-void SVGGradient::writeCommonXML(xmlNodePtr parentNode, Matrix& m, bool hasModes) {
+void SVGGradient::writeCommonXML(xmlNodePtr parentNode, Matrix& m, bool hasModes, double opacity) {
 	char tmp[TMP_STRLEN];
 	xmlNodePtr node;
 	
@@ -104,7 +104,7 @@ void SVGGradient::writeCommonXML(xmlNodePtr parentNode, Matrix& m, bool hasModes
 	node = xmlNewChild(parentNode, NULL, (const xmlChar *)"gradientColors", NULL);
 
 	for(map<double, SVGGradientStop>::iterator i = stops.begin(); i != stops.end(); i++) {
-		(*i).second.writeXML(node, (*i).first);
+		(*i).second.writeXML(node, (*i).first, opacity);
 	}
 }
 
@@ -117,7 +117,7 @@ void SVGLinearGradient::parseGradient() {
 	y2 = attribs.getDouble("y2", 0);
 }
 
-void SVGLinearGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hadModes) {
+void SVGLinearGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hadModes, double opacity) {
 	double w = bounds.right - bounds.left;
 	double h = bounds.bottom - bounds.top;
 
@@ -168,7 +168,7 @@ void SVGLinearGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hadModes) {
 	}
 
 	xmlNodePtr topNode = xmlNewChild(node, NULL, (const xmlChar *)"LinearGradient", NULL);
-	writeCommonXML(topNode, m, hadModes);
+	writeCommonXML(topNode, m, hadModes, opacity);
 }
 
 /* SVGRadialGradient */
@@ -191,7 +191,7 @@ void SVGRadialGradient::parseGradient() {
 	}
 }
 
-void SVGRadialGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hasModes) {
+void SVGRadialGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hasModes, double opacity) {
 	Matrix m;
 	
 	double w = bounds.right - bounds.left;
@@ -240,19 +240,19 @@ void SVGRadialGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hasModes) {
 	} else {
 		topNode = xmlNewChild(node, NULL, (const xmlChar *)"RadialGradient", NULL);
 	}
-	writeCommonXML(topNode, m, hasModes);
+	writeCommonXML(topNode, m, hasModes, opacity);
 }
 
 /* SVGGradientStop */
 
-void SVGGradientStop::writeXML(xmlNodePtr node, double offset) {
+void SVGGradientStop::writeXML(xmlNodePtr node, double offset, double opacity) {
 	char tmp[TMP_STRLEN];
 
 	node = xmlNewChild(node, NULL, (const xmlChar *)"GradientItem", NULL);
 	snprintf(tmp, TMP_STRLEN, "%i", (int)(offset * 255));
 	xmlSetProp(node, (const xmlChar *)"position", (const xmlChar *)&tmp);
 	node = xmlNewChild(node, NULL, (const xmlChar *)"color", NULL);
-	color.writeXML(node);
+	color.writeXML(node, opacity);
 }
 
 }

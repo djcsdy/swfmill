@@ -21,6 +21,23 @@ class Bezier {
 			p0 = _p0; p1 = _p1; p2 = _p2; p3 = _p3;
 			return *this;
 		}
+
+		/*
+		void split (double d, Bezier& part1, Bezier& part2)
+		{
+			PointF m1 = p0 + d * (p1 - p0);
+			PointF m2 = p1 + d * (p2 - p1);
+			PointF m3 = p2 + d * (p3 - p2);
+
+			PointF mm1 = m1 + d * (m2 - m1);
+			PointF mm2 = m2 + d * (m3 - m2);
+
+			PointF p = mm1 + d * (mm2 - mm1);
+
+			part1 = Bezier3 (p0, m1, mm1, p);
+			part2 = Bezier3 (p, mm2, m3, p3);
+		}
+		*/
 };
 
 class ShapeMaker {

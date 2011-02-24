@@ -18,15 +18,18 @@ class AttributeParser : public Parser {
 		}
 
 		void parseNode(xmlNodePtr node);
-		std::map<std::string, std::string>& getAttributes();
+		const std::map<std::string, std::vector<std::string> >& getAttributes();
 
-		double getDouble(const char* attribute, double defaultValue = 0,
-				double value100 = 1);
-		const char* getString(const char* attribute);
-		const char* operator[](const char* attribute);
+		double getDouble(const char* attribute, double defaultValue = 0, double value100 = 1);
+		const char *getString(const char* attribute);
+		const char *operator[](const char* attribute);
+
+	protected:
+		void doParse(const char* str);
+
 
 	private:
-		std::map<std::string, std::string> attributes;
+		std::map<std::string, std::vector<std::string> > attributes;
 		void handleData(const std::string& attrib, const std::vector<std::string>& value);
 };
 

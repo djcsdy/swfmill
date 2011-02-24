@@ -30,7 +30,7 @@ char *fromXmlChar(const Context *ctx, const xmlChar *from_str) {
 			char * const dst = new char[buf_size];
 			size_t inbytesleft = len;
 			size_t outbytesleft = buf_size - 1; // reserve 1 byte for '\0'
-			char *pin = (char*)from_str;
+			const char *pin = (const char*)from_str;
 			char *pout = dst;
 			bool expandbuf = false;
 

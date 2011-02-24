@@ -10,7 +10,9 @@ void AttributeParser::parseNode(xmlNodePtr node) {
 	for(xmlAttrPtr attr = node->properties; attr != NULL; attr = attr->next) {
 		xmlChar *tmp = xmlGetProp(node, attr->name);
 		if(tmp) {
-			attributes[(char *)attr->name] = (char *)tmp;
+			vector<string> values;
+			values.push_back ((const char *) tmp);
+			attributes[(const char *)attr->name] = values;
 			xmlFree(tmp);
 		}
 	}	
@@ -55,24 +57,102 @@ double AttributeParser::getDouble(const char* attribute, double defaultValue, do
 }
 
 const char *AttributeParser::getString(const char* attribute) {
-	map<string, string>::iterator iter = attributes.find(attribute);
-	if(iter != attributes.end()) {
-		return (*iter).second.c_str();
-	} else {
+	map<string, vector<string> >::iterator iter = attributes.find(attribute);
+	if (iter == attributes.end ())
 		return NULL;
-	}
+
+	return (*iter).second [0].c_str ();
 }
 
 const char *AttributeParser::operator[](const char* attribute) {
 	return getString(attribute);
 }
 
-map<string, string> &AttributeParser::getAttributes() {
+const map<string, vector<string> > &AttributeParser::getAttributes() {
 	return attributes;
 }
 
 void AttributeParser::handleData(const string& attrib, const vector<string>& value) {
-	attributes[attrib] = value[0];
+	cerr << "handleData UNUSED" << endl;
+// UNUSED
+//	attributes[attrib] = value[0];
+}
+
+
+
+void AttributeParser::doParse(const char* str) {
+
+
+	int ich = 0;
+	int cch = strlen (str);
+	char ch;
+
+	while (ich < cch)
+	{
+		string attrib;
+
+		while (ich < cch && (ch = str[ich++]) != ':')
+			attrib += ch;
+
+		trimString (attrib);
+
+		//cerr << "ATTRIBUTE: " << attrib << endl;
+
+		vector<string> params;
+
+		bool fNextAttribute = false;
+
+		while (ich < cch && !fNextAttribute)
+		{
+			// skip whitespace
+			while (ich < cch && isWhitespace (str [ich]))
+				ich ++;
+
+			string value;
+
+			int cParens = 0;
+
+			while (ich < cch)
+			{
+				char ch = str [ich++];
+
+				if (cParens <= 0)
+				{
+					if (ch == ';')
+					{
+						fNextAttribute = true;
+						break;
+					}
+
+					if (isWhitespace (ch))
+						break;
+				}
+
+				value += ch;
+
+				if (ch == '(')
+					cParens ++;
+				else if (ch == ')')
+				{
+					cParens --;
+					if (cParens < 0)
+						cerr << "WARNING: unexpected ')' in '" << str << "'" << endl;
+				}
+
+			}
+
+			if (cParens != 0)
+				cerr << "WARNING: unbalanced '(' in '" << str << "'" << endl;
+
+			trimString(value);
+			//cerr << "VALUE: " << value << endl;
+			if (value.length () > 0)
+				params.push_back (value);
+		}
+
+		if (attrib.length () > 0 && params.size () > 0)
+			attributes[attrib] = params;
+	}
 }
 
 }

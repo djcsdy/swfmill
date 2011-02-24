@@ -16,13 +16,13 @@ class Parser {
 		
 	protected:
 		virtual void handleData(const string& outside, const vector<string>& inside) = 0;
-		void doParse(const char* str);
+		virtual void doParse(const char* str);
 		void trimString(string& s);			
+		bool isWhitespace(const char c);
 		
 	private:
 		void handleDelimiter(string& tmp);
 		void swapDelimiters();
-		bool isWhitespace(const char c);
 				
 		char expectedDelimiter;
 		char otherDelimiter;

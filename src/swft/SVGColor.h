@@ -23,7 +23,7 @@ class SVGColor {
 		bool parse(std::string &color);
 		bool parse(const char *color);
 
-		void writeXML(xmlNodePtr parent);
+		void writeXML(xmlNodePtr parent, double opacity);
 
 	private:
 		unsigned char r;

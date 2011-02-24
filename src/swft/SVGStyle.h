@@ -28,13 +28,36 @@ class SVGStyle {
 	public:
 		SVGStyle();
 		
-		void setStrokeColor(const char *color) { _hasStroke = stroke.parse(color); _hasStyle = true; }
-		void setStrokeWidth(const double width) { strokeWidth = width; _hasStyle = true; }
+		bool setStrokeColor(const char *color)
+		{
+			_hasStroke = stroke.parse(color);
+			_hasStyle = true;
+			return _hasStroke;
+		}
+		void setStrokeWidth(const double width)
+		{
+			strokeWidth = width;
+			_hasStyle = true;
+		}
 		void setStrokeAlpha(const double alpha) { stroke.setAlpha(alpha); _hasStyle = true; }		
-		void setFillColor(const char *color) { _hasFill = fill.parse(color); _hasStyle = true; }
-		void setFillAlpha(const double alpha) { fill.setAlpha(alpha); _hasStyle = true; }
-		void setLineCap(const char *cap);
-		void setLineJoin(const char *join);
+		bool setFillColor(const char *color)
+		{
+			_hasFill = fill.parse(color);
+			_hasStyle = true;
+			return _hasFill;
+		}
+		void setFillAlpha(const double alpha)
+		{
+			fill.setAlpha(alpha);
+			_hasStyle = true;
+		}
+		void setOpacity(const double opacity)
+		{
+			_opacity = opacity;
+			_hasStyle = true;
+		}
+		bool setLineCap(const char *cap);
+		bool setLineJoin(const char *join);
 		void setMiterLimit(const double miter) { miterLimit = miter; _hasStyle = true; }
 
 		double getStrokeWidth() { return strokeWidth; }
@@ -71,6 +94,7 @@ class SVGStyle {
 		bool _hasStyle;
 
 		double strokeWidth;
+		double _opacity;
 
 		Rect bounds;
 };

@@ -23,96 +23,136 @@ SVGStyle::SVGStyle() {
 	miterLimit = 4;
 
 	strokeWidth = 1;
+	_opacity = 1;
 }
 
 void SVGStyle::parseNode(xmlNodePtr node, map<string, SVGGradient*> &gradients) {
 	AttributeParser parser;
 	parser.parseNode(node);
 
-	map<string, string> &attributes = parser.getAttributes();
-	for(map<string, string>::iterator iter = attributes.begin(); iter != attributes.end(); iter++) {
+	const map<string, vector<string> > &attributes = parser.getAttributes();
+	for(map<string, vector<string> >::const_iterator iter = attributes.begin(); iter != attributes.end(); iter++) {
 		const string &attribute = (*iter).first;
-		const string &valueStr = (*iter).second;
-		const char *value = valueStr.c_str();
-		
-		if(attribute == "stroke") {
-			SVGGradient *gradient = getGradient(valueStr, gradients);
-			if(gradient) {
+		const vector<string> &values = (*iter).second;
+
+
+
+		for (vector<string>::const_iterator iterValue = values.begin (); iterValue != values.end (); iterValue ++)
+		{
+			const string &valueStr = (*iterValue);
+			const char *value = valueStr.c_str ();
+			//cerr << attribute << " : " << valueStr << endl;
+
+			bool fParsed = true;
+			
+			if(attribute == "stroke") {
+				SVGGradient *gradient = getGradient(valueStr, gradients);
+				if(gradient) {
 					strokeGradient = gradient;
 					_hasStrokeGradient = true;
 					_hasStroke = true;
-			} else {
-				setStrokeColor(value);
-			}
-		} else if(attribute == "stroke-width") {
-			setStrokeWidth(atof(value));
-		} else if(attribute == "stroke-opacity") {
-			setStrokeAlpha(atof(value));
-		} else if(attribute == "stroke-linecap") {
-			setLineCap(value);
-		} else if(attribute == "stroke-linejoin") {
-			setLineJoin(value);
-		} else if(attribute == "stroke-miterlimit") {
-			setMiterLimit(atof(value));
-		} else if(attribute == "fill") {
-			SVGGradient *gradient = getGradient(valueStr, gradients);
-			if(gradient) {
+					fParsed = true;
+				} else {
+					fParsed = setStrokeColor(value);
+				}
+			} else if(attribute == "stroke-width") {
+				setStrokeWidth(atof(value));
+			} else if(attribute == "stroke-opacity") {
+				setStrokeAlpha(atof(value));
+			} else if(attribute == "stroke-linecap") {
+				fParsed = setLineCap(value);
+			} else if(attribute == "stroke-linejoin") {
+				fParsed = setLineJoin(value);
+			} else if(attribute == "stroke-miterlimit") {
+				setMiterLimit(atof(value));
+			} else if(attribute == "fill") {
+				SVGGradient *gradient = getGradient(valueStr, gradients);
+				if(gradient) {
 					fillGradient = gradient;
 					_hasFillGradient = true;
 					_hasFill = true;
-			} else {
-				setFillColor(value);
+					fParsed = true;
+				} else {
+					fParsed = setFillColor(value);
+				}
+			} else if(attribute == "fill-opacity") {
+				setFillAlpha(atof(value));
+			} else if(attribute == "opacity") {
+				setOpacity(atof(value));
 			}
-		} else if(attribute == "fill-opacity") {
-			setFillAlpha(atof(value));
+
+			if (fParsed)
+				break;
 		}
 	}
 }
 
 SVGGradient *SVGStyle::getGradient(const string &str, map<string, SVGGradient*> &gradients) {
+
 	if(str.substr(0, 4) == "url(" && str.substr(str.length() - 1) == ")") {
-		map<string, SVGGradient*>::iterator i;
-		i = gradients.find(str.substr(5, str.length() - 6));
-		if(i != gradients.end()) {
-			return (*i).second;
-		} else {
-			return NULL;
+		string strGradient = str.substr (4, str.length() - 5);
+
+		if (strGradient [0] == '"' && strGradient [strGradient.length() - 1] == '"' ||
+			strGradient [0] == '\'' && strGradient [strGradient.length() - 1] == '\'')
+		{
+			strGradient = strGradient.substr (1, strGradient.length () - 2);
 		}
-	} else {
-		return NULL;
+
+		if (strGradient [0] == '#')
+		{
+			//cerr << "GRADIENT: " << strGradient << endl;
+
+			strGradient = strGradient.substr (1, strGradient.length() - 1);
+
+			map<string, SVGGradient*>::iterator i = gradients.find(strGradient);
+			if(i != gradients.end())
+				return (*i).second;
+		}
 	}
+
+	return NULL;
 }
 
-void SVGStyle::setLineCap(const char *cap) {
+bool SVGStyle::setLineCap(const char *cap) {
 	if(!strcmp(cap, "butt")) {
 		lineCap = CAP_BUTT;
 		_hasLineCap = true;
 		_hasStyle = true;
+		return true;
 	} else if(!strcmp(cap, "round")) {
 		lineCap = CAP_ROUND;
 		_hasLineCap = true;
 		_hasStyle = true;
+		return true;
 	} else if(!strcmp(cap, "square")) {
 		lineCap = CAP_SQUARE;
 		_hasLineCap = true;
 		_hasStyle = true;
+		return true;
 	}
+
+	return false;
 }
 
-void SVGStyle::setLineJoin(const char *join) {
+bool SVGStyle::setLineJoin(const char *join) {
 	if(!strcmp(join, "miter")) {
 		lineJoin = JOIN_MITER;
 		_hasLineJoin = true;
 		_hasStyle = true;
+		return true;
 	} else if(!strcmp(join, "round")) {
 		lineJoin = JOIN_ROUND;
 		_hasLineJoin = true;
 		_hasStyle = true;
+		return true;
 	} else if(!strcmp(join, "bevel")) {
 		lineJoin = JOIN_BEVEL;
 		_hasLineJoin = true;
 		_hasStyle = true;
+		return true;
 	}
+
+	return false;
 }
 
 void SVGStyle::writeXML(xmlNodePtr parent, double movieVersion) {
@@ -124,11 +164,11 @@ void SVGStyle::writeXML(xmlNodePtr parent, double movieVersion) {
 	if(_hasFill) {
 		node = xmlNewChild(styleNode, NULL, (const xmlChar *)"fillStyles", NULL);
 		if(_hasFillGradient) {
-			fillGradient->writeXML(node, bounds, (movieVersion >= 8));
+			fillGradient->writeXML(node, bounds, (movieVersion >= 8), _opacity);
 		} else {
 			node = xmlNewChild(node, NULL, (const xmlChar *)"Solid", NULL);
 			node = xmlNewChild(node, NULL, (const xmlChar *)"color", NULL);
-			fill.writeXML(node);
+			fill.writeXML(node, _opacity);
 		}
 	}
 
@@ -159,17 +199,17 @@ void SVGStyle::writeXML(xmlNodePtr parent, double movieVersion) {
 			
 			if(_hasStrokeGradient) {
 				node = xmlNewChild(node, NULL, (const xmlChar *)"fillStyles", NULL);
-				strokeGradient->writeXML(node, bounds, (movieVersion >= 8));
+				strokeGradient->writeXML(node, bounds, (movieVersion >= 8), _opacity);
 			} else {
 				node = xmlNewChild(node, NULL, (const xmlChar *)"fillColor", NULL);
-				stroke.writeXML(node);
+				stroke.writeXML(node, _opacity);
 			}
 		} else {
 			node = xmlNewChild(node, NULL, (const xmlChar *)"LineStyle", NULL);
 			snprintf(tmp,TMP_STRLEN,"%f", strokeWidth * 20);
 			xmlSetProp(node, (const xmlChar *)"width", (const xmlChar *)&tmp);
 			node = xmlNewChild(node, NULL, (const xmlChar *)"color", NULL);
-			stroke.writeXML(node);
+			stroke.writeXML(node, _opacity);
 
 			if(_hasLineCap || _hasLineJoin) {
 				cerr << "WARNING: some svg features aren't supported before swf version 8" << endl;

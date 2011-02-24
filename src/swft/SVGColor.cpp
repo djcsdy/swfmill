@@ -73,7 +73,7 @@ bool SVGColor::parse(string &color) {
 				a = 255;
 				return true;
 			} else {
-				cerr << "WARNING: can't parse rgb color" << endl;	
+				cerr << "WARNING: can't parse rgb color '" << color << "' " << endl;	
 				return false;
 			}
 		} else {
@@ -98,7 +98,7 @@ bool SVGColor::parse(const char *color) {
 	return parse(tmp);
 }
 
-void SVGColor::writeXML(xmlNodePtr parent) {
+void SVGColor::writeXML(xmlNodePtr parent, double opacity) {
 	xmlNodePtr node;
 	char tmp[TMP_STRLEN];
 
@@ -109,7 +109,7 @@ void SVGColor::writeXML(xmlNodePtr parent) {
 	xmlSetProp(node, (const xmlChar *)"green", (const xmlChar *)&tmp);
 	snprintf(tmp, TMP_STRLEN, "%i", b);
 	xmlSetProp(node, (const xmlChar *)"blue", (const xmlChar *)&tmp);
-	snprintf(tmp, TMP_STRLEN, "%i", a);
+	snprintf(tmp, TMP_STRLEN, "%i", (int) (a * opacity));
 	xmlSetProp(node, (const xmlChar *)"alpha", (const xmlChar *)&tmp);
 }
 
