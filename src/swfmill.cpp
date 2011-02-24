@@ -1,7 +1,7 @@
 #include <libexslt/exslt.h>
 #include "SWFFile.h"
 #include "swft.h"
-#include "xslt.h"
+#include "../src/xslt/xslt.h"
 #include <cstdlib>
 #include <cstring>
 #include <sys/types.h>
