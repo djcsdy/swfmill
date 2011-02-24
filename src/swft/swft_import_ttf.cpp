@@ -14,6 +14,8 @@
 #include FT_OUTLINE_H
 #include "SWFShapeMaker.h"
 
+#include <freetype/tttables.h>
+
 using namespace SWF;
 
 #define TMP_STRLEN 0xff
@@ -37,7 +39,12 @@ int conicTo( const FT_Vector *control, const FT_Vector *to, void *shaper ) {
 }
 
 int cubicTo( const FT_Vector *control1, const FT_Vector *control2, const FT_Vector *to, void *shaper ) {
-	fprintf(stderr,"ERROR: cubic beziers in fonts are not yet implemented.\n");
+
+	((ShapeMaker*)shaper)->cubicTo (
+		control1->x, control1->y,
+		control2->x, control2->y,
+		to->x, to->y
+	);
 
 	return 0;
 }
@@ -61,6 +68,36 @@ int compareGlyphs( const void *a, const void *b ) {
 	return( _a - _b );
 }
 
+//#define FWORD_SCALE (1<<16)
+#define FWORD_SCALE (1)
+
+void getVerticalMetrics (FT_Face face, int SCALING_FACTOR, int &ascender, int &descender, int &lineGap)
+{
+	unsigned char *pOS2 = (unsigned char *) FT_Get_Sfnt_Table(face, ft_sfnt_os2);
+	if (pOS2)
+	{
+		ascender = (short) (pOS2 [76] | (pOS2 [77] << 8)) * FWORD_SCALE;
+		descender = (short) (pOS2 [78] | (pOS2 [79] << 8)) * FWORD_SCALE;
+		lineGap = (short) (pOS2 [74] | (pOS2 [75] << 8)) * FWORD_SCALE;
+	}
+	else
+	{
+		unsigned char *pHhea = (unsigned char *) FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
+		if (pHhea)
+		{
+			ascender = (short) (pHhea [4] | (pHhea [5] << 8));
+			descender = -(short) (pHhea [6] | (pHhea [7] << 8));
+			lineGap = (short) (pHhea [8] | (pHhea [9] << 8));
+		}
+	}
+	
+	/*
+	printf ("ascender: %i\n", ascender / FWORD_SCALE);
+	printf ("descender: %i\n", descender / FWORD_SCALE);
+	printf ("lineGap: %i\n", lineGap / FWORD_SCALE);
+	*/
+}
+
 void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx, swft_ctx *swftctx, int offset ) {
 	FT_Library swfft_library;
 	FT_Face face;
@@ -81,6 +118,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	GlyphShape *shape;
 	int nGlyphs, glyph;
 	
+	const int SCALING_FACTOR = 1024;
+
 	if( FT_Init_FreeType( &swfft_library ) ) {
 		fprintf( stderr, "WARNING: could not initialize FreeType\n" );
 		goto fail;
@@ -96,7 +135,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		fprintf( stderr, "WARNING: %s contains %i faces, but only the first is imported.\n", filename, face->num_faces );
 	}
 
-	FT_Set_Char_Size(face, (1024<<6), (1024<<6), 72, 72);
+	FT_Set_Pixel_Sizes(face, SCALING_FACTOR, SCALING_FACTOR);
+	//FT_Set_Char_Size(face, SCALING_FACTOR << 6, SCALING_FACTOR << 6, 72, 72);
 
 	// count availably glyphs, yes we have to load them to check if they're empty, sorry.
 	nGlyphs = 0;
@@ -147,13 +187,14 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	
 	tag->sethasLayout( 1 );
 	
-#define SCALING_FACTOR ((int)1024)
+	{
+		int ascender, descender, lineGap;
+		getVerticalMetrics (face, SCALING_FACTOR, ascender, descender, lineGap);
+		tag->setascent (ascender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+		tag->setdescent (descender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+		tag->setleading (lineGap * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+	}
 
-	tag->setascent( 1+((SCALING_FACTOR * face->ascender) / face->units_per_EM) );
-	tag->setdescent( 1+((SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
-	tag->setleading( 0 ) ;// (1+(SCALING_FACTOR * face->ascender) / face->units_per_EM) + (1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
-			//1+(SCALING_FACTOR * face->height) / face->units_per_EM );
-	
 	tag->setwideGlyphOffsets( 1 );
 	tag->setwideMap( 1 );
 	
@@ -269,6 +310,9 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 	
 	GlyphShape *shape;
 	int nGlyphs, glyph;
+
+	const int SCALING_FACTOR = 1024 * 20;
+
 	
 	if( FT_Init_FreeType( &swfft_library ) ) {
 		fprintf( stderr, "WARNING: could not initialize FreeType\n" );
@@ -285,7 +329,7 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 		fprintf( stderr, "WARNING: %s contains %i faces, but only the first is imported.\n", filename, face->num_faces );
 	}
 
-	FT_Set_Char_Size(face, (1024<<6) * 20, (1024<<6) * 20, 72, 72);
+	FT_Set_Char_Size(face, SCALING_FACTOR << 6, SCALING_FACTOR << 6, 72, 72);
 
 	// count availably glyphs, yes we have to load them to check if they're empty, sorry.
 	nGlyphs = 0;
@@ -336,12 +380,13 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 	
 	tag->sethasLayout( 1 );
 	
-#define SCALING_FACTOR ((int)1024)
-
-	tag->setascent( (1+((SCALING_FACTOR * face->ascender) / face->units_per_EM)) * 20 );
-	tag->setdescent( (1+((SCALING_FACTOR * labs(face->descender)) / face->units_per_EM)) * 20 );
-	tag->setleading( 0 ) ;// (1+(SCALING_FACTOR * face->ascender) / face->units_per_EM) + (1+(SCALING_FACTOR * labs(face->descender)) / face->units_per_EM) );
-			//1+(SCALING_FACTOR * face->height) / face->units_per_EM );
+	{
+		int ascender, descender, lineGap;
+		getVerticalMetrics (face, SCALING_FACTOR, ascender, descender, lineGap);
+		tag->setascent (ascender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+		tag->setdescent (descender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+		tag->setleading (lineGap * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+	}
 	
 	tag->setwideGlyphOffsets( 1 );
 	tag->setwideMap( 1 );
