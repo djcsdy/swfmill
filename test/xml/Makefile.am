@@ -1,20 +1,18 @@
+SWFMILL = ../../src/swfmill$(EXEEXT)
 
+SUFFIXES = .swf .xml
 
-.PHONY: test run-tests
+.PRECIOUS: %.test %.swf %.swf.xml
 
-check-local: test
+%.swf: %.xml $(SWFMILL)
+	@$(SWFMILL) xml2swf $< $@
 
-test: run-tests
+%.swf.xml : %.swf 
+	@$(SWFMILL) swf2xml $< $@
 
-EXTRA_DIST = \
-	test-xml \
-	$(NULL)
+.%.test : %.swf.xml 
+	diff -q $*.xml $*.swf.xml > $@ || echo FAILED: $*
 
-check_SCRIPTS = \
-	run-xml-tests \
-	$(NULL)
+check-local: $(patsubst %.xml,.%.test,$(filter-out %.swf.xml, $(wildcard *.xml)))
 
-run-tests:
-	sh $(srcdir)/run-xml-tests $(srcdir)
-
-CLEANFILES = *.swf *.swf.xml
+CLEANFILES = *.swf *.swf.xml .*.test

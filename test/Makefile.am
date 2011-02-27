@@ -6,7 +6,7 @@ classes.swf: Main.as org/swfmill/Foo.as
 output.swf: test.swfml classes.swf xml/* library/*
 	../src/swfmill$(EXEEXT) -v simple test.swfml $@
 
-test: output.swf
+check-local: output.swf
 
 
 CLEANFILES = \
