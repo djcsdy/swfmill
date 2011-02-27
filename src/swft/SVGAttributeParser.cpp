@@ -1,4 +1,5 @@
 #include "SVGAttributeParser.h"
+#include <cstring>
 
 #define DPI 90.0
 
