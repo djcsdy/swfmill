@@ -139,13 +139,13 @@
 		<integer name="y" signed="true" size="xybits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasFillStyle0">
-		<integer name="fillStyle0" size="ctx->fillBits" default="0" prop="true"/>
+		<integer name="fillStyle0" context-size="true" size="ctx->fillBits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasFillStyle1">
-		<integer name="fillStyle1" size="ctx->fillBits" default="0" prop="true"/>
+		<integer name="fillStyle1" context-size="true" size="ctx->fillBits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasLineStyle">
-		<integer name="lineStyle" size="ctx->lineBits" default="0" prop="true"/>
+		<integer name="lineStyle" context-size="true" size="ctx->lineBits" default="0" prop="true"/>
 	</flagged>
 	<flagged flag="hasNewStyles">
 		<fill-byte/>
@@ -229,13 +229,13 @@
 </type>
 
 <type name="TextEntry">
-	<integer name="glyph" size="ctx->glyphBits" prop="true"/>
-	<integer name="advance" signed="true" size="ctx->advanceBits" prop="true"/>
+	<integer name="glyph" context-size="true" size="ctx->glyphBits" prop="true"/>
+	<integer name="advance" signed="true" context-size="true" size="ctx->advanceBits" prop="true"/>
 </type>
 
 <type name="TextEntry2">
-	<integer name="glyph" size="ctx->glyphBits" prop="true"/>
-	<integer name="advance" signed="true" size="ctx->advanceBits" prop="true"/>
+	<integer name="glyph" context-size="true" size="ctx->glyphBits" prop="true"/>
+	<integer name="advance" signed="true" context-size="true" size="ctx->advanceBits" prop="true"/>
 </type>
 
 
@@ -921,7 +921,7 @@
 	<byte name="nameLength"/>
 	<data name="nameData" size="nameLength"/>
 
-	<integer name="reserved" size="2"/>
+	<integer name="reserved" size="2" constant-size="true"/>
 	<bit name="smallTextOrUnicode" prop="true"/>
 	<bit name="isShiftJIS" prop="true"/>
 	<bit name="isANSII" prop="true"/>
@@ -1074,7 +1074,7 @@
 	<byte name="nameLength"/>
 	<data name="nameData" size="nameLength"/>
 	
-	<integer name="reserved" size="2"/>
+	<integer name="reserved" size="2" constant-size="true"/>
 	<bit name="smallTextOrUnicode" prop="true"/>
 	<bit name="isShiftJIS" prop="true"/>
 	<bit name="isANSII" prop="true"/>

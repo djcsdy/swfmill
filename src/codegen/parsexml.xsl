@@ -30,7 +30,11 @@ char *fromXmlChar(const Context *ctx, const xmlChar *from_str) {
 			char * const dst = new char[buf_size];
 			size_t inbytesleft = len;
 			size_t outbytesleft = buf_size - 1; // reserve 1 byte for '\0'
+#if defined (_LIBICONV_VERSION)
+			const char *pin = (const char*)from_str;
+#else
 			char *pin = (char*)from_str;
+#endif
 			char *pout = dst;
 			bool expandbuf = false;
 
@@ -193,13 +197,21 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 		<!-- should this be done in writer.xsl? -->
 			<xsl:when test="@constant-size"/>
 			<xsl:otherwise>
-				int b = SWFBitsNeeded( (long)(<xsl:value-of select="@name"/>*(1&lt;&lt; <xsl:value-of select="@exp"/>))<xsl:if test="@signed">, true</xsl:if> );
+				int b = SWFBitsNeeded( <xsl:value-of select="@name"/>, <xsl:value-of select="@exp"/><xsl:if test="@signed">, true</xsl:if> );
 				<xsl:if test="@size-add">b -= <xsl:value-of select="@size-add"/>;</xsl:if>
-				if( b > <xsl:value-of select="@size"/> ) <xsl:value-of select="@size"/> = b;
+				if( b > <xsl:value-of select="@size"/> )
+				<xsl:choose>
+					<xsl:when test="@context-size">
+						<xsl:value-of select="@size"/> = b;
+					</xsl:when>
+					<xsl:otherwise>
+						set<xsl:value-of select="@size"/> (b);
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 	} else {
-		fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> property in %s element\n", (const char *)node->name );
+		fprintf(stderr,"WARNING: no %s property in %s element\n", "<xsl:value-of select="@name"/>", (const char *)node->name );
 	}
 </xsl:template>
 
@@ -214,11 +226,19 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 			<xsl:otherwise>
 				int b = SWFBitsNeeded( <xsl:value-of select="@name"/><xsl:if test="@signed">, true</xsl:if> );
 				<xsl:if test="@size-add">b -= <xsl:value-of select="@size-add"/>;</xsl:if>
-				if( b > <xsl:value-of select="@size"/> ) <xsl:value-of select="@size"/> = b;
+				if( b > <xsl:value-of select="@size"/> )
+				<xsl:choose>
+					<xsl:when test="@context-size">
+						<xsl:value-of select="@size"/> = b;
+					</xsl:when>
+					<xsl:otherwise>
+						set<xsl:value-of select="@size"/> (b);
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 	} else {
-		fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> property in %s element\n", (const char *)node->name );
+		fprintf(stderr,"WARNING: no %s property in %s element\n", "<xsl:value-of select="@name"/>", (const char *)node->name );
 	}
 </xsl:template>
 
@@ -228,7 +248,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 		<xsl:value-of select="@name"/> = fromXmlChar(ctx, (const xmlChar*)tmp);
 		xmlFree(tmp);
 	} else {
-		fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> property in %s element\n", (const char *)node->name );
+		fprintf(stderr,"WARNING: no %s property in %s element\n", "<xsl:value-of select="@name"/>", (const char *)node->name );
 		<xsl:value-of select="@name"/> = strdupx("[undefined]");
 	}
 </xsl:template>
@@ -343,7 +363,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 
 		<!-- FIXME: standardize string handling on xmlString. this should be deleted somewhere, and checked... -->
 		if (child == NULL) {
-			fprintf(stderr,"WARNING: no <xsl:value-of select="@name"/> child element in %s element\n", (const char *)node->name );
+			fprintf(stderr,"WARNING: no %s child element in %s element\n", "<xsl:value-of select="@name"/>", (const char *)node->name );
 			<xsl:value-of select="@name"/> = strdupx("[undefined]");
 		} else {
 			xmlDocPtr out = xmlNewDoc((const xmlChar*)"1.0");

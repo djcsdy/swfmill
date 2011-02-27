@@ -50,7 +50,7 @@ void <xsl:value-of select="@name"/>::dump( int indent, Context *ctx ) {
 
 <xsl:template match="*" mode="dump-wrap" priority="-1">
 	print_indent(indent);
-	printf("<xsl:value-of select="@name"/>: "); <xsl:apply-templates select="." mode="dump"/>
+	printf("%s: ", "<xsl:value-of select="@name"/>"); <xsl:apply-templates select="." mode="dump"/>
 </xsl:template>
 
 
@@ -64,13 +64,13 @@ void <xsl:value-of select="@name"/>::dump( int indent, Context *ctx ) {
 </xsl:template>
 
 <xsl:template match="object" mode="dump">
-	printf("[<xsl:value-of select="@type"/>]\n");
+	printf("[%s]\n", "<xsl:value-of select="@type"/>");
 	<xsl:value-of select="@name"/>.dump( indent+1, ctx );
 </xsl:template>
 
 <xsl:template match="list" mode="dump">
 	{
-		printf("[list of <xsl:value-of select="@type"/>s]\n");
+		printf("[list of %ss]\n", "<xsl:value-of select="@type"/>");
 		<xsl:value-of select="@type"/> *item;
 		ListItem&lt;<xsl:value-of select="@type"/>&gt;* i;
 		i = <xsl:value-of select="@name"/>.first();

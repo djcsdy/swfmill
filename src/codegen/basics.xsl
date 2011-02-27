@@ -159,7 +159,7 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	<xsl:apply-templates mode="defineAccessors"/>
 </xsl:template>
 <xsl:template match="fill-byte|context" mode="defineAccessors"/>
-<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer[@constant-size]|uint32|u30|s24|encodedu32" mode="defineAccessors">
+<xsl:template match="byte|word|byteOrWord|bit|integer[@constant-size]|uint32|u30|s24|encodedu32" mode="defineAccessors">
 	// Constant Size Primitive
 	<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>
 	<xsl:value-of select="ancestor::*[@name]/@name"/>::get<xsl:value-of select="@name"/>() {
@@ -167,6 +167,27 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	}
 	
 	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
+		<xsl:if test="@size">
+			int b = SWFBitsNeeded( v<xsl:if test="@signed">, true</xsl:if> );
+			if (b > <xsl:value-of select="@size"/>)
+				printf ("WARNING: '%s::%s' (%i) is too large to fit in %i bits\n", "<xsl:value-of select="ancestor::*[@name]/@name"/>", "<xsl:value-of select="@name"/>", v, <xsl:value-of select="@size"/>);
+		</xsl:if>
+		<xsl:value-of select="@name"/> = v;
+	}
+</xsl:template>
+<xsl:template match="fixedpoint|fixedpoint2" mode="defineAccessors">
+	// Constant Size Primitive
+	<xsl:apply-templates mode="ctype" select="."/><xsl:text> </xsl:text>
+	<xsl:value-of select="ancestor::*[@name]/@name"/>::get<xsl:value-of select="@name"/>() {
+		return <xsl:value-of select="@name"/>;
+	}
+	
+	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
+		<xsl:if test="@size">
+			int b = SWFBitsNeeded( v, <xsl:value-of select="@exp"/><xsl:if test="@signed">, true</xsl:if> );
+			if (b > <xsl:value-of select="@size"/>)
+				printf ("WARNING: '%s::%s' (%i) is too large to fit in %i bits\n", "<xsl:value-of select="ancestor::*[@name]/@name"/>", "<xsl:value-of select="@name"/>", v, <xsl:value-of select="@size"/>);
+		</xsl:if>
 		<xsl:value-of select="@name"/> = v;
 	}
 </xsl:template>
@@ -178,12 +199,13 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	}
 	
 	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
+		<xsl:if test="not(@context-size) and not(@constant-size)">
+			int b = SWFBitsNeeded( v<xsl:if test="@signed">, true</xsl:if> );
+			<xsl:if test="@size-add">b -= <xsl:value-of select="@size-add"/>;</xsl:if>
+			if( b > <xsl:value-of select="@size"/> )
+				set<xsl:value-of select="@size"/> (b);
+		</xsl:if>
 		<xsl:value-of select="@name"/> = v;
-		<!-- FIXME: this must be done in write, as we have no context here
-		int b = SWFBitsNeeded( <xsl:value-of select="@name"/><xsl:if test="@signed">, true</xsl:if> );
-		<xsl:if test="@size-add">b -= <xsl:value-of select="@size-add"/>;</xsl:if>
-		if( b > <xsl:value-of select="@size"/> ) <xsl:value-of select="@size"/> = b;
-		-->
 	}
 </xsl:template>
 <xsl:template match="string" mode="defineAccessors">
