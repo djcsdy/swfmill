@@ -43,7 +43,7 @@ SIMPLE_DIALECT_XSLTS = \
 	xslt/simple-svg.xslt \
 	$(NULL)
 
-EXTRA_DIST = \
+CODEGEN_SRC = \
 	codegen/basic.xsl \
 	codegen/basics.xsl \
 	codegen/dumper.xsl \
@@ -55,6 +55,10 @@ EXTRA_DIST = \
 	codegen/source.xml \
 	codegen/writer.xsl \
 	codegen/writexml.xsl \
+	$(NULL)
+
+EXTRA_DIST = \
+	$(CODEGEN_SRC) \
 	\
 	xslt/assemble.xsl \
 	xslt/simple.xml \
@@ -65,7 +69,7 @@ BUILT_SOURCES = \
 	$(CODEGEN_GENERATEDHEADERS) \
 	$(NULL)
 
-$(CODEGEN_GENERATEDSOURCES) $(CODEGEN_GENERATEDHEADERS):
+$(CODEGEN_GENERATEDSOURCES) $(CODEGEN_GENERATEDHEADERS): $(CODEGEN_SRC)
 	xsltproc $(srcdir)/codegen/mk.xsl $(srcdir)/codegen/source.xml
 
 NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
