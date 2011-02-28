@@ -13,8 +13,9 @@ namespace <xsl:value-of select="/format/@format"/> {
 //////////////////////////////////// <xsl:value-of select="@name"/>
 
 bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
-	if( ctx->debugTrace ) fprintf( stderr, "PARSE <xsl:value-of select="@name"/> @%i-%i :%i\n", r->getPosition(), r->getBits(), end );
 	file_offset = r->getPosition();
+	if( ctx->debugTrace )
+		fprintf( stderr, "PARSE <xsl:value-of select="@name"/> @%i-%i :%i\n", file_offset, r->getBits(), end );
 
 	<xsl:apply-templates mode="parse"/>
 

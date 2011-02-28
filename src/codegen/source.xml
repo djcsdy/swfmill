@@ -1837,6 +1837,12 @@
 <multinameconstant name="RTQNameL" id="17"/>
 <multinameconstant name="RTQNameLA" id="18"/>
 
+<multinameconstant name="TypeName" id="29">
+	<u30 name="nameIndex" prop="true"/>
+	<u30 name="nameCount" prop="true"/>
+	<list type="U30" name="types" length="nameCount" prop="true"/>
+</multinameconstant>
+
 <!-- *********************** TRAITS ********************* -->
 
 <trait name="Slot" id="0">
@@ -2035,6 +2041,9 @@
 <opcode name="OpCallPropVoid" id="0x4F">
 	<u30 name="name" prop="true"/>
 	<u30 name="argc" prop="true"/>
+</opcode>
+<opcode name="OpApplyType" id="0x53">
+	<u30 name="type" prop="true"/>
 </opcode>
 <opcode name="OpNewObject" id="0x55">
 	<u30 name="argc" prop="true"/>
