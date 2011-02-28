@@ -27,8 +27,15 @@ int swf_get_bits_needed_for_int( int64_t value ) {
 		return 0;
 }
 
-int swf_get_bits_needed_for_fp( double value ) {
-	return swf_get_bits_needed_for_int( (int64_t)(value * 65536.0) );
+int swf_get_bits_needed_for_fp( double value, int exp = 16 ) {
+	return swf_get_bits_needed_for_int( (int64_t)(value * (1 << exp)) );
+}
+
+int SWFBitsNeeded( float value, int exp, bool is_signed ) {
+	if( !is_signed ) 
+		printf ("FIXME: calculate bits for unsigned float\n");
+
+	return swf_get_bits_needed_for_fp( value, exp );
 }
 	
 int SWFBitsNeeded( int32_t value, bool is_signed ) {

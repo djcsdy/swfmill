@@ -15,7 +15,7 @@ namespace <xsl:value-of select="/format/@format"/> {
 void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 	int start=w->getBitPosition();
 	if( ctx->debugTrace ) {
-		printf("WRITE <xsl:value-of select="@name"/> @%i\n", start/8 );
+		printf("WRITE %s @%i\n", "<xsl:value-of select="@name"/>", start/8 );
 		dump(1,ctx);
 	}
 <!--
@@ -49,7 +49,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 
 	int l = w->getBitPosition()-start;
 	if( l != getSize(ctx,start)) {
-		printf("WARNING: <xsl:value-of select="@name"/> has different size than expected: %i bits instead of %i\n", l, getSize(ctx,start) );
+		printf("WARNING: %s has different size than expected: %i bits instead of %i\n", "<xsl:value-of select="@name"/>", l, getSize(ctx,start) );
 	}
 
 }
@@ -145,7 +145,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 		i = <xsl:value-of select="@name"/>.first();
 		for( int j=0; j&lt;<xsl:value-of select="$length"/>; j++ ) {
 			if( !i || !i->data() ) {
-				printf("WARNING: list <xsl:value-of select="@name"/> has %i items (%i expected)\n", j, <xsl:value-of select="$length"/> );
+				printf("WARNING: list %s has %i items (%i expected)\n", j, "<xsl:value-of select="@name"/>", <xsl:value-of select="$length"/> );
 			} else {
 				i->data()->write( w, ctx );
 			}
@@ -162,7 +162,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 		i = <xsl:value-of select="@name"/>.first();
 		while( i ) {
 			if( !i->data() ) {
-				printf("WARNING: list <xsl:value-of select="@name"/> has an invalid item\n" );
+				printf("WARNING: list %s has an invalid item\n", "<xsl:value-of select="@name"/>" );
 			} else {
 				ctx->isLast = i->isLast();
 				i->data()->write( w, ctx );
