@@ -113,6 +113,7 @@ swfmill_SOURCES = \
 	SWFTag.cpp \
 	SWFAction.cpp \
 	SWFFilter.cpp \
+	SWFOpCode.cpp \
 	SWFTrait.cpp \
 	SWFShapeItem.cpp \
 	SWFGlyphList.cpp \
@@ -151,6 +152,7 @@ noinst_HEADERS = \
 	SWFTag.h \
 	SWFAction.h \
 	SWFFilter.h \
+	SWFOpCode.h \
 	SWFTrait.h \
 	SWFShapeItem.h \
 	SWFGlyphList.h \

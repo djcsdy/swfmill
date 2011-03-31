@@ -9,7 +9,7 @@ class StackItem : public IdItem<StackItem> {};
 class Style : public IdItem<Style> {};
 class NamespaceConstant : public IdItem<NamespaceConstant> {};
 class MultinameConstant : public IdItem<MultinameConstant> {};
-class OpCode : public IdItem<OpCode> {};
+//class OpCode : public IdItem<OpCode> {};
 
 }
 #endif

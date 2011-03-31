@@ -87,7 +87,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 
 	<xsl:apply-templates select="*[@prop]|flagged|if|context" mode="parsexml"/>
 	
-	<xsl:if test="@name='UnknownTag' or @name='UnknownAction'">
+	<xsl:if test="@name='UnknownTag' or @name='UnknownAction' or @name='UnknownOpCode'">
 		tmp = xmlGetProp( node, (const xmlChar *)"id" );
 		if( tmp ) { 
 			sscanf( (char *)tmp, "%X", &amp;type ); 

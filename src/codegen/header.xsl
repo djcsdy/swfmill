@@ -14,6 +14,7 @@
 #include &lt;<xsl:value-of select="/format/@format"/>ShapeItem.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>GlyphList.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>IdItems.h&gt;
+#include &lt;<xsl:value-of select="/format/@format"/>OpCode.h&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
 

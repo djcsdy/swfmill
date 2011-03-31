@@ -89,7 +89,7 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 		</xsl:for-each>
 	}
 	
-	<xsl:if test="@name='UnknownTag' or @name='UnknownAction'">
+	<xsl:if test="@name='UnknownTag' or @name='UnknownAction' or @name='UnknownOpCode'">
 		snprintf( tmp, TMP_STRLEN, "0x%02X", type );
 		xmlSetProp( node, (const xmlChar *)"id", (const xmlChar *)tmp );
 	</xsl:if>

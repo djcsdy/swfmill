@@ -1899,6 +1899,10 @@
 
 <!-- *********************** OPCODES ********************* -->
 
+<opcode name="UnknownOpCode" id="-1">
+	<data name="data" size="len" prop="true"/>
+</opcode>
+
 <opcode name="OpBkPt" id="0x01"/>
 <opcode name="OpNop" id="0x02"/>
 <opcode name="OpThrow" id="0x03"/>
