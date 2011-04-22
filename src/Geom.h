@@ -93,6 +93,14 @@ class Point {
 			x=p.x; y=p.y;
 			return *this;
 		}
+
+		double magnitude () const {
+			return sqrt (x * x + y * y);
+		}
+
+		double distanceTo (const Point& p) const {
+			return (*this - p).magnitude ();
+		}
 };
 
 }

@@ -68,17 +68,14 @@ int compareGlyphs( const void *a, const void *b ) {
 	return( _a - _b );
 }
 
-//#define FWORD_SCALE (1<<16)
-#define FWORD_SCALE (1)
-
-void getVerticalMetrics (FT_Face face, int SCALING_FACTOR, int &ascender, int &descender, int &lineGap)
+void getVerticalMetrics (FT_Face face, int &ascender, int &descender, int &lineGap)
 {
 	unsigned char *pOS2 = (unsigned char *) FT_Get_Sfnt_Table(face, ft_sfnt_os2);
 	if (pOS2)
 	{
-		ascender = (short) (pOS2 [76] | (pOS2 [77] << 8)) * FWORD_SCALE;
-		descender = (short) (pOS2 [78] | (pOS2 [79] << 8)) * FWORD_SCALE;
-		lineGap = (short) (pOS2 [74] | (pOS2 [75] << 8)) * FWORD_SCALE;
+		ascender = (short) (pOS2 [76] | (pOS2 [77] << 8));
+		descender = (short) (pOS2 [78] | (pOS2 [79] << 8));
+		lineGap = (short) (pOS2 [74] | (pOS2 [75] << 8));
 	}
 	else
 	{
@@ -92,9 +89,9 @@ void getVerticalMetrics (FT_Face face, int SCALING_FACTOR, int &ascender, int &d
 	}
 	
 	/*
-	printf ("ascender: %i\n", ascender / FWORD_SCALE);
-	printf ("descender: %i\n", descender / FWORD_SCALE);
-	printf ("lineGap: %i\n", lineGap / FWORD_SCALE);
+	printf ("ascender: %i\n", ascender);
+	printf ("descender: %i\n", descender);
+	printf ("lineGap: %i\n", lineGap);
 	*/
 }
 
@@ -189,10 +186,10 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	
 	{
 		int ascender, descender, lineGap;
-		getVerticalMetrics (face, SCALING_FACTOR, ascender, descender, lineGap);
-		tag->setascent (ascender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
-		tag->setdescent (descender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
-		tag->setleading (lineGap * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+		getVerticalMetrics (face, ascender, descender, lineGap);
+		tag->setascent (ascender * SCALING_FACTOR / face->units_per_EM);
+		tag->setdescent (descender * SCALING_FACTOR / face->units_per_EM);
+		tag->setleading (lineGap * SCALING_FACTOR / face->units_per_EM);
 	}
 
 	tag->setwideGlyphOffsets( 1 );
@@ -382,10 +379,10 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 	
 	{
 		int ascender, descender, lineGap;
-		getVerticalMetrics (face, SCALING_FACTOR, ascender, descender, lineGap);
-		tag->setascent (ascender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
-		tag->setdescent (descender * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
-		tag->setleading (lineGap * SCALING_FACTOR / (face->units_per_EM * FWORD_SCALE));
+		getVerticalMetrics (face, ascender, descender, lineGap);
+		tag->setascent (ascender * SCALING_FACTOR / face->units_per_EM);
+		tag->setdescent (descender * SCALING_FACTOR / face->units_per_EM);
+		tag->setleading (lineGap * SCALING_FACTOR / face->units_per_EM);
 	}
 	
 	tag->setwideGlyphOffsets( 1 );
