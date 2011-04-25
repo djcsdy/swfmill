@@ -173,13 +173,13 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 
 void ShapeMaker::cubicTo (const Bezier &cubic)
 {
-	const double precision = 3000;
 	const double sqrt3 = 1.7320508075688772935274463415059;
+	const double precision = 600 * 18 / (60 * factorx * sqrt3);
 
 	// distance between control points of quadratic approximations of either end
 	double D01 = (cubic.p1 - (cubic.c1 - cubic.c0) * 3 - cubic.p0).magnitude () / 2;
 
-	double tMax3 = precision * 18 / (D01 * sqrt3);
+	double tMax3 = precision / D01;
 	if (tMax3 >= 1)
 	{
 		curveTo (cubic.quadraticCtrl(), cubic.p1);
@@ -188,20 +188,21 @@ void ShapeMaker::cubicTo (const Bezier &cubic)
 
 	Bezier end(cubic);
 
-	double tMax = pow (tMax3, 1.0/3.0);
-	if (tMax >= 0.5)
+	if (tMax3 >= 0.5 * 0.5 * 0.5)
 	{
 		Bezier start (end.split (0.5));
 		curveTo (start.quadraticCtrl (), start.p1);
-		curveTo (end.quadraticCtrl(), end.p1);
-		return;
+	}
+	else
+	{
+		double tMax = pow (tMax3, 1.0/3.0);
+		Bezier start (end.split (tMax));
+		Bezier middle (end.split (1 - tMax / (1 - tMax)));
+
+		curveTo (start.quadraticCtrl (), start.p1);
+		cubicTo (middle);
 	}
 
-	Bezier start (end.split (tMax));
-	Bezier middle (end.split (1 - tMax / (1 - tMax)));
-
-	curveTo (start.quadraticCtrl (), start.p1);
-	cubicTo (middle);
 	curveTo (end.quadraticCtrl (), end.p1);
 }
 
