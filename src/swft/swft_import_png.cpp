@@ -47,7 +47,7 @@ bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBu
 	} while( status == Z_OK );
 	
 	if( status != Z_STREAM_END ) {
-		fprintf( stderr, "ERROR: compressing PNG (3): %s\n", stream.msg );
+		fprintf( stderr, "ERROR: compressing PNG (3): %i, %s\n", status, stream.msg );
 		return false;
 	}
 
@@ -211,7 +211,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)&tmp );
 	
 	compressed_size = data_size;
-	if( compressed_size < 64 ) compressed_size = 64;
+	if( compressed_size < 1024 ) compressed_size = 1024;
 	compressed = new unsigned char[ compressed_size ];
 	if( compress( data, data_size, compressed, &compressed_size ) ) {
 		swft_addData( node, (char*)compressed, compressed_size );
