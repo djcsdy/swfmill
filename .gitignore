@@ -24,3 +24,4 @@ src/g*.cpp
 src/xslt/simple.cpp
 src/xslt/simple.xsl
 w32-dist
+.geanyprj
