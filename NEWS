@@ -1,3 +1,11 @@
+    Fix 'buffer error' when importing small PNGs (Piers Haken)
+    Improve cubic bezier curve approximation in SVG import (Piers Haken)
+    Support unknown AVM2 opcodes (Piers Haken)
+    Support enableDebugger tags (Piers Haken)
+    Support import of fonts that use cubic beziers (Piers Haken)
+    Various minor bugfixes and missing features (Piers Haken)
+
+2010-07-15 release 0.3.1
     Simple dialect: Automatically detect the number of frames (previously
         it was necessary to specify the number of frames in the <movie> tag).
     Fix occasional incorrect JPEG dimensions (thanks to Piers Haken).
