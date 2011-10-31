@@ -87,12 +87,6 @@ void getVerticalMetrics (FT_Face face, int &ascender, int &descender, int &lineG
 			lineGap = (short) (pHhea [8] | (pHhea [9] << 8));
 		}
 	}
-	
-	/*
-	printf ("ascender: %i\n", ascender);
-	printf ("descender: %i\n", descender);
-	printf ("lineGap: %i\n", lineGap);
-	*/
 }
 
 void importDefineFont2( DefineFont2 *tag, const char *filename, const char *fontname, const xmlChar *glyphs_xml, Context *ctx, swft_ctx *swftctx, int offset ) {
@@ -133,7 +127,6 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	}
 
 	FT_Set_Pixel_Sizes(face, SCALING_FACTOR, SCALING_FACTOR);
-	//FT_Set_Char_Size(face, SCALING_FACTOR << 6, SCALING_FACTOR << 6, 72, 72);
 
 	// count availably glyphs, yes we have to load them to check if they're empty, sorry.
 	nGlyphs = 0;
@@ -239,13 +232,13 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		shaper.finish();
 
 		Rectangle *r = new Rectangle();
-        
+
 		Rect rect = shaper.getBounds();
 		r->setleft( (int)rect.left );
 		r->settop( (int)rect.top );
 		r->setright( (int)rect.right );
 		r->setbottom( (int)rect.bottom );
-        
+
 		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
 		bounds->append(r);
 	}
@@ -432,13 +425,13 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 		shaper.finish();
 
 		Rectangle *r = new Rectangle();
-        
+
 		Rect rect = shaper.getBounds();
 		r->setleft( (int)rect.left );
 		r->settop( (int)rect.top );
 		r->setright( (int)rect.right );
 		r->setbottom( (int)rect.bottom );
-        
+
 		r->setbits( SWFMaxBitsNeeded( true, 3, r->gettop(), r->getright(), r->getbottom() ) );
 		bounds->append(r);
 	}

@@ -41,7 +41,6 @@ void SVGStyle::parseNode(xmlNodePtr node, map<string, SVGGradient*> &gradients) 
 		{
 			const string &valueStr = (*iterValue);
 			const char *value = valueStr.c_str ();
-			//cerr << attribute << " : " << valueStr << endl;
 
 			bool fParsed = true;
 			
@@ -81,8 +80,9 @@ void SVGStyle::parseNode(xmlNodePtr node, map<string, SVGGradient*> &gradients) 
 				setOpacity(atof(value));
 			}
 
-			if (fParsed)
+			if (fParsed) {
 				break;
+			}
 		}
 	}
 }
@@ -100,13 +100,12 @@ SVGGradient *SVGStyle::getGradient(const string &str, map<string, SVGGradient*> 
 
 		if (strGradient [0] == '#')
 		{
-			//cerr << "GRADIENT: " << strGradient << endl;
-
 			strGradient = strGradient.substr (1, strGradient.length() - 1);
 
 			map<string, SVGGradient*>::iterator i = gradients.find(strGradient);
-			if(i != gradients.end())
+			if(i != gradients.end()) {
 				return (*i).second;
+			}
 		}
 	}
 

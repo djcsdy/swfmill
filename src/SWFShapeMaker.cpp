@@ -86,8 +86,6 @@ void ShapeMaker::lineToR( double _x, double _y ) {
 }
 
 void ShapeMaker::curveToR( double _cx, double _cy, double ax, double ay ) {
-	//fprintf (stderr, "curveTo %g,%g  %g,%g\n", _cx, _cy, ax, ay);
-
 	int cx = roundX(factorx * ( _cx ) );
 	int cy = roundY(factory * ( _cy ) );
 	int x = roundX(factorx * ( ax - _cx ) );
@@ -97,8 +95,7 @@ void ShapeMaker::curveToR( double _cx, double _cy, double ax, double ay ) {
 	smoothy = lasty + _cy;
 
 	diffx += cx + x; diffy += cy + y;
-
-
+	
 	
 	CurveTo *segment = new CurveTo;
 	segment->setType(2);
@@ -135,8 +132,6 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 	Point c(x2,y2);
 	Point d(ax,ay);
 
-	//fprintf (stderr, " cubicTo %g,%g %g,%g %g,%g %g,%g\n", lastx,lasty, x1,y1, x2,y2, ax,ay);
-
 	Bezier cubic (a, b, c, d);
 
 	double t0, t1;
@@ -148,15 +143,12 @@ void ShapeMaker::cubicTo( double x1, double y1, double x2, double y2, double ax,
 	}
 	else if (cInflections == 1)
 	{
-		//fprintf (stderr, "1 inflection %g\n", t0);
 		Bezier cubic0 = cubic.split (t0);
 		cubicTo (cubic0);
 		cubicTo (cubic);
 	}
 	else
 	{
-		//fprintf (stderr, "2 inflections %g, %g\n", t0, t1);
-
 		Bezier cubic0 = cubic.split (t0);
 		cubicTo (cubic0);
 
@@ -222,15 +214,9 @@ void ShapeMaker::smoothCubicToR( double x2, double y2, double ax, double ay ) {
 }
 
 void ShapeMaker::close(bool stroke) {
-
-	//fprintf(stderr,"ShapeMaker::close %i\n", stroke);
 	// diffx/diffy captures rounding errors. they can accumulate a bit! FIXME
 	
 	if( diffx || diffy ) {
-		/*fprintf(stderr,"WARNING: shape not closed; closing (%f/%f).\n", diffx, diffy);
-		fprintf(stderr,"DEBUG: accumulated rounding error (%f/%f).\n", roundx, roundy);*/
-		//fprintf(stderr,"ShapeMaker::close (%lf, %lf)\n", diffx, diffy);
-		
 		if(!stroke) {
 			doSetup( 0, 0, false, -1, -1, 0 );
 		}
@@ -255,11 +241,10 @@ void ShapeMaker::close(bool stroke) {
 }
 
 void ShapeMaker::finish() {
-	//fprintf(stderr,"ShapeMaker::finish\n");
-
 	ListItem<ShapeItem> *last = edges->last ();
-	if (last && last->data()->isEnd ())
+	if (last && last->data()->isEnd ()) {
 		return;
+	}
 
 	// end shape
 	ShapeSetup *setup = new ShapeSetup;

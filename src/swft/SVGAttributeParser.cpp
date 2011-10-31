@@ -16,7 +16,7 @@ void AttributeParser::parseNode(xmlNodePtr node) {
 			attributes[(const char *)attr->name] = values;
 			xmlFree(tmp);
 		}
-	}	
+	}
 
 	xmlChar *tmp = xmlGetProp(node, (const xmlChar *)"style");
 	if(tmp) {
@@ -33,7 +33,7 @@ double AttributeParser::getDouble(const char* attribute, double defaultValue, do
 
 		char *tailPtr;
 		double value = strtod(tmpStr.c_str(), &tailPtr);
-				
+
 		string unit = tailPtr;
 		trimString(unit);
 
@@ -59,8 +59,9 @@ double AttributeParser::getDouble(const char* attribute, double defaultValue, do
 
 const char *AttributeParser::getString(const char* attribute) {
 	map<string, vector<string> >::iterator iter = attributes.find(attribute);
-	if (iter == attributes.end ())
+	if (iter == attributes.end ()) {
 		return NULL;
+	}
 
 	return (*iter).second [0].c_str ();
 }
@@ -74,9 +75,7 @@ const map<string, vector<string> > &AttributeParser::getAttributes() {
 }
 
 void AttributeParser::handleData(const string& attrib, const vector<string>& value) {
-	cerr << "handleData UNUSED" << endl;
-// UNUSED
-//	attributes[attrib] = value[0];
+	// Unused.
 }
 
 
@@ -88,16 +87,14 @@ void AttributeParser::doParse(const char* str) {
 	int cch = strlen (str);
 	char ch;
 
-	while (ich < cch)
-	{
+	while (ich < cch) {
 		string attrib;
 
-		while (ich < cch && (ch = str[ich++]) != ':')
+		while (ich < cch && (ch = str[ich++]) != ':') {
 			attrib += ch;
+		}
 
 		trimString (attrib);
-
-		//cerr << "ATTRIBUTE: " << attrib << endl;
 
 		vector<string> params;
 
@@ -106,53 +103,55 @@ void AttributeParser::doParse(const char* str) {
 		while (ich < cch && !fNextAttribute)
 		{
 			// skip whitespace
-			while (ich < cch && isWhitespace (str [ich]))
+			while (ich < cch && isWhitespace (str [ich])) {
 				ich ++;
+			}
 
 			string value;
 
 			int cParens = 0;
 
-			while (ich < cch)
-			{
+			while (ich < cch) {
 				char ch = str [ich++];
 
-				if (cParens <= 0)
-				{
-					if (ch == ';')
-					{
+				if (cParens <= 0) {
+					if (ch == ';') {
 						fNextAttribute = true;
 						break;
 					}
 
-					if (isWhitespace (ch))
+					if (isWhitespace (ch)) {
 						break;
+					}
 				}
 
 				value += ch;
 
-				if (ch == '(')
+				if (ch == '(') {
 					cParens ++;
-				else if (ch == ')')
-				{
+				} else if (ch == ')') {
 					cParens --;
-					if (cParens < 0)
+					if (cParens < 0) {
 						cerr << "WARNING: unexpected ')' in '" << str << "'" << endl;
+					}
 				}
 
 			}
 
-			if (cParens != 0)
+			if (cParens != 0) {
 				cerr << "WARNING: unbalanced '(' in '" << str << "'" << endl;
+			}
 
 			trimString(value);
-			//cerr << "VALUE: " << value << endl;
-			if (value.length () > 0)
+
+			if (value.length () > 0) {
 				params.push_back (value);
+			}
 		}
 
-		if (attrib.length () > 0 && params.size () > 0)
+		if (attrib.length () > 0 && params.size () > 0) {
 			attributes[attrib] = params;
+		}
 	}
 }
 

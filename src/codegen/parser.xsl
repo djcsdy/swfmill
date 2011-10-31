@@ -14,14 +14,22 @@ namespace <xsl:value-of select="/format/@format"/> {
 
 bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	file_offset = r->getPosition();
-	if( ctx->debugTrace )
-		fprintf( stderr, "PARSE %s @%i-%i :%i\n", "<xsl:value-of select="@name"/>", r->getPosition(), r->getBits(), end );
+	if( ctx->debugTrace ) {
+		fprintf( stderr, "PARSE %s @%i-%i :%i\n",
+				"<xsl:value-of select="@name"/>",
+				r->getPosition(),
+				r->getBits(),
+				end );
+	}
 
 	<xsl:apply-templates mode="parse"/>
 
 	<xsl:if test="name()='tag'">
 	if( r->getPosition() != file_offset + len ) {
-		fprintf( stderr, "WARNING: end of tag %s is @%i, should be @%i\n", "<xsl:value-of select="@name"/>", r->getPosition(), file_offset+len );
+		fprintf( stderr, "WARNING: end of tag %s is @%i, should be @%i\n",
+				"<xsl:value-of select="@name"/>",
+				r->getPosition(),
+				file_offset+len );
 		r->seekTo( file_offset + len );
 	}
 	</xsl:if>
@@ -50,12 +58,18 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 </xsl:template>
 
 <xsl:template match="if" mode="parse">
-	if( ctx->debugTrace ) fprintf( stderr, "PARSE IF %s - ", "<xsl:value-of select="@expression"/>" );
+	if( ctx->debugTrace ) {
+		fprintf( stderr, "PARSE IF %s - ", "<xsl:value-of select="@expression"/>" );
+	}
 	if( <xsl:value-of select="@expression"/> ) {
-		if( ctx->debugTrace ) fprintf( stderr, "TRUE\n" );
+		if( ctx->debugTrace ) {
+			fprintf( stderr, "TRUE\n" );
+		}
 		<xsl:apply-templates mode="parse"/>
 	} else {
-		if( ctx->debugTrace ) fprintf( stderr, "FALSE\n" );
+		if( ctx->debugTrace ) {
+			fprintf( stderr, "FALSE\n" );
+		}
 		<xsl:for-each select="*[@default]">
 			<xsl:value-of select="@name"/> =  <xsl:value-of select="@default"/>;
 		</xsl:for-each>
@@ -64,14 +78,20 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 
 <xsl:template match="byte|word|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|xml|u30|s24|encodedu32" mode="parse">
 	<xsl:value-of select="@name"/> = <xsl:apply-templates select="." mode="get"/>;
-	if( ctx->debugTrace ) fprintf( stderr, "PARSE %s: <xsl:apply-templates select="." mode="printf"/>\n", "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/> );
+	if( ctx->debugTrace ) {
+		fprintf( stderr, "PARSE %s: <xsl:apply-templates select="." mode="printf"/>\n",
+				"<xsl:value-of select="@name"/>",
+				<xsl:value-of select="@name"/> );
+	}
 	<xsl:if test="@context">
 		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
 	</xsl:if>
 	<xsl:if test="@next">
 		<!-- this describes the offset to end of this object, so we use it for end -->
 		if( <xsl:value-of select="@name"/> &amp;&amp; <xsl:value-of select="@name"/>+r->getPosition() &lt; end ) {
-			if( ctx->debugTrace ) fprintf(stderr, "- has next offset, setting end to current+%i\n", <xsl:value-of select="@name"/> );
+			if( ctx->debugTrace ) {
+				fprintf(stderr, "- has next offset, setting end to current+%i\n", <xsl:value-of select="@name"/> );
+			}
 			end = r->getPosition() + <xsl:value-of select="@name"/>
 			<xsl:if test="@next-offset"> + (<xsl:value-of select="@next-offset"/>)</xsl:if>;
 		}
@@ -104,14 +124,20 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
         <xsl:value-of select="@name"/> = r->getWord();
     }
     
-	if( ctx->debugTrace ) fprintf( stderr, "PARSE %s: <xsl:apply-templates select="." mode="printf"/>\n", "<xsl:value-of select="@name"/>", <xsl:value-of select="@name"/> );
+	if( ctx->debugTrace ) {
+		fprintf( stderr, "PARSE %s: <xsl:apply-templates select="." mode="printf"/>\n",
+				"<xsl:value-of select="@name"/>",
+				<xsl:value-of select="@name"/> );
+	}
 	<xsl:if test="@context">
 		ctx-&gt;<xsl:value-of select="@name"/> = <xsl:value-of select="@name"/>;
 	</xsl:if>
 	<xsl:if test="@next">
 		<!-- this describes the offset to end of this object, so we use it for end -->
 		if( <xsl:value-of select="@name"/> &amp;&amp; <xsl:value-of select="@name"/>+r->getPosition() &lt; end ) {
-			if( ctx->debugTrace ) fprintf(stderr, "- has next offset, setting end to current+%i\n", <xsl:value-of select="@name"/> );
+			if( ctx->debugTrace ) {
+				fprintf(stderr, "- has next offset, setting end to current+%i\n", <xsl:value-of select="@name"/> );
+			}
 			end = r->getPosition() + <xsl:value-of select="@name"/>
 			<xsl:if test="@next-offset"> + (<xsl:value-of select="@next-offset"/>)</xsl:if>;
 		}
@@ -140,7 +166,15 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	</xsl:variable>
 
 	{
-		if( ctx->debugTrace ) fprintf( stderr, "PARSE list&lt;%s&gt; %s: %i items, @%i-%i :%i\n", "<xsl:value-of select="@type"/>", "<xsl:value-of select="@name"/>", <xsl:value-of select="$length"/>, r->getPosition(), r->getBits(), end );
+		if( ctx->debugTrace ) {
+			fprintf( stderr, "PARSE list&lt;%s&gt; %s: %i items, @%i-%i :%i\n",
+					"<xsl:value-of select="@type"/>",
+					"<xsl:value-of select="@name"/>",
+					<xsl:value-of select="$length"/>,
+					r->getPosition(),
+					r->getBits(),
+					end );
+		}
 		<xsl:value-of select="@type"/> *item;
 		for( int i=0; i&lt;<xsl:value-of select="$length"/>; i++ ) {
 			item = <xsl:value-of select="@type"/>::get(r,end,ctx);
@@ -151,7 +185,14 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 
 <xsl:template match="list" mode="parse" priority="-1">
 	{
-		if( ctx->debugTrace ) fprintf( stderr, "PARSE list&lt;%s&gt; %s @%i-%i :%i\n", "<xsl:value-of select="@type"/>", "<xsl:value-of select="@name"/>", r->getPosition(), r->getBits(), end );
+		if( ctx->debugTrace ) {
+			fprintf( stderr, "PARSE list&lt;%s&gt; %s @%i-%i :%i\n",
+					"<xsl:value-of select="@type"/>",
+					"<xsl:value-of select="@name"/>",
+					r->getPosition(),
+					r->getBits(),
+					end );
+		}
 		int myend = end;
 		<xsl:if test="@end">
 			myend = r->getPosition() + <xsl:value-of select="@end"/>

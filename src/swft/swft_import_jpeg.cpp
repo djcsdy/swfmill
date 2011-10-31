@@ -201,21 +201,6 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	// figure width/height
 	int width=-1, height=-1;
-	/*
-	while( !feof( fp ) ) { // could do a && width==-1 here, but that captures preview imgs...
-		if( fgetc(fp) == 0xff ) {
-			if( fgetc(fp) == 0xc0 ) {
-				// StartOfFrame
-				// skip length and precision (UGLY, eh?)
-				fgetc(fp); fgetc(fp); fgetc(fp);
-				
-				// read height, width
-				height = getJpegWord( fp );
-				width = getJpegWord( fp );
-			}
-		}
-	}
-	*/
 
 	unsigned char *jpegdata = NULL;
 	unsigned char *data = NULL;
