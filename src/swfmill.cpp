@@ -61,7 +61,7 @@ void usage() {
 		"           default: UTF-8).\n"
 		"    -n deactivate libxml network access\n"
 		"\n"
-		"Please report bugs at http://bugs.launchpad.net/swfmill/+filebug\n\n"
+		"Please report bugs at https://github.com/djcsdy/swfmill/issues\n\n"
 	);
 }
 

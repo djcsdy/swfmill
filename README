@@ -159,12 +159,11 @@ There is a mailing list for swfmill hosted by osflash.org:
     
     http://osflash.org/mailman/listinfo/swfmill_osflash.org
     
-The latest development source code can be retrieved via Launchpad and the
-Bazaar version control system:
+The source code of swfmill is hosted on GitHub:
     
-    bzr branch lp:swfmill
+    https://github.com/djcsdy/swfmill
     
 Report bugs or submit patches via Launchpad:
     
-    http://bugs.launchpad.net/swfmill/+filebug
+    https://github.com/djcsdy/swfmill/issues
     
