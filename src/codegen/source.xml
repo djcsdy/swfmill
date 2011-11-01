@@ -1313,7 +1313,7 @@
 	<bit name="isUnicode" prop="true"/>
 	<bit name="isANSII" prop="true"/>
 	<bit name="wideGlyphOffsets" prop="true" context="inverse"/>
-	<bit name="wideMap" context="inverse"/>
+	<bit name="wideMap" prop="true" context="inverse"/>
 	<bit name="italic" prop="true"/>
 	<bit name="bold" prop="true"/>
 	<byte name="language" prop="true"/>
