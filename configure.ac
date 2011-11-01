@@ -1,7 +1,7 @@
 AC_PREREQ(2.54)
 
-AC_INIT( swfmill, 0.3.1 )
-AM_INIT_AUTOMAKE( AC_PACKAGE_NAME, AC_PACKAGE_VERSION )
+AC_INIT(swfmill, m4_esyscmd([ git describe | tr -d '\n' ]))
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 
 # Checks for programs.
