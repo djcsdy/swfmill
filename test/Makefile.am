@@ -11,4 +11,19 @@ check-local: output.swf
 
 CLEANFILES = \
 	classes.swf \
-	output.swf
+	output.swf \
+	$(NULL)
+
+EXTRA_DIST = \
+	Main.as \
+	test.swfml \
+	org/swfmill/Foo.as \
+	library/star.swf \
+	library/testgradient.png \
+	library/testjpg.jpg \
+	library/testpng.png \
+	library/testpng8.png \
+	library/testpng24.png \
+	library/testpng-alpha.png \
+	library/vera.ttf \
+	$(NULL)
