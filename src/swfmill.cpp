@@ -54,6 +54,7 @@ void usage() {
 		"\n"
 		"<option>s are:\n"
 		"    -h print this help and quit\n"
+		"    --version print the version number and quit\n"
 		"    -v verbose output\n"
 		"    -V extra-verbose debugging output\n"
 		"    -d dump SWF data when loaded (for debugging)\n"
@@ -63,6 +64,10 @@ void usage() {
 		"\n"
 		"Please report bugs at https://github.com/djcsdy/swfmill/issues\n\n"
 	);
+}
+
+void printVersion() {
+	fprintf(stderr, PACKAGE_NAME" "PACKAGE_VERSION"\n");
 }
 
 // helper func
@@ -422,6 +427,11 @@ int main( int argc, char *argv[] ) {
 // parse args
 	int i=1;
 	for( ; i<argc && command==NULL; i++ ) {
+		if (strncmp(argv[i], "--version", 10) == 0) {
+			printVersion();
+			return 0;
+		}
+		
 		if( argv[i][0] == '-' ) {
 			int swallow=0;
 			for( int j=1; j<strlen(argv[i]); j++ ) {
@@ -444,7 +454,7 @@ int main( int argc, char *argv[] ) {
 					case 'h':
 					case '?':
 						usage();
-						goto fail;
+						return 0;
 						break;
 					case 'e':
 						++swallow;
@@ -456,7 +466,7 @@ int main( int argc, char *argv[] ) {
 						}
 						break;
 					default:
-						fprintf(stderr,"ERROR: unknown option %c\n",argv[i][j]);
+						fprintf(stderr,"ERROR: unknown option -%c\n",argv[i][j]);
 						usage();
 						goto fail;
 				}
