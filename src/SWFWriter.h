@@ -51,7 +51,7 @@ class Writer {
 		bool assure( int l, int before=-1 ) { 
 			int b = (before==-1?length:before);
 			if( pos+l > b ) {
-				fprintf(stderr,"Write buffer full (%i+%i >= %i)\n", pos, l, b );
+				fprintf(stderr,"Write buffer full (%i+%i > %i)\n", pos, l, b );
 				err = SWFW_FULL;
 				return false;
 			}
