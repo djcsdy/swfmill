@@ -7,7 +7,7 @@
 namespace SWF {
 
 // ------------ utility functions
-	
+
 int swf_get_bits_needed_for_uint( uint64_t value ) {
 	int i=0;
 	while( value > 0 ) {
@@ -18,10 +18,10 @@ int swf_get_bits_needed_for_uint( uint64_t value ) {
 }
 
 int swf_get_bits_needed_for_int( int64_t value ) {
-	if( value < 0 ) {
-		return swf_get_bits_needed_for_uint( -value-1 ) + 1;
-	} else if ( value > 0 ) {
-		return swf_get_bits_needed_for_uint( value ) + 1;
+	if (value < 0) {
+		return swf_get_bits_needed_for_uint(~value) + 1
+	} else if (value > 0) {
+		return swf_get_bits_needed_for_uint(value) + 1;
 	} else {
 		// The SWF Specification is a bit vague about whether we require
 		// any bits to represent zero as a signed integer, but Flash
@@ -36,62 +36,19 @@ int swf_get_bits_needed_for_fp( double value, int exp = 16 ) {
 }
 
 int SWFBitsNeeded( float value, int exp, bool is_signed ) {
-	if( !is_signed ) 
-		printf ("FIXME: calculate bits for unsigned float\n");
+	if( !is_signed ) {
+		fprintf (stderr, "FIXME: calculate bits for unsigned float\n");
+	}
 
 	return swf_get_bits_needed_for_fp( value, exp );
 }
 	
 int SWFBitsNeeded( int32_t value, bool is_signed ) {
-	if( is_signed ) 
-		return swf_get_bits_needed_for_int( value );
-	else
-		return swf_get_bits_needed_for_uint( value );
-	/*
-	long cnt;
 	if( is_signed ) {
-		if(value < 0) {
-			// a special case
-			if(value == -1) {
-				return 1;
-			}
-			cnt = 33;
-			do {
-				cnt--;
-				value *= 2;
-			} while(value < 0);
-			if( value == 0 ) return cnt+1;
-		}
-		else {
-			// a special case
-			if(value == 0) {
-				return 1;
-			}
-			cnt = 33;
-			do {
-				cnt--;
-				value *= 2;
-			} while(value > 0);
-			if( value == 0 ) return cnt+1;
-		}
+		return swf_get_bits_needed_for_int( value );
 	} else {
-	if( value < 0 ) {
-		printf("ERROR: unsigned, but <0? %s:%i\n", __FILE__, __LINE__);
-		abort();
+		return swf_get_bits_needed_for_uint( value );
 	}
-		// a special case
-		if(value == 0) {
-			return 1;
-		}
-		cnt = 32;
-		while((long) value > 0) {
-			cnt--;
-			value *= 2;
-		}
-		if( value == 0 ) return cnt+1;
-	}
-	return cnt;
-	*/
 }
 
 long SWFMaxBitsNeeded( bool is_signed, int how_many, ... ) {
