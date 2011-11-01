@@ -18,13 +18,17 @@ int swf_get_bits_needed_for_uint( uint64_t value ) {
 }
 
 int swf_get_bits_needed_for_int( int64_t value ) {
-	if( value < 0 )
-		/* XXX one more than necessary if num = -2^n */
+	if( value < 0 ) {
 		return swf_get_bits_needed_for_uint( -value-1 ) + 1;
-	else if ( value > 0 )
+	} else if ( value > 0 ) {
 		return swf_get_bits_needed_for_uint( value ) + 1;
-	else
-		return 0;
+	} else {
+		// The SWF Specification is a bit vague about whether we require
+		// any bits to represent zero as a signed integer, but Flash
+		// Player appears to fall over sometimes if we set the size to
+		// zero so let's use one bit to be safe.
+		return 1;
+	}
 }
 
 int swf_get_bits_needed_for_fp( double value, int exp = 16 ) {
