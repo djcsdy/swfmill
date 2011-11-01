@@ -140,6 +140,8 @@ noinst_HEADERS = \
 	swft/SVGAttributeParser.h \
 	swft/readpng.h \
 	\
+	xslt/xslt.h \
+	\
 	base64.h \
 	Geom.h \
 	SWFBasic.h \
