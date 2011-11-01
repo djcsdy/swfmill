@@ -169,8 +169,9 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
 		<xsl:if test="@size">
 			int b = SWFBitsNeeded( v<xsl:if test="@signed">, true</xsl:if> );
-			if (b > <xsl:value-of select="@size"/>)
+			if (b > <xsl:value-of select="@size"/>) {
 				printf ("WARNING: '%s::%s' (%i) is too large to fit in %i bits\n", "<xsl:value-of select="ancestor::*[@name]/@name"/>", "<xsl:value-of select="@name"/>", v, <xsl:value-of select="@size"/>);
+			}
 		</xsl:if>
 		<xsl:value-of select="@name"/> = v;
 	}
@@ -185,8 +186,14 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	void <xsl:value-of select="ancestor::*[@name]/@name"/>::set<xsl:value-of select="@name"/>( <xsl:apply-templates mode="ctype" select="."/> v ) {
 		<xsl:if test="@size">
 			int b = SWFBitsNeeded( v, <xsl:value-of select="@exp"/><xsl:if test="@signed">, true</xsl:if> );
-			if (b > <xsl:value-of select="@size"/>)
-				printf ("WARNING: '%s::%s' (%i) is too large to fit in %i bits\n", "<xsl:value-of select="ancestor::*[@name]/@name"/>", "<xsl:value-of select="@name"/>", v, <xsl:value-of select="@size"/>);
+			if (b > <xsl:value-of select="@size"/>) {
+				fprintf (stderr, "WARNING: '%s::%s' ("
+						"<xsl:apply-templates mode="printf" select="."/>"
+						") is too large to fit in %i bits\n",
+						"<xsl:value-of select="ancestor::*[@name]/@name"/>",
+						"<xsl:value-of select="@name"/>",
+						v, <xsl:value-of select="@size"/>);
+			}
 		</xsl:if>
 		<xsl:value-of select="@name"/> = v;
 	}
