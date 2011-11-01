@@ -341,7 +341,7 @@ fail:
 void swfmill_create_library( xmlNodePtr lib, const char *filename );
 
 void swfmill_create_library_dir( xmlNodePtr lib, const char *dir ) {
-	char tmp[256];
+	char tmp[1024];
 	
 	struct dirent *e;
 	DIR *d = opendir( dir );
@@ -352,7 +352,7 @@ void swfmill_create_library_dir( xmlNodePtr lib, const char *dir ) {
 		if( e==NULL ) break;
 		if( e->d_name[0] == '.' ) continue; // no hidden files
 		
-		snprintf( tmp, 1023, "%s/%s", dir, e->d_name );
+		snprintf( tmp, sizeof(tmp), "%s/%s", dir, e->d_name );
 		swfmill_create_library( lib, tmp );
 	}
 }
