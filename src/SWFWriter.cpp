@@ -213,8 +213,8 @@ void Writer::putPString( const char *value ) {
 void Writer::putPStringU30( const char *value ) {
 	byteAlign();
 	int len = strlen(value);
-	if( !assure( len+1 ) ) return;
 	putU30(len);
+	if( !assure( len ) ) return;
 	memcpy( &data[pos], value, len );
 	pos += len;
 }
