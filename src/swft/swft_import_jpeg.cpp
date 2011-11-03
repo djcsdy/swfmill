@@ -81,12 +81,13 @@ bool getJpegDimensions (FILE *infile, int &image_width, int &image_height) {
 
 void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	unsigned char *filename;
+	char *filename;
 	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
 	char tmp[TMP_STRLEN];
+	unsigned char *data = NULL;
 
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
@@ -102,27 +103,26 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 		
 	tctx = xsltXPathGetTransformContext(ctx);
-	filename = swft_get_filename( obj->stringval );
+	filename = swft_get_filename( obj->stringval, ctx->context->doc->URL );
 
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
 	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
 	
-	FILE *fp = fopen( (const char *)filename, "rb" );
+	FILE *fp = fopen( filename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:import-jpeg() : failed to read file '%s'\n", (const char *)filename);
+				   "swft:import-jpeg() : failed to read file '%s'\n", filename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
+		goto fail;
 	}
 	
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"jpeg", NULL );
 	node = doc->xmlRootNode;
 	
-	swft_addFileName( node, (const char *)filename );
+	swft_addFileName( node, filename );
 	
-	unsigned char *data = NULL;
 	int width, height;
 	if (!getJpegDimensions(fp, width, height)) {
 		fprintf(stderr, "WARNING: could not extract dimensions for jpeg %s\n", filename);
@@ -137,7 +137,7 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	// add data
 	int size, ofs;
 	struct stat filestat;
-	if( stat( (const char *)filename, &filestat ) ) goto fail;
+	if( stat( filename, &filestat ) ) goto fail;
 	size = filestat.st_size;
 	
 	ofs = strlen(jpeg_header);
@@ -160,51 +160,52 @@ void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 fail:	
 	if( fp ) fclose(fp);
 	if( data ) delete data;
+	delete filename;
 }
 
 
 void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	xmlChar *filename, *maskfilename;
+	char *filename, *maskfilename;
 	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
 	char tmp[TMP_STRLEN];
+	unsigned char *jpegdata = NULL;
+	unsigned char *data = NULL;
+	FILE *fp = NULL;
+
+	// figure width/height
+	int width=-1, height=-1;
 
 	if( (nargs != 2) ) {
 		xmlXPathSetArityError(ctx);
 		return;
 	}
 
-	maskfilename = swft_get_filename( xmlXPathPopString(ctx) );
-	filename = swft_get_filename( xmlXPathPopString(ctx) );
+	maskfilename = swft_get_filename( xmlXPathPopString(ctx), ctx->context->doc->URL );
+	filename = swft_get_filename( xmlXPathPopString(ctx), ctx->context->doc->URL );
 	if( xmlXPathCheckError(ctx) || (filename==NULL) || (maskfilename==NULL) ) {
-		return;
+		goto fail;
 	}
 		
 	tctx = xsltXPathGetTransformContext(ctx);
 		
-	FILE *fp = fopen( (const char *)filename, "rb" );
+	fp = fopen( filename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:import-jpega() : failed to read file '%s'\n", (const char *)filename);
+				   "swft:import-jpega() : failed to read file '%s'\n", filename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
+		goto fail;
 	}
 	
-	doc = xmlNewDoc( (const xmlChar *)"1.0");
-	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"jpega", NULL );
+	doc = xmlNewDoc( BAD_CAST "1.0");
+	doc->xmlRootNode = xmlNewDocNode( doc, NULL, BAD_CAST "jpega", NULL );
 	node = doc->xmlRootNode;
 	
-	swft_addFileName( node, (const char *)filename );
+	swft_addFileName( node, filename );
 	
-	// figure width/height
-	int width=-1, height=-1;
-
-	unsigned char *jpegdata = NULL;
-	unsigned char *data = NULL;
-
 	if (!getJpegDimensions (fp, width, height))
 	{
 		fprintf(stderr,"WARNING: could not extract dimensions for jpeg %s\n", filename );
@@ -227,7 +228,7 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	png_colorp palette;
 	int n_pal;
 	unsigned char *mask;
-	if( stat( (const char *)filename, &filestat ) ) goto fail;
+	if( stat( filename, &filestat ) ) goto fail;
 	size = filestat.st_size;
 	
 	ofs = strlen(jpeg_header);
@@ -246,10 +247,10 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	fclose(fp);
 		
 	// jpegdata is filled, now read the mask png.
-	fp = fopen( (const char *)maskfilename, "rb" );
+	fp = fopen( maskfilename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:import-jpega() : failed to read mask file '%s'\n", (const char *)maskfilename);
+				   "swft:import-jpega() : failed to read mask file '%s'\n", maskfilename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		goto fail;
 	}
@@ -289,9 +290,11 @@ void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	swft_addData( node, (char*)data, data_size );
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 
-fail:	
+fail:
 	if( fp ) fclose(fp);
 	if( data ) delete data;
 	if( jpegdata ) delete jpegdata;
+	delete filename;
+	delete maskfilename;
 }
 

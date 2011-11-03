@@ -123,7 +123,9 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 	}
 
 	if( face->num_faces > 1 ) {
-		fprintf( stderr, "WARNING: %s contains %i faces, but only the first is imported.\n", filename, face->num_faces );
+		fprintf(stderr,
+				"WARNING: %s contains %li faces, but only the first is "
+				"imported.\n", filename, face->num_faces);
 	}
 
 	FT_Set_Pixel_Sizes(face, SCALING_FACTOR, SCALING_FACTOR);
@@ -134,15 +136,17 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		if( (character = FT_Get_First_Char( face, &glyph_index )) != 0 ) nGlyphs++;
 		while( (character = FT_Get_Next_Char( face, character, &glyph_index )) != 0 ) {
 			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
-				fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
+				fprintf( stderr,
+						"WARNING: cannot load glyph %lu ('%c') from "
+						"%s.\n", character, character, filename );
 				goto fail;
 			}
 			if( face->glyph->format != FT_GLYPH_FORMAT_OUTLINE ) {
 				fprintf( stderr, "WARNING: %s seems to be a bitmap font.\n", filename );
 				goto fail;
 			}
-			//if( !emptyGlyph( face, character ) ) 
-				nGlyphs++;
+			
+			nGlyphs++;
 		}
 		
 		glyphs = new int[nGlyphs+1];
@@ -206,7 +210,8 @@ void importDefineFont2( DefineFont2 *tag, const char *filename, const char *font
 		glyph_index = FT_Get_Char_Index( face, character );
 		
 		if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
-			fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
+			fprintf( stderr, "WARNING: cannot load glyph %lu ('%c') "
+					"from %s.\n", character, character, filename );
 			goto fail;
 		}
 
@@ -316,7 +321,8 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 	}
 
 	if( face->num_faces > 1 ) {
-		fprintf( stderr, "WARNING: %s contains %i faces, but only the first is imported.\n", filename, face->num_faces );
+		fprintf( stderr, "WARNING: %s contains %li faces, but only the "
+				"first is imported.\n", filename, face->num_faces );
 	}
 
 	FT_Set_Char_Size(face, SCALING_FACTOR << 6, SCALING_FACTOR << 6, 72, 72);
@@ -327,7 +333,9 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 		if( (character = FT_Get_First_Char( face, &glyph_index )) != 0 ) nGlyphs++;
 		while( (character = FT_Get_Next_Char( face, character, &glyph_index )) != 0 ) {
 			if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
-				fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
+				fprintf(stderr,
+						"WARNING: cannot load glyph %lu ('%c') "
+						"from %s.\n", character, character, filename);
 				goto fail;
 			}
 			if( face->glyph->format != FT_GLYPH_FORMAT_OUTLINE ) {
@@ -399,7 +407,9 @@ void importDefineFont3( DefineFont3 *tag, const char *filename, const char *font
 		glyph_index = FT_Get_Char_Index( face, character );
 		
 		if( FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP ) ) {
-			fprintf( stderr, "WARNING: cannot load glyph %i ('%c') from %s.\n", character, character, filename );
+			fprintf(stderr,
+					"WARNING: cannot load glyph %lu ('%c') from %s.\n",
+					character, character, filename);
 			goto fail;
 		}
 
@@ -477,7 +487,7 @@ fail:
 
 void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	xmlChar *filename;
+	char *filename;
 	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
@@ -487,6 +497,9 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlChar *glyphs = NULL;
 	int offset;
 	double movieVersion;
+	bool quiet = true;
+	xmlXPathObjectPtr quietObj = NULL;
+	swft_ctx *c = NULL;
 	
 	const char *fontname = NULL;
 	
@@ -508,14 +521,14 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 
 	movieVersion = xmlXPathPopNumber(ctx);
-	filename = swft_get_filename( xmlXPathPopString(ctx) );
-	if( xmlXPathCheckError(ctx) )
-		return;
+	filename = swft_get_filename(xmlXPathPopString(ctx), ctx->context->doc->URL);
+	if (xmlXPathCheckError(ctx)) {
+		goto fail;
+	}
 	
 	tctx = xsltXPathGetTransformContext(ctx);
 	
-	bool quiet = true;
-	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
+	quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
 	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
 	swfctx.quiet = quiet;
 		
@@ -523,9 +536,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar*)"ttf", NULL );
 	node = doc->xmlRootNode;
 	
-	//swft_addFileName( node, (const char *)filename );
-	
-	swft_ctx *c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
+	c = (swft_ctx*)xsltGetExtData( xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE );
 
 	// create the font tag	
 	if( movieVersion >= 8 ) {
@@ -538,17 +549,15 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 		tag->writeXML( node, &swfctx );
 	}
 	
-/*
-	snprintf(tmp,TMP_STRLEN,"%i", 5);
-	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)&tmp );
-*/	
 	if( glyphs )
 		xmlFree( glyphs );
 
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
-	return;
+	goto end;
 	
 fail:
 	fprintf( stderr, "WARNING: could not import %s\n", filename );
-	return;
+
+end:
+	delete filename;
 }

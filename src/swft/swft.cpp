@@ -3,6 +3,7 @@
 #include <libxslt/xsltutils.h>
 #include <libxslt/variables.h>
 #include <libxml/xpathInternals.h>
+#include <iconv.h>
 #include <cstdlib>
 #include <cstring>
 #include "swft.h"
@@ -199,13 +200,60 @@ static void swft_mapid( xmlXPathParserContextPtr ctx, int nargs ) {
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)tmp));
 }
 
-unsigned char *swft_get_filename( xmlChar *filenameUTF ) {
-	int l = strlen((const char*)filenameUTF);
-	int l2 = l;
-	unsigned char *filename = (unsigned char *)malloc(l+1);
-	UTF8Toisolat1( filename, &l2, filenameUTF, &l );
-	filename[l2] = 0;
-	return filename;
+char *swft_get_filename( const xmlChar *uri, const xmlChar *baseUri ) {
+	uri = xmlBuildURI(uri, baseUri);
+	const xmlChar *path;
+
+	// very closely based on the behaviour of xmlFileOpen_real from 
+	// libxml2
+	if (xmlStrncasecmp(uri, BAD_CAST "file://localhost/", 17) == 0) {
+#if defined (_WIN32) || defined(__DJGPP__) && !defined(__CYGWIN__)
+		path = &uri[17];
+#else
+		path = &uri[16];
+#endif
+	} else if (xmlStrncasecmp(uri, BAD_CAST "file:///", 8) == 0) {
+#if defined (_WIN32) || defined(__DJGPP__) && !defined(__CYGWIN__)
+		path = &uri[7];
+#else
+		path = &uri[8];
+#endif
+	} else if (xmlStrncmp(uri, BAD_CAST "file:/", 6) == 0) {
+		// URLs in this form are invalid but nevertheless common.
+#if defined (_WIN32) || defined(__DJGPP__) && !defined(__CYGWIN__)
+		path = &uri[6];
+#else
+		path = &uri[5];
+#endif
+	} else {
+		path = uri;
+	}
+
+	size_t input_bytes_left = xmlStrlen(path);
+	size_t output_bytes_left = input_bytes_left*4;
+	
+	char *input_buffer = (char*)path;
+	char *output_buffer = new char[output_bytes_left + 1];
+	
+	char *filename = output_buffer;
+
+	iconv_t cd = iconv_open("", "UTF-8");
+	size_t output_len = iconv(cd,
+			&input_buffer, &input_bytes_left,
+			&output_buffer, &output_bytes_left);
+	iconv_close(cd);
+	
+	*output_buffer = '\0';
+	
+	delete uri;
+
+	if (output_len == -1) {
+		fprintf(stderr, "Error converting filename from UTF-8 "
+				"to system locale\n");
+		exit(1);
+	} else {
+		return filename;
+	}
 }
 
 void swft_register() {

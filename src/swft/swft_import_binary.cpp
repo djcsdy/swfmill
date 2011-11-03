@@ -13,12 +13,13 @@
 
 void swft_import_binary( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	unsigned char *filename;
+	char *filename;
 	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
 	char tmp[TMP_STRLEN];
+	unsigned char *data = NULL;
 
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
@@ -34,32 +35,31 @@ void swft_import_binary( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 		
 	tctx = xsltXPathGetTransformContext(ctx);
-	filename = swft_get_filename( obj->stringval );
+	filename = swft_get_filename( obj->stringval, ctx->context->doc->URL );
 
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
 	if( quietObj && quietObj->stringval ) { quiet = !strcmp("true",(const char*)quietObj->stringval ); };
 
 	
-	FILE *fp = fopen( (const char *)filename, "rb" );
+	FILE *fp = fopen( filename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:import-binary() : failed to read file '%s'\n", (const char *)filename);
+				   "swft:import-binary() : failed to read file '%s'\n", filename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
+		goto fail;
 	}
 	
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
 	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"binary", NULL );
 	node = doc->xmlRootNode;
 	
-	swft_addFileName( node, (const char *)filename );
+	swft_addFileName( node, filename );
 	
 	// add data
-	unsigned char *data = NULL;
 	int size;
 	struct stat filestat;
-	if( stat( (const char *)filename, &filestat ) ) goto fail;
+	if( stat( filename, &filestat ) ) goto fail;
 	size = filestat.st_size;
 	
 	data = new unsigned char[size];
@@ -69,14 +69,15 @@ void swft_import_binary( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 
 	if( !quiet ) {
-		fprintf(stderr,"Importing binary: '%s'\n",filename);
+		fprintf(stderr,"Importing binary: '%s'\n", filename);
 	}
 	
 	swft_addData( node, (char*)data, size );
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
 
-fail:	
+fail:
 	if( fp ) fclose(fp);
 	if( data ) delete data;
+	delete filename;
 }
 

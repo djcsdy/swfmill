@@ -10,7 +10,7 @@ using namespace SWF;
 
 void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	xmlChar *uri;
+	char *filename;
 	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlXPathObjectPtr obj;
@@ -30,17 +30,17 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		return;
 	}
-		
+	
 	tctx = xsltXPathGetTransformContext(ctx);
 	
-	uri = swft_get_filename( obj->stringval );
-		
-	FILE *fp = fopen( (const char *)uri, "rb" );
+	filename = swft_get_filename( obj->stringval, ctx->context->doc->URL);
+	
+	FILE *fp = fopen( filename, "rb" );
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:document() : failed to read file '%s'\n", (const char *)uri);
+				   "swft:document() : failed to read file '%s'\n", filename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
+		goto fail;
 	}
 	
 	import.load( fp );
@@ -48,10 +48,12 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	if( !doc ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:document() : could not parse SWF '%s'\n", (const char *)uri);
+				   "swft:document() : could not parse SWF '%s'\n", filename);
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		return;
+		goto fail;
 	}
 	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
-	return;
+
+fail:
+	delete filename;
 }

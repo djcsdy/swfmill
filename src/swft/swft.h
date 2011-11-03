@@ -9,12 +9,12 @@
 #include "SVGStyle.h"
 
 void swft_register();
-	
-// utility functoins for import (in swft_import.cpp)
+
+// utility functions for import (in swft_import.cpp)
 void swft_addFileName( xmlNodePtr node, const char *filename );
 void swft_addData( xmlNodePtr node, char *data, int length );
 
-unsigned char *swft_get_filename( xmlChar *string );
+char *swft_get_filename( const xmlChar *uri, const xmlChar *baseUri );
 
 #define SWFT_NAMESPACE ((const xmlChar*)"http://subsignal.org/swfml/swft")
 
