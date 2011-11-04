@@ -1,8 +1,12 @@
+    When importing files, treat filenames as relative to the XML file.
+    Include all test files in source distribution (for make check).
+    Fix missing xslt.h in source distribution.
     Fix 'buffer error' when importing small PNGs (Piers Haken)
     Improve cubic bezier curve approximation in SVG import (Piers Haken)
     Support unknown AVM2 opcodes (Piers Haken)
     Support enableDebugger tags (Piers Haken)
     Support import of fonts that use cubic beziers (Piers Haken)
+    Support --version parameter to print version number and exit
     Various minor bugfixes and missing features (Piers Haken)
 
 2010-07-15 release 0.3.1
