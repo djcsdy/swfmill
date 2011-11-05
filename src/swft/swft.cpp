@@ -232,7 +232,7 @@ char *swft_get_filename( const xmlChar *uri, const xmlChar *baseUri ) {
 	size_t input_bytes_left = xmlStrlen(path);
 	size_t output_bytes_left = input_bytes_left*4;
 	
-	char *input_buffer = (char*)path;
+	ICONV_CONST char *input_buffer = (ICONV_CONST char*)path;
 	char *output_buffer = new char[output_bytes_left + 1];
 	
 	char *filename = output_buffer;

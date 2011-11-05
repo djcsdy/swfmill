@@ -26,11 +26,7 @@ xmlChar *toXmlChar(const Context *ctx, const char *from_str) {
 			dst = new char[buf_size];
 			size_t inbytesleft = len;
 			size_t outbytesleft = buf_size - 1;
-#if defined (_LIBICONV_VERSION)
-			const char *pin = (const char*)from_str;
-#else
-			char *pin = (char*)from_str;
-#endif
+			ICONV_CONST char *pin = (ICONV_CONST char*)from_str;
 			char *pout = dst;
 			bool expandbuf = false;
 

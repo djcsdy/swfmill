@@ -19,7 +19,9 @@ AM_CONDITIONAL(IS_OSX, [ test $IS_OSX ])
 
 AM_PROG_CC_C_O
 
-# Checks for libraries.
+AM_ICONV
+AC_SUBST(ICONV_CONST)
+
 if test $IS_OSX; then
 	test $XML_CFLAGS || XML_CFLAGS=-I/usr/include/libxml2
 	test $XML_LIBS || XML_LIBS=-lxml2

@@ -14,7 +14,7 @@ swfmill_CFLAGS = $(XML_CFLAGS) $(XSLT_CFLAGS) $(EXSLT_CFLAGS) \
 	-I$(srcdir)/swft/ -I$(srcdir)/xslt/
 swfmill_CXXFLAGS = $(swfmill_CFLAGS)
 swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) $(EXSLT_LIBS) $(FREETYPE_LIBS) \
-	$(PNG_LIBS)
+	$(PNG_LIBS) $(LTLIBICONV)
 swfmill_LDFLAGS = $(ADDLDFLAGS)
 
 CODEGEN_GENERATEDHEADERS = \
