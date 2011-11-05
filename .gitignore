@@ -33,3 +33,4 @@ test/xml/.*.test
 test/classes.swf
 test/output.swf
 test/test.html
+.dirstamp
