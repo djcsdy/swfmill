@@ -1,7 +1,7 @@
 AC_PREREQ(2.54)
 
 AC_INIT(swfmill, m4_esyscmd([ git describe | tr -d '\n' ]))
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([subdir-objects color-tests])
 
 
 # Checks for programs.
@@ -59,5 +59,6 @@ AC_OUTPUT([
 	Makefile
 	src/Makefile
 	test/Makefile
+	test/simple-import/Makefile
 	test/xml/Makefile
 	])
