@@ -50,7 +50,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "png.h"        /* libpng header; includes zlib.h */
+#include "zlib.h" /* Apparently png.h doesn't include this any more */
+#include "png.h"
 #include "readpng.h"    /* typedefs, common macros, public prototypes */
 
 /* future versions of libpng will provide this macro: */
