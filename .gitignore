@@ -30,7 +30,6 @@ w32-dist
 test/xml/*.swf
 test/xml/*.swf.xml
 test/xml/.*.test
-test/classes.swf
-test/output.swf
-test/test.html
+test/build
+test/simple-import/test.html
 .dirstamp
