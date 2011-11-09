@@ -1,16 +1,13 @@
 #!/bin/sh
 
-set -o nounset
 set -o errexit
 
-MTASC=`which mtasc` || true
-
-if [ "${MTASC}" = "" ]; then
-	echo "Skipping simple_import because mtasc is not installed." &&
+if test "x${MTASC}" = "x"; then
+	echo "Skipping simple_import because mtasc is not installed."
 	exit 77
 fi
 
-SWFMILL="../../src/swfmill"
+set -o nounset
 
 if [ \! -d "build" ]; then
 	mkdir "build"

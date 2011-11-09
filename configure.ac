@@ -17,8 +17,14 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_MKDIR_P
-AM_PROG_CC_C_O
 PKG_PROG_PKG_CONFIG
+AM_PROG_CC_C_O
+AC_PATH_PROG([XSLTPROC], [xsltproc])
+AC_PATH_PROG([MTASC], [mtasc])
+
+if test "x${XSLTPROC}" == "x"; then
+	AC_MSG_ERROR([Please install xsltproc before trying to build swfmill])
+fi
 
 
 # Checks for header files.

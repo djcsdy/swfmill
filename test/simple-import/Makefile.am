@@ -1,3 +1,8 @@
+TESTS_ENVIRONMENT = \
+	MTASC="$(MTASC)" \
+	SWFMILL="$(top_builddir)/src/swfmill$(EXEEXT)" \
+	$(NULL)
+
 TESTS = test.sh
 
 

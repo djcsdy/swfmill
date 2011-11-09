@@ -26,8 +26,7 @@ http://bugs.launchpad.net/swfmill/+filebug
 
 DEPENDENCIES
 
-swfmill requires, and the windows binary release contains
-code from:
+swfmill requires, and the binary releases contain code from:
     
     libxml2         — © 1998–2003 Daniel Veillard.
     libxslt/exslt   — © 1998-2003 Daniel Veillard.
@@ -35,6 +34,10 @@ code from:
     freetype        — © 1996-2000, 2002, 2004 David Turner,
                       Robert Wilhelm, and Werner Lemberg.
     libpng          — © 2004 Glenn Randers-Pehrson.
+
+To build, xsltproc is required in addition to the usual build environment.
+
+Some of the test cases require MTASC, and will be skipped if it is not found.
     
 My references to the SWF format were:
     
