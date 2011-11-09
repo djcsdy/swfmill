@@ -20,8 +20,8 @@ swfmill is alpha-quality software. It might well not work as it should.
 Please report your experiences if that seems to be the case, send in (if
 possible small) SWFs or patches.
 
-You can report bugs or contribute patches via Launchpad at
-http://bugs.launchpad.net/swfmill/+filebug
+You can report bugs or contribute patches via GitHub at
+https://github.com/djcsdy/swfmill/issues
 
 
 DEPENDENCIES
@@ -166,7 +166,7 @@ The source code of swfmill is hosted on GitHub:
     
     https://github.com/djcsdy/swfmill
     
-Report bugs or submit patches via Launchpad:
+Report bugs or submit patches via GitHub:
     
     https://github.com/djcsdy/swfmill/issues
     
