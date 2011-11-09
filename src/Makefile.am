@@ -84,7 +84,7 @@ $(SIMPLE_DIALECT_GENERATEDSOURCES): $(SIMPLE_DIALECT_GENERATEDSOURCES:.cpp=.xml)
 	$(XSLTPROC) $(srcdir)/xslt/assemble.xsl $< > $(@:.cpp=.xsl)
 	echo "#include \"xslt/xslt.h\"" > $@
 	echo "const char *xslt_simple = " >> $@
-	sed -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:.cpp=.xsl) >> $@
+	$(SED) -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:.cpp=.xsl) >> $@
 	echo ";" >> $@
 
 swfmill_SOURCES = \
