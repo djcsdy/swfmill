@@ -29,7 +29,7 @@ cp "${srcdir}/library/star.swf" \
 	"${srcdir}/library/vera.ttf" \
 	"build/library"
 
-${MTASC} -swf "build/classes.swf" -header 320:240:25 \
+"${MTASC}" -swf "build/classes.swf" -header 320:240:25 \
 	-cp "${srcdir}/src" "${srcdir}/src/Main.as"
 
-${SWFMILL} -v simple "build/test.swfml" "build/output.swf"
+"${SWFMILL}" -v simple "build/test.swfml" "build/output.swf"
