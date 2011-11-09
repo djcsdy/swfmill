@@ -1,4 +1,6 @@
 
+ACLOCAL_AMFLAGS = -I autoconfig/m4
+
 NULL=
 
 SUBDIRS = \
