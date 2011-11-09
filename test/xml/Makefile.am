@@ -1,23 +1,8 @@
-SWFMILL = ../../src/swfmill$(EXEEXT)
+TESTS_ENVIRONMENT = \
+	SWFMILL="$(top_builddir)/src/swfmill$(EXEEXT)" \
+	$(SH) "$(srcdir)/run-test.sh"
 
-SUFFIXES = .swf .xml
-
-.PRECIOUS: %.test %.swf %.swf.xml
-
-%.swf: %.xml $(SWFMILL)
-	@$(SWFMILL) xml2swf $< $@
-
-%.swf.xml : %.swf 
-	@$(SWFMILL) swf2xml $< $@
-
-.%.test : %.swf.xml 
-	diff -q $*.xml $*.swf.xml > $@ || echo FAILED: $*
-
-check-local: $(patsubst %.xml,.%.test,$(filter-out %.swf.xml, $(wildcard *.xml)))
-
-CLEANFILES = *.swf *.swf.xml .*.test
-
-EXTRA_DIST = \
+TESTS = \
 	as3.xml \
 	car_smash.xml \
 	clip_as_button2.xml \
@@ -72,3 +57,7 @@ EXTRA_DIST = \
 	text-test.xml \
 	visible_and_transparency.xml \
 	$(NULL)
+
+CLEANFILES = *.swf *.swf.xml *.xml.diff
+
+EXTRA_DIST = run-test.sh $(TESTS)

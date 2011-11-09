@@ -28,7 +28,7 @@ missing
 .geanyprj
 /test/xml/*.swf
 /test/xml/*.swf.xml
-/test/xml/.*.test
+/test/xml/*.diff
 /test/build
 /test/simple-import/test.html
 .dirstamp
