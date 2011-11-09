@@ -74,14 +74,14 @@ BUILT_SOURCES = \
 	$(NULL)
 
 $(CODEGEN_GENERATEDSOURCES) $(CODEGEN_GENERATEDHEADERS): $(CODEGEN_SRC)
-	xsltproc $(srcdir)/codegen/mk.xsl $(srcdir)/codegen/source.xml
+	$(XSLTPROC) $(srcdir)/codegen/mk.xsl $(srcdir)/codegen/source.xml
 
 NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
 			 xmlns:str=\"http:\/\/exslt.org\/strings\" \
 			 xmlns:math=\"http:\/\/exslt.org\/math\"
 
 $(SIMPLE_DIALECT_GENERATEDSOURCES): $(SIMPLE_DIALECT_GENERATEDSOURCES:.cpp=.xml) xslt/assemble.xsl $(SIMPLE_DIALECT_XSLTS)
-	xsltproc $(srcdir)/xslt/assemble.xsl $< > $(@:.cpp=.xsl)
+	$(XSLTPROC) $(srcdir)/xslt/assemble.xsl $< > $(@:.cpp=.xsl)
 	echo "#include \"xslt/xslt.h\"" > $@
 	echo "const char *xslt_simple = " >> $@
 	sed -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:.cpp=.xsl) >> $@
