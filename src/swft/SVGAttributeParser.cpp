@@ -20,12 +20,11 @@ void AttributeParser::parseNode(xmlNodePtr node) {
 		}
 	}
 
-	tmp = xmlGetProp(node, (const xmlChar *)"style");
+	tmp = xmlGetProp(node, BAD_CAST "style");
 	if(tmp.get()) {
 		doParse((char *)tmp.get());
 	}
 }
-
 
 double AttributeParser::getDouble(const char* attribute, double defaultValue, double value100) {
 	const char *tmp = getString(attribute);
@@ -143,7 +142,7 @@ void AttributeParser::doParse(const char* str) {
 
 			trimString(value);
 
-			if (value.length () > 0) {
+			if (value.length() > 0) {
 				params.push_back (value);
 			}
 		}
