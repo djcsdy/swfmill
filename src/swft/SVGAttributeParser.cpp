@@ -50,7 +50,7 @@ double AttributeParser::getDouble(const char* attribute, double defaultValue, do
 		} else if(unit == "%") {
 			value *= value100 / 100;
 		}
-	
+
 		return value;
 	} else {
 		return defaultValue;
@@ -81,8 +81,6 @@ void AttributeParser::handleData(const string& attrib, const vector<string>& val
 
 
 void AttributeParser::doParse(const char* str) {
-
-
 	int ich = 0;
 	int cch = strlen (str);
 	char ch;

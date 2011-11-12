@@ -19,12 +19,12 @@ void Parser::swapDelimiters() {
 }
 
 bool Parser::isWhitespace(const char c) {
-	return (c == 0 || c == '\n' || c == '\r' || c == '\t' || c == ' '); 	
+	return (c == 0 || c == '\n' || c == '\r' || c == '\t' || c == ' ');
 }
 
 void Parser::doParse(const char* str) {
 	string tmp;
-		
+
 	insideParams = false;
 	params.clear();
 
@@ -43,7 +43,7 @@ void Parser::doParse(const char* str) {
 			}
 		}
 	}
-		
+
 	if (tmp.length() > 0) {
 		//cerr << "WARNING: Reached end of line while parsing" << endl;
 		handleDelimiter(tmp);
@@ -52,7 +52,7 @@ void Parser::doParse(const char* str) {
 
 void Parser::handleDelimiter(string& tmp) {
 	trimString(tmp);
-		
+
 	if(insideParams) {
 		if(tmp.length() > 0) {
 			params.push_back(tmp);
@@ -62,7 +62,7 @@ void Parser::handleDelimiter(string& tmp) {
 	} else {
 		outside = tmp;
 	}
-	
+
 	insideParams = !insideParams;
 	tmp.clear();
 	swapDelimiters();
