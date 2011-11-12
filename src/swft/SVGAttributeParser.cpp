@@ -1,4 +1,5 @@
 #include "SVGAttributeParser.h"
+#include "../XmlAutoPtr.h"
 #include <cstring>
 
 #define DPI 90.0
@@ -8,20 +9,20 @@ using namespace std;
 namespace SWF {
 
 void AttributeParser::parseNode(xmlNodePtr node) {
+	XmlAutoPtr<xmlChar> tmp;
+
 	for(xmlAttrPtr attr = node->properties; attr != NULL; attr = attr->next) {
-		xmlChar *tmp = xmlGetProp(node, attr->name);
-		if(tmp) {
+		tmp = xmlGetProp(node, attr->name);
+		if (tmp.get()) {
 			vector<string> values;
-			values.push_back ((const char *) tmp);
+			values.push_back((const char *)tmp.get());
 			attributes[(const char *)attr->name] = values;
-			xmlFree(tmp);
 		}
 	}
 
-	xmlChar *tmp = xmlGetProp(node, (const xmlChar *)"style");
-	if(tmp) {
-		doParse((char *)tmp);
-		xmlFree(tmp);
+	tmp = xmlGetProp(node, (const xmlChar *)"style");
+	if(tmp.get()) {
+		doParse((char *)tmp.get());
 	}
 }
 

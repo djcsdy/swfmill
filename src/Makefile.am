@@ -165,6 +165,8 @@ noinst_HEADERS = \
 	SWFList.h \
 	SWFShapeMaker.h \
 	SWF.h \
+	\
+	XmlAutoPtr.h \
 	$(NULL)
 
 CLEANFILES = \

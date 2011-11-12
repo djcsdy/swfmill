@@ -30,7 +30,7 @@ void Parser::doParse(const char* str) {
 
 	for (size_t i = 0; i < strlen(str); i++) {
 		if(str[i] == expectedDelimiter) {
-			handleDelimiter(tmp);	
+			handleDelimiter(tmp);
 		} else if(str[i] == otherDelimiter) {
 			cerr << "WARNING: Unexpected delimiter while parsing" << endl;
 		} else {
