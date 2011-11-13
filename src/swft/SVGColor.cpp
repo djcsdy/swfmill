@@ -41,8 +41,9 @@ bool SVGColor::parse(string &color) {
 			if(color.length() == 4) {
 				int c[3];
 				
-				for(int i = 0; i < 3; i++)
+				for(int i = 0; i < 3; i++) {
 					sscanf(color.substr(1 + i, 1).c_str(), "%x", &c[i]);
+				}
 				
 				r = (c[0] << 4) + c[0];
 				g = (c[1] << 4) + c[1];
@@ -51,8 +52,9 @@ bool SVGColor::parse(string &color) {
 			} else if (color.length() == 7) {
 				int c[3];
 				
-				for(int i = 0; i < 3; i++)
+				for(int i = 0; i < 3; i++) {
 					sscanf(color.substr(1 + i*2, 2).c_str(), "%x", &c[i]);
+				}
 				
 				r = c[0];
 				g = c[1];
