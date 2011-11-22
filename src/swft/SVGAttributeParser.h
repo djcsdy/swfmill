@@ -27,7 +27,6 @@ class AttributeParser : public Parser {
 	protected:
 		void doParse(const char* str);
 
-
 	private:
 		std::map<std::string, std::vector<std::string> > attributes;
 		void handleData(const std::string& attrib, const std::vector<std::string>& value);

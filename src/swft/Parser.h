@@ -17,7 +17,7 @@ class Parser {
 	protected:
 		virtual void handleData(const string& outside, const vector<string>& inside) = 0;
 		virtual void doParse(const char* str);
-		void trimString(string& s);			
+		void trimString(string& s);
 		bool isWhitespace(const char c);
 
 	private:
