@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<movie width="320" height="240" framerate="12">
+  <background color="#ffffff"/>
+  <frame>
+    <library>
+      <clip id="placeobject3_swf" import="placeobject3.swf"/>
+    </library>
+    <place id="placeobject3_swf"/>
+  </frame>
+</movie>

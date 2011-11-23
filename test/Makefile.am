@@ -1,1 +1,1 @@
-SUBDIRS = simple-import xml
+SUBDIRS = simple-import simple xml
