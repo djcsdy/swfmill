@@ -1,18 +1,21 @@
 #ifndef XML_AUTO_PTR_H
 #define XML_AUTO_PTR_H
 
+#include <stddef.h>
 #include <libxml/globals.h>
 
 
 template <typename T>
 class XmlAutoPtr {
 	public:
-		explicit XmlAutoPtr(T *ptr=0) {
+		explicit XmlAutoPtr(T *ptr=NULL) {
 			this->ptr = ptr;
 		}
 
 		~XmlAutoPtr() {
-			xmlFree(this->ptr);
+			if (this->ptr) {
+				xmlFree(this->ptr);
+			}
 		}
 
 		T* get() {
@@ -20,7 +23,9 @@ class XmlAutoPtr {
 		}
 
 		XmlAutoPtr<T> operator=(T *ptr) {
-			xmlFree(this->ptr);
+			if (this->ptr) {
+				xmlFree(this->ptr);
+			}
 			this->ptr = ptr;
 		}
 
