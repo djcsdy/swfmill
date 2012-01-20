@@ -10,6 +10,7 @@
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
 #include <dirent.h>
+#include "XmlDocAutoPtr.h"
 
 using namespace SWF;
 
@@ -157,28 +158,33 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 	xsltStylesheetPtr transform = NULL;
 	
 	File input;
-	int size, xmlsize;
+	int size;
 	Context ctx;
-	xmlDocPtr doc = NULL, doc2;
+	XmlDocAutoPtr doc;
+	XmlDocAutoPtr doc2;
 
 	// parse filenames
-	if( argc < 1 || argc > 2 ) {
+	if (argc < 1 || argc > 2) {
 		usage();
 		goto fail;
 	}
 	infile = argv[0];
-	if( argc>1 ) outfile = argv[1];
+	if (argc>1) {
+		outfile = argv[1];
+	}
 	
 	// open files
-	std_in = !strncmp( infile, "stdin", 5 );
-	std_out = !strncmp( outfile, "stdout", 6 );
+	std_in = !strncmp(infile, "stdin", 5);
+	std_out = !strncmp(outfile, "stdout", 6);
 	in_fp = std_in ? stdin : fopen( infile, "rb" );
-	if( !in_fp ) {
+	if (!in_fp) {
 		fprintf(stderr,"ERROR: could not open file %s for reading\n", infile?infile:"stdin" );
 		goto fail;
 	}
 	
-	if( !quiet ) fprintf(stderr,"Reading from %s\n", infile );
+	if (!quiet) {
+		fprintf(stderr,"Reading from %s\n", infile);
+	}
 	
 	// setup context
 	ctx.debugTrace = verbose;
@@ -192,16 +198,16 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 
 	{
 		filename = std_in ? "-" : infile ;
-		doc = xmlParseFile( filename );
-		if( !doc ) {
+		doc = XmlDocAutoPtr(xmlParseFile(filename));
+		if (!doc.get()) {
 			fprintf( stderr, "ERROR: input document %s could not be read.\n", infile );
 			goto fail;
 		}
 
 		// see if one of the internal stylesheets should be used
-		if( internal_stylesheet ) {
+		if (internal_stylesheet) {
 			transform = xsltParseStylesheetMemory( internal_stylesheet, strlen(internal_stylesheet) );
-			if( !transform ) {
+			if (!transform) {
 				fprintf( stderr, "ERROR: internal stylesheet could not be read.\n" );
 				goto fail;
 			}
@@ -213,34 +219,38 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 			if( quiet ) {
 				params[1] = "\"true\"";
 			}
-			doc2 = xsltApplyStylesheet( transform, doc, (const char **)&params );
+			doc2 = XmlDocAutoPtr(xsltApplyStylesheet(transform, doc.get(), (const char **)&params));
 
-			if( !doc2 ) {
+			if (!doc2.get()) {
 				fprintf( stderr, "ERROR: transformation failed.\n" );
 				goto fail;
 			}	
 			
-			xmlFreeDoc( doc );
 			doc = doc2;
 		}
 		
 		// treat input as XML, produce SWF
-		input.setXML( doc->xmlRootNode, &ctx );
-		if( dump ) input.dump();
+		input.setXML(doc->xmlRootNode, &ctx);
+		if (dump) {
+			input.dump();
+		}
 		out_fp = std_out ? stdout : fopen( outfile, "wb" );
-		if( !out_fp ) {
+		if (!out_fp) {
 			fprintf(stderr,"ERROR: could not open file '%s' for writing\n", outfile );
 			goto fail;
 		}
-		if( !quiet ) fprintf(stderr,"Writing SWF to %s\n", outfile );
-		if( (size = input.save( out_fp, &ctx )) != 0 ) {
+		if (!quiet) {
+			fprintf(stderr,"Writing SWF to %s\n", outfile);
+		}
+		if ((size = input.save(out_fp, &ctx)) != 0) {
 			success = true;
-			if( !quiet ) fprintf(stderr,"SWF saved to %s (%i bytes).\n", outfile, size );
+			if (!quiet) {
+				fprintf(stderr,"SWF saved to %s (%i bytes).\n", outfile, size );
+			}
 		}
 	}
 	
 fail:
-	if( doc ) xmlFreeDoc( doc );
 	if( in_fp && !std_in ) fclose(in_fp);
 	if( out_fp && !std_out ) fclose(out_fp);
 	

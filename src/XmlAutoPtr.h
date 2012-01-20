@@ -8,37 +8,48 @@
 template <typename T>
 class XmlAutoPtr {
 	public:
-		explicit XmlAutoPtr(T *ptr=NULL) {
-			this->ptr = ptr;
-		}
+		explicit XmlAutoPtr(T* p=NULL)
+			: owner(p), ptr(p) { }
+
+		XmlAutoPtr(const XmlAutoPtr& other)
+			: owner(other.owner), ptr(other.release()) { }
 
 		~XmlAutoPtr() {
-			if (this->ptr) {
-				xmlFree(this->ptr);
+			if (owner) {
+				xmlFree(ptr);
 			}
 		}
 
-		T* get() {
-			return this->ptr;
-		}
-
-		XmlAutoPtr<T> operator=(T *ptr) {
-			if (this->ptr) {
-				xmlFree(this->ptr);
+		XmlAutoPtr& operator=(const XmlAutoPtr& other) {
+			if ((void*)&other != (void*)this) {
+				if (owner) {
+					xmlFree(ptr);
+				}
+				owner = other.owner;
+				ptr = other.release();
 			}
-			this->ptr = ptr;
 		}
 
-		T* operator->() {
+		T* operator->() const {
 			return this->ptr;
 		}
 
-		operator T*() {
+		operator T*() const {
+			return this->ptr;
+		}
+
+		T* get() const {
 			return this->ptr;
 		}
 
 	private:
 		T* ptr;
+		mutable bool owner;
+
+		T* release() const {
+			owner = false;
+			return ptr;
+		}
 };
 
 #endif

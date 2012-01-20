@@ -122,6 +122,7 @@ swfmill_SOURCES = \
 	SWFShapeItem.cpp \
 	SWFGlyphList.cpp \
 	SWFShapeMaker.cpp \
+	XmlDocAutoPtr.cpp \
 	\
 	swfmill.cpp \
 	$(NULL)
@@ -167,6 +168,7 @@ noinst_HEADERS = \
 	SWF.h \
 	\
 	XmlAutoPtr.h \
+	XmlDocAutoPtr.h \
 	$(NULL)
 
 CLEANFILES = \
