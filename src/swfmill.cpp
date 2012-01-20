@@ -198,7 +198,7 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 
 	{
 		filename = std_in ? "-" : infile ;
-		doc = XmlDocAutoPtr(xmlParseFile(filename));
+		doc = xmlParseFile(filename);
 		if (!doc.get()) {
 			fprintf( stderr, "ERROR: input document %s could not be read.\n", infile );
 			goto fail;
@@ -219,12 +219,12 @@ int swfmill_xml2swf( int argc, char *argv[] ) {
 			if( quiet ) {
 				params[1] = "\"true\"";
 			}
-			doc2 = XmlDocAutoPtr(xsltApplyStylesheet(transform, doc.get(), (const char **)&params));
+			doc2 = xsltApplyStylesheet(transform, doc.get(), (const char **)&params);
 
 			if (!doc2.get()) {
 				fprintf( stderr, "ERROR: transformation failed.\n" );
 				goto fail;
-			}	
+			}
 			
 			doc = doc2;
 		}

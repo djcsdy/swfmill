@@ -30,6 +30,16 @@ class XmlAutoPtr {
 			}
 		}
 
+		XmlAutoPtr& operator=(T* p) {
+			if (ptr != p) {
+				if (owner) {
+					xmlFree(ptr);
+				}
+				owner = p;
+				ptr = p;
+			}
+		}
+
 		T* operator->() const {
 			return this->ptr;
 		}

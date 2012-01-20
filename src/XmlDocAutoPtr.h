@@ -10,6 +10,7 @@ class XmlDocAutoPtr {
 		XmlDocAutoPtr(const XmlDocAutoPtr& other);
 		~XmlDocAutoPtr();
 		XmlDocAutoPtr& operator=(const XmlDocAutoPtr& other);
+		XmlDocAutoPtr& operator=(xmlDocPtr p);
 		xmlDocPtr operator->() const;
 		operator xmlDocPtr() const;
 		xmlDocPtr get() const;

@@ -22,6 +22,16 @@ XmlDocAutoPtr& XmlDocAutoPtr::operator=(const XmlDocAutoPtr& other) {
 	}
 }
 
+XmlDocAutoPtr& XmlDocAutoPtr::operator=(xmlDocPtr p) {
+	if (p != ptr) {
+		if (owner) {
+			xmlFreeDoc(ptr);
+		}
+		owner = p;
+		ptr = p;
+	}
+}
+
 xmlDocPtr XmlDocAutoPtr::operator->() const {
 	return this->ptr;
 }
