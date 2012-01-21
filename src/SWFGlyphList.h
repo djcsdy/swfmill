@@ -12,7 +12,6 @@ namespace SWF {
 		/* glyph lists have strange offsetting stuff, so we do them manually */
 		public:
 			GlyphList();
-			virtual ~GlyphList();
 			virtual bool parse(Reader *r, int end, Context *ctx);
 			virtual void dump(int indent, Context *ctx);
 			virtual size_t calcSize(Context *ctx, int start_at);
@@ -27,7 +26,7 @@ namespace SWF {
 		protected:
 			int nGlyphs;
 			std::vector<GlyphShape> glyphs;
-			int *map;
+			std::vector<int> map;
 	};
 
 }

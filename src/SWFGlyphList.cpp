@@ -2,6 +2,7 @@
 #include <SWFShapeItem.h>
 #include "SWF.h"
 #include <cstring>
+#include "XmlAutoPtr.h"
 
 using namespace std;
 
@@ -9,11 +10,6 @@ namespace SWF {
 
 	GlyphList::GlyphList() {
 		nGlyphs = 0;
-		map = 0;
-	}
-
-	GlyphList::~GlyphList() {
-		delete[] map;
 	}
 
 	bool GlyphList::parse(Reader *r, int end, Context *ctx) {
@@ -71,7 +67,7 @@ namespace SWF {
 			if (ctx->debugTrace) {
 				fprintf(stderr,"- parse GlyphMap" );
 			}
-			map = new int[nGlyphs];
+			map = vector<int>(nGlyphs);
 			if (ctx->wideMap) {
 				for (int i=0; i<nGlyphs; i++) {
 					map[i] = r->getWord();
@@ -81,6 +77,8 @@ namespace SWF {
 					map[i] = r->getByte();
 				}
 			}
+		} else {
+			map = vector<int>(nGlyphs);
 		}
 
 		return r->getError() == SWFR_OK;
@@ -162,10 +160,15 @@ namespace SWF {
 		char tmp[32];
 
 		xmlNodePtr node = xml;
+
+		// TODO This flag is a hack to match the old behaviour when map was a pointer to an array.
+		// This behaviour is almost certainly wrong and should be checked against the SWF Spec.
+		bool writeMap = ctx->tagVersion>1 && map.size() == nGlyphs;
+
 		for (int i=0; i<nGlyphs; i++) {
 			xmlNodePtr child = xmlNewChild(node, NULL, (const xmlChar *)"Glyph", NULL);
 			glyphs[i].writeXML(child, ctx);
-			if (ctx->tagVersion>1 && map) {
+			if (writeMap) {
 				snprintf(tmp, 32, "%i", map[i]);
 				xmlSetProp(child, (const xmlChar *)"map", (const xmlChar *)tmp);
 			}
@@ -185,8 +188,7 @@ namespace SWF {
 			ctx->glyphCount = nGlyphs;
 
 			if (ctx->tagVersion>1) {
-				map = new int[nGlyphs];
-				memset(map, 0, sizeof(int)*nGlyphs);
+				map = vector<int>(nGlyphs);
 			}
 
 			glyphs = vector<GlyphShape>(nGlyphs);
@@ -200,11 +202,9 @@ namespace SWF {
 							glyphs[i].parseXML(shape, ctx);
 
 							if (ctx->tagVersion>1) {
-								xmlChar *tmp;
-								tmp = xmlGetProp(child, (const xmlChar *)"map");
-								if (tmp) {
-									sscanf((char*)tmp, "%i", &map[i]);
-									xmlFree( tmp );
+								XmlCharAutoPtr tmp(xmlGetProp(child, (const xmlChar *)"map"));
+								if (tmp.get()) {
+									sscanf((char*)tmp.get(), "%i", &map[i]);
 									if (map[i] > 0xFF) {
 										ctx->wideMap = true;
 									}
@@ -230,12 +230,9 @@ namespace SWF {
 	}
 
 	void GlyphList::allocate(int n) {
-		delete[] map;
-
 		nGlyphs = n;
 		glyphs = vector<GlyphShape>(nGlyphs);
-		map = new int[nGlyphs];
-		memset(map, 0, sizeof(int)*nGlyphs);
+		map = vector<int>(nGlyphs);
 	}
 
 	GlyphShape *GlyphList::getShapeN(int n) {
