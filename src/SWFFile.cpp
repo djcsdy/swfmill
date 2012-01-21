@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <zlib.h>
+#include "XmlAutoPtr.h"
 #include "XmlDocAutoPtr.h"
 
 namespace SWF {
@@ -235,20 +236,22 @@ namespace SWF {
 		return size;
 	}
 
-	int File::setXML(xmlNodePtr root, Context *_ctx) {
-		Context *ctx;
-		ctx = _ctx ? _ctx : new Context;
+	int File::setXML(xmlNodePtr root, Context *ctx) {
+		if (!ctx) {
+			auto_ptr<Context> autoContext;
+			return setXML(root, autoContext.get());
+		}
 
 		xmlNodePtr headerNode;
 
 		if (strcmp((const char *)root->name, "swf")) {
-			fprintf( stderr, "doesn't seem to be a swfml file\n");
-			goto fail;
+			fprintf(stderr, "doesn't seem to be a swfml file\n");
+			return 0;
 		}
 
 		if (header.get()) {
 			fprintf(stderr, "SWF file already in memory, not loading XML\n");
-			goto fail;
+			return 0;
 		}
 
 		headerNode = root->children;
@@ -257,24 +260,21 @@ namespace SWF {
 		}
 
 		if (!headerNode) {
-			fprintf( stderr, "swfml file is empty\n");
-			goto fail;
+			fprintf(stderr, "swfml file is empty\n");
+			return 0;
 		}
 
 		// get version, compression
 		int t;
-		xmlChar *tmp;
-		tmp = xmlGetProp(root, (const xmlChar *)"version");
-		if (tmp) {
-			sscanf( (char *)tmp, "%i", &t );
+		XmlCharAutoPtr tmp(xmlGetProp(root, (const xmlChar *)"version"));
+		if (tmp.get()) {
+			sscanf((char *)tmp.get(), "%i", &t);
 			ctx->swfVersion = version = t;
-			xmlFree( tmp );
 		}
 		tmp = xmlGetProp(root, (const xmlChar *)"compressed");
-		if (tmp) {
-			sscanf((char *)tmp, "%i", &t);
+		if (tmp.get()) {
+			sscanf((char *)tmp.get(), "%i", &t);
 			compressed = t>0;
-			xmlFree(tmp);
 		}
 
 		header = auto_ptr<Header>(new Header);
@@ -282,18 +282,7 @@ namespace SWF {
 
 		length = (header->getSize(ctx,0)/8);
 
-		if (!_ctx) {
-			delete ctx;
-		}
-
 		return length+8;
-
-	fail:
-		if (!_ctx) {
-			delete ctx;
-		}
-
-		return 0;
 	}
 
 	int File::loadXML(const char *filename, Context *ctx) {
