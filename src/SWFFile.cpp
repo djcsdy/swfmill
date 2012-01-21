@@ -12,16 +12,11 @@ namespace SWF {
 		compressed = false;
 		version = 7;
 		length = 0;
-		header = NULL;
-	}
-
-	File::~File() {
-		delete header;
 	}
 
 	void File::dump() {
 		Context ctx;
-		if (!header) {
+		if (!header.get()) {
 			fprintf(stderr,"no SWF loaded to save\n");
 			return;
 		}
@@ -83,7 +78,7 @@ namespace SWF {
 		}
 
 		r = new Reader(data, length);
-		header = new Header;
+		header = auto_ptr<Header>(new Header);
 
 		header->parse(r, length, ctx);
 
@@ -126,7 +121,7 @@ namespace SWF {
 		Writer* w = NULL;
 		unsigned char *data = NULL;
 
-		if (!header) {
+		if (!header.get()) {
 			fprintf(stderr,"no SWF loaded to save\n");
 			goto fail;
 		}
@@ -196,7 +191,7 @@ namespace SWF {
 		xmlDocPtr doc = 0;
 		xmlNodePtr root;
 
-		if (!header) {
+		if (!header.get()) {
 			fprintf(stderr,"no SWF loaded to save\n");
 			goto fail;
 		}
@@ -273,7 +268,7 @@ namespace SWF {
 			goto fail;
 		}
 
-		if (header) {
+		if (header.get()) {
 			fprintf(stderr, "SWF file already in memory, not loading XML\n");
 			goto fail;
 		}
@@ -304,7 +299,7 @@ namespace SWF {
 			xmlFree(tmp);
 		}
 
-		header = new Header;
+		header = auto_ptr<Header>(new Header);
 		header->parseXML(headerNode, ctx);
 
 		length = (header->getSize(ctx,0)/8);
