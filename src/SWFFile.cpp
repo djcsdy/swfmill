@@ -6,6 +6,7 @@
 #include <zlib.h>
 #include "XmlAutoPtr.h"
 #include "XmlDocAutoPtr.h"
+#include <vector>
 
 namespace SWF {
 
@@ -65,22 +66,18 @@ namespace SWF {
 			}
 		}
 
-		auto_ptr<unsigned char> data(new unsigned char[length]);
-		if (!data.get()) {
-			fprintf(stderr,"cannot load SWF to memory (size %i)\n",length);
-			return 0;
-		}
+		vector<unsigned char> data(length);
 
 		if (compressed) {
-			decompress(data.get(), length, fp);
+			decompress(&data[0], length, fp);
 		} else {
-			if (fread(data.get(), length, 1, fp ) != 1) {
+			if (fread(&data[0], length, 1, fp ) != 1) {
 				fprintf(stderr,"could not load SWF to memory (%i, %c)\n",length,sig[0]);
 				return 0;
 			}
 		}
 
-		auto_ptr<Reader> reader(new Reader(data.get(), length));
+		auto_ptr<Reader> reader(new Reader(&data[0], length));
 		header = auto_ptr<Header>(new Header);
 
 		header->parse(reader.get(), length, ctx);
@@ -97,16 +94,15 @@ namespace SWF {
 		return length+8;
 	}
 
-	int File::save(FILE *fp, Context *_ctx) {
-		Context *ctx;
-		ctx = _ctx ? _ctx : new Context;
-
-		Writer* w = NULL;
-		unsigned char *data = NULL;
+	int File::save(FILE *fp, Context *ctx) {
+		if (!ctx) {
+			auto_ptr<Context> autoContext(new Context);
+			return save(fp, autoContext.get());
+		}
 
 		if (!header.get()) {
 			fprintf(stderr,"no SWF loaded to save\n");
-			goto fail;
+			return 0;
 		}
 
 		if (compressed) {
@@ -124,47 +120,26 @@ namespace SWF {
 		fputc((length>>24)&0xFF, fp);
 		length-=8;
 
-		data = new unsigned char[length];
-		if (!data) {
-			fprintf(stderr,"ERROR: cannot save SWF to memory (size %i)\n",length);
-			goto fail;
-		}
+		vector<unsigned char> data(length);
 
 		ctx->swfVersion = version;
 
-		w = new Writer(data, length);
-		header->write(w, ctx);
-		if(w->getError() != SWFW_OK) {
-			goto fail;
+		auto_ptr<Writer> writer(new Writer(&data[0], length));
+		header->write(writer.get(), ctx);
+		if (writer->getError() != SWFW_OK) {
+			return 0;
 		}
 
 		if (compressed) {
-			compress(data, length, fp);
+			compress(&data[0], length, fp);
 		} else {
-			if (fwrite( data, length, 1, fp) != 1 ) {
+			if (fwrite(&data[0], length, 1, fp) != 1) {
 				fprintf(stderr,"ERROR: could not compress SWF to file (%i)\n",length);
-				goto fail;
+				return 0;
 			}
 		}
 
-		delete w;
-		delete[] data;
-
-		if (!_ctx) {
-			delete ctx;
-		}
-
-		return( length+8 );
-
-	fail:
-		delete w;
-		delete[] data;
-
-		if (!_ctx) {
-			delete ctx;
-		}
-
-		return 0;
+		return length+8;
 	}
 
 	xmlDocPtr File::getXML(Context *ctx) {
