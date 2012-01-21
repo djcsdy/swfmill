@@ -13,6 +13,7 @@
 			#include "XmlAutoPtr.h"
 			#include "XmlDocAutoPtr.h"
 			#include &lt;memory>
+			#include "ArrayAutoPtr.h"
 
 			using namespace std;
 
@@ -30,7 +31,7 @@
 						}
 						size_t buf_size = (len + 1) * 2;
 						for (;;) {
-							auto_ptr&lt;char> dst(new char[buf_size]);
+							ArrayAutoPtr&lt;char> dst(new char[buf_size]);
 							size_t inbytesleft = len;
 							size_t outbytesleft = buf_size - 1; // reserve 1 byte for '\0'
 							ICONV_CONST char *pin = (ICONV_CONST char*)from_str;

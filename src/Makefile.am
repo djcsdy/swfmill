@@ -167,6 +167,7 @@ noinst_HEADERS = \
 	SWFShapeMaker.h \
 	SWF.h \
 	\
+	ArrayAutoPtr.h \
 	XmlAutoPtr.h \
 	XmlDocAutoPtr.h \
 	$(NULL)
