@@ -1,6 +1,8 @@
 #include "Parser.h"
 #include <cstring>
 
+using namespace std;
+
 namespace SWF {
 
 Parser::Parser(const char begin, const char end, const char parameter) {
