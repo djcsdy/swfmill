@@ -11,7 +11,7 @@
 			#include &lt;iconv.h&gt;
 			#include "XmlAutoPtr.h"
 			#include "XmlDocAutoPtr.h"
-			#include &lt;memory>
+			#include &lt;vector>
 
 			using namespace std;
 
@@ -29,11 +29,11 @@
 						size_t buf_size = (len + 1) * 2;
 						XmlCharAutoPtr result;
 						for (;;) {
-							auto_ptr&lt;char> dst(new char[buf_size]);
+							vector&lt;char> dst(buf_size);
 							size_t inbytesleft = len;
 							size_t outbytesleft = buf_size - 1;
 							ICONV_CONST char *pin = (ICONV_CONST char*)from_str;
-							char *pout = dst.get();
+							char *pout = &amp;dst[0];
 							bool expandbuf = false;
 
 							while (inbytesleft &gt; 0) {
@@ -56,7 +56,7 @@
 							}
 
 							*pout = '\0';
-							result = xmlCharStrdup(dst.get());
+							result = xmlCharStrdup(&amp;dst[0]);
 							break;
 						}
 						iconv_close(cd);
@@ -159,12 +159,12 @@
 			if( <xsl:value-of select="@size"/> &amp;&amp; <xsl:value-of select="@name"/> ) {
 				char *tmp_data = (char *)<xsl:value-of select="@name"/>;
 				int sz = <xsl:value-of select="@size"/>;
-				auto_ptr&lt;char> tmpstr(new char[(sz * 3)]);
+				vector&lt;char> tmpstr(sz * 3);
 
-				int l = base64_encode(tmpstr.get(), tmp_data, sz);
+				int l = base64_encode(&amp;tmpstr[0], tmp_data, sz);
 				if (l > 0) {
-					tmpstr.get()[l] = 0;
-					xmlNewTextChild(node, NULL, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)tmpstr.get());
+					tmpstr[l] = 0;
+					xmlNewTextChild(node, NULL, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmpstr[0]);
 				}
 			}
 		}
