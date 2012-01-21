@@ -216,33 +216,23 @@ namespace SWF {
 	}
 
 	int File::saveXML(FILE *fp, Context *ctx) {
+		XmlDocAutoPtr doc(getXML(ctx));
+
+		if (!doc.get()) {
+			return 0;
+		}
+
 		char *data = NULL;
 		int size;
 
-		xmlDocPtr doc = getXML(ctx);
-		if (!doc) {
-			goto fail;
-		}
-
-		xmlDocDumpFormatMemoryEnc(doc, (xmlChar**)&data, &size, "UTF-8", 1);
+		xmlDocDumpFormatMemoryEnc(doc.get(), (xmlChar**)&data, &size, "UTF-8", 1);
 
 		if (size) {
-			fwrite(data, size, 1, fp);
+			auto_ptr<char> autoData(data);
+			fwrite(autoData.get(), size, 1, fp);
 		}
 
-		if (data) {
-			xmlFree(data);
-		}
-
-		xmlFreeDoc(doc);
 		return size;
-
-	fail:
-		if (data) {
-			xmlFree(data);
-		}
-
-		return 0;
 	}
 
 	int File::setXML(xmlNodePtr root, Context *_ctx) {
