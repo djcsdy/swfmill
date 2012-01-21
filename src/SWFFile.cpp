@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <zlib.h>
+#include "XmlDocAutoPtr.h"
 
 namespace SWF {
 
@@ -184,16 +185,18 @@ namespace SWF {
 		return 0;
 	}
 
-	xmlDocPtr File::getXML(Context *_ctx) {
-		Context *ctx;
-		ctx = _ctx ? _ctx : new Context;
+	xmlDocPtr File::getXML(Context *ctx) {
+		if (!ctx) {
+			auto_ptr<Context> autoContext(new Context);
+			return getXML(autoContext.get());
+		}
 
-		xmlDocPtr doc = 0;
+		XmlDocAutoPtr doc;
 		xmlNodePtr root;
 
 		if (!header.get()) {
 			fprintf(stderr,"no SWF loaded to save\n");
-			goto fail;
+			return NULL;
 		}
 
 		doc = xmlNewDoc((const xmlChar*)"1.0");
@@ -209,22 +212,7 @@ namespace SWF {
 		ctx->swfVersion = version;
 		header->writeXML(root, ctx);
 
-		if (!_ctx) {
-			delete ctx;
-		}
-
-		return doc;
-
-	fail:
-		if (doc) {
-			xmlFreeDoc(doc);
-		}
-
-		if (!_ctx) {
-			delete ctx;
-		}
-
-		return NULL;
+		return doc.release();
 	}
 
 	int File::saveXML(FILE *fp, Context *ctx) {
