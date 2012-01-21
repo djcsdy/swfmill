@@ -28,11 +28,12 @@ namespace SWF {
 		header->dump(2, &ctx);
 	}
 
-	int File::load(FILE *fp, Context *_ctx, unsigned int filesize) {
-		Context *ctx;
-		ctx = _ctx ? _ctx : new Context;
-		Reader* r = NULL;
-		unsigned char *data = NULL;
+	int File::load(FILE *fp, Context *ctx, unsigned int filesize) {
+		if (!ctx) {
+			auto_ptr<Context> autoContext(new Context);
+			return load(fp, autoContext.get(), filesize);
+		}
+
 		char sig[3];
 
 		// read sig, version
@@ -40,7 +41,7 @@ namespace SWF {
 				|| fread(&version, 1, 1, fp) != 1
 				|| (strncmp(sig,"CWS",2) && strncmp(sig,"FWS",2))) {
 			fprintf(stderr,"ERROR: input is no SWF\n");
-			goto fail;
+			return 0;
 		}
 
 		// read length, should be endian-safe
@@ -64,56 +65,36 @@ namespace SWF {
 			}
 		}
 
-		data = new unsigned char[length];
-		if (!data) {
+		auto_ptr<unsigned char> data(new unsigned char[length]);
+		if (!data.get()) {
 			fprintf(stderr,"cannot load SWF to memory (size %i)\n",length);
-			goto fail;
+			return 0;
 		}
 
 		if (compressed) {
-			decompress(data, length, fp);
+			decompress(data.get(), length, fp);
 		} else {
-			if (fread( data, length, 1, fp ) != 1) {
+			if (fread(data.get(), length, 1, fp ) != 1) {
 				fprintf(stderr,"could not load SWF to memory (%i, %c)\n",length,sig[0]);
-				goto fail;
+				return 0;
 			}
 		}
 
-		r = new Reader(data, length);
+		auto_ptr<Reader> reader(new Reader(data.get(), length));
 		header = auto_ptr<Header>(new Header);
 
-		header->parse(r, length, ctx);
+		header->parse(reader.get(), length, ctx);
 
-		if (r->getError() != SWFR_OK) {
-			if (r->getError() == SWFR_EOF) {
+		if (reader->getError() != SWFR_OK) {
+			if (reader->getError() == SWFR_EOF) {
 				fprintf(stderr,"WARNING: reached EOF while reading SWF\n");
 			} else {
 				fprintf(stderr,"unknown error while reading SWF\n");
-				goto fail;
+				return 0;
 			}
 		}
 
-		if (r) {
-			delete r;
-		}
-
-		if (!_ctx && ctx) {
-			delete ctx;
-		}
-
-		delete[] data;
 		return length+8;
-
-	fail:
-		if (data) {
-			delete[] data;
-		}
-
-		if (!_ctx && ctx) {
-			delete ctx;
-		}
-
-		return 0;
 	}
 
 	int File::save(FILE *fp, Context *_ctx) {
@@ -286,33 +267,24 @@ namespace SWF {
 	}
 
 	int File::loadXML(const char *filename, Context *ctx) {
-		xmlDocPtr doc = NULL;
 		xmlNodePtr root;
 		int length;
 
-		doc = xmlParseFile(filename);
-		if (!doc) {
+		XmlDocAutoPtr doc(xmlParseFile(filename));
+		if (!doc.get()) {
 			fprintf(stderr, "could not parse XML\n");
-			return false;
+			return 0;
 		}
 
 		root = doc->xmlRootNode;
 		length = setXML(root, ctx);
 
-		xmlFreeDoc(doc);
 		return length;
-
-	fail:
-		if (doc) {
-			xmlFreeDoc(doc);
-		}
-
-		return 0;
 	}
 
 	#define MAX_BUFFER 1000000
 
-	void File::compress( unsigned char *inputBuffer, size_t len, FILE *fp ) {
+	void File::compress(unsigned char *inputBuffer, size_t len, FILE *fp) {
 		z_stream stream;
 		static unsigned char outputBuffer[MAX_BUFFER];
 		int status, count;
