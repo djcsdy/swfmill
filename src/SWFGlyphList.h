@@ -1,7 +1,8 @@
 #ifndef SWF_GLYPHLIST_H
 #define SWF_GLYPHLIST_H
 
-#include <SWFItem.h>
+#include "SWFItem.h"
+#include <vector>
 
 namespace SWF {
 
@@ -25,7 +26,7 @@ namespace SWF {
 
 		protected:
 			int nGlyphs;
-			GlyphShape *glyphs;
+			std::vector<GlyphShape> glyphs;
 			int *map;
 	};
 

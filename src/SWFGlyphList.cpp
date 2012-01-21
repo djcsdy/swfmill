@@ -3,16 +3,16 @@
 #include "SWF.h"
 #include <cstring>
 
+using namespace std;
+
 namespace SWF {
 
 	GlyphList::GlyphList() {
 		nGlyphs = 0;
-		glyphs = NULL;
 		map = 0;
 	}
 
 	GlyphList::~GlyphList() {
-		delete[] glyphs;
 		delete[] map;
 	}
 
@@ -55,7 +55,7 @@ namespace SWF {
 		if (ctx->debugTrace) {
 			fprintf(stderr, "Glyphs @%i offset[0]: %i\n", r->getPosition(), offset[0]);
 		}
-		glyphs = new GlyphShape[nGlyphs];
+		glyphs = vector<GlyphShape>(nGlyphs);
 		for (int i=0; i<nGlyphs; i++) {
 			if (ctx->debugTrace) {
 				fprintf(stderr, "PARSE glyph #%i @%i should be %i-%i\n", i, r->getPosition(), file_offset + offset[i], file_offset + offset[i+1]);
@@ -189,7 +189,7 @@ namespace SWF {
 				memset(map, 0, sizeof(int)*nGlyphs);
 			}
 
-			glyphs = new GlyphShape[nGlyphs];
+			glyphs = vector<GlyphShape>(nGlyphs);
 			child = node;
 			int i=0;
 			while (child) {
@@ -231,10 +231,9 @@ namespace SWF {
 
 	void GlyphList::allocate(int n) {
 		delete[] map;
-		delete[] glyphs;
 
 		nGlyphs = n;
-		glyphs = new GlyphShape[nGlyphs];
+		glyphs = vector<GlyphShape>(nGlyphs);
 		map = new int[nGlyphs];
 		memset(map, 0, sizeof(int)*nGlyphs);
 	}
