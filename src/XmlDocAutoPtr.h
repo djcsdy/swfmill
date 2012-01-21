@@ -14,11 +14,11 @@ class XmlDocAutoPtr {
 		xmlDocPtr operator->() const;
 		operator xmlDocPtr() const;
 		xmlDocPtr get() const;
+		xmlDocPtr release() const;
 
 	private:
 		xmlDocPtr ptr;
 		mutable bool owner;
-		xmlDocPtr release() const;
 };
 
 #endif

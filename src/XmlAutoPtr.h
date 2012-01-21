@@ -52,14 +52,14 @@ class XmlAutoPtr {
 			return this->ptr;
 		}
 
-	private:
-		T* ptr;
-		mutable bool owner;
-
 		T* release() const {
 			owner = false;
 			return ptr;
 		}
+
+	private:
+		T* ptr;
+		mutable bool owner;
 };
 
 #endif
