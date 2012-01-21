@@ -62,4 +62,6 @@ class XmlAutoPtr {
 		mutable bool owner;
 };
 
+typedef XmlAutoPtr<xmlChar> XmlCharAutoPtr;
+
 #endif

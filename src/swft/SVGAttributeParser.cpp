@@ -10,7 +10,7 @@ namespace SWF {
 
 void AttributeParser::parseNode(xmlNodePtr node) {
 	for(xmlAttrPtr attr = node->properties; attr != NULL; attr = attr->next) {
-		XmlAutoPtr<xmlChar> tmp(xmlGetProp(node, attr->name));
+		XmlCharAutoPtr tmp(xmlGetProp(node, attr->name));
 		if (tmp.get()) {
 			vector<string> values;
 			values.push_back((const char *)tmp.get());
@@ -18,7 +18,7 @@ void AttributeParser::parseNode(xmlNodePtr node) {
 		}
 	}
 
-	XmlAutoPtr<xmlChar> tmp(xmlGetProp(node, BAD_CAST "style"));
+	XmlCharAutoPtr tmp(xmlGetProp(node, BAD_CAST "style"));
 	if(tmp.get()) {
 		doParse((char *)tmp.get());
 	}

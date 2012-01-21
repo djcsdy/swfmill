@@ -27,7 +27,7 @@
 						}
 
 						size_t buf_size = (len + 1) * 2;
-						XmlAutoPtr&lt;xmlChar> result;
+						XmlCharAutoPtr result;
 						for (;;) {
 							auto_ptr&lt;char> dst(new char[buf_size]);
 							size_t inbytesleft = len;

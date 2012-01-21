@@ -75,7 +75,7 @@
 				<xsl:for-each select="type|tag|action|filter|style|stackitem|namespaceconstant|multinameconstant|trait|opcode">
 					void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 						xmlNodePtr node2;
-						XmlAutoPtr&lt;xmlChar> tmp;
+						XmlCharAutoPtr tmp;
 
 						<xsl:for-each select="*[@context]">
 							ctx-&gt;<xsl:value-of select="@name"/> = <xsl:apply-templates select="." mode="default"/>;
@@ -329,7 +329,7 @@
 			<xsl:value-of select="@name"/> = NULL;
 			<xsl:value-of select="@size"/> = 0;
 
-			XmlAutoPtr&lt;xmlChar> xmld(xmlNodeGetContent(node));
+			XmlCharAutoPtr xmld(xmlNodeGetContent(node));
 			char *d = (char *)xmld.get();
 			if (d) {
 				// unsure if this is neccessary
