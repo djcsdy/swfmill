@@ -4,6 +4,7 @@
 #include "base64.h"
 #include <sys/types.h>
 #include <vector>
+#include "XmlAutoPtr.h"
 
 using namespace std;
 
@@ -165,26 +166,28 @@ namespace SWF {
 		data.clear();
 		size = 0;
 
-		xmlChar *xmld = xmlNodeGetContent(node);
-		char *d = (char *)xmld;
-		if (d) {
+		XmlCharAutoPtr xmld(xmlNodeGetContent(node));
+		if (xmld.get()) {
 			// unsure if this is neccessary
-			for (int i=strlen(d)-1; i>0 && isspace(d[i]); i--) {
-				d[i]=0;
+			int end;
+			for (end=strlen((char*)xmld.get()); end>0 && isspace((char)xmld[end-1]); --end) {
+				xmld[end-1] = 0;
 			}
-			while (isspace(d[0])) {
-				d++;
+
+			int start = 0;
+			while (isspace(xmld[start])) {
+				++start;
 			}
-			int l = strlen(d);
-			char *dst = new char[l];
-			int lout = base64_decode(dst, (char*)d, l);
-			if (lout > 0) {
-				size = lout;
-				data = vector<unsigned char>(lout);
-				memcpy(&data[0], dst, lout);
+
+			int length = end - start;
+
+			vector<unsigned char> dst(length);
+			int outLength = base64_decode((char*)&dst[0], (char*)xmld.get()+start, length);
+
+			if (outLength > 0) {
+				size = outLength;
+				data = dst;
 			}
-			delete[] dst;
-			xmlFree(xmld);
 		}
 	}
 

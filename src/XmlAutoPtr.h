@@ -44,6 +44,14 @@ class XmlAutoPtr {
 			return this->ptr;
 		}
 
+		const T operator[](int i) const {
+			return ptr[i];
+		}
+
+		T& operator[](int i) {
+			return ptr[i];
+		}
+
 		operator T*() const {
 			return this->ptr;
 		}
