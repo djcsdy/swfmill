@@ -150,14 +150,13 @@ namespace SWF {
 			if (size) {
 				char *tmp_data = (char *)&data[0];
 				int sz = size;
-				char *tmpstr = new char[(sz * 3)];
+				vector<char> tmpstr(sz * 3);
 
-				int l = base64_encode(tmpstr, tmp_data, sz);
+				int l = base64_encode(&tmpstr[0], tmp_data, sz);
 				if (l > 0) {
 					tmpstr[l] = 0;
-					xmlNewTextChild(node, NULL, (const xmlChar *)"data", (const xmlChar *)tmpstr);
+					xmlNewTextChild(node, NULL, (const xmlChar *)"data", (const xmlChar *)&tmpstr[0]);
 				}
-				delete[] tmpstr;
 			}
 		}
 	}
