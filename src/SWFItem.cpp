@@ -3,6 +3,9 @@
 #include <cctype>
 #include "base64.h"
 #include <sys/types.h>
+#include <vector>
+
+using namespace std;
 
 namespace SWF {
 
@@ -90,11 +93,6 @@ namespace SWF {
 
 	Rest::Rest() {
 		size = 0;
-		data = NULL;
-	}
-
-	Rest::~Rest() {
-		delete[] data;
 	}
 
 	bool Rest::parse(Reader *r, int end, Context *ctx) {
@@ -102,8 +100,8 @@ namespace SWF {
 
 		size = end - r->getPosition();
 		if (size > 0) {
-			data = new unsigned char[size];
-			r->getData(data, size);
+			data = vector<unsigned char>(size);
+			r->getData(&data[0], size);
 		}
 
 		return r->getError() == SWFR_OK;
@@ -112,7 +110,7 @@ namespace SWF {
 	void Rest::dump(int indent, Context *ctx) {
 		for( int i=0; i<indent; i++ ) printf("  ");
 		printf("Rest (length %i)\n", size);
-		if (size && data != NULL) {
+		if (size) {
 			int i=0;
 			while (i<size) {
 				for (int in=0; in<indent+1; in++) {
@@ -137,8 +135,8 @@ namespace SWF {
 	void Rest::write(Writer *w, Context *ctx) {
 		Item::writeHeader(w, ctx, 0);
 
-		if (size && data) {
-			w->putData(data, size);
+		if (size) {
+			w->putData(&data[0], size);
 		}
 	}
 
@@ -148,8 +146,8 @@ namespace SWF {
 		xmlNodePtr node = xml;
 
 		{
-			if (size && data) {
-				char *tmp_data = (char *)data;
+			if (size) {
+				char *tmp_data = (char *)&data[0];
 				int sz = size;
 				char *tmpstr = new char[(sz * 3)];
 
@@ -164,7 +162,7 @@ namespace SWF {
 	}
 
 	void Rest::parseXML(xmlNodePtr node, Context *ctx) {
-		data = NULL;
+		data.clear();
 		size = 0;
 
 		xmlChar *xmld = xmlNodeGetContent(node);
@@ -182,8 +180,8 @@ namespace SWF {
 			int lout = base64_decode(dst, (char*)d, l);
 			if (lout > 0) {
 				size = lout;
-				data = new unsigned char[lout];
-				memcpy(data, dst, lout);
+				data = vector<unsigned char>(lout);
+				memcpy(&data[0], dst, lout);
 			}
 			delete[] dst;
 			xmlFree(xmld);
@@ -191,18 +189,17 @@ namespace SWF {
 	}
 
 	void Rest::getdata(unsigned char **d, int *s) {
-		*d = data;
+		*d = &data[0];
 		*s = size;
 	}
 
 	void Rest::setdata(unsigned char *d, int s) {
-		delete[] data;
-		data = NULL;
+		data.clear();
 		size = s;
 
 		if (size) {
-			data = new unsigned char[size];
-			memcpy(data, d, size);
+			data = vector<unsigned char>(size);
+			memcpy(&data[0], d, size);
 		}
 	}
 

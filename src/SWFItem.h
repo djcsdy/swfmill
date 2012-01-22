@@ -4,6 +4,7 @@
 #include <SWFReader.h>
 #include <SWFWriter.h>
 #include <libxml/tree.h>
+#include <vector>
 
 namespace SWF {
 
@@ -41,7 +42,6 @@ namespace SWF {
 	class Rest : public Item {
 		public:
 			Rest();
-			virtual ~Rest();
 			virtual bool parse(Reader *r, int end, Context *ctx);
 			virtual void dump(int indent, Context *ctx);
 			virtual size_t calcSize(Context *ctx, int start_at);
@@ -54,7 +54,7 @@ namespace SWF {
 
 		protected:
 			int size;
-			unsigned char *data;
+			std::vector<unsigned char> data;
 	};
 
 }
