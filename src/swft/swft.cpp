@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "swft.h"
+#include "XmlAutoPtr.h"
 
 #define TMP_STRLEN 0xFF
 #define SWFT_MAPSIZE 32
@@ -47,33 +48,29 @@ void swft_transform(xmlXPathParserContextPtr ctx, int nargs);
 
 static void swft_pushgradient(xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr com) {
 	swft_ctx *c = (swft_ctx*)xsltGetExtData(ctx, SWFT_NAMESPACE);
-	xmlChar *id, *href;
 	SVGGradient *gradient;
 
-	id = xmlGetProp(node, (const xmlChar *)"id");
-	if (id) {
+	XmlCharAutoPtr id(xmlGetProp(node, (const xmlChar *)"id"));
+	if (id.get()) {
 		if (!xmlStrcmp(node->name, (const xmlChar *)"linearGradient")) {
 			gradient = new SVGLinearGradient();
 		} else if (!xmlStrcmp(node->name, (const xmlChar *)"radialGradient")) {
 			gradient = new SVGRadialGradient();
 		}
 
-		href = xmlGetProp(node, (const xmlChar *)"href");
-		if (href) {
-			string hrefStr = (const char *)href;
+		XmlCharAutoPtr href(xmlGetProp(node, (const xmlChar *)"href"));
+		if (href.get()) {
+			string hrefStr = (const char *)href.get();
 			hrefStr.erase(0, 1);
 
 			map<string, SVGGradient*>::iterator i = c->gradients.find(hrefStr);
 			if (i != c->gradients.end()) {
 				*gradient = *((*i).second);
-			}			
-
-			xmlFree(href);
+			}
 		}
 
 		gradient->parse(node);
-		c->gradients[(char *)id] = gradient;
-		xmlFree(id);
+		c->gradients[(char *)id.get()] = gradient;
 	}
 
 }
@@ -125,15 +122,15 @@ static void swft_setmap(xmlXPathParserContextPtr ctx, int nargs) {
 		xmlXPathSetArityError(ctx);
 		return;
 	}
-	
+
 	int to = (int)xmlXPathPopNumber(ctx);
-	xmlChar *from = xmlXPathPopString(ctx);
-	if (xmlXPathCheckError(ctx))
+	XmlCharAutoPtr from(xmlXPathPopString(ctx));
+	if (xmlXPathCheckError(ctx)) {
 		return;
-	
-	c->setMap((const char *)from,to);
-	
-	xmlFree(from);
+	}
+
+	c->setMap((const char *)from.get(), to);
+
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
 }
 
@@ -144,16 +141,16 @@ static void swft_bump_id(xmlXPathParserContextPtr ctx, int nargs) {
 		xmlXPathSetArityError(ctx);
 		return;
 	}
-	
+
 	int offset = (int)xmlXPathPopNumber(ctx);
 	if (xmlXPathCheckError(ctx)) {
 		return;
 	}
-	
+
 	if (offset >= c->last_id) {
 		c->last_id = offset+1;
 	}
-	
+
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
 }
 
@@ -164,23 +161,22 @@ static void swft_bump_depth(xmlXPathParserContextPtr ctx, int nargs) {
 		xmlXPathSetArityError(ctx);
 		return;
 	}
-	
+
 	int offset = (int)xmlXPathPopNumber(ctx);
 	if (xmlXPathCheckError(ctx)) {
 		return;
 	}
-	
+
 	if (offset >= c->last_depth) {
 		c->last_depth = offset+1;
 	}
-	
+
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)""));
 }
 
 static void swft_mapid(xmlXPathParserContextPtr ctx, int nargs) {
 	char tmp[TMP_STRLEN];
 	xmlXPathObjectPtr obj;
-	xmlChar *oldID;
 	int newID;
 	swft_ctx *c = (swft_ctx*)xsltGetExtData(xsltXPathGetTransformContext(ctx), SWFT_NAMESPACE);
 
@@ -196,50 +192,48 @@ static void swft_mapid(xmlXPathParserContextPtr ctx, int nargs) {
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		return;
 	}
-	oldID = obj->stringval;
-	newID = c->doMap((const char*)oldID);
+	XmlCharAutoPtr oldID(obj->stringval);
+	newID = c->doMap((const char*)oldID.get());
 
-	xmlFree(oldID);
-	
 	snprintf(tmp,TMP_STRLEN,"%i", newID);
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)tmp));
 }
 
 char *swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
-	uri = xmlBuildURI(uri, baseUri);
-	const xmlChar *path;
+	XmlCharAutoPtr absoluteUri(xmlBuildURI(uri, baseUri));
+	XmlCharAutoPtr path;
 
-	// very closely based on the behaviour of xmlFileOpen_real from 
+	// very closely based on the behaviour of xmlFileOpen_real from
 	// libxml2
-	if (xmlStrncasecmp(uri, BAD_CAST "file://localhost/", 17) == 0) {
+	if (xmlStrncasecmp(absoluteUri.get(), BAD_CAST "file://localhost/", 17) == 0) {
 #if defined (_WIN32) || defined(__DJGPP__) && !defined(__CYGWIN__)
-		path = &uri[17];
+		path = &absoluteUri[17];
 #else
-		path = &uri[16];
+		path = &absoluteUri[16];
 #endif
-	} else if (xmlStrncasecmp(uri, BAD_CAST "file:///", 8) == 0) {
+	} else if (xmlStrncasecmp(absoluteUri.get(), BAD_CAST "file:///", 8) == 0) {
 #if defined (_WIN32) || defined(__DJGPP__) && !defined(__CYGWIN__)
-		path = &uri[7];
+		path = &absoluteUri[7];
 #else
-		path = &uri[8];
+		path = &absoluteUri[8];
 #endif
-	} else if (xmlStrncmp(uri, BAD_CAST "file:/", 6) == 0) {
+	} else if (xmlStrncmp(absoluteUri, BAD_CAST "file:/", 6) == 0) {
 		// URLs in this form are invalid but nevertheless common.
 #if defined (_WIN32) || defined(__DJGPP__) && !defined(__CYGWIN__)
-		path = &uri[6];
+		path = &absoluteUri[6];
 #else
-		path = &uri[5];
+		path = &absoluteUri[5];
 #endif
 	} else {
-		path = uri;
+		path = absoluteUri;
 	}
 
-	size_t input_bytes_left = xmlStrlen(path);
+	size_t input_bytes_left = xmlStrlen(path.get());
 	size_t output_bytes_left = input_bytes_left*4;
-	
-	ICONV_CONST char *input_buffer = (ICONV_CONST char*)path;
+
+	ICONV_CONST char *input_buffer = (ICONV_CONST char*)path.get();
 	char *output_buffer = new char[output_bytes_left + 1];
-	
+
 	char *filename = output_buffer;
 
 	iconv_t cd = iconv_open("", "UTF-8");
@@ -247,10 +241,8 @@ char *swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
 			&input_buffer, &input_bytes_left,
 			&output_buffer, &output_bytes_left);
 	iconv_close(cd);
-	
+
 	*output_buffer = '\0';
-	
-	delete uri;
 
 	if (output_len == -1) {
 		fprintf(stderr, "Error converting filename from UTF-8 "
@@ -263,7 +255,7 @@ char *swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
 
 void swft_register() {
 	xsltRegisterExtModule((const xmlChar *)SWFT_NAMESPACE,
-		swft_init, swft_shutdown );
+		swft_init, swft_shutdown);
 }
 
 void *swft_init(xsltTransformContextPtr ctx, const xmlChar *URI) {
@@ -290,7 +282,7 @@ void *swft_init(xsltTransformContextPtr ctx, const xmlChar *URI) {
 	xsltRegisterExtFunction(ctx, (const xmlChar *) "import-mp3", SWFT_NAMESPACE, swft_import_mp3);
 	xsltRegisterExtFunction(ctx, (const xmlChar *) "import-wav", SWFT_NAMESPACE, swft_import_wav);
 	xsltRegisterExtFunction(ctx, (const xmlChar *) "import-binary", SWFT_NAMESPACE, swft_import_binary);
-	
+
 	swft_ctx *c = new swft_ctx;
 	return c;
 }
