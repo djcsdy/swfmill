@@ -65,8 +65,6 @@ bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBu
 
 void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
-	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
@@ -79,7 +77,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:import-png() : invalid arg expecting a string\n");
+				"swft:import-png() : invalid arg expecting a string\n");
 		ctx->error = XPATH_INVALID_TYPE;
 		return;
 	}
@@ -88,43 +86,47 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		return;
 	}
-		
+
 	tctx = xsltXPathGetTransformContext(ctx);
-	
-	filename = swft_get_filename(obj->stringval, ctx->context->doc->URL);
+
+	string filename = swft_get_filename(obj->stringval, ctx->context->doc->URL);
 
 	bool quiet = true;
-	xmlXPathObjectPtr quietObj = xsltVariableLookup( tctx, (const xmlChar*)"quiet", NULL );
+	xmlXPathObjectPtr quietObj = xsltVariableLookup(tctx, (const xmlChar*)"quiet", NULL);
 	if (quietObj && quietObj->stringval) {
-		quiet = !strcmp("true", (const char*)quietObj->stringval );
+		quiet = !strcmp("true", (const char*)quietObj->stringval);
 	}
 
 
-	FILE *fp = fopen( filename, "rb" );
+	FILE *fp = fopen(filename.c_str(), "rb");
 	if( !fp ) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:import-png() : failed to read file '%s'\n", filename);
+				"swft:import-png() : failed to read file '%s'\n", filename.c_str());
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		goto fail;
 	}
-	
-	doc = xmlNewDoc( (const xmlChar *)"1.0");
-	doc->xmlRootNode = xmlNewDocNode( doc, NULL, (const xmlChar *)"png", NULL );
+
+	doc = xmlNewDoc((const xmlChar *)"1.0");
+	doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"png", NULL);
 	node = doc->xmlRootNode;
-	
-	swft_addFileName( node, filename );
-	
-	
+
+	swft_addFileName(node, filename.c_str());
+
+
 	// add data
 	rewind(fp);
 	unsigned char *data, *compressed;
 	unsigned long w, h, rowbytes;
 	int channels;
 	int compressed_size;
-	if( !fp ) goto fail;
-		
-	if( readpng_init( fp, &w, &h ) ) goto fail;
-	
+	if (!fp) {
+		goto fail;
+	}
+
+	if (readpng_init(fp, &w, &h)) {
+		goto fail;
+	}
+
 	// add w/h
 	snprintf(tmp, TMP_STRLEN, "%lu", w);
 	xmlSetProp( node, (const xmlChar *)"width", (const xmlChar *)&tmp );
@@ -133,15 +135,15 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 
 	data = readpng_get_image( 2.2, &channels, &rowbytes, &palette, &n_pal );
 	
-	if( !quiet ) {
-		fprintf(stderr,"Importing PNG: '%s' (%lu bit/pixel)\n", filename, (rowbytes*8)/w );
+	if (!quiet) {
+		fprintf(stderr,"Importing PNG: '%s' (%lu bit/pixel)\n", filename.c_str(), (rowbytes*8)/w );
 	}
 	
-	if( channels == 4 && rowbytes == (4*w) ) {
+	if (channels == 4 && rowbytes == (4*w)) {
 		int c;
 		float a;
 		unsigned char r,g,b;
-		for( int i=0; i<w*h*4; i+=4 ) {
+		for (int i=0; i<w*h*4; i+=4) {
 			a = data[i+3]/255.0;
 			r = (unsigned char)((data[i+0])*a);
 			g = (unsigned char)((data[i+1])*a);
@@ -152,10 +154,10 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 			data[i+3] = b;
 		}
 		data_size = w*h*4;
-	} else if( channels == 3 && rowbytes == (3*w) ) {
-		unsigned char *rgba = new unsigned char[ w*h*4 ];
+	} else if (channels == 3 && rowbytes == (3*w)) {
+		unsigned char *rgba = new unsigned char[w*h*4];
 		
-		for( int i=0; i<w*h; i++ ) {
+		for (int i=0; i<w*h; i++) {
 			rgba[i*4] = 0xff;
 			rgba[(i*4)+3] = data[(i*3)+2];
 			rgba[(i*4)+2] = data[(i*3)+1];
@@ -163,15 +165,15 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		}
 		data = rgba;
 		data_size = w*h*4;
-	} else if( channels == 1 && rowbytes == w ) {
+	} else if (channels == 1 && rowbytes == w) {
 		unsigned char *img_data = data;
 		format = 3;
 		int bpr = rowbytes;
 		bpr += (rowbytes % 4) ? 4 - (rowbytes % 4) : 0;
-		if( n_pal ) {
+		if (n_pal) {
 			data_size = (4*n_pal) + (bpr*h);
-			data = new unsigned char[ data_size ];
-			for( int i=0; i<n_pal; i++ ) {
+			data = new unsigned char[data_size];
+			for (int i=0; i<n_pal; i++) {
 				unsigned char *entry = &data[(i*4)];
 				entry[2] = palette[i].blue;
 				entry[1] = palette[i].green;
@@ -181,8 +183,8 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		} else {
 			n_pal = 0xff;
 			data_size = (4*n_pal) + (bpr*h);
-			data = new unsigned char[ data_size ];
-			for( int i=0; i<n_pal; i++ ) {
+			data = new unsigned char[data_size];
+			for (int i=0; i<n_pal; i++) {
 				unsigned char *entry = &data[(i*4)];
 				entry[2] = i;
 				entry[1] = i;
@@ -190,49 +192,50 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 				entry[3] = 0xff;
 			}
 		}
-		
+
 		/* copy row by row with 32bit alignment */
-		unsigned char *dst = &data[ (4*n_pal) ];
+		unsigned char *dst = &data[(4*n_pal)];
 		unsigned char *src = img_data;
-		memset( dst, 0, bpr*h );
-		for( int y=0; y<h; y++ ) {
-			memcpy( dst, src, rowbytes );
+		memset(dst, 0, bpr*h);
+		for (int y=0; y<h; y++) {
+			memcpy(dst, src, rowbytes);
 			dst += bpr;
 			src += rowbytes;
 		}
-			
-		snprintf(tmp,TMP_STRLEN,"%i", n_pal-1 );
-		xmlSetProp( node, (const xmlChar *)"n_colormap", (const xmlChar *)&tmp );
+
+		snprintf(tmp,TMP_STRLEN,"%i", n_pal-1);
+		xmlSetProp(node, (const xmlChar *)"n_colormap", (const xmlChar *)&tmp);
 	} else {
 		fprintf(stderr,
 				"WARNING: can only import 8bit palette, 24 or 32bit "
 				"RGB(A) PNGs (%s has %i channels, rowstride %lu)\n",
-				filename, channels, rowbytes);
+				filename.c_str(), channels, rowbytes);
 		goto fail;
 	}
 
 	// format is 5 for RGB(A), 3 for palette (4 for 16bit, unused)
 	snprintf(tmp,TMP_STRLEN,"%i", format );
-	xmlSetProp( node, (const xmlChar *)"format", (const xmlChar *)&tmp );
-	
+	xmlSetProp(node, (const xmlChar *)"format", (const xmlChar *)&tmp);
+
 	compressed_size = data_size;
-	if( compressed_size < 1024 ) compressed_size = 1024;
-	compressed = new unsigned char[ compressed_size ];
-	if( compress( data, data_size, compressed, &compressed_size ) ) {
-		swft_addData( node, (char*)compressed, compressed_size );
-		valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
+	if (compressed_size < 1024) {
+		compressed_size = 1024;
+	}
+	compressed = new unsigned char[compressed_size];
+	if (compress( data, data_size, compressed, &compressed_size)) {
+		swft_addData(node, (char*)compressed, compressed_size);
+		valuePush(ctx, xmlXPathNewNodeSet((xmlNodePtr)doc));
 	}
 	
 	goto end;
 	
 fail:
-	fprintf( stderr, "WARNING: could not import %s\n", filename );
+	fprintf(stderr, "WARNING: could not import %s\n", filename.c_str());
 
 end:
 	if (fp) {
 		fclose(fp);
 	}
 	delete compressed;
-	delete filename; 
-	readpng_cleanup( true );
+	readpng_cleanup(true);
 }

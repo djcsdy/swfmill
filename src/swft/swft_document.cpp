@@ -8,20 +8,16 @@
 
 using namespace SWF;
 
-void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
+void swft_document(xmlXPathParserContextPtr ctx, int nargs) {
 	xsltTransformContextPtr tctx;
-	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlXPathObjectPtr obj;
-	xmlChar *base = NULL;
-	char sig;
 	File import;
 
 	xmlXPathStringFunction(ctx, 1);
 	if (ctx->value->type != XPATH_STRING) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-			 "swft:document() : invalid arg expecting a string\n");
+				"swft:document() : invalid arg expecting a string\n");
 		ctx->error = XPATH_INVALID_TYPE;
 		return;
 	}
@@ -33,27 +29,24 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
 	
 	tctx = xsltXPathGetTransformContext(ctx);
 	
-	filename = swft_get_filename( obj->stringval, ctx->context->doc->URL);
+	string filename = swft_get_filename(obj->stringval, ctx->context->doc->URL);
 	
-	FILE *fp = fopen( filename, "rb" );
-	if( !fp ) {
+	FILE *fp = fopen(filename.c_str(), "rb");
+	if (!fp) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:document() : failed to read file '%s'\n", filename);
+				"swft:document() : failed to read file '%s'\n", filename.c_str());
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		goto fail;
+		return;
 	}
 	
-	import.load( fp );
+	import.load(fp);
 	doc = import.getXML();
 	
-	if( !doc ) {
+	if (!doc) {
 		xsltTransformError(xsltXPathGetTransformContext(ctx), NULL, NULL,
-				   "swft:document() : could not parse SWF '%s'\n", filename);
+				"swft:document() : could not parse SWF '%s'\n", filename.c_str());
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
-		goto fail;
+		return;
 	}
-	valuePush( ctx, xmlXPathNewNodeSet( (xmlNodePtr)doc ) );
-
-fail:
-	delete filename;
+	valuePush(ctx, xmlXPathNewNodeSet((xmlNodePtr)doc));
 }

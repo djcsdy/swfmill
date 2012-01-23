@@ -14,7 +14,7 @@ void swft_register();
 void swft_addFileName( xmlNodePtr node, const char *filename );
 void swft_addData( xmlNodePtr node, char *data, int length );
 
-char *swft_get_filename( const xmlChar *uri, const xmlChar *baseUri );
+std::string swft_get_filename( const xmlChar *uri, const xmlChar *baseUri );
 
 #define SWFT_NAMESPACE ((const xmlChar*)"http://subsignal.org/swfml/swft")
 

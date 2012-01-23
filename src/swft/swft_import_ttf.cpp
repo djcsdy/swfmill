@@ -478,7 +478,6 @@ fail:
 
 void swft_import_ttf(xmlXPathParserContextPtr ctx, int nargs) {
 	xsltTransformContextPtr tctx;
-	char *filename;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	Context swfctx;
@@ -513,7 +512,7 @@ void swft_import_ttf(xmlXPathParserContextPtr ctx, int nargs) {
 	}
 
 	movieVersion = xmlXPathPopNumber(ctx);
-	filename = swft_get_filename(xmlXPathPopString(ctx), ctx->context->doc->URL);
+	string filename = swft_get_filename(xmlXPathPopString(ctx), ctx->context->doc->URL);
 	if (xmlXPathCheckError(ctx)) {
 		goto fail;
 	}
@@ -535,20 +534,17 @@ void swft_import_ttf(xmlXPathParserContextPtr ctx, int nargs) {
 	// create the font tag
 	if (movieVersion >= 8) {
 		DefineFont3 *tag = new DefineFont3();
-		importDefineFont3(tag, (const char *)filename, fontname, glyphs.get(), &swfctx, c, offset);
+		importDefineFont3(tag, filename.c_str(), fontname, glyphs.get(), &swfctx, c, offset);
 		tag->writeXML(node, &swfctx);
 	} else {
 		DefineFont2 *tag = new DefineFont2();
-		importDefineFont2(tag, (const char *)filename, fontname, glyphs.get(), &swfctx, c, offset);
+		importDefineFont2(tag, filename.c_str(), fontname, glyphs.get(), &swfctx, c, offset);
 		tag->writeXML(node, &swfctx);
 	}
 
 	valuePush(ctx, xmlXPathNewNodeSet((xmlNodePtr)doc));
-	goto end;
+	return;
 
 fail:
-	fprintf(stderr, "WARNING: could not import %s\n", filename);
-
-end:
-	delete filename;
+	fprintf(stderr, "WARNING: could not import %s\n", filename.c_str());
 }

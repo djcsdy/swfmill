@@ -199,7 +199,7 @@ static void swft_mapid(xmlXPathParserContextPtr ctx, int nargs) {
 	valuePush(ctx, xmlXPathNewString((const xmlChar *)tmp));
 }
 
-char *swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
+string swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
 	XmlCharAutoPtr absoluteUri(xmlBuildURI(uri, baseUri));
 	XmlCharAutoPtr path;
 
@@ -249,7 +249,7 @@ char *swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
 				"to system locale\n");
 		exit(1);
 	} else {
-		return filename;
+		return string(filename);
 	}
 }
 
