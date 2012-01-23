@@ -91,7 +91,7 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 	FT_UInt glyph_index;
 	FT_ULong character;
 	FT_Outline *outline;
-	int *glyphs = NULL;
+	vector<int> glyphs;
 	int i=0;
 	char *font_ascentmap;
 
@@ -146,7 +146,7 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 			nGlyphs++;
 		}
 
-		glyphs = new int[nGlyphs+1];
+		glyphs = vector<int>(nGlyphs+1);
 		i=0;
 		if ((character = FT_Get_First_Char(face, &glyph_index)) != 0) {
 			glyphs[i++] = character;
@@ -156,7 +156,7 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 		}
 	} else {
 		int nGlyphs_ = xmlUTF8Strlen(glyphs_xml);
-		glyphs = new int[nGlyphs_];
+		glyphs = vector<int>(nGlyphs_);
 		int len=0, idx=0;
 		const unsigned char *str;
 
@@ -168,7 +168,7 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 		}
 
 		// sort the list of glyphs
-		qsort(glyphs, nGlyphs_, sizeof(int), compareGlyphs);
+		qsort(&glyphs[0], nGlyphs_, sizeof(int), compareGlyphs);
 
 		nGlyphs = nGlyphs_;
 	}
@@ -269,10 +269,6 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 		}
 	}
 
-	if (glyphs) {
-		delete glyphs;
-	}
-
 	// hacky: store the ascent in the idmap.
 	font_ascentmap = new char[0xff];
 	snprintf( font_ascentmap, 0xff, "%s_ascent", fontname );
@@ -293,7 +289,7 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 	FT_UInt glyph_index;
 	FT_ULong character;
 	FT_Outline *outline;
-	int *glyphs = NULL;
+	vector<int> glyphs;
 	int i=0;
 	char *font_ascentmap;
 
@@ -346,7 +342,7 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 			nGlyphs++;
 		}
 
-		glyphs = new int[nGlyphs+1];
+		glyphs = vector<int>(nGlyphs+1);
 		i=0;
 		if ((character = FT_Get_First_Char(face, &glyph_index)) != 0) {
 			glyphs[i++] = character;
@@ -356,7 +352,7 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 		}
 	} else {
 		int nGlyphs_ = xmlUTF8Strlen(glyphs_xml);
-		glyphs = new int[nGlyphs_];
+		glyphs = vector<int>(nGlyphs_);
 		int len=0, idx=0;
 		const unsigned char *str;
 
@@ -368,7 +364,7 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 		}
 
 		// sort the list of glyphs
-		qsort(glyphs, nGlyphs_, sizeof(int), compareGlyphs);
+		qsort(&glyphs[0], nGlyphs_, sizeof(int), compareGlyphs);
 
 		nGlyphs = nGlyphs_;
 	}
@@ -468,10 +464,6 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 				}
 			}
 		}
-	}
-
-	if (glyphs) {
-		delete glyphs;
 	}
 
 	// hacky: store the ascent in the idmap.
