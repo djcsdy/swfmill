@@ -281,13 +281,12 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 
 int swfmill_xslt(int argc, char *argv[]) {
 	const char *xslfile, *infile, *outfile = "stdout";
-	xmlDocPtr doc = NULL;
 	xsltStylesheetPtr transform;
 
 	// parse filenames
 	if (argc < 2 || argc > 3) {
 		usage();
-		goto fail;
+		return -1;
 	}
 	xslfile = argv[0];
 	infile = argv[1];
@@ -295,22 +294,19 @@ int swfmill_xslt(int argc, char *argv[]) {
 		outfile = argv[2];
 	}
 
-	doc = xmlParseFile(infile);
-	if (!doc) {
+	XmlDocAutoPtr doc(xmlParseFile(infile));
+	if (!doc.get()) {
 		fprintf(stderr, "ERROR: input document %s could not be read.\n", infile);
-		goto fail;
+		return -1;
 	}
 
 	transform = xsltParseStylesheetFile((const xmlChar *)xslfile);
 	if (!transform) {
 		fprintf(stderr, "ERROR: stylesheet %s could not be read.\n", xslfile);
-		goto fail;
+		return -1;
 	}
 
-	return swfmill_do_xslt(doc, transform, outfile);
-
-	fail:
-		return -1;
+	return swfmill_do_xslt(doc.get(), transform, outfile);
 }
 
 int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outfile) {
@@ -364,9 +360,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 			if (!quiet) {
 				fprintf(stderr,"SWF saved to %s (%i bytes).\n", outfile, size );
 			}
-			if (doc) {
-				xmlFreeDoc(doc);
-			}
 			if (doc2) {
 				xmlFreeDoc(doc2);
 			}
@@ -382,9 +375,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 	}
 
 fail:
-	if (doc) {
-		xmlFreeDoc(doc);
-	}
 	if (doc2) {
 		xmlFreeDoc(doc2);
 	}
@@ -445,8 +435,8 @@ int swfmill_library(int argc, char *argv[]) {
 
 	internal_stylesheet = xslt_simple;
 
-	xmlDocPtr doc = xmlNewDoc((const xmlChar*)"1.0");
-	doc->children = xmlNewDocNode(doc, NULL, (const xmlChar*)"movie", NULL);
+	XmlDocAutoPtr doc(xmlNewDoc((const xmlChar*)"1.0"));
+	doc->children = xmlNewDocNode(doc.get(), NULL, (const xmlChar*)"movie", NULL);
 
 	xmlNodePtr lib = xmlNewChild(doc->children, NULL, (const xmlChar *)"library", NULL);
 
@@ -462,7 +452,7 @@ int swfmill_library(int argc, char *argv[]) {
 		return -1;
 	}
 
-	swfmill_do_xslt(doc, transform, outfile);
+	swfmill_do_xslt(doc.get(), transform, outfile);
 }
 
 int main(int argc, char *argv[]) {
