@@ -15,6 +15,7 @@
 #include "SWFShapeMaker.h"
 
 #include <freetype/tttables.h>
+#include "XmlAutoPtr.h"
 
 using namespace SWF;
 
@@ -490,13 +491,10 @@ fail:
 void swft_import_ttf(xmlXPathParserContextPtr ctx, int nargs) {
 	xsltTransformContextPtr tctx;
 	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
-	xmlXPathObjectPtr obj;
 	Context swfctx;
-	char tmp[TMP_STRLEN];
-	xmlChar *glyphs = NULL;
+	XmlCharAutoPtr glyphs;
 	int offset;
 	double movieVersion;
 	bool quiet = true;
@@ -549,16 +547,12 @@ void swft_import_ttf(xmlXPathParserContextPtr ctx, int nargs) {
 	// create the font tag
 	if (movieVersion >= 8) {
 		DefineFont3 *tag = new DefineFont3();
-		importDefineFont3(tag, (const char *)filename, fontname, glyphs, &swfctx, c, offset);
+		importDefineFont3(tag, (const char *)filename, fontname, glyphs.get(), &swfctx, c, offset);
 		tag->writeXML(node, &swfctx);
 	} else {
 		DefineFont2 *tag = new DefineFont2();
-		importDefineFont2(tag, (const char *)filename, fontname, glyphs, &swfctx, c, offset);
+		importDefineFont2(tag, (const char *)filename, fontname, glyphs.get(), &swfctx, c, offset);
 		tag->writeXML(node, &swfctx);
-	}
-
-	if (glyphs) {
-		xmlFree(glyphs);
 	}
 
 	valuePush(ctx, xmlXPathNewNodeSet((xmlNodePtr)doc));
