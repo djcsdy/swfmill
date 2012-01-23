@@ -310,7 +310,6 @@ int swfmill_xslt(int argc, char *argv[]) {
 }
 
 int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outfile) {
-	xmlDocPtr doc2 = NULL;
 	FILE *out_fp;
 	const char *ext;
 	Context ctx;
@@ -332,9 +331,10 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 	if (!quiet) {
 		fprintf( stderr, "Applying XSLT...\n" );
 	}
-	doc2 = xsltApplyStylesheet(transform, doc, params);
 
-	if (!doc2) {
+	XmlDocAutoPtr doc2((xmlDocPtr) xsltApplyStylesheet(transform, doc, params));
+
+	if (!doc2.get()) {
 		fprintf(stderr, "ERROR: transformation failed.\n");
 		goto fail;
 	}
@@ -360,9 +360,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 			if (!quiet) {
 				fprintf(stderr,"SWF saved to %s (%i bytes).\n", outfile, size );
 			}
-			if (doc2) {
-				xmlFreeDoc(doc2);
-			}
 			if (transform) {
 				xsltFreeStylesheet(transform);
 			}
@@ -375,9 +372,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 	}
 
 fail:
-	if (doc2) {
-		xmlFreeDoc(doc2);
-	}
 	if (transform) {
 		xsltFreeStylesheet(transform);
 	}
