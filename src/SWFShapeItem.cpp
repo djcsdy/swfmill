@@ -1,6 +1,7 @@
 #include <SWFShapeItem.h>
 #include "SWF.h"
 #include <cstring>
+#include "XmlAutoPtr.h"
 
 namespace SWF {
 
@@ -189,15 +190,12 @@ namespace SWF {
 	}
 
 	void LineTo::parseXML(xmlNodePtr node, Context *ctx) {
-		xmlChar *tmp;
-
 		x = y = 0;
 		bits = 0;
 
-		tmp = xmlGetProp(node, (const xmlChar *)"x");
-		if (tmp) {
-			sscanf((char*)tmp, "%i", &x);
-			xmlFree(tmp);
+		XmlCharAutoPtr tmp(xmlGetProp(node, (const xmlChar *)"x"));
+		if (tmp.get()) {
+			sscanf((char*)tmp.get(), "%i", &x);
 			int b = SWFBitsNeeded(x, true);
 			b -= 2;
 			if (b<0) {
@@ -209,9 +207,8 @@ namespace SWF {
 		}
 
 		tmp = xmlGetProp(node, (const xmlChar *)"y");
-		if (tmp) {
-			sscanf((char*)tmp, "%i", &y);
-			xmlFree(tmp);
+		if (tmp.get()) {
+			sscanf((char*)tmp.get(), "%i", &y);
 			int b = SWFBitsNeeded(y, true);
 			b -= 2;
 			if (b<0) {
