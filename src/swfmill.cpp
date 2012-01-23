@@ -11,6 +11,7 @@
 #include <libxslt/xsltutils.h>
 #include <dirent.h>
 #include "XmlDocAutoPtr.h"
+#include "XsltStylesheetAutoPtr.h"
 
 using namespace SWF;
 
@@ -281,7 +282,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 
 int swfmill_xslt(int argc, char *argv[]) {
 	const char *xslfile, *infile, *outfile = "stdout";
-	xsltStylesheetPtr transform;
 
 	// parse filenames
 	if (argc < 2 || argc > 3) {
@@ -300,13 +300,13 @@ int swfmill_xslt(int argc, char *argv[]) {
 		return -1;
 	}
 
-	transform = xsltParseStylesheetFile((const xmlChar *)xslfile);
-	if (!transform) {
+	XsltStylesheetAutoPtr transform(xsltParseStylesheetFile((const xmlChar *)xslfile));
+	if (!transform.get()) {
 		fprintf(stderr, "ERROR: stylesheet %s could not be read.\n", xslfile);
 		return -1;
 	}
 
-	return swfmill_do_xslt(doc.get(), transform, outfile);
+	return swfmill_do_xslt(doc.get(), transform.get(), outfile);
 }
 
 int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outfile) {
@@ -336,7 +336,7 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 
 	if (!doc2.get()) {
 		fprintf(stderr, "ERROR: transformation failed.\n");
-		goto fail;
+		return -1;
 	}
 
 	if ((ext = strrchr(outfile,'.')) != NULL
@@ -351,7 +351,7 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 		out_fp = fopen(outfile, "wb");
 		if (!out_fp) {
 			fprintf(stderr,"ERROR: could not open file '%s' for writing\n", outfile);
-			goto fail;
+			return -1;
 		}
 		if (!quiet) {
 			fprintf(stderr,"Writing SWF to %s\n", outfile);
@@ -360,9 +360,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 			if (!quiet) {
 				fprintf(stderr,"SWF saved to %s (%i bytes).\n", outfile, size );
 			}
-			if (transform) {
-				xsltFreeStylesheet(transform);
-			}
 			return 0;
 		}
 	} else {
@@ -370,12 +367,6 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 		const char *file = std_out ? "-" : outfile;
 		return xsltSaveResultToFilename(file, doc2, transform, 0);
 	}
-
-fail:
-	if (transform) {
-		xsltFreeStylesheet(transform);
-	}
-	return -1;
 }
 
 
@@ -440,13 +431,15 @@ int swfmill_library(int argc, char *argv[]) {
 
 	xmlNewChild(lib, NULL, (const xmlChar *)"frame", NULL);
 
-	xsltStylesheetPtr transform = xsltParseStylesheetMemory(internal_stylesheet, strlen(internal_stylesheet));
-	if (!transform) {
+	XsltStylesheetAutoPtr transform((xsltStylesheetPtr)
+			xsltParseStylesheetMemory(internal_stylesheet, strlen(internal_stylesheet)));
+
+	if (!transform.get()) {
 		fprintf(stderr, "ERROR: internal stylesheet could not be read.\n");
 		return -1;
 	}
 
-	swfmill_do_xslt(doc.get(), transform, outfile);
+	swfmill_do_xslt(doc.get(), transform.get(), outfile);
 }
 
 int main(int argc, char *argv[]) {

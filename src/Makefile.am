@@ -123,6 +123,7 @@ swfmill_SOURCES = \
 	SWFGlyphList.cpp \
 	SWFShapeMaker.cpp \
 	XmlDocAutoPtr.cpp \
+	XsltStylesheetAutoPtr.cpp \
 	\
 	swfmill.cpp \
 	$(NULL)
@@ -170,6 +171,7 @@ noinst_HEADERS = \
 	ArrayAutoPtr.h \
 	XmlAutoPtr.h \
 	XmlDocAutoPtr.h \
+	XsltStylesheetAutoPtr.h \
 	$(NULL)
 
 CLEANFILES = \
