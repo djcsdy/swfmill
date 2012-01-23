@@ -19,46 +19,49 @@ char *swft_get_filename( const xmlChar *uri, const xmlChar *baseUri );
 #define SWFT_NAMESPACE ((const xmlChar*)"http://subsignal.org/swfml/swft")
 
 class swft_ctx {
-public:
-	std::stack<SWF::SVGStyle> styles;
-	std::map<std::string, SWF::SVGGradient*> gradients;
+	public:
+		std::stack<SWF::SVGStyle> styles;
+		std::map<std::string, SWF::SVGGradient*> gradients;
 
-	int last_id;
-	int last_depth;
-	std::stack<std::map<std::string,int>*> maps;
+		int last_id;
+		int last_depth;
+		std::stack<std::map<std::string,int>*> maps;
 
-	bool quiet;
+		bool quiet;
 
-	swft_ctx() {
-		last_id = last_depth = 1;
-		pushMap();
-	}
-
-	void pushMap() {
-		maps.push( new std::map<std::string,int> );
-	}
-	void popMap() {
-		maps.pop();
-	}
-	
-	int doMap( const char *oldID ) {
-        int id = atoi( oldID );
-        if( id == 65535 ) return id;
-            
-		std::map<std::string,int>& m = *(maps.top());
-		int r = m[oldID];
-		if( r == 0 ) {
-			r = last_id++;
-			m[oldID] = r;
+		swft_ctx() {
+			last_id = last_depth = 1;
+			pushMap();
 		}
-		
-		return r;
-	}
-	
-	void setMap( const char *oldID, int newID ) {
-		std::map<std::string,int>& m = *(maps.top());
-		m[oldID] = newID;
-	}
+
+		void pushMap() {
+			maps.push(new std::map<std::string,int>);
+		}
+
+		void popMap() {
+			maps.pop();
+		}
+
+		int doMap(const char *oldID) {
+			int id = atoi(oldID);
+			if (id == 65535) {
+				return id;
+			}
+
+			std::map<std::string,int>& m = *(maps.top());
+			int r = m[oldID];
+			if (r == 0) {
+				r = last_id++;
+				m[oldID] = r;
+			}
+
+			return r;
+		}
+
+		void setMap(const char *oldID, int newID) {
+			std::map<std::string,int>& m = *(maps.top());
+			m[oldID] = newID;
+		}
 };
 
 #endif
