@@ -93,7 +93,6 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 	FT_Outline *outline;
 	vector<int> glyphs;
 	int i=0;
-	char *font_ascentmap;
 
 	GlyphList *glyphList = tag->getglyphs();
 	List<Short>* advance = tag->getadvance();
@@ -270,10 +269,9 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 	}
 
 	// hacky: store the ascent in the idmap.
-	font_ascentmap = new char[0xff];
-	snprintf( font_ascentmap, 0xff, "%s_ascent", fontname );
-	swftctx->setMap( font_ascentmap, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM );
-	delete font_ascentmap;
+	char font_ascentmap[0xff];
+	snprintf(font_ascentmap, 0xff, "%s_ascent", fontname);
+	swftctx->setMap(font_ascentmap, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM);
 
 	return;
 
@@ -291,7 +289,6 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 	FT_Outline *outline;
 	vector<int> glyphs;
 	int i=0;
-	char *font_ascentmap;
 
 	GlyphList *glyphList = tag->getglyphs();
 	List<Short>* advance = tag->getadvance();
@@ -467,10 +464,9 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 	}
 
 	// hacky: store the ascent in the idmap.
-	font_ascentmap = new char[0xff];
+	char font_ascentmap[0xff];
 	snprintf(font_ascentmap, 0xff, "%s_ascent", fontname);
 	swftctx->setMap(font_ascentmap, 1+(SCALING_FACTOR * face->ascender) / face->units_per_EM);
-	delete font_ascentmap;
 
 	return;
 
