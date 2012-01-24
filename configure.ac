@@ -103,5 +103,6 @@ AC_OUTPUT([
 	src/Makefile
 	test/Makefile
 	test/simple-import/Makefile
+	test/simple/Makefile
 	test/xml/Makefile
 	])

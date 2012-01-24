@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace SWF {
 
 class Parser {
@@ -15,21 +13,21 @@ class Parser {
 		virtual ~Parser();
 
 	protected:
-		virtual void handleData(const string& outside, const vector<string>& inside) = 0;
+		virtual void handleData(const std::string& outside, const std::vector<std::string>& inside) = 0;
 		virtual void doParse(const char* str);
-		void trimString(string& s);
+		void trimString(std::string& s);
 		bool isWhitespace(const char c);
 
 	private:
-		void handleDelimiter(string& tmp);
+		void handleDelimiter(std::string& tmp);
 		void swapDelimiters();
 
 		char expectedDelimiter;
 		char otherDelimiter;
 		char parameterDelimiter;
 		bool insideParams;
-		vector<string> params;
-		string outside;
+		std::vector<std::string> params;
+		std::string outside;
 };
 
 }

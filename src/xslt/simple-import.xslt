@@ -450,13 +450,13 @@
 
 <!-- for tags that are "globalized" -->
 <xsl:template match="SetBackgroundColor|FileAttributes" mode="sprite-global"/>
-<xsl:template match="DoAction|End|FrameLabel|PlaceObject|PlaceObject2|RemoveObject|RemoveObject2|ShowFrame|SoundStreamBlock|SoundStreamHead|StartSound" mode="sprite-global"/>
+<xsl:template match="DoAction|End|FrameLabel|PlaceObject|PlaceObject2|PlaceObject3|RemoveObject|RemoveObject2|ShowFrame|SoundStreamBlock|SoundStreamHead|StartSound" mode="sprite-global"/>
 <xsl:template match="*|@*|text()" mode="sprite-global" priority="-1">
 	<xsl:apply-templates select="." mode="idmap"/>
 </xsl:template>
 
 <!-- for tags that move into the DefineSprite -->
-<xsl:template match="DoAction|End|FrameLabel|PlaceObject|PlaceObject2|RemoveObject|RemoveObject2|ShowFrame|SoundStreamBlock|SoundStreamHead|StartSound" mode="sprite-local">
+<xsl:template match="DoAction|End|FrameLabel|PlaceObject|PlaceObject2|PlaceObject3|RemoveObject|RemoveObject2|ShowFrame|SoundStreamBlock|SoundStreamHead|StartSound" mode="sprite-local">
 	<xsl:apply-templates select="." mode="idmap"/>
 </xsl:template>
 <xsl:template match="*|@*|text()" mode="sprite-local" priority="-1"/>
