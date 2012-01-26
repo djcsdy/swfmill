@@ -38,3 +38,6 @@ missing
 /autoconfig/m4/ltversion.m4
 /autoconfig/m4/lt~obsolete.m4
 *core
+/test/simple-import/build
+/test/simple/placeobject3-import.xml.swf
+/test/simple/placeobject3-import.xml.swf.xml
