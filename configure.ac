@@ -105,4 +105,5 @@ AC_OUTPUT([
 	test/simple-import/Makefile
 	test/simple/Makefile
 	test/xml/Makefile
+	test/swft/Makefile
 	])

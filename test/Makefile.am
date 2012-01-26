@@ -1,1 +1,1 @@
-SUBDIRS = simple-import simple xml
+SUBDIRS = simple-import simple xml swft
