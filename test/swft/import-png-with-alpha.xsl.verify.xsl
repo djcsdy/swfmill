@@ -14,7 +14,7 @@
       </xsl:message>
     </xsl:if>
 
-    <xsl:if test="string(/out/png/data) != 'eNpTVWBm3s/AwPDjurg4iFYF8TuXCf4Hsv9vvycBokH8H+LXU/5L3EuHYRAfpP6/RPo9GAbrl2ZWAJsH0gflAwBaZyQw'">
+    <xsl:if test="string(/out/png/data/text()) != 'eNpTVWBm3s/AwPDjurg4iFYF8TuXCf4Hsv9vvycBokH8H+LXU/5L3EuHYRAfpP6/RPo9GAbrl2ZWAJsH0gflAwBaZyQw'">
       <xsl:message terminate="yes">
         PNG data was not imported correctly.
       </xsl:message>
