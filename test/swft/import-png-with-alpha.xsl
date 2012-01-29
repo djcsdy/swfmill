@@ -5,7 +5,14 @@
     extension-element-prefixes="swft">
   <xsl:template match="/">
     <out>
-      <xsl:value-of select="swft:import-png('test-alpha.png')"/>
+      <xsl:apply-templates mode="copy"
+          select="swft:import-png('test-alpha.png')"/>
     </out>
+  </xsl:template>
+
+  <xsl:template mode="copy" match="node()">
+    <xsl:copy>
+      <xsl:apply-templates mode="copy" match="node()"/>
+    </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
