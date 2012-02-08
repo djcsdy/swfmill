@@ -495,7 +495,7 @@ void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	Context swfctx;
 	char tmp[TMP_STRLEN];
 	xmlChar *glyphs = NULL;
-	int offset;
+	int offset = 0;
 	double movieVersion;
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = NULL;
