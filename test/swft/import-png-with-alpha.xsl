@@ -12,6 +12,11 @@
 
   <xsl:template mode="copy" match="node()">
     <xsl:copy>
+      <xsl:for-each select="@*">
+        <xsl:copy>
+          <xsl:value-of select="."/>
+        </xsl:copy>
+      </xsl:for-each>
       <xsl:apply-templates mode="copy" match="node()"/>
     </xsl:copy>
   </xsl:template>

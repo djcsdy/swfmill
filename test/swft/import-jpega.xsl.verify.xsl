@@ -8,6 +8,31 @@
       </xsl:message>
     </xsl:if>
 
+    <xsl:if test="/out/jpega/data/@name != 'test'">
+      <xsl:message terminate="yes">
+        /out/jpega/data/@name attribute is missing or has the wrong value.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="/out/jpega/data/@width != 5">
+      <xsl:message terminate="yes">
+        /out/jpega/data/@width attribute is missing or has the wrong value.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="/out/jpega/data/@height != 5">
+      <xsl:message terminate="yes">
+        /out/jpega/data/@height attribute is missing or has the wrong value.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="/out/jpega/data/@offset_to_alpha != 486">
+      <xsl:message terminate="yes">
+        /out/jpega/data/@offset_to_alpha attribute is missing or has the
+        wrong value.
+      </xsl:message>
+    </xsl:if>
+
     <xsl:if test="not(/out/jpega/data)">
       <xsl:message terminate="yes">
         /out/jpega/data element is missing.
