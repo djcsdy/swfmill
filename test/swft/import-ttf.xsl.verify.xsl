@@ -182,7 +182,7 @@
     </xsl:if>
 
     <xsl:if test="not($exclamation-mark/GlyphShape/edges/*[6]
-        [self::ShapeSetup][@x=155][@y=-747][@fillStyle0=1]">
+        [self::ShapeSetup][@x=155][@y=-747][@fillStyle0=1])">
       <xsl:message terminate="yes">
         'Exclamation mark' edge 6 is missing or has unexpected values.
       </xsl:message>
