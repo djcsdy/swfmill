@@ -127,10 +127,10 @@
         </xsl:message>
       </xsl:if>
 
-      <xsl:if test="not(GlyphShape/edges/ShapeSetup)">
+      <xsl:if test="not(GlyphShape/edges/*[1][self::ShapeSetup])">
         <xsl:message terminate="yes">
           Glyph[@map=<xsl:value-of select="$map"/>] does not contain a
-          GlyphShape/edges/ShapeSetup element.
+          ShapeSetup element as the first element child of GlyphShape/edges.
         </xsl:message>
       </xsl:if>
 
@@ -155,6 +155,36 @@
     <xsl:if test="$space/GlyphShape/edges/*[not(self::ShapeSetup)]">
       <xsl:message terminate="yes">
         'Space' glyph (Glyph[@map=32]) contains unexpected edges.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:variable name="exclamation-mark"
+        select="/out/ttf/DefineFont2/glyphs/Glyph[@map=33]"/>
+
+    <xsl:if test="not($exclamation-mark)">
+      <xsl:message terminate="yes">
+        'Exclamation mark' glyph (Glyph[@map=33]) is missing.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not($exclamation-mark/GlyphShape/edges/*[1]
+        [self::ShapeSetup][@x=155][@y=-127][@fillStyle0=1])">
+      <xsl:message terminate="yes">
+        'Exclamation mark' ShapeSetup is missing or has unexpected values.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not($exclamation-mark/GlyphShape/edges/*[2]
+        [self::LineTo][@x=102][@y=0])">
+      <xsl:message terminate="yes">
+        'Exclamation mark' edge 2 is missing or has unexpected values.
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not($exclamation-mark/GlyphShape/edges/*[6]
+        [self::ShapeSetup][@x=155][@y=-747][@fillStyle0=1]">
+      <xsl:message terminate="yes">
+        'Exclamation mark' edge 6 is missing or has unexpected values.
       </xsl:message>
     </xsl:if>
   </xsl:template>
