@@ -73,8 +73,11 @@ BUILT_SOURCES = \
 	$(CODEGEN_GENERATEDHEADERS) \
 	$(NULL)
 
-$(CODEGEN_GENERATEDSOURCES) $(CODEGEN_GENERATEDHEADERS): $(CODEGEN_SRC)
+$(firstword $(CODEGEN_GENERATEDSOURCES)): $(CODEGEN_SRC)
 	$(XSLTPROC) $(srcdir)/codegen/mk.xsl $(srcdir)/codegen/source.xml
+
+$(wordlist 2,$(words $(CODEGEN_GENERATEDSOURCES)),$(CODEGEN_GENERATEDSOURCES)) $(CODEGEN_GENERATEDHEADERS): $(firstword $(CODEGEN_GENERATEDSOURCES))
+	:
 
 NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
 			 xmlns:str=\"http:\/\/exslt.org\/strings\" \
