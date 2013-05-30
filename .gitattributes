@@ -1,0 +1,6 @@
+*.sh text eol=lf
+*.ac text eol=lf
+*.am text eol=lf
+*.m4 text eol=lf
+Makefile text eol=lf
+config.rpath text eol=lf
