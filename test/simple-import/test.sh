@@ -17,7 +17,7 @@ if [ \! -d "build/library" ]; then
 	mkdir "build/library"
 fi
 
-cp "${srcdir}/test.swfml" "build"
+cp "${srcdir}/input.xml" "build"
 
 cp "${srcdir}/library/star.swf" \
 	"${srcdir}/library/testgradient.png" \
@@ -32,4 +32,8 @@ cp "${srcdir}/library/star.swf" \
 "${MTASC}" -swf "build/classes.swf" -header 320:240:25 \
 	-cp "${srcdir}/src" "${srcdir}/src/Main.as"
 
-"${SWFMILL}" -v simple "build/test.xml" "build/output.swf"
+"${SWFMILL}" -v simple "build/input.xml" "build/output.swf"
+"${SWFMILL}" swf2xml "build/output.swf" "build/output.xml"
+
+diff -u "${srcdir}/expected-output.xml" "build/output.xml" \
+	> "build/output.diff"

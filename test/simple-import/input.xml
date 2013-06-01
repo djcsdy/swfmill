@@ -100,5 +100,5 @@
 		<call object="Main" method="main"/>
 	</frame>
 	
-	<html-wrapper name="test.html" swf="output.swf"/>
+	<html-wrapper name="output.html" swf="output.swf"/>
 </movie>
