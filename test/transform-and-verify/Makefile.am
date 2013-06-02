@@ -8,12 +8,14 @@ TESTS = import-jpeg.xsl \
 	import-jpega.xsl \
 	import-png.xsl \
 	import-png-with-alpha.xsl \
+	import-ttf.xsl \
 	$(NULL)
 
 CLEANFILES = import-jpeg.xsl.out.xml \
 	import-jpega.xsl.out.xml \
 	import-png.xsl.out.xml \
 	import-png-with-alpha.xsl.out.xml \
+	import-ttf.xsl.out.xml \
 	$(NULL)
 
 EXTRA_DIST = run-test.sh $(TESTS) \
@@ -29,4 +31,7 @@ EXTRA_DIST = run-test.sh $(TESTS) \
 	test.jpg \
 	test.png \
 	test-alpha.png \
+	import-ttf.xml \
+	import-ttf.xsl.verify.xsl \
+	vera.ttf \
 	$(NULL)

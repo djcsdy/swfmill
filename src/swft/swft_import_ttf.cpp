@@ -484,14 +484,11 @@ fail:
 void swft_import_ttf( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
-	xmlXPathObjectPtr obj;
 	Context swfctx;
-	char tmp[TMP_STRLEN];
 	xmlChar *glyphs = NULL;
-	int offset;
+	int offset = 0;
 	double movieVersion;
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = NULL;
