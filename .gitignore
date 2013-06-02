@@ -26,11 +26,11 @@ missing
 /src/xslt/simple.cpp
 /src/xslt/simple.xsl
 .geanyprj
-/test/xml/*.swf
-/test/xml/*.swf.xml
-/test/xml/*.diff
+/test/xml-swf-round-trip/*.swf
+/test/xml-swf-round-trip/*.swf.xml
+/test/xml-swf-round-trip/*.diff
 /test/build
-/test/simple-import/test.html
+/test/old/test.html
 .dirstamp
 /autoconfig/m4/libtool.m4
 /autoconfig/m4/ltoptions.m4
@@ -38,7 +38,8 @@ missing
 /autoconfig/m4/ltversion.m4
 /autoconfig/m4/lt~obsolete.m4
 *core
-/test/simple-import/build
-/test/simple/placeobject3-import.xml.swf
-/test/simple/placeobject3-import.xml.swf.xml
+/test/old/build
+/test/compile-and-verify/placeobject3-import.xml.swf
+/test/compile-and-verify/placeobject3-import.xml.swf.xml
 /test/swft/*.xsl.out.xml
+.vagrant
