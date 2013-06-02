@@ -77,21 +77,21 @@
       </xsl:message>
     </xsl:if>
 
-    <xsl:if test="/out/ttf/DefineFont2/@ascent != 0">
+    <xsl:if test="/out/ttf/DefineFont2/@ascent != 950">
       <xsl:message terminate="yes">
         /out/ttf/DefineFont2/@ascent attribute is missing or has the wrong
         value.
       </xsl:message>
     </xsl:if>
 
-    <xsl:if test="/out/ttf/DefineFont2/@descent != 0">
+    <xsl:if test="/out/ttf/DefineFont2/@descent != 241">
       <xsl:message terminate="yes">
         /out/ttf/DefineFont2/@descent attribute is missing or has the wrong
         value.
       </xsl:message>
     </xsl:if>
 
-    <xsl:if test="/out/ttf/DefineFont2/@leading != 0">
+    <xsl:if test="/out/ttf/DefineFont2/@leading != 205">
       <xsl:message terminate="yes">
         /out/ttf/DefineFont2/@leading attribute is missing or has the wrong
         value.
