@@ -33,4 +33,5 @@ EXTRA_DIST = run-test.sh $(TESTS) \
 	test-alpha.png \
 	import-ttf.xml \
 	import-ttf.xsl.verify.xsl \
+	vera.ttf \
 	$(NULL)
