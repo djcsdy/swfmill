@@ -1,1 +1,1 @@
-SUBDIRS = compile-and-verify xml-swf-round-trip old
+SUBDIRS = compile-and-verify transform-and-verify xml-swf-round-trip old

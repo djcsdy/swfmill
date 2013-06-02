@@ -103,6 +103,7 @@ AC_OUTPUT([
 	src/Makefile
 	test/Makefile
 	test/compile-and-verify/Makefile
+	test/transform-and-verify/Makefile
 	test/xml-swf-round-trip/Makefile
 	test/old/Makefile
 	])
