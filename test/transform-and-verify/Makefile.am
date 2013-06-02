@@ -27,6 +27,10 @@ EXTRA_DIST = run-test.sh $(TESTS) \
 	import-png.xsl.verify.xsl \
 	import-png-with-alpha.xml \
 	import-png-with-alpha.xsl.verify.xsl \
+	alpha.png \
+	test.jpg \
+	test.png \
+	test-alpha.png \
 	import-ttf.xml \
 	import-ttf.xsl.verify.xsl \
 	$(NULL)

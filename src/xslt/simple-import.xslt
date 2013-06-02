@@ -48,13 +48,6 @@
 				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
 			</xsl:apply-templates>
 		</xsl:when>
-		<!-- this is stupid, shouldnt be used.
-		<xsl:when test="$ext = 'ttf'">
-			<xsl:apply-templates select="swft:import-ttf($file,@glyphs,'hello')" mode="makeswf">
-				<xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
-			</xsl:apply-templates>
-		</xsl:when>
-		-->
 		<xsl:when test="$ext = 'svg'">
 			<swft:push-map/>
 			<xsl:apply-templates select="document($file)" mode="svg">

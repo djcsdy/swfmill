@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<movie width="320" height="240" framerate="12">
+  <background color="#ffffff"/>
+  <frame>
+    <font id="happy" import="happy.ttf" glyphs="A"/>
+  </frame>
+</movie>

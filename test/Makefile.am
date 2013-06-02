@@ -1,1 +1,1 @@
-SUBDIRS = simple-import simple xml swft
+SUBDIRS = compile-and-verify transform-and-verify xml-swf-round-trip old
