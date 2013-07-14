@@ -5,4 +5,6 @@ before_script:
   - sudo apt-get install mtasc
 
 script:
-  - ./autogen.sh && ./configure && make distcheck
+  - ./autogen.sh
+  - ./configure
+  - make distcheck
