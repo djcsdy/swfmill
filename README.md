@@ -1,5 +1,6 @@
-What is swfmill?
-================
+# swfmill [![Build Status][5]][6]
+
+## What is swfmill?
 
 swfmill is a tool to process Adobe Flash (SWF) files. It can convert SWF
 from and to an XML dialect called “swfml”,  which is closely modeled after
@@ -14,8 +15,7 @@ bunch of media files (jpeg and png images, other SWF movies, TrueType fonts)
 into an SWF as “library  objects” for your `attachMovie()` pleasure.
 
 
-Warning
-=======
+## Warning
 
 swfmill is alpha-quality software. It might well not work as it should.
 Please report your experiences if that seems to be the case, send in (if
@@ -25,8 +25,7 @@ You can report bugs or contribute patches via GitHub at
 https://github.com/djcsdy/swfmill/issues
 
 
-Dependencies
-============
+## Dependencies
 
 swfmill requires, and the binary releases contain code from:
 
@@ -56,8 +55,7 @@ My references to the SWF format were:
    (http://www.adobe.com/devnet/swf/)
     
 
-Compiling and Installing
-========================
+## Compiling and Installing
 
 On Linux, use the “GNU-standard”
     
@@ -67,8 +65,7 @@ On Windows, if you have use for a tool like this, you know better than me
 where to put swfmill.exe.
 
 
-Usage
-=====
+## Usage
 
 see `swfmill -h` for general usage options.
 
@@ -82,8 +79,7 @@ convert such XML to SWF:
     
 
 
-Simple swfml Dialect
-====================
+## Simple swfml Dialect
 
 For library generation, and probably other fun SWF construction, swfmill
 supports a simplified XML dialect. to create a library swf that includes
@@ -125,8 +121,7 @@ specified in its glyph attribute. Make sure you specify the correct
 encoding in the XML declaration for characters outside the ASCII range.
 
 
-Shared Libraries
-================
+## Shared Libraries
 
 swfmill supports both generation and use of shared libaries. To generate a
 shared libary, simply put your assets in a `<library/>` tag just as for
@@ -146,8 +141,7 @@ works with proper assets, not with fonts. If you know how to use a font
 from a shared library, please tell me.
 
 
-Copyright
-=========
+## Copyright
 
 Copyright © 2005–2007 Daniel Turing.
 Copyright © 2005–2013 swfmill contributors (see AUTHORS).
@@ -157,8 +151,7 @@ terms of the GNU General Public License version 2, as published by the Free
 Software Foundation. See COPYING for details.
 
 
-Getting Involved
-================
+## Getting Involved
 
 Updates and stuff will be available at the [swfmill homepage][1].
     
@@ -175,4 +168,7 @@ The [source code of swfmill][3] is hosted on GitHub.
 [Report bugs or submit patches][4] via GitHub.
     
   [4]: https://github.com/djcsdy/swfmill/issues
-    
+
+
+  [5]: https://travis-ci.org/djcsdy/swfmill.png
+  [6]: https://travis-ci.org/djcsdy/swfmill
