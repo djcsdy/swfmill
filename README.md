@@ -1,7 +1,5 @@
 # swfmill [![Build Status][5]][6]
 
-## What is swfmill?
-
 swfmill is a tool to process Adobe Flash (SWF) files. It can convert SWF
 from and to an XML dialect called “swfml”,  which is closely modeled after
 the SWF file format.
