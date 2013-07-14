@@ -1,4 +1,7 @@
 language: cpp
 
+before_script:
+  - sudo apt-get install xsltproc
+
 script:
   - ./autogen.sh && ./configure && make distcheck
