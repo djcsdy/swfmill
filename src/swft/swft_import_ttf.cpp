@@ -69,17 +69,17 @@ int compareGlyphs(const void *a, const void *b) {
 }
 
 void getVerticalMetrics (FT_Face face, int &ascender, int &descender, int &lineGap) {
-	unsigned char *pOS2 = (unsigned char *) FT_Get_Sfnt_Table(face, ft_sfnt_os2);
+	TT_OS2 *pOS2 = (TT_OS2 *)FT_Get_Sfnt_Table(face, ft_sfnt_os2);
 	if (pOS2) {
-		ascender = (short) (pOS2 [76] | (pOS2 [77] << 8));
-		descender = (short) (pOS2 [78] | (pOS2 [79] << 8));
-		lineGap = (short) (pOS2 [74] | (pOS2 [75] << 8));
+		ascender = pOS2->usWinAscent;
+		descender = pOS2->usWinDescent;
+		lineGap = pOS2->sTypoLineGap;
 	} else {
-		unsigned char *pHhea = (unsigned char *) FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
+		TT_HoriHeader *pHhea = (TT_HoriHeader *)FT_Get_Sfnt_Table(face, ft_sfnt_hhea);
 		if (pHhea) {
-			ascender = (short) (pHhea [4] | (pHhea [5] << 8));
-			descender = -(short) (pHhea [6] | (pHhea [7] << 8));
-			lineGap = (short) (pHhea [8] | (pHhea [9] << 8));
+			ascender = pHhea->Ascender;
+			descender = -pHhea->Descender;
+			lineGap = pHhea->Line_Gap;
 		}
 	}
 }
@@ -482,7 +482,7 @@ void swft_import_ttf(xmlXPathParserContextPtr ctx, int nargs) {
 	xmlNodePtr node;
 	Context swfctx;
 	XmlCharAutoPtr glyphs;
-	int offset;
+	int offset = 0;
 	double movieVersion;
 	bool quiet = true;
 	xmlXPathObjectPtr quietObj = NULL;

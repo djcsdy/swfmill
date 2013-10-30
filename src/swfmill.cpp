@@ -365,7 +365,7 @@ int swfmill_do_xslt(xmlDocPtr doc, xsltStylesheetPtr transform, const char *outf
 	} else {
 		bool std_out = !strncmp(outfile, "stdout", 6);
 		const char *file = std_out ? "-" : outfile;
-		return xsltSaveResultToFilename(file, doc2, transform, 0);
+		return xsltSaveResultToFilename(file, doc2, transform, 0) < 0;
 	}
 }
 

@@ -1,0 +1,10 @@
+language: cpp
+
+before_script:
+  - sudo apt-get install xsltproc
+  - sudo apt-get install mtasc
+
+script:
+  - ./autogen.sh
+  - ./configure
+  - make distcheck

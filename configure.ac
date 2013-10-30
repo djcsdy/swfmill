@@ -102,7 +102,8 @@ AC_OUTPUT([
 	Makefile
 	src/Makefile
 	test/Makefile
-	test/simple-import/Makefile
-	test/simple/Makefile
-	test/xml/Makefile
+	test/compile-and-verify/Makefile
+	test/transform-and-verify/Makefile
+	test/xml-swf-round-trip/Makefile
+	test/old/Makefile
 	])

@@ -8,7 +8,8 @@ TESTS = test.sh
 
 EXTRA_DIST = \
 	test.sh \
-	test.swfml \
+	input.xml \
+	expected-output.xml \
 	src/Main.as \
 	src/org/swfmill/Foo.as \
 	library/star.swf \
@@ -22,10 +23,12 @@ EXTRA_DIST = \
 	$(NULL)
 
 CLEANFILES = \
-	test.html \
+	output.html \
 	build/output.swf \
+	build/output.xml \
+	build/output.diff \
 	build/classes.swf \
-	build/test.swfml \
+	build/input.xml \
 	build/library/star.swf \
 	build/library/testgradient.png \
 	build/library/testjpg.jpg \
