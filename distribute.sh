@@ -91,7 +91,7 @@ cd "${WINDOWS_32_WORK_DIR}"
 	LDFLAGS='-L/usr/local/i686-w64-mingw32/lib'
 make
 
-mkdir dist
+mkdir -p dist
 cp src/swfmill.exe dist/swfmill.exe
 for file in AUTHORS COPYING NEWS README.md; do
 	cp "${PROJECT_DIR}/${file}" "dist/${file%.*}.txt"
