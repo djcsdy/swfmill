@@ -12,7 +12,7 @@ sudo apt-get update
 sudo apt-get install -y build-essential automake autoconf libtool \
 	xsltproc pkg-config libxml2-dev libxslt-dev libfreetype6-dev \
 	libpng-dev mtasc git mingw-w64 mingw-w64-tools binutils-mingw-w64 \
-	g++-mingw-w64 mingw32-runtime
+	g++-mingw-w64 mingw32-runtime tofrodos zip
 
 
 # Download source packages for dependencies
@@ -26,7 +26,15 @@ wget --continue 'http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz' \
 	'http://download.sourceforge.net/libpng/libpng-1.6.6.tar.gz' \
 	'http://downloads.sourceforge.net/project/freetype/freetype2/2.5.0/freetype-2.5.0.1.tar.gz' \
 	'ftp://xmlsoft.org/libxml2/libxml2-2.9.1.tar.gz' \
-	'ftp://xmlsoft.org/libxml2/libxslt-1.1.28.tar.gz'
+	'ftp://xmlsoft.org/libxml2/libxslt-1.1.28.tar.gz' \
+	&& wget_err=0 || wget_err=$?
+
+# for some daft reason wget exits with code 8 when all files are already
+# downloaded
+if [[ ${wget_err} -ne 0 ]] && [[ ${wget_err} -ne 8 ]]; then
+	echo "wget exited with error: ${wget_err}" >&2
+	exit ${wget_err}
+fi
 
 tar zxf libiconv-1.14.tar.gz
 
