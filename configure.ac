@@ -93,7 +93,6 @@ AC_SUBST(PNG_LIBS)
 
 
 # Checks for library functions.
-AC_FUNC_MALLOC
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([floor memset pow sqrt strcasecmp strdup strrchr])
 
