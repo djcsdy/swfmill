@@ -17,6 +17,7 @@
 #include <freetype/tttables.h>
 #include "XmlAutoPtr.h"
 
+using namespace std;
 using namespace SWF;
 
 #define TMP_STRLEN 0xff

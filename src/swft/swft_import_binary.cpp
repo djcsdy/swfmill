@@ -9,6 +9,8 @@
 #include "readpng.h"
 #include <zlib.h>
 
+using namespace std;
+
 #define TMP_STRLEN 0xff
 
 void swft_import_binary( xmlXPathParserContextPtr ctx, int nargs ) {

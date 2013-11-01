@@ -9,6 +9,8 @@
 #include "readpng.h"
 #include <zlib.h>
 
+using namespace std;
+
 #define TMP_STRLEN 0xff
 
 // outLength should contain the allocated size,

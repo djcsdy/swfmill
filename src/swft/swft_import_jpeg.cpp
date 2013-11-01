@@ -9,6 +9,8 @@
 #include "readpng.h"
 #include <zlib.h>
 
+using namespace std;
+
 #define TMP_STRLEN 0xff
 const char jpeg_header[] = { 0xff, 0xd9, 0xff, 0xd8, 0 };
 
