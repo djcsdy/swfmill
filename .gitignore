@@ -45,3 +45,4 @@ missing
 .vagrant*
 /swfmill-*.tar.gz
 /distribution
+*.user
