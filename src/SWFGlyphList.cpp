@@ -113,7 +113,7 @@ namespace SWF {
 		}
 
 		if (ctx->tagVersion>1) {
-			r += ( ctx->wideMap ? 2 : 1 ) * nGlyphs * 8;
+			r += (ctx->wideMap ? 2 : 1) * nGlyphs * 8;
 		}
 
 		r += Item::getHeaderSize(r-start_at);
@@ -180,7 +180,7 @@ namespace SWF {
 			nGlyphs = 0;
 			xmlNodePtr child = node;
 			while (child) {
-				if (!strcmp( (const char *)child->name, "Glyph")) {
+				if (!strcmp((const char *)child->name, "Glyph")) {
 					nGlyphs++;
 				}
 				child = child->next;
@@ -198,7 +198,7 @@ namespace SWF {
 				if (!strcmp((const char *)child->name, "Glyph")) {
 					xmlNodePtr shape = child->children;
 					while (shape) {
-						if (!strcmp( (const char *)shape->name, "GlyphShape")) {
+						if (!strcmp((const char *)shape->name, "GlyphShape")) {
 							glyphs[i].parseXML(shape, ctx);
 
 							if (ctx->tagVersion>1) {
