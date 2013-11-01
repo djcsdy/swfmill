@@ -15,9 +15,9 @@ class Bezier {
 	public:
 		Point p0, c0, c1, p1;
 		Bezier() { ; }
-		Bezier( const Point& _p0, const Point& _c0, const Point& _c1, const Point& _p1 )
+		Bezier(const Point& _p0, const Point& _c0, const Point& _c1, const Point& _p1)
 			: p0(_p0), c0(_c0), c1(_c1), p1(_p1) { ; }
-		Bezier &set( const Point& _p0, const Point& _c0, const Point& _c1, const Point& _p1 ) {
+		Bezier &set(const Point& _p0, const Point& _c0, const Point& _c1, const Point& _p1) {
 			p0 = _p0; c0 = _c0; c1 = _c1; p1 = _p1;
 			return *this;
 		}
@@ -105,47 +105,47 @@ class Bezier {
 
 class ShapeMaker {
 	public:
-		ShapeMaker( List<ShapeItem>* edges, double fx = 1, double fy = 1, double ofsx = 0, double ofsy = 0 );
+		ShapeMaker(List<ShapeItem>* edges, double fx = 1, double fy = 1, double ofsx = 0, double ofsy = 0);
 	
-		void setStyle( int _fillStyle0=-1, int _fillStyle1=-1, int _lineStyle=-1 ) {
+		void setStyle(int _fillStyle0=-1, int _fillStyle1=-1, int _lineStyle=-1) {
 			fillStyle0 = _fillStyle0;
 			fillStyle1 = _fillStyle1;
 			lineStyle = _lineStyle;
 		}
 	
-		void setup( double x = 0, double y = 0 );
-		void setupR( double x = 0, double y = 0 );
+		void setup(double x = 0, double y = 0);
+		void setupR(double x = 0, double y = 0);
 
-		void lineTo( double x, double y );
-		void lineToR( double x, double y );
+		void lineTo(double x, double y);
+		void lineToR(double x, double y);
 		
-		void curveTo( double cx, double cy, double ax, double ay );
-		void curveToR( double cx, double cy, double ax, double ay );
+		void curveTo(double cx, double cy, double ax, double ay);
+		void curveToR(double cx, double cy, double ax, double ay);
 
 		void curveTo (const Point &c, const Point &p)
 		{
 			curveTo (c.x, c.y, p.x, p.y);
 		}
 
-		void smoothCurveTo( double ax, double ay );
-		void smoothCurveToR( double ax, double ay );
+		void smoothCurveTo(double ax, double ay);
+		void smoothCurveToR(double ax, double ay);
 
-		void cubicTo( double x1, double y1, double x2, double y2, double ax, double ay );
-		void cubicToR( double x1, double y1, double x2, double y2, double ax, double ay );
+		void cubicTo(double x1, double y1, double x2, double y2, double ax, double ay);
+		void cubicToR(double x1, double y1, double x2, double y2, double ax, double ay);
 
-		void smoothCubicTo( double x2, double y2, double ax, double ay );
-		void smoothCubicToR( double x2, double y2, double ax, double ay );
+		void smoothCubicTo(double x2, double y2, double ax, double ay);
+		void smoothCubicToR(double x2, double y2, double ax, double ay);
 
 		void close(bool stroke = true);
 		void finish();
 	
-		void rect( double x, double y, double width, double height, double rx = 0, double ry = 0 );
-		void ellipse( double cx, double cy, double rx, double ry );
+		void rect(double x, double y, double width, double height, double rx = 0, double ry = 0);
+		void ellipse(double cx, double cy, double rx, double ry);
 
-		void arcTo( double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y );
-		void arcToR( double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y );
+		void arcTo(double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y);
+		void arcToR(double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y);
 	
-		void boundsWriteXML( xmlNodePtr node, double border = -1 );
+		void boundsWriteXML(xmlNodePtr node, double border = -1);
 	
 		double getLastX() { return lastx; }
 		double getLastY() { return lasty; }
@@ -159,19 +159,19 @@ class ShapeMaker {
 		void cubicTo (const Bezier &cubic);
 
 
-		void doSetup( double _x=0, double _y=0, bool hasMoveTo=true, int _fillStyle0=-1, int _fillStyle1=-1, int _lineStyle=-1);
+		void doSetup(double _x=0, double _y=0, bool hasMoveTo=true, int _fillStyle0=-1, int _fillStyle1=-1, int _lineStyle=-1);
 
-		void ellipseSegment( double cx, double cy, double rx, double ry, double phi, double theta, double dTheta);
+		void ellipseSegment(double cx, double cy, double rx, double ry, double phi, double theta, double dTheta);
 	
-		void minmax( double x, double y ) {
-			if( !have_first ) {
+		void minmax(double x, double y) {
+			if (!have_first) {
 				have_first = true;
 				minx = x; maxx=x; miny=y; maxy=y;
 			} else {
-				if( x < minx ) minx=x;
-				if( y < miny ) miny=y;
-				if( x > maxx ) maxx=x;
-				if( y > maxy ) maxy=y;
+				if (x < minx) minx=x;
+				if (y < miny) miny=y;
+				if (x > maxx) maxx=x;
+				if (y > maxy) maxy=y;
 			}
 		}
 	
@@ -189,16 +189,16 @@ class ShapeMaker {
 
 		// rounding error accumulation compensation
 		double roundx, roundy;
-		int roundX( double x ) { return round( x, &roundx ); }
-		int roundY( double y ) { return round( y, &roundy ); }
-		int round( double v, double *acc ) {
+		int roundX(double x) { return round(x, &roundx); }
+		int roundY(double y) { return round(y, &roundy); }
+		int round(double v, double *acc) {
 				int r = (int)v;
 				*acc += v-(double)r;
-				while( *acc >= .5 ) {
+				while (*acc >= .5) {
 					*acc -= 1.0;
 					r++;
 				}
-				while( *acc <= -.5 ) {
+				while (*acc <= -.5) {
 					*acc += 1.0;
 					r--;
 				}
