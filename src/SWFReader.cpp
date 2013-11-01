@@ -109,54 +109,23 @@ int Reader::getS24() {
 }
 
 float Reader::getFloat() {
-    /*
-	if( pos+4 > length ) {
-		err = SWFR_EOF;
-		pos = length+1;
-		return 0;
-	}
-	// FIXME x86-centric?
-	int r = data[pos++];
-	r += data[pos++]<<8;
-	r += data[pos++]<<16;
-	r += data[pos++]<<24;
-	return *((float*)&r);
-    */
-    union {
-        float f;
-        uint32_t ul;
-    } u;
+	union {
+		float f;
+		uint32_t ul;
+	} u;
 
-    u.ul = getInt();
-    return u.f;
+	u.ul = getInt();
+	return u.f;
 }
 
 double Reader::getDouble() {
-/*	if( pos+8 > length ) {
-		err = SWFR_EOF;
-		pos = length+1;
-		return 0;
-	}
-	// FIXME x86-centric?
-	char value[8];
-	value[4] = data[pos++];
-	value[5] = data[pos++];
-	value[6] = data[pos++];
-	value[7] = data[pos++];
-	value[0] = data[pos++];
-	value[1] = data[pos++];
-	value[2] = data[pos++];
-	value[3] = data[pos++];
+	union {
+		double d;
+		uint64_t ull;
+	} u;
 
-	return *(double*)value;
-*/
-    union {
-        double d;
-        uint64_t ull;
-    } u;
-
-    u.ull = getInt64();
-    return u.d;
+	u.ull = getInt64();
+	return u.d;
 }
 
 float Reader::getHalf() {
@@ -181,37 +150,37 @@ float Reader::getHalf() {
 		exp += -15 + 127;
 	}
 
-    union {
-        float f;
-        uint32_t ul;
-    } u;
+	union {
+		float f;
+		uint32_t ul;
+	} u;
 
 	u.ul = (sign << 31) | (exp << 23) | (man << 13);
 	return u.f;
 }
 
 unsigned int Reader::getEncodedU32() {
-    
-    unsigned int result = data[pos++];
-    if (!(result & 0x00000080)) return result;
 
-    result = (result & 0x0000007f) | data[pos++] << 7;
-    if (!(result & 0x00004000)) return result;
+	unsigned int result = data[pos++];
+	if (!(result & 0x00000080)) return result;
 
-    result = (result & 0x00003fff) | data[pos++] << 14;
-    if (!(result & 0x00200000)) return result;
+	result = (result & 0x0000007f) | data[pos++] << 7;
+	if (!(result & 0x00004000)) return result;
 
-    result = (result & 0x001fffff) | data[pos++] << 21;
-    if (!(result & 0x10000000)) return result;
+	result = (result & 0x00003fff) | data[pos++] << 14;
+	if (!(result & 0x00200000)) return result;
 
-    result = (result & 0x0fffffff) | data[pos++] << 28;
-    return result;
+	result = (result & 0x001fffff) | data[pos++] << 21;
+	if (!(result & 0x10000000)) return result;
+
+	result = (result & 0x0fffffff) | data[pos++] << 28;
+	return result;
 
 }
 
 double Reader::getFixed( int bytesize, int exp ) {
 	/* putFixed/getFixed are deprecated: they implicitly to byteAlign */
-	
+
 	double r = 0;
 	if( pos+bytesize > length ) {
 		err = SWFR_EOF;
@@ -325,5 +294,5 @@ void Reader::dump( int len, int ofs ) {
 		printf("\n");
 	}
 }
-	
+
 }
