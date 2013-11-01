@@ -14,7 +14,7 @@ namespace SWF {
 			int getPointCount();
 
 		private:
-			deque<double> coords;
+			std::deque<double> coords;
 
 	};
 
