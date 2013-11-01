@@ -79,15 +79,11 @@ $(firstword $(CODEGEN_GENERATEDSOURCES)): $(CODEGEN_SRC)
 $(wordlist 2,$(words $(CODEGEN_GENERATEDSOURCES)),$(CODEGEN_GENERATEDSOURCES)) $(CODEGEN_GENERATEDHEADERS): $(firstword $(CODEGEN_GENERATEDSOURCES))
 	:
 
-NAMESPACES = xmlns:swft=\"http:\/\/subsignal.org\/swfml\/swft\" \
-			 xmlns:str=\"http:\/\/exslt.org\/strings\" \
-			 xmlns:math=\"http:\/\/exslt.org\/math\"
-
 $(SIMPLE_DIALECT_GENERATEDSOURCES): $(SIMPLE_DIALECT_GENERATEDSOURCES:.cpp=.xml) xslt/assemble.xsl $(SIMPLE_DIALECT_XSLTS)
 	$(XSLTPROC) $(srcdir)/xslt/assemble.xsl $< > $(@:.cpp=.xsl)
 	echo "#include \"xslt/xslt.h\"" > $@
 	echo "const char *xslt_simple = " >> $@
-	$(SED) -e "s/namespaces=\\\"hack\\\"/$(NAMESPACES)/" -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:.cpp=.xsl) >> $@
+	$(SED) -e "s/\"/\\\\\"/g" -e "s/\(.*\)/\"\1\\\\n\"/g" $(@:.cpp=.xsl) >> $@
 	echo ";" >> $@
 
 swfmill_SOURCES = \

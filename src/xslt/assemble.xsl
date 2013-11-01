@@ -1,36 +1,27 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<axsl:stylesheet xmlns:axsl="http://www.w3.org/1999/XSL/Transform"
+				xmlns:xsl="http://swfmill.org/ns/xsl-alias"
+				exclude-result-prefixes="axsl"
 				version='1.0'>
 
-	<xsl:output method="xml" indent="yes"/>
+	<axsl:output method="xml" indent="yes"/>
 
-	<xsl:template match="compilation">
-		<xsl:element name="xsl:stylesheet">
-			<xsl:attribute name="namespaces">hack</xsl:attribute>
-			<xsl:attribute name="extension-element-prefixes">swft</xsl:attribute>
-			<xsl:attribute name="version">1.0</xsl:attribute>
-			<xsl:text>&#xa;</xsl:text>
+	<axsl:namespace-alias stylesheet-prefix="xsl" result-prefix="axsl"/>
 
-			<xsl:element name="xsl:output">
-				<xsl:attribute name="method">xml</xsl:attribute>
-				<xsl:attribute name="indent">yes</xsl:attribute>
-			</xsl:element>
+	<axsl:template match="compilation">
+		<xsl:stylesheet xmlns:swft="http://subsignal.org/swfml/swft"
+				version="1.0" extension-element-prefixes="swft">
+			<xsl:output method="xml" indent="yes"/>
+			<xsl:param name="quiet" select="'false'"/>
+			<axsl:apply-templates/>
+		</xsl:stylesheet>
+	</axsl:template>
 
-			<xsl:element name="xsl:param">
-				<xsl:attribute name="name">quiet</xsl:attribute>
-				<xsl:attribute name="select">'false'</xsl:attribute>
-			</xsl:element>
+	<axsl:template match="include">
+		<axsl:for-each select="document(@src)/axsl:stylesheet/*">
+			<axsl:text>&#xa;</axsl:text>
+			<axsl:copy-of select="."/>
+		</axsl:for-each>
+	</axsl:template>
 
-			<xsl:apply-templates/>
-
-		</xsl:element>
-	</xsl:template>
-
-	<xsl:template match="include">
-		<xsl:for-each select="document(@src)/xsl:stylesheet/*">
-			<xsl:text>&#xa;</xsl:text>
-			<xsl:copy-of select="."/>
-		</xsl:for-each>
-	</xsl:template>
-
-</xsl:stylesheet>
+</axsl:stylesheet>
