@@ -3,9 +3,7 @@
 char b64string[] =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-long base64_encode (to, from, len)
-	char *to, *from;
-	unsigned int len;
+long base64_encode (char *to, char *from, unsigned int len)
 {
 	char *fromp = from;
 	char *top = to;
@@ -55,9 +53,7 @@ long base64_encode (to, from, len)
 /* location of c or null into p.                  */
 #define badchar(c,p) (!(p = memchr(b64string, c, 64)))
 
-long base64_decode (to, from, len)
-	char *to, *from;
-	unsigned int len;
+long base64_decode (char *to, char *from, unsigned int len)
 {
 	char *fromp = from;
 	char *top = to;
