@@ -18,7 +18,7 @@ Makefile.in
 missing
 .deps
 .libs
-/src/SWF.h
+/src/g*.h
 /src/g*.cpp
 /src/swfmill
 *.exe

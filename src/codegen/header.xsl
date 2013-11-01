@@ -5,7 +5,7 @@
 		version="1.0">
 
 	<xsl:template name="header">
-<exsl:document href="{/format/@format}.h" method="text">
+<exsl:document href="g{/format/@format}.h" method="text">
 //
 // g<xsl:value-of select="/format/@format"/>.h
 //

@@ -1,5 +1,5 @@
 #include <SWFFilter.h>
-#include "SWF.h"
+#include "gSWF.h"
 
 namespace SWF {
 

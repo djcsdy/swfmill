@@ -18,7 +18,7 @@ swfmill_LDADD = $(XML_LIBS) $(XSLT_LIBS) $(EXSLT_LIBS) $(FREETYPE_LIBS) \
 swfmill_LDFLAGS = $(ADDLDFLAGS)
 
 CODEGEN_GENERATEDHEADERS = \
-	SWF.h \
+	gSWF.h \
 	$(NULL)
 
 CODEGEN_GENERATEDSOURCES = \
@@ -163,7 +163,7 @@ noinst_HEADERS = \
 	SWFGlyphList.h \
 	SWFList.h \
 	SWFShapeMaker.h \
-	SWF.h \
+	gSWF.h \
 	$(NULL)
 
 CLEANFILES = \

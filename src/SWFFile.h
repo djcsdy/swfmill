@@ -1,7 +1,7 @@
 #ifndef SWF_FILE_H
 #define SWF_FILE_H
 
-#include "SWF.h"
+#include "gSWF.h"
 
 namespace SWF {
 

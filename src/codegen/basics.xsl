@@ -57,7 +57,7 @@
 // DO NOT MODIFY
 //
 
-#include "<xsl:value-of select="/format/@format"/>.h"
+#include "g<xsl:value-of select="/format/@format"/>.h"
 #include "<xsl:value-of select="/format/@format"/>Tag.h"
 #include &lt;cstring&gt;
 

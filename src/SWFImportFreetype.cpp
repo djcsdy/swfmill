@@ -1,7 +1,7 @@
 // functions defined here are declared in SWFImportExport.h
 
 #include "SWFImportExport.h"
-#include "SWF.h"
+#include "gSWF.h"
 #include "SWFGlyphList.h"
 #include "SWFShapeMaker.h"
 
