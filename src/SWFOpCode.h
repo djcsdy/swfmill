@@ -5,11 +5,12 @@
 
 namespace SWF {
 	
-class OpCode : public IdItem<OpCode> {
-	// static stuff
-	public:
-		static OpCode* get( Reader *r, int end, Context *ctx );
-};
+	class OpCode : public IdItem<OpCode> {
+		// static stuff
+		public:
+			static OpCode* get(Reader *r, int end, Context *ctx);
+	};
 
 }
+
 #endif
