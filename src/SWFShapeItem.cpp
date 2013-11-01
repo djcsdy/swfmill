@@ -1,5 +1,5 @@
 #include <SWFShapeItem.h>
-#include "SWF.h"
+#include "gSWF.h"
 #include <cstring>
 #include "XmlAutoPtr.h"
 

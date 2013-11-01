@@ -190,7 +190,7 @@ HEADERS += \
     src/SWFFile.h \
     src/SWFBasic.h \
     src/SWFAction.h \
-    src/Geom.h \
+	src/Geom.h \
     src/base64.h \
     src/SWFWriter.h \
     src/swft/swft.h \
@@ -204,7 +204,8 @@ HEADERS += \
     src/swft/SVGAttributeParser.h \
     src/swft/readpng.h \
     src/swft/Parser.h \
-    src/xslt/xslt.h
+    src/xslt/xslt.h \
+    src/gSWF.h
 
 
 unix: CONFIG += link_pkgconfig

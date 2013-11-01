@@ -8,7 +8,7 @@
 #include <cmath>
 #include <cstdlib>
 #include "SWFShapeMaker.h"
-#include "SWF.h"
+#include "gSWF.h"
 
 
 

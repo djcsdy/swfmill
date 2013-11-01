@@ -2,7 +2,7 @@
 #define SWF_FILE_H
 
 #include <memory>
-#include "SWF.h"
+#include "gSWF.h"
 
 using namespace std;
 

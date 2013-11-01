@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include "SWFShapeItem.h"
 #include "SWFItem.h"
-#include "SWF.h"
+#include "gSWF.h"
 
 #define TMP_STRLEN 0xFF
 

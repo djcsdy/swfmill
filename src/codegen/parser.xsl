@@ -13,7 +13,7 @@
 // DO NOT MODIFY
 //
 
-#include "<xsl:value-of select="/format/@format"/>.h"
+#include "g<xsl:value-of select="/format/@format"/>.h"
 #include "<xsl:value-of select="/format/@format"/>Item.h"
 #include "<xsl:value-of select="/format/@format"/>List.h"
 

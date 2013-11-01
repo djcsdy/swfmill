@@ -1,5 +1,5 @@
 #include "SWFImportExport.h"
-#include "SWF.h"
+#include "gSWF.h"
 #include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>

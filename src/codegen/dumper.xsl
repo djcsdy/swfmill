@@ -13,7 +13,7 @@
 // DO NOT MODIFY
 //
 
-#include "<xsl:value-of select="/format/@format"/>.h"
+#include "g<xsl:value-of select="/format/@format"/>.h"
 
 namespace <xsl:value-of select="/format/@format"/> {
 

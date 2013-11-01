@@ -1,5 +1,5 @@
 #include <SWFTag.h>
-#include "SWF.h"
+#include "gSWF.h"
 #include <cstring>
 
 namespace SWF {
