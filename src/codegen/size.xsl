@@ -98,7 +98,7 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 <xsl:template match="float" mode="size">
 	r += 32;
 </xsl:template>
-<xsl:template match="double|double2" mode="size">
+<xsl:template match="double" mode="size">
 	r += 64;
 </xsl:template>
 <xsl:template match="half" mode="size">

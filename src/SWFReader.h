@@ -25,7 +25,6 @@ class Reader {
 		int getS24();
 		float getFloat();
 		double getDouble();
-		double getDouble2();
 		float getHalf();
 		double getFixed( int bytesize, int decimals );
 		char *getString();

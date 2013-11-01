@@ -115,7 +115,7 @@
 	</xsl:template>
 
 
-	<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|double2|half|u30|s24|encodedu32" mode="has">
+	<xsl:template match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer|string|uint32|float|double|half|u30|s24|encodedu32" mode="has">
 		if (<xsl:if test="../@negative">!</xsl:if>xmlHasProp(node, (const xmlChar *)"<xsl:value-of select="@name"/>")) {
 			has = true;
 		}
@@ -181,7 +181,7 @@
 		}
 	</xsl:template>
 
-	<xsl:template match="float|double|double2|half" mode="parsexml">
+	<xsl:template match="float|double|half" mode="parsexml">
 		tmp = xmlGetProp(node, (const xmlChar *)"<xsl:value-of select="@name"/>");
 		if (tmp.get()) {
 			double tmp_float;

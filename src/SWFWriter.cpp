@@ -131,17 +131,6 @@ void Writer::putDouble( double v ) {
 	putInt64(u.ull);
 }
 
-void Writer::putDouble2( double v ) {
-	union {
-		double d;
-		char c[8];
-	} u;
-	u.d = v;
-	for( int i=0; i < 8; i++ ) {
-		data[pos++] = u.c[i];
-	}
-}
-
 void Writer::putHalf( float v ) {
 	union {
 		float f;
