@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
+<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:exsl="http://exslt.org/common"
+		extension-element-prefixes="exsl"
+		version="1.0">
+
 	<xsl:template name="writer">
-<xsl:document href="g{/format/@format}Writer.cpp" method="text">
+<exsl:document href="g{/format/@format}Writer.cpp" method="text">
 //
 // g<xsl:value-of select="/format/@format"/>Writer.cpp
 //
@@ -67,7 +71,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 
 }
 
-</xsl:document>
+</exsl:document>
 	</xsl:template>
 
 

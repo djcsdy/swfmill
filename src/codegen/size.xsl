@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
+<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:exsl="http://exslt.org/common"
+		extension-element-prefixes="exsl"
+		version="1.0">
+
 	<xsl:template name="size">
-<xsl:document href="g{/format/@format}Size.cpp" method="text">
+<exsl:document href="g{/format/@format}Size.cpp" method="text">
 //
 // g<xsl:value-of select="/format/@format"/>Size.cpp
 //
@@ -53,7 +57,7 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 
 }
 
-</xsl:document>
+</exsl:document>
 	</xsl:template>
 
 <xsl:template match="*[@context]" mode="size-context">

@@ -3,6 +3,7 @@
 				xmlns:swft="http://subsignal.org/swfml/swft"
 				xmlns:str="http://exslt.org/strings"
 				xmlns:math="http://exslt.org/math"
+				xmlns:exsl="http://exslt.org/common"
 				extension-element-prefixes="swft"
 				version='1.0'>
 
@@ -202,7 +203,7 @@
 
 <!-- HTML wrapper -->
 <xsl:template match="html-wrapper">
-	<xsl:document href="{@name}">
+	<exsl:document href="{@name}">
 <html>
 	<body>
 	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" 
@@ -217,7 +218,7 @@
 	</object>
 	</body>
 </html>
-	</xsl:document>
+	</exsl:document>
 </xsl:template>
 
 <!-- html text (entity-escape xml, for fitting xml/html content in an attribute) -->

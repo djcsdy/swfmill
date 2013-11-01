@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
+<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:exsl="http://exslt.org/common"
+		extension-element-prefixes="exsl"
+		version="1.0">
+
 	<xsl:template name="writexml">
-<xsl:document href="g{/format/@format}WriteXML.cpp" method="text">
+<exsl:document href="g{/format/@format}WriteXML.cpp" method="text">
 //
 // g<xsl:value-of select="/format/@format"/>WriteXML.cpp
 //
@@ -100,7 +104,7 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 
 }
 
-</xsl:document>
+</exsl:document>
 	</xsl:template>
 
 

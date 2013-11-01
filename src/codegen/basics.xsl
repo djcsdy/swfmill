@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
+<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:exsl="http://exslt.org/common"
+		extension-element-prefixes="exsl"
+		version="1.0">
 
 <xsl:template match="list|object|fill-byte|context" mode="ctor"/>
 <xsl:template match="flagged|if" mode="ctor">
@@ -46,7 +49,7 @@
 <!-- *************** -->
 
 	<xsl:template name="basics">
-<xsl:document href="g{/format/@format}Basics.cpp" method="text">
+<exsl:document href="g{/format/@format}Basics.cpp" method="text">
 //
 // g<xsl:value-of select="/format/@format"/>Basics.cpp
 //
@@ -156,7 +159,7 @@ int <xsl:value-of select="@name"/>::id = <xsl:value-of select="@id"/>;
 	<xsl:with-param name="itemName">opcode</xsl:with-param>
 </xsl:call-template>
 }
-</xsl:document>
+</exsl:document>
 	</xsl:template>
 
 

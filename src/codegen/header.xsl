@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="http://exslt.org/common" version='1.0'>
+<xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:exsl="http://exslt.org/common"
+		extension-element-prefixes="exsl"
+		version="1.0">
+
 	<xsl:template name="header">
-<xsl:document href="{/format/@format}.h" method="text">
+<exsl:document href="{/format/@format}.h" method="text">
 //
 // g<xsl:value-of select="/format/@format"/>.h
 //
@@ -48,7 +52,7 @@ struct Context {
 			<xsl:variable name="tmp">
 				<xsl:element name="{@type}"/>
 			</xsl:variable>
-			<xsl:apply-templates select="exslt:node-set($tmp)" mode="ctype"/>
+			<xsl:apply-templates select="exsl:node-set($tmp)" mode="ctype"/>
 			<xsl:text> </xsl:text>
 			<xsl:value-of select="@name"/>;
 		</xsl:for-each>
@@ -83,7 +87,7 @@ class <xsl:value-of select="@name"/> : public <xsl:apply-templates select="." mo
 
 }
 #endif
-</xsl:document>
+</exsl:document>
 	</xsl:template>
 
 <!-- definitions -->
