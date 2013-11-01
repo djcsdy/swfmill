@@ -40,7 +40,6 @@ uint16_t Reader::getWord() {
 		pos = length+1;
 		return 0;
 	}
-	// FIXME x86-centric?
 	int r = data[pos++];
 	r += data[pos++]<<8;
 	return r;
@@ -54,7 +53,6 @@ uint32_t Reader::getInt() {
 	}
 	int r;
 
-	// FIXME x86-centric?
 	r = data[pos++];
 	r += data[pos++]<<8;
 	r += data[pos++]<<16;
