@@ -13,6 +13,7 @@
 #define SWFT_MAPSIZE 32
 
 using namespace SWF;
+using namespace std;
 
 void *swft_init(xsltTransformContextPtr ctx, const xmlChar *URI);
 void swft_shutdown(xsltTransformContextPtr ctx, const xmlChar *URI, void *data);

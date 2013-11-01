@@ -4,8 +4,6 @@
 #include <libxml/tree.h>
 #include <cmath>
 
-using namespace std;
-
 namespace SWF {
 
 class Matrix {
