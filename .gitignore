@@ -39,8 +39,11 @@ missing
 /autoconfig/m4/lt~obsolete.m4
 *core
 /test/old/build
+/test/old/output.html
 /test/compile-and-verify/placeobject3-import.xml.swf
 /test/compile-and-verify/placeobject3-import.xml.swf.xml
+/test/compile-and-verify/import-happy-ttf.xml.swf
+/test/compile-and-verify/import-happy-ttf.xml.swf.xml
 /test/transform-and-verify/*.xsl.out.xml
 .vagrant*
 /swfmill-*.tar.gz
