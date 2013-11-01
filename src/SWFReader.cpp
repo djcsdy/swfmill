@@ -109,23 +109,17 @@ int Reader::getS24() {
 }
 
 float Reader::getFloat() {
-	union {
-		float f;
-		uint32_t ul;
-	} u;
-
-	u.ul = getInt();
-	return u.f;
+	float f;
+	uint32_t i = getInt();
+	memcpy(&f, &i, 4);
+	return f;
 }
 
 double Reader::getDouble() {
-	union {
-		double d;
-		uint64_t ull;
-	} u;
-
-	u.ull = getInt64();
-	return u.d;
+	double d;
+	uint64_t i = getInt64();
+	memcpy(&d, &i, 8);
+	return d;
 }
 
 float Reader::getHalf() {
@@ -150,13 +144,10 @@ float Reader::getHalf() {
 		exp += -15 + 127;
 	}
 
-	union {
-		float f;
-		uint32_t ul;
-	} u;
-
-	u.ul = (sign << 31) | (exp << 23) | (man << 13);
-	return u.f;
+	float f;
+	uint32_t i = (sign << 31) | (exp << 23) | (man << 13);
+	memcpy(&f, &i, 4);
+	return f;
 }
 
 unsigned int Reader::getEncodedU32() {
