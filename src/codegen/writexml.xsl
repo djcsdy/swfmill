@@ -112,7 +112,7 @@ void <xsl:value-of select="@name"/>::writeXML( xmlNodePtr xml, Context *ctx ) {
 	}
 </xsl:template>
 
-<xsl:template match="double|double2|half|float|fixedpoint|fixedpoint2" mode="writexml">
+<xsl:template match="double|half|float|fixedpoint|fixedpoint2" mode="writexml">
 	snprintf(tmp,TMP_STRLEN,"%#.*g", 16, <xsl:value-of select="@name"/>);
 	xmlSetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>", (const xmlChar *)&amp;tmp );
 </xsl:template>

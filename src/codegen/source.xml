@@ -214,7 +214,7 @@
 		<float signed="true" name="value" prop="true"/>
 	</type>
 	<type name="Double">
-		<double2 signed="true" name="value" prop="true"/>
+		<double signed="true" name="value" prop="true"/>
 	</type>
 
 	<type name="Kerning">

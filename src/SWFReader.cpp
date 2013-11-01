@@ -159,27 +159,6 @@ double Reader::getDouble() {
     return u.d;
 }
 
-double Reader::getDouble2() {
-	if( pos+8 > length ) {
-		err = SWFR_EOF;
-		pos = length+1;
-		return 0;
-	}
-	
-	union {
-		double d;
-		char c[8];
-	} u;
-
-	
-	// FIXME x86-centric?
-	for( int i = 0; i < 8; i++ ) {
-		u.c[i] =  data[pos++];
-	}
-
-	return u.d;
-}
-
 float Reader::getHalf() {
 	uint16_t r = getWord();
 	
