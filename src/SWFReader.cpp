@@ -214,43 +214,35 @@ namespace SWF {
 	}
 
 	long Reader::getNBitInt(int n, bool is_signed) {
-		// FIXME: unefficient, maybe incorrect!
-		int orig_n = n;
-		long r = buf;
-		if (n == bits) {
-			bits = buf = 0;
-			goto ret;
-		}
+		long result;
+
 		if (n > bits) {
-			n -= bits;
-			while (n > 8) {
-				r <<= 8;
-				r += getByte();
-				n-=8;
+			result = buf;
+
+			int bitsToRead = n - bits;
+			while (bitsToRead > 8) {
+				result = (result << 8) | getByte();
+				bitsToRead -= 8;
 			}
 			buf = getByte();
 
-			if (n > 0) {
-				r <<= n;
-				bits = 8-n;
+			bits = 8 - bitsToRead;
+			result = (result << bitsToRead) | (buf >> bits);
+		} else {
+			result = buf >> (bits - n);
+			bits -= n;
+		}
 
-				r += buf >> (8-n);
-				buf &= (1<<bits)-1;
+		buf &= (1 << bits) - 1;
+
+		if (is_signed) {
+			long sign = (1<<(n - 1));
+			if ((result & sign) != 0) {
+				result |= -sign;
 			}
-			goto ret;
 		}
 
-		r = buf >> (bits-n);
-		bits -= n;
-		buf &= (1<<bits)-1;
-
-	ret:
-		long sign = (1<<(orig_n-1));
-		if (is_signed && (r&sign)!=0) {
-			r |= - (long) sign;
-		}
-
-		return r;
+		return result;
 	}
 
 	double Reader::getNBitFixed(int n, int m, bool is_signed) {
