@@ -5,20 +5,18 @@
 #include <deque>
 #include "Geom.h"
 
-
-
 namespace SWF {
 
-class PointsParser {
-	public:
-		void parse(const char *path);
-		Point getPoint();
-		int getPointCount();
-	
-	private:
-		deque<double> coords;
+	class PointsParser {
+		public:
+			void parse(const char *path);
+			Point getPoint();
+			int getPointCount();
 
-};
+		private:
+			deque<double> coords;
+
+	};
 
 }
 
