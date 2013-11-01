@@ -41,7 +41,14 @@ SOURCES += \
     src/swft/SVGAttributeParser.cpp \
     src/swft/readpng.c \
     src/swft/Parser.cpp \
-    src/xslt/xslt_pack.cpp
+    src/xslt/xslt_pack.cpp \
+    src/gSWFWriteXML.cpp \
+    src/gSWFWriter.cpp \
+    src/gSWFSize.cpp \
+    src/gSWFParseXML.cpp \
+    src/gSWFParser.cpp \
+    src/gSWFDumper.cpp \
+    src/gSWFBasics.cpp
 
 OTHER_FILES += \
     src/Makefile.am \
