@@ -1,408 +1,1442 @@
 <format format="SWF">
 
-<!-- **************** CONTEXT VARIABLES **************** -->
+	<!-- **************** CONTEXT VARIABLES **************** -->
 
-<contextvariable name="fillBits" type="integer"/>
-<contextvariable name="lineBits" type="integer"/>
-<contextvariable name="glyphBits" type="byte"/>
-<contextvariable name="advanceBits" type="byte"/>
-<contextvariable name="wideGlyphOffsets" type="bit"/>
-<contextvariable name="wideMap" type="bit"/>
-<contextvariable name="glyphCount" type="word"/>
+	<contextvariable name="fillBits" type="integer"/>
+	<contextvariable name="lineBits" type="integer"/>
+	<contextvariable name="glyphBits" type="byte"/>
+	<contextvariable name="advanceBits" type="byte"/>
+	<contextvariable name="wideGlyphOffsets" type="bit"/>
+	<contextvariable name="wideMap" type="bit"/>
+	<contextvariable name="glyphCount" type="word"/>
 
-<!-- ******************** BASIC TYPES ****************** -->
+	<!-- ******************** BASIC TYPES ****************** -->
 
-<type name="Rectangle">
-	<integer name="bits" size="5" constant-size="true"/>
-	<integer prop="true" signed="true" name="left" size="bits" default="0"/>
-	<integer prop="true" signed="true" name="right" size="bits" default="0"/>
-	<integer prop="true" signed="true" name="top" size="bits" default="0"/>
-	<integer prop="true" signed="true" name="bottom" size="bits" default="0"/>
-	<fill-byte/>
-</type>
-
-<type name="Color">
-	<byte prop="true" name="red" default="0"/>
-	<byte prop="true" name="green" default="0"/>
-	<byte prop="true" name="blue" default="0"/>
-	<if expression="ctx->alpha">
-		<byte prop="true" name="alpha" default="0"/>
-	</if>
-	<fill-byte/>
-</type>
-
-<type name="String">
-	<string prop="true" name="value"/>
-</type>
-<type name="String2">
-	<string mode="pascalU30" prop="true" name="value"/>
-</type>
-
-<type name="Transform">
-	<bit name="scaled"/>
-	<flagged flag="scaled">
-		<integer name="bitsScale" size="5" constant-size="true"/>
-		<fixedpoint name="scaleX" signed="true" size="bitsScale" exp="16" prop="true" default="1"/>
-		<fixedpoint name="scaleY" signed="true" size="bitsScale" exp="16" prop="true" default="1"/>
-	</flagged>
-	<bit name="skewed"/>
-	<flagged flag="skewed">
-		<integer name="bitsSkew" size="5" constant-size="true"/>
-		<fixedpoint name="skewX" signed="true" size="bitsSkew" exp="16" prop="true" default="1"/>
-		<fixedpoint name="skewY" signed="true" size="bitsSkew" exp="16" prop="true" default="1"/>
-	</flagged>
-	<integer name="bitsTranslate" size="5" constant-size="true"/>
-	<integer name="transX" signed="true" size="bitsTranslate" prop="true" default="0"/>
-	<integer name="transY" signed="true" size="bitsTranslate" prop="true" default="0"/>
-	<fill-byte/>
-</type>
-
-<type name="ColorTransform2">
-	<bit name="hasOffset"/>
-	<bit name="hasFactor"/>
-	<integer name="bits" size="4" constant-size="true"/>
-	<flagged flag="hasFactor">
-		<!-- really default=1?; ColorTransform(1) has no alpha. -->
-		<integer name="factorRed" size="bits" signed="true" prop="true" default="1"/>
-		<integer name="factorGreen" size="bits" signed="true" prop="true" default="1"/>
-		<integer name="factorBlue" size="bits" signed="true" prop="true" default="1"/>
-		<integer name="factorAlpha" size="bits" signed="true" prop="true" default="1"/>
-	</flagged>
-	<flagged flag="hasOffset">
-		<!-- ColorTransform(1) has no alpha. -->
-		<integer name="offsetRed" size="bits" signed="true" prop="true" default="1"/>
-		<integer name="offsetGreen" size="bits" signed="true" prop="true" default="1"/>
-		<integer name="offsetBlue" size="bits" signed="true" prop="true" default="1"/>
-		<integer name="offsetAlpha" size="bits" signed="true" prop="true" default="1"/>
-	</flagged>
-	<fill-byte/>
-</type>
-
-<type name="Header">
-	<object name="size" type="Rectangle" prop="true"/>
-	<!-- framerate should be a 8.8 fixed, but is reverse? WTF? for integer values, this works: -->
-	<integer name="framerate" size="16" constant-size="true" prop="true"/>
-	<word name="frames" prop="true" default="1"/>
-	<list name="tags" type="Tag" prop="true"/>
-</type>
-
-<type name="LineStyle">
-   <word name="width" prop="true"/>
-
-    <if expression="ctx->tagVersion &lt; 4">
-        <object type="Color" name="color" prop="true"/>
-    </if>
-    <if expression="ctx->tagVersion &gt; 3">
-
-        <integer name="startCapStyle" size="2" constant-size="true" prop="true"/>
-        <integer name="jointStyle" size="2" constant-size="true" prop="true"/>
-        <bit name="hasFill" prop="true"/>
-        <bit name="noHScale" prop="true"/>
-        <bit name="noVScale" prop="true"/>
-        <bit name="pixelHinting" prop="true"/>
-        <integer name="reserved" size="5" constant-size="true"/>
-        <bit name="noClose" prop="true"/>
-        <integer name="endCapStyle" size="2" constant-size="true" prop="true"/>
-
-        <if expression="jointStyle==2">
-		<fixedpoint2 name="miterLimitFactor" signed="false" size="16" constant-size="true" exp="8" prop="true"/>
-            	<!-- <word name="miterLimitFactor" prop="true"/>-->
-        </if>
-
-        <if expression="hasFill">
-            <list name="fillStyles" type="Style" length="1" constant-length="true" prop="true"/>
-        </if>
-        <if expression="!hasFill">
-            <object type="Color" name="fillColor" prop="true"/>
-        </if>
-    </if>
-</type>
-
-<type name="StyleList">
-	<byteOrWord name="n_fillStyles"/>
-	<list name="fillStyles" type="Style" length="n_fillStyles" prop="true"/>
-	<byteOrWord name="n_lineStyles"/>
-	<list name="lineStyles" type="LineStyle" length="n_lineStyles" prop="true"/>
-	<integer name="fillBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_fillStyles"/>
-	<integer name="lineBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_lineStyles"/>
-</type>
-
-<type name="ShapeSetup" parent="ShapeItem">
-	<bit name="hasNewStyles"/>
-	<bit name="hasLineStyle"/>
-	<bit name="hasFillStyle1"/>
-	<bit name="hasFillStyle0"/>
-	<bit name="hasMoveTo"/>
-	<flagged flag="hasMoveTo">
-		<integer name="xybits" size="5" constant-size="true"/>
-		<integer name="x" signed="true" size="xybits" default="0" prop="true"/>
-		<integer name="y" signed="true" size="xybits" default="0" prop="true"/>
-	</flagged>
-	<flagged flag="hasFillStyle0">
-		<integer name="fillStyle0" context-size="true" size="ctx->fillBits" default="0" prop="true"/>
-	</flagged>
-	<flagged flag="hasFillStyle1">
-		<integer name="fillStyle1" context-size="true" size="ctx->fillBits" default="0" prop="true"/>
-	</flagged>
-	<flagged flag="hasLineStyle">
-		<integer name="lineStyle" context-size="true" size="ctx->lineBits" default="0" prop="true"/>
-	</flagged>
-	<flagged flag="hasNewStyles">
+	<type name="Rectangle">
+		<integer name="bits" size="5" constant-size="true"/>
+		<integer prop="true" signed="true" name="left" size="bits" default="0"/>
+		<integer prop="true" signed="true" name="right" size="bits" default="0"/>
+		<integer prop="true" signed="true" name="top" size="bits" default="0"/>
+		<integer prop="true" signed="true" name="bottom" size="bits" default="0"/>
 		<fill-byte/>
-		<object type="StyleList" name="styles" prop="true"/>
-	</flagged>
-</type>
+	</type>
 
-<type name="CurveTo" parent="ShapeItem">
-	<integer name="bits" size="4" constant-size="true"/>
-	<integer name="x1" signed="true" size="bits" size-add="2" default="0" prop="true"/>
-	<integer name="y1" signed="true" size="bits" size-add="2" default="0" prop="true"/>
-	<integer name="x2" signed="true" size="bits" size-add="2" default="0" prop="true"/>
-	<integer name="y2" signed="true" size="bits" size-add="2" default="0" prop="true"/>
-</type>
+	<type name="Color">
+		<byte prop="true" name="red" default="0"/>
+		<byte prop="true" name="green" default="0"/>
+		<byte prop="true" name="blue" default="0"/>
+		<if expression="ctx->alpha">
+			<byte prop="true" name="alpha" default="0"/>
+		</if>
+		<fill-byte/>
+	</type>
 
-<type name="Shape">
-	<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
-</type>
+	<type name="String">
+		<string prop="true" name="value"/>
+	</type>
+	<type name="String2">
+		<string mode="pascalU30" prop="true" name="value"/>
+	</type>
 
-<type name="GlyphShape">
-	<context param="fillBits" value="1"/>
-	<context param="lineBits" value="0"/>
-	<integer name="fillBits" size="4" constant-size="true" set-from="1"/>
-	<integer name="lineBits" size="4" constant-size="true" set-from="0"/>
-	<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
-</type>
-
-<type name="GradientItem">
-	<byte name="position" prop="true"/>
-	<object name="color" type="Color" prop="true"/>
-</type>
-
-<type name="Symbol">
-	<word name="objectID" prop="true"/>
-	<string name="name" prop="true"/>
-</type>
-
-<type name="Frame">
-	<encodedu32 name="number" prop="true"/>
-	<string name="label" prop="true"/>
-</type>
-
-<type name="Scene">
-	<encodedu32 name="offset" prop="true"/>
-	<string name="name" prop="true"/>
-</type>
-
-<type name="Parameter">
-	<byte name="reg" prop="true"/>
-	<string name="name" prop="true"/>
-</type>
-
-<type name="UChar">
-	<byte name="value" prop="true"/>
-</type>
-<type name="UShort">
-	<word name="value" prop="true"/>
-</type>
-<type name="ULong">
-	<integer size="32" constant-size="true" name="value" prop="true"/>
-</type>
-<type name="Short">
-	<word signed="true" name="value" prop="true"/>
-</type>
-<type name="Float">
-	<float signed="true" name="value" prop="true"/>
-</type>
-<type name="Double">
-	<double2 signed="true" name="value" prop="true"/>
-</type>
-
-<type name="Kerning">
-	<byte name="a" prop="true"/>
-	<byte name="b" prop="true"/>
-	<integer name="adjustment" signed="true" size="16" constant-size="true" prop="true"/>
-</type>
-<type name="WideKerning">
-	<word name="a" prop="true"/>
-	<word name="b" prop="true"/>
-	<word signed="true" name="adjustment" prop="true"/>
-</type>
-
-<type name="TextEntry">
-	<integer name="glyph" context-size="true" size="ctx->glyphBits" prop="true"/>
-	<integer name="advance" signed="true" context-size="true" size="ctx->advanceBits" prop="true"/>
-</type>
-
-<type name="TextEntry2">
-	<integer name="glyph" context-size="true" size="ctx->glyphBits" prop="true"/>
-	<integer name="advance" signed="true" context-size="true" size="ctx->advanceBits" prop="true"/>
-</type>
-
-
-<type name="TextRecord6">
-	<bit name="isSetup" default="0" prop="true"/>
-	<flagged flag="isSetup">
-		<integer name="reserved" size="3" constant-size="true"/>
-		<bit name="hasFont"/>
-		<bit name="hasColor"/>
-		<bit name="hasMoveY"/>
-		<bit name="hasMoveX"/>
-		<flagged flag="hasFont">
-			<word name="objectID" prop="true"/>
+	<type name="Transform">
+		<bit name="scaled"/>
+		<flagged flag="scaled">
+			<integer name="bitsScale" size="5" constant-size="true"/>
+			<fixedpoint name="scaleX" signed="true" size="bitsScale" exp="16" prop="true" default="1"/>
+			<fixedpoint name="scaleY" signed="true" size="bitsScale" exp="16" prop="true" default="1"/>
 		</flagged>
-		<flagged flag="hasColor">
+		<bit name="skewed"/>
+		<flagged flag="skewed">
+			<integer name="bitsSkew" size="5" constant-size="true"/>
+			<fixedpoint name="skewX" signed="true" size="bitsSkew" exp="16" prop="true" default="1"/>
+			<fixedpoint name="skewY" signed="true" size="bitsSkew" exp="16" prop="true" default="1"/>
+		</flagged>
+		<integer name="bitsTranslate" size="5" constant-size="true"/>
+		<integer name="transX" signed="true" size="bitsTranslate" prop="true" default="0"/>
+		<integer name="transY" signed="true" size="bitsTranslate" prop="true" default="0"/>
+		<fill-byte/>
+	</type>
+
+	<type name="ColorTransform2">
+		<bit name="hasOffset"/>
+		<bit name="hasFactor"/>
+		<integer name="bits" size="4" constant-size="true"/>
+		<flagged flag="hasFactor">
+			<!-- really default=1?; ColorTransform(1) has no alpha. -->
+			<integer name="factorRed" size="bits" signed="true" prop="true" default="1"/>
+			<integer name="factorGreen" size="bits" signed="true" prop="true" default="1"/>
+			<integer name="factorBlue" size="bits" signed="true" prop="true" default="1"/>
+			<integer name="factorAlpha" size="bits" signed="true" prop="true" default="1"/>
+		</flagged>
+		<flagged flag="hasOffset">
+			<!-- ColorTransform(1) has no alpha. -->
+			<integer name="offsetRed" size="bits" signed="true" prop="true" default="1"/>
+			<integer name="offsetGreen" size="bits" signed="true" prop="true" default="1"/>
+			<integer name="offsetBlue" size="bits" signed="true" prop="true" default="1"/>
+			<integer name="offsetAlpha" size="bits" signed="true" prop="true" default="1"/>
+		</flagged>
+		<fill-byte/>
+	</type>
+
+	<type name="Header">
+		<object name="size" type="Rectangle" prop="true"/>
+		<!-- framerate should be a 8.8 fixed, but is reverse? WTF? for integer values, this works: -->
+		<integer name="framerate" size="16" constant-size="true" prop="true"/>
+		<word name="frames" prop="true" default="1"/>
+		<list name="tags" type="Tag" prop="true"/>
+	</type>
+
+	<type name="LineStyle">
+	   <word name="width" prop="true"/>
+
+		<if expression="ctx->tagVersion &lt; 4">
 			<object type="Color" name="color" prop="true"/>
-		</flagged>
-		<flagged flag="hasMoveX">
-			<word name="x" signed="true" prop="true"/>
-		</flagged>
-		<flagged flag="hasMoveY">
-			<word name="y" signed="true" prop="true"/>
-		</flagged>
-		<flagged flag="hasFont">
-			<word name="fontHeight" prop="true"/>
-		</flagged>
-	</flagged>
-	<flagged flag="isSetup" negative="true">
-		<integer name="nGlyphs" size="7" constant-size="true"/>
-		<list type="TextEntry" name="glyphs" length="nGlyphs" prop="true"/>
-		<fill-byte/>
-	</flagged>
-</type>
+		</if>
+		<if expression="ctx->tagVersion &gt; 3">
 
-<type name="TextRecord62">
-	<bit name="isSetup" default="0" prop="true"/>
-	<flagged flag="isSetup">
-		<integer name="reserved" size="3" constant-size="true"/>
-		<bit name="hasFont"/>
-		<bit name="hasColor"/>
-		<bit name="hasMoveY"/>
-		<bit name="hasMoveX"/>
-		<flagged flag="hasFont">
-			<word name="objectID" prop="true"/>
-		</flagged>
-		<flagged flag="hasColor">
-			<object type="Color" name="color" prop="true"/>
-		</flagged>
-		<flagged flag="hasMoveX">
-			<word name="x" signed="true" prop="true"/>
-		</flagged>
-		<flagged flag="hasMoveY">
-			<word name="y" signed="true" prop="true"/>
-		</flagged>
-		<flagged flag="hasFont">
-			<word name="fontHeight" prop="true"/>
-		</flagged>
-	</flagged>
-	<flagged flag="isSetup" negative="true">
-		<integer name="nGlyphs" size="7" constant-size="true"/>
-		<list type="TextEntry2" name="glyphs" length="nGlyphs" prop="true"/>
-		<fill-byte/>
-	</flagged>
-</type>
+			<integer name="startCapStyle" size="2" constant-size="true" prop="true"/>
+			<integer name="jointStyle" size="2" constant-size="true" prop="true"/>
+			<bit name="hasFill" prop="true"/>
+			<bit name="noHScale" prop="true"/>
+			<bit name="noVScale" prop="true"/>
+			<bit name="pixelHinting" prop="true"/>
+			<integer name="reserved" size="5" constant-size="true"/>
+			<bit name="noClose" prop="true"/>
+			<integer name="endCapStyle" size="2" constant-size="true" prop="true"/>
 
-<type name="TextRecord7">
-	<bit name="isSetup" default="0" prop="true"/>
-	<integer name="reserved" size="3" constant-size="true"/>
-	<bit name="hasFont"/>
-	<bit name="hasColor"/>
-	<bit name="hasMoveY"/>
-	<bit name="hasMoveX"/>
-	<flagged flag="hasFont">
+			<if expression="jointStyle==2">
+			<fixedpoint2 name="miterLimitFactor" signed="false" size="16" constant-size="true" exp="8" prop="true"/>
+					<!-- <word name="miterLimitFactor" prop="true"/>-->
+			</if>
+
+			<if expression="hasFill">
+				<list name="fillStyles" type="Style" length="1" constant-length="true" prop="true"/>
+			</if>
+			<if expression="!hasFill">
+				<object type="Color" name="fillColor" prop="true"/>
+			</if>
+		</if>
+	</type>
+
+	<type name="StyleList">
+		<byteOrWord name="n_fillStyles"/>
+		<list name="fillStyles" type="Style" length="n_fillStyles" prop="true"/>
+		<byteOrWord name="n_lineStyles"/>
+		<list name="lineStyles" type="LineStyle" length="n_lineStyles" prop="true"/>
+		<integer name="fillBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_fillStyles"/>
+		<integer name="lineBits" size="4" constant-size="true" context="true" set-from-bits-needed="n_lineStyles"/>
+	</type>
+
+	<type name="ShapeSetup" parent="ShapeItem">
+		<bit name="hasNewStyles"/>
+		<bit name="hasLineStyle"/>
+		<bit name="hasFillStyle1"/>
+		<bit name="hasFillStyle0"/>
+		<bit name="hasMoveTo"/>
+		<flagged flag="hasMoveTo">
+			<integer name="xybits" size="5" constant-size="true"/>
+			<integer name="x" signed="true" size="xybits" default="0" prop="true"/>
+			<integer name="y" signed="true" size="xybits" default="0" prop="true"/>
+		</flagged>
+		<flagged flag="hasFillStyle0">
+			<integer name="fillStyle0" context-size="true" size="ctx->fillBits" default="0" prop="true"/>
+		</flagged>
+		<flagged flag="hasFillStyle1">
+			<integer name="fillStyle1" context-size="true" size="ctx->fillBits" default="0" prop="true"/>
+		</flagged>
+		<flagged flag="hasLineStyle">
+			<integer name="lineStyle" context-size="true" size="ctx->lineBits" default="0" prop="true"/>
+		</flagged>
+		<flagged flag="hasNewStyles">
+			<fill-byte/>
+			<object type="StyleList" name="styles" prop="true"/>
+		</flagged>
+	</type>
+
+	<type name="CurveTo" parent="ShapeItem">
+		<integer name="bits" size="4" constant-size="true"/>
+		<integer name="x1" signed="true" size="bits" size-add="2" default="0" prop="true"/>
+		<integer name="y1" signed="true" size="bits" size-add="2" default="0" prop="true"/>
+		<integer name="x2" signed="true" size="bits" size-add="2" default="0" prop="true"/>
+		<integer name="y2" signed="true" size="bits" size-add="2" default="0" prop="true"/>
+	</type>
+
+	<type name="Shape">
+		<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
+	</type>
+
+	<type name="GlyphShape">
+		<context param="fillBits" value="1"/>
+		<context param="lineBits" value="0"/>
+		<integer name="fillBits" size="4" constant-size="true" set-from="1"/>
+		<integer name="lineBits" size="4" constant-size="true" set-from="0"/>
+		<list type="ShapeItem" name="edges" prop="true" end-condition="item->isEnd()"/>
+	</type>
+
+	<type name="GradientItem">
+		<byte name="position" prop="true"/>
+		<object name="color" type="Color" prop="true"/>
+	</type>
+
+	<type name="Symbol">
 		<word name="objectID" prop="true"/>
-	</flagged>
-	<flagged flag="hasColor">
+		<string name="name" prop="true"/>
+	</type>
+
+	<type name="Frame">
+		<encodedu32 name="number" prop="true"/>
+		<string name="label" prop="true"/>
+	</type>
+
+	<type name="Scene">
+		<encodedu32 name="offset" prop="true"/>
+		<string name="name" prop="true"/>
+	</type>
+
+	<type name="Parameter">
+		<byte name="reg" prop="true"/>
+		<string name="name" prop="true"/>
+	</type>
+
+	<type name="UChar">
+		<byte name="value" prop="true"/>
+	</type>
+	<type name="UShort">
+		<word name="value" prop="true"/>
+	</type>
+	<type name="ULong">
+		<integer size="32" constant-size="true" name="value" prop="true"/>
+	</type>
+	<type name="Short">
+		<word signed="true" name="value" prop="true"/>
+	</type>
+	<type name="Float">
+		<float signed="true" name="value" prop="true"/>
+	</type>
+	<type name="Double">
+		<double2 signed="true" name="value" prop="true"/>
+	</type>
+
+	<type name="Kerning">
+		<byte name="a" prop="true"/>
+		<byte name="b" prop="true"/>
+		<integer name="adjustment" signed="true" size="16" constant-size="true" prop="true"/>
+	</type>
+	<type name="WideKerning">
+		<word name="a" prop="true"/>
+		<word name="b" prop="true"/>
+		<word signed="true" name="adjustment" prop="true"/>
+	</type>
+
+	<type name="TextEntry">
+		<integer name="glyph" context-size="true" size="ctx->glyphBits" prop="true"/>
+		<integer name="advance" signed="true" context-size="true" size="ctx->advanceBits" prop="true"/>
+	</type>
+
+	<type name="TextEntry2">
+		<integer name="glyph" context-size="true" size="ctx->glyphBits" prop="true"/>
+		<integer name="advance" signed="true" context-size="true" size="ctx->advanceBits" prop="true"/>
+	</type>
+
+
+	<type name="TextRecord6">
+		<bit name="isSetup" default="0" prop="true"/>
+		<flagged flag="isSetup">
+			<integer name="reserved" size="3" constant-size="true"/>
+			<bit name="hasFont"/>
+			<bit name="hasColor"/>
+			<bit name="hasMoveY"/>
+			<bit name="hasMoveX"/>
+			<flagged flag="hasFont">
+				<word name="objectID" prop="true"/>
+			</flagged>
+			<flagged flag="hasColor">
+				<object type="Color" name="color" prop="true"/>
+			</flagged>
+			<flagged flag="hasMoveX">
+				<word name="x" signed="true" prop="true"/>
+			</flagged>
+			<flagged flag="hasMoveY">
+				<word name="y" signed="true" prop="true"/>
+			</flagged>
+			<flagged flag="hasFont">
+				<word name="fontHeight" prop="true"/>
+			</flagged>
+		</flagged>
+		<flagged flag="isSetup" negative="true">
+			<integer name="nGlyphs" size="7" constant-size="true"/>
+			<list type="TextEntry" name="glyphs" length="nGlyphs" prop="true"/>
+			<fill-byte/>
+		</flagged>
+	</type>
+
+	<type name="TextRecord62">
+		<bit name="isSetup" default="0" prop="true"/>
+		<flagged flag="isSetup">
+			<integer name="reserved" size="3" constant-size="true"/>
+			<bit name="hasFont"/>
+			<bit name="hasColor"/>
+			<bit name="hasMoveY"/>
+			<bit name="hasMoveX"/>
+			<flagged flag="hasFont">
+				<word name="objectID" prop="true"/>
+			</flagged>
+			<flagged flag="hasColor">
+				<object type="Color" name="color" prop="true"/>
+			</flagged>
+			<flagged flag="hasMoveX">
+				<word name="x" signed="true" prop="true"/>
+			</flagged>
+			<flagged flag="hasMoveY">
+				<word name="y" signed="true" prop="true"/>
+			</flagged>
+			<flagged flag="hasFont">
+				<word name="fontHeight" prop="true"/>
+			</flagged>
+		</flagged>
+		<flagged flag="isSetup" negative="true">
+			<integer name="nGlyphs" size="7" constant-size="true"/>
+			<list type="TextEntry2" name="glyphs" length="nGlyphs" prop="true"/>
+			<fill-byte/>
+		</flagged>
+	</type>
+
+	<type name="TextRecord7">
+		<bit name="isSetup" default="0" prop="true"/>
+		<integer name="reserved" size="3" constant-size="true"/>
+		<bit name="hasFont"/>
+		<bit name="hasColor"/>
+		<bit name="hasMoveY"/>
+		<bit name="hasMoveX"/>
+		<flagged flag="hasFont">
+			<word name="objectID" prop="true"/>
+		</flagged>
+		<flagged flag="hasColor">
+			<object type="Color" name="color" prop="true"/>
+		</flagged>
+		<flagged flag="hasMoveX">
+			<word name="x" signed="true" prop="true"/>
+		</flagged>
+		<flagged flag="hasMoveY">
+			<word name="y" signed="true" prop="true"/>
+		</flagged>
+		<flagged flag="hasFont">
+			<word name="fontHeight" prop="true"/>
+		</flagged>
+
+		<flagged flag="isSetup">
+			<byte name="nGlyphs"/>
+			<list type="TextEntry" name="glyphs" length="nGlyphs" prop="true"/>
+		</flagged>
+		<fill-byte/>
+	</type>
+
+	<type name="TextRecord72">
+		<context param="alpha" value="1"/>
+
+		<bit name="isSetup" default="0" prop="true"/>
+		<integer name="reserved" size="3" constant-size="true"/>
+		<bit name="hasFont"/>
+		<bit name="hasColor"/>
+		<bit name="hasMoveY"/>
+		<bit name="hasMoveX"/>
+		<flagged flag="hasFont">
+			<word name="fontRef" prop="true"/>
+		</flagged>
+		<flagged flag="hasColor">
+			<object type="Color" name="color" prop="true"/>
+		</flagged>
+		<flagged flag="hasMoveX">
+			<word name="x" signed="true" prop="true"/>
+		</flagged>
+		<flagged flag="hasMoveY">
+			<word name="y" signed="true" prop="true"/>
+		</flagged>
+		<flagged flag="hasFont">
+			<word name="fontHeight" prop="true"/>
+		</flagged>
+
+		<flagged flag="isSetup">
+			<byte name="nGlyphs"/>
+			<list type="TextEntry2" name="glyphs" length="nGlyphs" prop="true"/>
+		</flagged>
+		<fill-byte/>
+	</type>
+
+
+	<type name="TextRecord">
+		<if expression="ctx->tagVersion &lt; 2">
+			<list type="TextRecord6" name="records" prop="true"/>
+		</if>
+		<if expression="ctx->tagVersion >= 2">
+			<object type="TextRecord7" name="string" prop="true"/>
+		</if>
+	</type>
+
+	<type name="TextRecord2">
+		<if expression="ctx->swfVersion &lt; 7">
+			<list type="TextRecord62" name="records" prop="true"/>
+		</if>
+		<if expression="ctx->swfVersion >= 7">
+			<object type="TextRecord72" name="textString" prop="true"/>
+		</if>
+	</type>
+
+
+	<type name="Button">
+		<integer name="reserved1" size="2" constant-size="true"/>
+		<if expression="ctx->swfVersion &lt; 8">
+			<integer name="reserved2" size="2" constant-size="true"/>
+		</if>
+		<if expression="ctx->swfVersion >= 8">
+			<bit name="hasBlendMode"/>
+			<bit name="hasFilterList"/>
+		</if>
+		<bit name="hitTest" prop="true"/>
+		<bit name="down" prop="true"/>
+		<bit name="over" prop="true"/>
+		<bit name="up" prop="true"/>
+		<if expression="hitTest || down || over || up">
+			<word name="objectID" prop="true"/>
+			<word name="depth" prop="true"/>
+			<object type="Transform" name="transform" prop="true"/>
+			<if expression="ctx->tagVersion &gt;= 2">
+				<object type="ColorTransform2" name="colorTransform" prop="true"/>
+			</if>
+			<flagged flag="hasFilterList">
+					<byte name="numFilters"/>
+					<list type="Filter" name="filters" length="numFilters" prop="true"/>
+			</flagged>
+			<flagged flag="hasBlendMode">
+				<byte name="blendMode" prop="true" default="0"/>
+			</flagged>
+		</if>
+	</type>
+
+	<type name="Event">
+		<fill-byte/>
+
+		<word name="flags1" prop="true"/>
+		<if expression="ctx->swfVersion>=6">
+			<word name="flags2" prop="true"/>
+		</if>
+		<if expression="(flags1 | flags2)">
+	<!--
+		... not sure about the order here ...
+
+		<if expression="ctx->swfVersion>=6">
+			<integer name="reserved" size="13" constant-size="true"/>
+			<bit name="construct" prop="true"/>
+			<bit name="keyPress" prop="true"/>
+			<bit name="dragOut" prop="true"/>
+		</if>
+		<bit name="dragOver" prop="true"/>
+		<bit name="rollOut" prop="true"/>
+		<bit name="rollOver" prop="true"/>
+		<bit name="releaseOutside" prop="true"/>
+		<bit name="release" prop="true"/>
+		<bit name="press" prop="true"/>
+		<bit name="initialize" prop="true"/>
+
+		<bit name="data" prop="true"/>
+		<bit name="keyUp" prop="true"/>
+		<bit name="keyDown" prop="true"/>
+		<bit name="mouseUp" prop="true"/>
+		<bit name="mouseDown" prop="true"/>
+		<bit name="mouseMove" prop="true"/>
+		<bit name="unload" prop="true"/>
+		<bit name="enterFrame" prop="true"/>
+		<bit name="load" prop="true"/>
+
+		<if expression="construct|keyPress|dragOut|dragOver|rollOut|rollOver|releaseOutside|release|press|initialize|data|keyUp|keyDown|mouseUp|mouseDown|unload|enterFrame|load">
+	-->
+
+			<uint32 name="actionLength" size="32" constant-size="true"/>
+			<list type="Action" name="actions" prop="true" end="actionLength"/>
+		</if>
+	</type>
+
+	<type name="Condition">
+		<word name="next" next="true" next-offset="-2" prop="true"/>
+
+		<!-- IdleToOverDown -->
+		<bit name="menuEnter" prop="true"/>
+		<!-- OutDownToIdle -->
+		<bit name="pointerReleaseOutside" prop="true"/>
+		<!-- OutDownToOverDown -->
+		<bit name="pointerDragEnter" prop="true"/>
+		<!-- OverDownToOutDown -->
+		<bit name="pointerDragLeave" prop="true"/>
+		<!-- OverDownToOverUp -->
+		<bit name="pointerReleaseInside" prop="true"/>
+		<!-- OverUpToOverDown -->
+		<bit name="pointerPush" prop="true"/>
+		<!-- OverUpToIdle -->
+		<bit name="pointerLeave" prop="true"/>
+		<!-- IdleToOverUp -->
+		<bit name="pointerEnter" prop="true"/>
+		<!-- KeyPress -->
+		<integer name="key" size="7" constant-size="true" prop="true"/>
+		<!-- IdleToOverDown -->
+		<bit name="menuLeave" prop="true"/>
+
+		<list type="Action" name="actions" prop="true"/>
+	</type>
+
+
+	<type name="U30">
+		<u30 name="value" prop="true"/>
+	</type>
+
+	<type name="S24">
+		<s24 name="value" prop="true"/>
+	</type>
+
+	<type name="ValueKind">
+		<u30 name="index" prop="true"/>
+		<byte name="kind" prop="true"/>
+	</type>
+
+	<type name="MethodInfo">
+		<u30 name="paramCount"/>
+		<u30 name="retType" prop="true"/>
+		<list type="U30" name="paramTypes" length="paramCount" prop="true"/>
+		<u30 name="nameIndex" prop="true"/>
+
+		<bit name="hasParamNames" prop="true"/>
+		<bit name="setSDXNs" prop="true"/>
+		<bit name="isExplicit" prop="true"/>
+		<bit name="ignoreRest" prop="true"/>
+		<bit name="hasOptional" prop="true"/>
+		<bit name="needRest" prop="true"/>
+		<bit name="needActivation" prop="true"/>
+		<bit name="needArguments" prop="true"/>
+
+		<flagged flag="hasOptional">
+			<u30 name="optionalCount"/>
+			<list type="ValueKind" name="optional" length="optionalCount" prop="true"/>
+		</flagged>
+
+		<flagged flag="hasParamNames">
+			<list type="U30" name="paramNames" length="paramCount" prop="true"/>
+		</flagged>
+	</type>
+
+	<type name="MetadataInfo">
+		<u30 name="nameIndex" prop="true"/>
+		<u30 name="valuesCount"/>
+		<list type="U30" name="keys" length="valuesCount" prop="true"/>
+		<list type="U30" name="values" length="valuesCount" prop="true"/>
+	</type>
+
+	<type name="NamespaceSet">
+		<u30 name="count"/>
+		<list type="U30" name="namespaces" length="count" prop="true"/>
+	</type>
+
+	<type name="TraitInfo">
+		<u30 name="nameIndex" prop="true"/>
+
+		<bit name="reserved" size="1" constant-size="true"/>
+		<bit name="hasMetadata"/>
+		<bit name="override" prop="true"/>
+		<bit name="final" prop="true"/>
+
+		<list type="Trait" name="trait" length="1" constant-length="true" prop="true"/>
+
+		<flagged flag="hasMetadata">
+			<u30 name="metadataCount"/>
+			<list type="U30" name="metadata" length="metadataCount" prop="true"/>
+		</flagged>
+	</type>
+
+	<type name="InstanceInfo">
+		<u30 name="nameIndex" prop="true"/>
+		<u30 name="superIndex" prop="true"/>
+
+		<integer name="reserved" size="4" constant-size="true"/>
+		<bit name="hasProtectedNS" prop="true"/>
+		<bit name="interface" prop="true"/>
+		<bit name="final" prop="true"/>
+		<bit name="sealed" prop="true"/>
+
+		<flagged flag="hasProtectedNS">
+			<u30 name="protectedNS" prop="true"/>
+		</flagged>
+
+		<u30 name="interfaceCount"/>
+		<list type="U30" name="interfaces" length="interfaceCount" prop="true"/>
+
+		<u30 name="iInitIndex" prop="true"/>
+
+		<u30 name="traitCount"/>
+		<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
+	</type>
+
+	<type name="ClassInfo">
+		<u30 name="cInitIndex" prop="true"/>
+
+		<u30 name="traitCount"/>
+		<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
+	</type>
+
+	<type name="ScriptInfo">
+		<u30 name="initIndex" prop="true"/>
+
+		<u30 name="traitCount"/>
+		<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
+	</type>
+
+	<type name="Exception">
+		<u30 name="tryStart" prop="true"/>
+		<u30 name="tryEnd" prop="true"/>
+		<u30 name="target" prop="true"/>
+		<u30 name="type" prop="true"/>
+		<u30 name="name" prop="true"/>
+	</type>
+
+	<type name="MethodBody">
+		<u30 name="methodInfo" prop="true"/>
+		<u30 name="maxStack" prop="true"/>
+		<u30 name="maxRegs" prop="true"/>
+		<u30 name="scopeDepth" prop="true"/>
+		<u30 name="maxScope" prop="true"/>
+
+		<u30 name="codeLength"/>
+		<list type="OpCode" name="code" end="codeLength" prop="true"/>
+
+		<u30 name="exceptionCount" prop="true"/>
+		<list type="Exception" name="exceptions" length="exceptionCount" prop="true"/>
+
+		<u30 name="traitCount"/>
+		<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
+	</type>
+
+	<type name="Constants">
+		<u30 name="intCount"/>
+		<list type="U30" name="ints" length="intCount" length-sub="1" prop="true"/>
+
+		<u30 name="uintCount"/>
+		<list type="U30" name="uints" length="uintCount" length-sub="1" prop="true"/>
+
+		<u30 name="doubleCount"/>
+		<list type="Double" name="doubles" length="doubleCount" length-sub="1" prop="true"/>
+
+		<u30 name="stringCount"/>
+		<list type="String2" name="strings" length="stringCount" length-sub="1" prop="true"/>
+
+		<u30 name="namespaceConstantCount"/>
+		<list type="NamespaceConstant" name="namespaces" length="namespaceConstantCount" length-sub="1" prop="true"/>
+
+		<u30 name="namespaceSetCount"/>
+		<list type="NamespaceSet" name="namespaceSets" length="namespaceSetCount" length-sub="1" prop="true"/>
+
+		<u30 name="multinameConstantCount"/>
+		<list type="MultinameConstant" name="multinames" length="multinameConstantCount" length-sub="1" prop="true"/>
+	</type>
+
+	<type name="Action3">
+		<word name="minorVersion" prop="true"/>
+		<word name="majorVersion" prop="true"/>
+		<object type="Constants" name="constants" prop="true"/>
+
+		<u30 name="methodInfoCount"/>
+		<list type="MethodInfo" name="methods" length="methodInfoCount" prop="true"/>
+
+		<u30 name="metadataInfoCount"/>
+		<list type="MetadataInfo" name="metadata" length="metadataInfoCount" prop="true"/>
+
+		<u30 name="classCount"/>
+		<list type="InstanceInfo" name="instances" length="classCount" prop="true"/>
+		<list type="ClassInfo" name="classes" length="classCount" prop="true"/>
+
+		<u30 name="scriptCount"/>
+		<list type="ScriptInfo" name="scripts" length="scriptCount" prop="true"/>
+
+		<u30 name="methodBodyCount"/>
+		<list type="MethodBody" name="methodBodies" length="methodBodyCount" prop="true"/>
+	</type>
+
+	<type name="ZoneData">
+		<half name="position" prop="true"/>
+		<half name="size" prop="true"/>
+	</type>
+
+	<type name="ZoneArray">
+		<byte name="count"/>
+		<list type="ZoneData" name="zones" length="count" prop="true"/>
+		<integer name="zoneX" size="1" constant-size="true" prop="true"/>
+		<integer name="zoneY" size="1" constant-size="true" prop="true"/>
+		<integer name="reserved" size="6" constant-size="true"/>
+	</type>
+
+	<!-- ******************** FILTERS ****************** -->
+
+	<filter name="UnknownFilter" id="-1">
+		<data name="data" size="len" prop="true"/>
+	</filter>
+
+	<filter name="DropShadow" id="0x00">
+		<context param="alpha" value="1"/>
+
 		<object type="Color" name="color" prop="true"/>
-	</flagged>
-	<flagged flag="hasMoveX">
-		<word name="x" signed="true" prop="true"/>
-	</flagged>
-	<flagged flag="hasMoveY">
-		<word name="y" signed="true" prop="true"/>
-	</flagged>
-	<flagged flag="hasFont">
-		<word name="fontHeight" prop="true"/>
-	</flagged>
+		<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+		<bit name="innerShadow" prop="true"/>
+		<bit name="knockout" prop="true"/>
+		<bit name="compositeSource" default="1"/>
+		<integer name="passes" size="5" constant-size="true" prop="true"/>
+	</filter>
 
-	<flagged flag="isSetup">
-		<byte name="nGlyphs"/>
-		<list type="TextEntry" name="glyphs" length="nGlyphs" prop="true"/>
-	</flagged>
-	<fill-byte/>
-</type>
+	<filter name="Blur" id="0x01">
+		<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<integer name="passes" size="5" constant-size="true" prop="true"/>
+		<integer name="reserved1" size="3" constant-size="true"/>
+	</filter>
 
-<type name="TextRecord72">
-	<context param="alpha" value="1"/>
-	
-	<bit name="isSetup" default="0" prop="true"/>
-	<integer name="reserved" size="3" constant-size="true"/>
-	<bit name="hasFont"/>
-	<bit name="hasColor"/>
-	<bit name="hasMoveY"/>
-	<bit name="hasMoveX"/>
-	<flagged flag="hasFont">
-		<word name="fontRef" prop="true"/>
-	</flagged>
-	<flagged flag="hasColor">
+	<filter name="Glow" id="0x02">
+		<context param="alpha" value="1"/>
+
 		<object type="Color" name="color" prop="true"/>
-	</flagged>
-	<flagged flag="hasMoveX">
-		<word name="x" signed="true" prop="true"/>
-	</flagged>
-	<flagged flag="hasMoveY">
-		<word name="y" signed="true" prop="true"/>
-	</flagged>
-	<flagged flag="hasFont">
-		<word name="fontHeight" prop="true"/>
-	</flagged>
+		<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+		<bit name="innerGlow" prop="true"/>
+		<bit name="knockout" prop="true"/>
+		<bit name="compositeSource" default="1"/>
+		<integer name="passes" size="5" constant-size="true" prop="true"/>
+	</filter>
 
-	<flagged flag="isSetup">
-		<byte name="nGlyphs"/>
-		<list type="TextEntry2" name="glyphs" length="nGlyphs" prop="true"/>
-	</flagged>
-	<fill-byte/>
-</type>
+	<filter name="Bevel" id="0x03">
+		<context param="alpha" value="1"/>
 
+		<object type="Color" name="shadowColor" prop="true"/>
+		<object type="Color" name="highlightColor" prop="true"/>
+		<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+		<bit name="innerShadow" prop="true"/>
+		<bit name="knockout" prop="true"/>
+		<bit name="compositeSource" default="1"/>
+		<bit name="onTop" prop="true"/>
+		<integer name="passes" size="4" constant-size="true" prop="true"/>
+	</filter>
 
-<type name="TextRecord">
-	<if expression="ctx->tagVersion &lt; 2">
-		<list type="TextRecord6" name="records" prop="true"/>
-	</if>
-	<if expression="ctx->tagVersion >= 2">
-		<object type="TextRecord7" name="string" prop="true"/>
-	</if>
-</type>
+	<filter name="GradientGlow" id="0x04">
+		<context param="alpha" value="1"/>
 
-<type name="TextRecord2">
-	<if expression="ctx->swfVersion &lt; 7">
-		<list type="TextRecord62" name="records" prop="true"/>
-	</if>
-	<if expression="ctx->swfVersion >= 7">
-		<object type="TextRecord72" name="textString" prop="true"/>
-	</if>
-</type>
+		<byte name="numColors"/>
+		<list type="Color" name="colors" length="numColors" prop="true"/>
+		<list type="UChar" name="ratio" length="numColors" prop="true"/>
+		<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
+		<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+		<bit name="innerGlow" prop="true"/>
+		<bit name="knockout" prop="true"/>
+		<bit name="compositeSource" default="1"/>
+		<bit name="onTop" prop="true"/>
+		<integer name="passes" size="4" constant-size="true" prop="true"/>
+	</filter>
 
+	<filter name="Convolution" id="0x05">
+		<context param="alpha" value="1"/>
 
-<type name="Button">
-	<integer name="reserved1" size="2" constant-size="true"/>
-	<if expression="ctx->swfVersion &lt; 8">
-		<integer name="reserved2" size="2" constant-size="true"/>
-	</if>
-	<if expression="ctx->swfVersion >= 8">
-		<bit name="hasBlendMode"/>
-		<bit name="hasFilterList"/>
-	</if>
-	<bit name="hitTest" prop="true"/>
-	<bit name="down" prop="true"/>
-	<bit name="over" prop="true"/>
-	<bit name="up" prop="true"/>
-	<if expression="hitTest || down || over || up">
+		<byte name="matrixX" prop="true"/>
+		<byte name="matrixY" prop="true"/>
+		<float name="divizor" prop="true"/>
+		<float name="bias" prop="true"/>
+		<list type="Float" name="matrix" prop="true" length="(matrixX * matrixY)" constant-length="true"/>
+		<object type="Color" name="defaultColor" prop="true"/>
+		<integer name="reserved" size="5" constant-size="true"/>
+		<bit name="clamp" prop="true"/>
+		<bit name="preserveAlpha" prop="true"/>
+	</filter>
+
+	<filter name="ColorMatrix" id="0x06">
+		<list type="Float" name="matrix" prop="true" length="20" constant-length="true"/>
+	</filter>
+
+	<filter name="GradientBevel" id="0x07">
+		<context param="alpha" value="1"/>
+
+		<byte name="numColors"/>
+		<list type="Color" name="colors" length="numColors" prop="true"/>
+		<list type="UChar" name="ratio" length="numColors" prop="true"/>
+		<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+		<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+		<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+		<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
+		<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true" default="0"/>
+		<bit name="innerGlow" prop="true"/>
+		<bit name="knockout" prop="true"/>
+		<bit name="compositeSource" default="1"/>
+		<bit name="onTop" prop="true"/>
+		<integer name="passes" size="4" constant-size="true" prop="true"/>
+	</filter>
+
+	<!-- ******************** STYLES ****************** -->
+
+	<style name="Solid" id="0x00">
+		<object type="Color" name="color" prop="true"/>
+	</style>
+
+	<style name="LinearGradient" id="0x10">
+		<object type="Transform" name="matrix" prop="true"/>
+		<if expression="ctx->tagVersion &lt; 4">
+			<integer name="reserved" size="4" constant-size="true"/>
+		</if>
+		<if expression="ctx->tagVersion >= 4">
+			<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
+			<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
+		</if>
+		<integer name="count" size="4" constant-size="true"/>
+		<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
+	</style>
+
+	<style name="RadialGradient" id="0x12">
+		<object type="Transform" name="matrix" prop="true"/>
+		<if expression="ctx->tagVersion &lt; 4">
+			<integer name="reserved" size="4" constant-size="true"/>
+		</if>
+		<if expression="ctx->tagVersion >= 4">
+			<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
+			<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
+		</if>
+		<integer name="count" size="4" constant-size="true"/>
+		<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
+	</style>
+
+	<style name="ShiftedRadialGradient" id="0x13">
+		<object type="Transform" name="matrix" prop="true"/>
+		<if expression="ctx->tagVersion &lt; 4">
+			<integer name="reserved" size="4" constant-size="true"/>
+		</if>
+		<if expression="ctx->tagVersion >= 4">
+			<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
+			<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
+		</if>
+		<integer name="count" size="4" constant-size="true"/>
+		<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
+		<fixedpoint2 name="shift" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
+	</style>
+
+	<style name="TiledBitmap" id="0x40">
+		<word name="objectID" prop="true"/>
+		<object type="Transform" name="matrix" prop="true"/>
+	</style>
+
+	<style name="ClippedBitmap" id="0x41">
+		<word name="objectID" prop="true"/>
+		<object type="Transform" name="matrix" prop="true"/>
+	</style>
+
+	<style name="TiledBitmap2" id="0x42">
+		<word name="objectID" prop="true"/>
+		<object type="Transform" name="matrix" prop="true"/>
+	</style>
+
+	<style name="ClippedBitmap2" id="0x43">
+		<word name="objectID" prop="true"/>
+		<object type="Transform" name="matrix" prop="true"/>
+	</style>
+
+	<!-- ******************** TAGS ****************** -->
+
+	<tag name="UnknownTag" id="-1">
+		<data name="data" size="len" prop="true"/>
+	</tag>
+
+	<tag name="End" id="0x00"/>
+	<tag name="ShowFrame" id="0x01"/>
+
+	<tag name="DefineShape" id="0x02">
+		<context param="alpha" value="0"/>
+		<context param="many_shapes" value="0"/>
+		<context param="tagVersion" value="1"/>
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
+		<object type="StyleList" name="styles" prop="true"/>
+		<object type="Shape" name="shapes" prop="true"/>
+		<fill-byte/>
+	</tag>
+
+	<tag name="RemoveObject" id="0x05">
 		<word name="objectID" prop="true"/>
 		<word name="depth" prop="true"/>
+	</tag>
+
+	<tag name="DefineBits" id="0x06">
+		<word name="objectID" prop="true"/>
+		<!-- only basic support for the id -->
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="SetBackgroundColor" id="0x09">
+		<!-- FIXME: alpha?, when len=4 -->
+		<context param="alpha" value="0"/>
+		<object type="Color" name="color" prop="true" />
+	</tag>
+
+	<tag name="DefineText" id="0x0B">
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
 		<object type="Transform" name="transform" prop="true"/>
-		<if expression="ctx->tagVersion &gt;= 2">
-			<object type="ColorTransform2" name="colorTransform" prop="true"/>
+		<byte name="glyphBits" context="true"/>
+		<byte name="advanceBits" context="true"/>
+		<context param="alpha" value="0"/>
+		<context param="tagVersion" value="1"/>
+		<list name="records" type="TextRecord" prop="true"/>
+	</tag>
+
+	<tag name="DefineText2" id="0x21">
+		<context param="alpha" value="1"/>
+
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
+		<object type="Transform" name="transform" prop="true"/>
+		<byte name="glyphBits" context="true"/>
+		<byte name="advanceBits" context="true"/>
+		<list name="records" type="TextRecord2" prop="true"/>
+	</tag>
+
+
+	<tag name="DoAction" id="0x0C">
+		<list name="actions" type="Action" prop="true"/>
+	</tag>
+
+	<tag name="DefineFontInfo" id="0x0D">
+		<word name="objectID" prop="true"/>
+		<!--
+			doesnt work for strange encodings (nibbles.swf)
+			<string mode="pascal" name="name" prop="true"/>
+		-->
+		<byte name="nameLength"/>
+		<data name="nameData" size="nameLength"/>
+
+		<integer name="reserved" size="2" constant-size="true"/>
+		<bit name="smallTextOrUnicode" prop="true"/>
+		<bit name="isShiftJIS" prop="true"/>
+		<bit name="isANSII" prop="true"/>
+		<bit name="isItalic" prop="true"/>
+		<bit name="isBold" prop="true"/>
+		<bit name="isWide" prop="true"/>
+		<if expression="ctx->swfVersion>=6">
+			<byte name="language" prop="true"/>
 		</if>
+		<object type="Rest" name="map" prop="true"/>
+	</tag>
+
+	<tag name="DefineSound" id="0x0E">
+		<word name="objectID" prop="true"/>
+
+		<!-- format values:
+			 0 Raw
+			 1 ADPCM
+			 2 MP3
+			 3 Uncompressed
+			 6 Nellymoser
+		-->
+		<integer name="format" size="4" constant-size="true" prop="true"/>
+
+		<!-- rate values:
+			 0 5512(.5?)
+			 1 11025
+			 2 22050
+			 3 44100
+		-->
+		<integer name="rate" size="2" constant-size="true" prop="true"/>
+
+		<bit name="is16bit" prop="true"/>
+		<bit name="stereo" prop="true"/>
+		<uint32 name="samples" prop="true"/>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="StartSound" id="0x0F">
+		<word name="objectID" prop="true"/>
+
+		<integer name="reserved" size="2" constant-size="true"/>
+		<bit name="stopPlayback" prop="true"/>
+		<bit name="noMultiple" prop="true"/>
+		<bit name="hasEnvelope" prop="true"/>
+		<bit name="hasLoop" prop="true"/>
+		<bit name="hasOutPoint" prop="true"/>
+		<bit name="hasInPoint" prop="true"/>
+
+		<flagged flag="hasInPoint">
+			<uint32 name="inPoint" prop="true"/>
+		</flagged>
+		<flagged flag="hasOutPoint">
+			<uint32 name="outPoint" prop="true"/>
+		</flagged>
+		<flagged flag="hasLoop">
+			<word name="loop" prop="true"/>
+		</flagged>
+		<flagged flag="hasEnvelope">
+			<byte name="envelopeCount" prop="true"/>
+
+			<!-- would be easy to implement, too lazy now, and need a sample -->
+			<object type="Rest" name="envelopeData" prop="true"/>
+		</flagged>
+	</tag>
+
+	<tag name="DefineShape2" id="0x16">
+		<context param="alpha" value="0"/>
+		<context param="many_shapes" value="1"/>
+		<context param="tagVersion" value="2"/>
+
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
+		<object type="StyleList" name="styles" prop="true"/>
+		<object type="Shape" name="shapes" prop="true"/>
+		<fill-byte/>
+	</tag>
+
+	<tag name="DefineShape3" id="0x20">
+		<context param="alpha" value="1"/>
+		<context param="many_shapes" value="1"/>
+		<context param="tagVersion" value="3"/>
+
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
+		<object type="StyleList" name="styles" prop="true"/>
+		<object type="Shape" name="shapes" prop="true"/>
+		<fill-byte/>
+	</tag>
+
+	<tag name="DefineShape4" id="0x43">
+		<word name="objectID" prop="true"/>
+		<object type="Rest" name="data" prop="true"/>
+
+	<!-- the above defines basic support for the id only.
+		below is probably correct, but i need a sample first.
+
+		<context param="alpha" value="1"/>
+		<context param="many_shapes" value="1"/>
+		<context param="tagVersion" value="4"/>
+
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
+		<object type="Rectangle" name="strokeBounds" prop="true"/>
+
+		<integer name="reserved" size="6" constant-size="true"/>
+		<bit name="nonScalingStrokes" prop="true"/>
+		<bit name="scalingStrokes" prop="true"/>
+
+		<object type="StyleList" name="styles" prop="true"/>
+		<object type="Shape" name="shapes" prop="true"/>
+		<fill-byte/>
+	-->
+
+	</tag>
+
+	<tag name="DefineShape5" id="0x53">
+		<context param="alpha" value="1"/>
+		<context param="many_shapes" value="1"/>
+		<context param="tagVersion" value="5"/>
+
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="bounds" prop="true"/>
+		<object type="Rectangle" name="strokeBounds" prop="true"/>
+
+		<integer name="reserved" size="6" constant-size="true"/>
+		<!-- not quite understanding the sense of having two bits for one booleanoid,
+			 copying from alexis here once more. -->
+		<bit name="nonScalingStrokes" prop="true"/>
+		<bit name="scalingStrokes" prop="true"/>
+
+		<object type="StyleList" name="styles" prop="true"/>
+		<object type="Shape" name="shapes" prop="true"/>
+		<fill-byte/>
+	</tag>
+
+
+	<tag name="DefineMorphShape" id="0x2E">
+		<word name="objectID" prop="true"/>
+	<!-- only basic support for the id -->
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="DefineFontInfo2" id="0x3E">
+		<word name="objectID" prop="true"/>
+		<!--
+			doesnt work for strange encodings (nibbles.swf)
+			<string mode="pascal" name="name" prop="true"/>
+		-->
+		<byte name="nameLength"/>
+		<data name="nameData" size="nameLength"/>
+
+		<integer name="reserved" size="2" constant-size="true"/>
+		<bit name="smallTextOrUnicode" prop="true"/>
+		<bit name="isShiftJIS" prop="true"/>
+		<bit name="isANSII" prop="true"/>
+		<bit name="isItalic" prop="true"/>
+		<bit name="isBold" prop="true"/>
+		<bit name="isWide" prop="true"/>
+		<if expression="ctx->swfVersion>=6">
+			<byte name="language" prop="true"/>
+		</if>
+		<object type="Rest" name="map" prop="true"/>
+	</tag>
+
+	<tag name="SoundStreamHead" id="0x12">
+		<integer name="reserved" size="4" constant-size="true"/>
+		<integer name="playbackRate" size="2" constant-size="true" prop="true"/>
+		<bit name="playbackSize" prop="true"/>
+		<bit name="playbackStereo" prop="true"/>
+		<integer name="compression" size="4" constant-size="true" prop="true"/>
+		<integer name="soundRate" size="2" constant-size="true" prop="true"/>
+		<bit name="soundSize" prop="true"/>
+		<bit name="soundStereo" prop="true"/>
+		<word name="sampleSize" prop="true"/>
+		<if expression="compression==2">
+			<!-- doesnt seem to be always present -->
+			<object type="Rest" name="latencySeek" prop="true"/>
+		</if>
+	</tag>
+
+	<tag name="DefineBitsLossless" id="0x14">
+		<word name="objectID" prop="true"/>
+		<byte name="format" prop="true"/>
+		<word name="width" prop="true"/>
+		<word name="height" prop="true"/>
+		<if expression="format==3">
+			<byte name="n_colormap" prop="true"/>
+		</if>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="DefineBitsJPEG2" id="0x15">
+		<word name="objectID" prop="true"/>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="DefineBitsJPEG3" id="0x23">
+		<word name="objectID" prop="true"/>
+		<uint32 name="offset_to_alpha" prop="true"/>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="DefineBitsLossless2" id="0x24">
+		<word name="objectID" prop="true"/>
+		<byte name="format" prop="true"/>
+		<word name="width" prop="true"/>
+		<word name="height" prop="true"/>
+		<if expression="format==3">
+			<byte name="n_colormap" prop="true"/>
+		</if>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="PlaceObject2" id="0x1A">
+		<bit name="hasEventHandler"/>
+		<bit name="hasClipDepth"/>
+		<bit name="hasName"/>
+		<bit name="hasMorph"/>
+		<bit name="hasColorTransform"/>
+		<bit name="hasTransform"/>
+		<bit name="hasID"/>
+		<bit name="replace" prop="true"/>
+		<word name="depth" prop="true"/>
+		<flagged flag="hasID">
+			<word name="objectID" prop="true" default="0"/>
+		</flagged>
+		<flagged flag="hasTransform">
+			<object type="Transform" name="transform" prop="true"/>
+		</flagged>
+		<flagged flag="hasColorTransform">
+			<object type="ColorTransform2" name="colorTransform" prop="true"/>
+		</flagged>
+		<flagged flag="hasMorph">
+			<word name="morph" prop="true"/>
+		</flagged>
+		<flagged flag="hasName">
+			<string name="name" prop="true" default="NULL"/>
+		</flagged>
+		<flagged flag="hasClipDepth">
+			<word name="clipDepth" prop="true" default="0"/>
+		</flagged>
+		<flagged flag="hasEventHandler">
+			<word name="reserved"/>
+
+			<!-- allflags1/2 should be set of the | of all item's flags -->
+			<word name="allflags1" prop="true"/>
+			<if expression="ctx->swfVersion>=6">
+				<word name="allflags2" prop="true"/>
+			</if>
+			<list type="Event" name="events" prop="true"
+				end-condition="!(item->getflags1() | item->getflags2())"/>
+			<!--
+					end-condition="!(item->getconstruct() || item->getkeyPress() || item->getdragOut() || item->getdragOver() || item->getrollOut() || item->getrollOver() || item->getreleaseOutside() || item->getrelease() || item->getpress() || item->getinitialize() || item->getdata() || item->getkeyUp() || item->getkeyDown() || item->getmouseUp() || item->getmouseDown() || item->getmouseMove() || item->getunload() || item->getenterFrame() || item->getload() )"/>
+				<object type="Rest" name="events" prop="true"/>
+			-->
+		</flagged>
+	</tag>
+
+	<tag name="RemoveObject2" id="0x1C">
+		<word name="depth" prop="true"/>
+	</tag>
+
+	<tag name="DefineEditText" id="0x25">
+		<context param="alpha" value="1"/>
+
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="size" prop="true"/>
+		<bit name="hasText"/>
+		<bit name="wordWrap" prop="true"/>
+		<bit name="multiLine" prop="true"/>
+		<bit name="password" prop="true"/>
+		<bit name="readOnly" prop="true"/>
+		<bit name="hasColor"/>
+		<bit name="hasMaxLength"/>
+		<bit name="hasFont"/>
+
+		<!-- slight version difference unimplemented -->
+		<bit name="reserved"/>
+		<bit name="autoSize" prop="true"/>
+
+		<bit name="hasLayout" prop="true"/>
+		<bit name="notSelectable" prop="true"/>
+		<bit name="hasBorder" prop="true"/>
+		<bit name="reserved2"/>
+		<bit name="isHTML" prop="true"/>
+		<bit name="useOutlines" prop="true"/>
+
+		<flagged flag="hasFont">
+			<word name="fontRef" prop="true"/>
+			<word name="fontHeight" prop="true"/>
+		</flagged>
+		<flagged flag="hasColor">
+			<object type="Color" name="color" prop="true"/>
+		</flagged>
+		<flagged flag="hasMaxLength">
+			<word name="maxLength" prop="true"/>
+		</flagged>
+		<flagged flag="hasLayout">
+			<byte name="align" prop="true"/>
+			<word name="leftMargin" prop="true"/>
+			<word name="rightMargin" prop="true"/>
+			<word name="indent" signed="true" prop="true"/>
+			<word name="leading" signed="true" prop="true"/>
+		</flagged>
+		<string name="variableName" prop="true"/>
+		<flagged flag="hasText">
+			<string name="initialText" prop="true"/>
+		</flagged>
+	</tag>
+
+	<tag name="DefineSprite" id="0x27">
+		<word name="objectID" prop="true"/>
+		<word name="frames" prop="true"/>
+		<list name="tags" type="Tag" prop="true"/>
+	</tag>
+
+	<tag name="FrameLabel" id="0x2B">
+		<string name="label" prop="true"/>
+		<object type="Rest" name="flags" prop="true"/>
+	</tag>
+
+	<tag name="SoundStreamHead2" id="0x2D">
+		<integer name="reserved" size="4" constant-size="true"/>
+		<integer name="playbackRate" size="2" constant-size="true" prop="true"/>
+		<bit name="playbackSize" prop="true"/>
+		<bit name="playbackStereo" prop="true"/>
+		<integer name="compression" size="4" constant-size="true" prop="true"/>
+		<integer name="soundRate" size="2" constant-size="true" prop="true"/>
+		<bit name="soundSize" prop="true"/>
+		<bit name="soundStereo" prop="true"/>
+		<word name="sampleSize" prop="true"/>
+		<if expression="compression==2">
+			<!-- doesnt seem to be always present -->
+			<object type="Rest" name="latencySeek" prop="true"/>
+		</if>
+	</tag>
+
+	<tag name="DefineFont" id="0x0A">
+		<context param="tagVersion" value="1"/>
+		<context param="wideGlyphOffsets" value="0"/>
+		<word name="objectID" prop="true"/>
+
+		<object type="Rest" name="data" prop="true"/>
+	<!--
+		<object type="GlyphList" name="glyphs" prop="true"/>
+	-->
+	</tag>
+
+	<tag name="DefineFont2" id="0x30">
+		<context param="tagVersion" value="2"/>
+		<word name="objectID" prop="true"/>
+		<bit name="hasLayout"/>
+		<bit name="isShiftJIS" prop="true"/>
+		<bit name="isUnicode" prop="true"/>
+		<bit name="isANSII" prop="true"/>
+		<bit name="wideGlyphOffsets" prop="true" context="inverse"/>
+		<bit name="wideMap" context="inverse"/>
+		<bit name="italic" prop="true"/>
+		<bit name="bold" prop="true"/>
+		<byte name="language" prop="true"/>
+		<string mode="pascal" name="name" prop="true"/>
+
+		<word name="glyphCount" context="true"/>
+
+		<object type="GlyphList" name="glyphs" prop="true"/>
+
+		<flagged flag="hasLayout">
+			<word name="ascent" signed="true" prop="true"/>
+			<word name="descent" signed="true" prop="true"/>
+			<word name="leading" signed="true" prop="true"/>
+			<list name="advance" type="Short" length="glyphCount" prop="true"/>
+			<list name="bounds" type="Rectangle" length="glyphCount" prop="true"/>
+			<word name="kerningCount" signed="true"/>
+			<flagged flag="wideMap">
+				<list name="wideKerning" type="WideKerning" length="kerningCount" prop="true"/>
+			</flagged>
+			<flagged flag="wideMap" negative="true">
+				<list name="kerning" type="Kerning" length="kerningCount" prop="true"/>
+			</flagged>
+		</flagged>
+	</tag>
+
+	<tag name="DefineFont3" id="0x4B">
+		<context param="tagVersion" value="2"/>
+		<word name="objectID" prop="true"/>
+		<bit name="hasLayout"/>
+		<bit name="isShiftJIS" prop="true"/>
+		<bit name="isUnicode" prop="true"/>
+		<bit name="isANSII" prop="true"/>
+		<bit name="wideGlyphOffsets" prop="true" context="inverse"/>
+		<bit name="wideMap" context="inverse"/>
+		<bit name="italic" prop="true"/>
+		<bit name="bold" prop="true"/>
+		<byte name="language" prop="true"/>
+		<string mode="pascal" name="name" prop="true"/>
+
+		<word name="glyphCount" context="true"/>
+
+		<object type="GlyphList" name="glyphs" prop="true"/>
+
+		<flagged flag="hasLayout">
+			<word name="ascent" signed="true" prop="true"/>
+			<word name="descent" signed="true" prop="true"/>
+			<word name="leading" signed="true" prop="true"/>
+			<list name="advance" type="Short" length="glyphCount" prop="true"/>
+			<list name="bounds" type="Rectangle" length="glyphCount" prop="true"/>
+			<word name="kerningCount" signed="true"/>
+			<flagged flag="wideMap">
+				<list name="wideKerning" type="WideKerning" length="kerningCount" prop="true"/>
+			</flagged>
+			<flagged flag="wideMap" negative="true">
+				<list name="kerning" type="Kerning" length="kerningCount" prop="true"/>
+			</flagged>
+		</flagged>
+	</tag>
+
+	<tag name="DefineButton" id="0x07">
+		<context param="tagVersion" value="1"/>
+
+		<word name="objectID" prop="true"/>
+		<list type="Button" name="buttons" end-condition="!(item->gethitTest() || item->getdown() || item->getover() || item->getup())" end-offset="-2" prop="true"/>
+		<list type="Action" name="actions" prop="true"/>
+	</tag>
+
+	<tag name="DefineButton2" id="0x22">
+		<context param="tagVersion" value="2"/>
+
+		<word name="objectID" prop="true"/>
+		<integer name="reserved" size="7" constant-size="true"/>
+		<bit name="menu" prop="true"/>
+		<word name="buttonsSize" prop="true"/>
+		<list type="Button" name="buttons" end-condition="!(item->gethitTest() || item->getdown() || item->getover() || item->getup())" end-offset="-2" prop="true"/>
+		<list type="Condition" name="conditions" prop="true"/>
+	</tag>
+
+	<tag name="Export" id="0x38">
+		<word name="count"/>
+		<list name="symbols" type="Symbol" length="count" prop="true"/>
+	</tag>
+
+	<tag name="Import" id="0x39">
+		<string name="url" prop="true"/>
+		<word name="count"/>
+		<list name="symbols" type="Symbol" length="count" prop="true"/>
+	</tag>
+
+	<tag name="DoInitAction" id="0x3B">
+		<word name="sprite" prop="true"/>
+		<list name="actions" type="Action" prop="true"/>
+	</tag>
+
+	<tag name="SoundStreamBlock" id="0x13">
+		<data name="data" size="len" prop="true"/>
+	</tag>
+
+	<tag name="DefineVideoStream" id="0x3C">
+		<word name="objectID" prop="true"/>
+		<word name="frames" prop="true"/>
+		<word name="width" prop="true"/>
+		<word name="height" prop="true"/>
+		<integer name="reserved" size="5" constant-size="true"/>
+		<integer name="deblocking" size="2" constant-size="true" prop="true"/>
+		<bit name="smoothing" prop="true"/>
+		<byte name="codec" prop="true"/>
+	</tag>
+
+	<tag name="VideoFrame" id="0x3D">
+		<word name="objectID" prop="true"/>
+		<word name="frame" prop="true"/>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
+
+	<tag name="ScriptLimits" id="0x41">
+		<word name="maxRecursionDepth" prop="true"/>
+		<word name="timeout" prop="true"/>
+	</tag>
+
+	<tag name="SetTabIndex" id="0x42">
+		<word name="depth" prop="true"/>
+		<word name="tabIndex" prop="true"/>
+	</tag>
+
+	<tag name="PlaceObject3" id="0x46">
+		<bit name="hasEventHandler"/>
+		<bit name="hasClipDepth"/>
+		<bit name="hasName"/>
+		<bit name="hasMorph"/>
+		<bit name="hasColorTransform"/>
+		<bit name="hasTransform"/>
+		<bit name="hasID"/>
+		<bit name="replace" prop="true"/>
+		<integer name="reserved1" size="5" constant-size="true"/>
+		<bit name="hasCacheAsBitmap"/>
+		<bit name="hasBlendMode"/>
+		<bit name="hasFilterList"/>
+		<word name="depth" prop="true"/>
+		<flagged flag="hasID">
+			<word name="objectID" prop="true" default="0"/>
+		</flagged>
+		<flagged flag="hasTransform">
+			<object type="Transform" name="transform" prop="true"/>
+		</flagged>
+		<flagged flag="hasColorTransform">
+			<object type="ColorTransform2" name="colorTransform" prop="true"/>
+		</flagged>
+		<flagged flag="hasMorph">
+			<word name="morph" prop="true"/>
+		</flagged>
+		<flagged flag="hasName">
+			<string name="name" prop="true" default="NULL"/>
+		</flagged>
+		<flagged flag="hasClipDepth">
+			<word name="clipDepth" prop="true" default="0"/>
+		</flagged>
 		<flagged flag="hasFilterList">
 				<byte name="numFilters"/>
 				<list type="Filter" name="filters" length="numFilters" prop="true"/>
@@ -410,1810 +1444,776 @@
 		<flagged flag="hasBlendMode">
 			<byte name="blendMode" prop="true" default="0"/>
 		</flagged>
-	</if>
-</type>
-
-<type name="Event">
-	<fill-byte/>
-	
-	<word name="flags1" prop="true"/>
-	<if expression="ctx->swfVersion>=6">
-		<word name="flags2" prop="true"/>
-	</if>
-	<if expression="(flags1 | flags2)">
-<!--
-	... not sure about the order here ...
-
-	<if expression="ctx->swfVersion>=6">
-		<integer name="reserved" size="13" constant-size="true"/>
-		<bit name="construct" prop="true"/>
-		<bit name="keyPress" prop="true"/>
-		<bit name="dragOut" prop="true"/>
-	</if>
-	<bit name="dragOver" prop="true"/>
-	<bit name="rollOut" prop="true"/>
-	<bit name="rollOver" prop="true"/>
-	<bit name="releaseOutside" prop="true"/>
-	<bit name="release" prop="true"/>
-	<bit name="press" prop="true"/>
-	<bit name="initialize" prop="true"/>
-
-	<bit name="data" prop="true"/>
-	<bit name="keyUp" prop="true"/>
-	<bit name="keyDown" prop="true"/>
-	<bit name="mouseUp" prop="true"/>
-	<bit name="mouseDown" prop="true"/>
-	<bit name="mouseMove" prop="true"/>
-	<bit name="unload" prop="true"/>
-	<bit name="enterFrame" prop="true"/>
-	<bit name="load" prop="true"/>
-
-	<if expression="construct|keyPress|dragOut|dragOver|rollOut|rollOver|releaseOutside|release|press|initialize|data|keyUp|keyDown|mouseUp|mouseDown|unload|enterFrame|load">
--->
-
-		<uint32 name="actionLength" size="32" constant-size="true"/>
-		<list type="Action" name="actions" prop="true" end="actionLength"/>
-	</if>
-</type>
-
-<type name="Condition">
-	<word name="next" next="true" next-offset="-2" prop="true"/>
-
-	<!-- IdleToOverDown -->
-	<bit name="menuEnter" prop="true"/>
-	<!-- OutDownToIdle -->
-	<bit name="pointerReleaseOutside" prop="true"/>
-	<!-- OutDownToOverDown -->
-	<bit name="pointerDragEnter" prop="true"/>
-	<!-- OverDownToOutDown -->
-	<bit name="pointerDragLeave" prop="true"/>
-	<!-- OverDownToOverUp -->
-	<bit name="pointerReleaseInside" prop="true"/>
-	<!-- OverUpToOverDown -->
-	<bit name="pointerPush" prop="true"/>
-	<!-- OverUpToIdle -->
-	<bit name="pointerLeave" prop="true"/>
-	<!-- IdleToOverUp -->
-	<bit name="pointerEnter" prop="true"/>
-	<!-- KeyPress -->
-	<integer name="key" size="7" constant-size="true" prop="true"/>
-	<!-- IdleToOverDown -->
-	<bit name="menuLeave" prop="true"/>
-
-	<list type="Action" name="actions" prop="true"/>
-</type>
-
-
-<type name="U30">
-	<u30 name="value" prop="true"/>
-</type>
-
-<type name="S24">
-	<s24 name="value" prop="true"/>
-</type>
-
-<type name="ValueKind">
-	<u30 name="index" prop="true"/>
-	<byte name="kind" prop="true"/>
-</type>
-
-<type name="MethodInfo">
-	<u30 name="paramCount"/>
-	<u30 name="retType" prop="true"/>
-	<list type="U30" name="paramTypes" length="paramCount" prop="true"/>
-	<u30 name="nameIndex" prop="true"/>
-
-	<bit name="hasParamNames" prop="true"/>
-	<bit name="setSDXNs" prop="true"/>
-	<bit name="isExplicit" prop="true"/>
-	<bit name="ignoreRest" prop="true"/>
-	<bit name="hasOptional" prop="true"/>
-	<bit name="needRest" prop="true"/>
-	<bit name="needActivation" prop="true"/>
-	<bit name="needArguments" prop="true"/>
-
-	<flagged flag="hasOptional">
-		<u30 name="optionalCount"/>
-		<list type="ValueKind" name="optional" length="optionalCount" prop="true"/>
-	</flagged>
-
-	<flagged flag="hasParamNames">
-		<list type="U30" name="paramNames" length="paramCount" prop="true"/>
-	</flagged>
-</type>
-
-<type name="MetadataInfo">
-	<u30 name="nameIndex" prop="true"/>
-	<u30 name="valuesCount"/>
-	<list type="U30" name="keys" length="valuesCount" prop="true"/>
-	<list type="U30" name="values" length="valuesCount" prop="true"/>
-</type>
-
-<type name="NamespaceSet">
-	<u30 name="count"/>
-	<list type="U30" name="namespaces" length="count" prop="true"/>
-</type>
-
-<type name="TraitInfo">
-	<u30 name="nameIndex" prop="true"/>
-	
-	<bit name="reserved" size="1" constant-size="true"/>
-	<bit name="hasMetadata"/>
-	<bit name="override" prop="true"/>
-	<bit name="final" prop="true"/>
-
-	<list type="Trait" name="trait" length="1" constant-length="true" prop="true"/>
-
-	<flagged flag="hasMetadata">
-		<u30 name="metadataCount"/>
-		<list type="U30" name="metadata" length="metadataCount" prop="true"/>
-	</flagged>
-</type>
-
-<type name="InstanceInfo">
-	<u30 name="nameIndex" prop="true"/>
-	<u30 name="superIndex" prop="true"/>
-
-	<integer name="reserved" size="4" constant-size="true"/>
-	<bit name="hasProtectedNS" prop="true"/>
-	<bit name="interface" prop="true"/>
-	<bit name="final" prop="true"/>
-	<bit name="sealed" prop="true"/>
-
-	<flagged flag="hasProtectedNS">
-		<u30 name="protectedNS" prop="true"/>
-	</flagged>
-
-	<u30 name="interfaceCount"/>
-	<list type="U30" name="interfaces" length="interfaceCount" prop="true"/>
-	
-	<u30 name="iInitIndex" prop="true"/>
-
-	<u30 name="traitCount"/>
-	<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
-</type>
-
-<type name="ClassInfo">
-	<u30 name="cInitIndex" prop="true"/>
-
-	<u30 name="traitCount"/>
-	<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
-</type>
-
-<type name="ScriptInfo">
-	<u30 name="initIndex" prop="true"/>
-
-	<u30 name="traitCount"/>
-	<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
-</type>
-
-<type name="Exception">
-	<u30 name="tryStart" prop="true"/>
-	<u30 name="tryEnd" prop="true"/>
-	<u30 name="target" prop="true"/>
-	<u30 name="type" prop="true"/>
-	<u30 name="name" prop="true"/>
-</type>
-
-<type name="MethodBody">
-	<u30 name="methodInfo" prop="true"/>
-	<u30 name="maxStack" prop="true"/>
-	<u30 name="maxRegs" prop="true"/>
-	<u30 name="scopeDepth" prop="true"/>
-	<u30 name="maxScope" prop="true"/>
-
-	<u30 name="codeLength"/>
-	<list type="OpCode" name="code" end="codeLength" prop="true"/>
-
-	<u30 name="exceptionCount" prop="true"/>
-	<list type="Exception" name="exceptions" length="exceptionCount" prop="true"/>
-
-	<u30 name="traitCount"/>
-	<list type="TraitInfo" name="traits" length="traitCount" prop="true"/>
-</type>
-
-<type name="Constants">
-	<u30 name="intCount"/>
-	<list type="U30" name="ints" length="intCount" length-sub="1" prop="true"/>
-
-	<u30 name="uintCount"/>
-	<list type="U30" name="uints" length="uintCount" length-sub="1" prop="true"/>
-
-	<u30 name="doubleCount"/>
-	<list type="Double" name="doubles" length="doubleCount" length-sub="1" prop="true"/>
-
-	<u30 name="stringCount"/>
-	<list type="String2" name="strings" length="stringCount" length-sub="1" prop="true"/>
-
-	<u30 name="namespaceConstantCount"/>
-	<list type="NamespaceConstant" name="namespaces" length="namespaceConstantCount" length-sub="1" prop="true"/>
-
-	<u30 name="namespaceSetCount"/>
-	<list type="NamespaceSet" name="namespaceSets" length="namespaceSetCount" length-sub="1" prop="true"/>
-
-	<u30 name="multinameConstantCount"/>
-	<list type="MultinameConstant" name="multinames" length="multinameConstantCount" length-sub="1" prop="true"/>
-</type>
-
-<type name="Action3">
-	<word name="minorVersion" prop="true"/>
-	<word name="majorVersion" prop="true"/>
-	<object type="Constants" name="constants" prop="true"/>
-
-	<u30 name="methodInfoCount"/>
-	<list type="MethodInfo" name="methods" length="methodInfoCount" prop="true"/>
-
-	<u30 name="metadataInfoCount"/>
-	<list type="MetadataInfo" name="metadata" length="metadataInfoCount" prop="true"/>
-
-	<u30 name="classCount"/>
-	<list type="InstanceInfo" name="instances" length="classCount" prop="true"/>
-	<list type="ClassInfo" name="classes" length="classCount" prop="true"/>
-	
-	<u30 name="scriptCount"/>
-	<list type="ScriptInfo" name="scripts" length="scriptCount" prop="true"/>
-
-	<u30 name="methodBodyCount"/>
-	<list type="MethodBody" name="methodBodies" length="methodBodyCount" prop="true"/>
-</type>
-
-<type name="ZoneData">
-	<half name="position" prop="true"/>
-	<half name="size" prop="true"/>
-</type>
-
-<type name="ZoneArray">
-	<byte name="count"/>
-	<list type="ZoneData" name="zones" length="count" prop="true"/>
-	<integer name="zoneX" size="1" constant-size="true" prop="true"/>
-	<integer name="zoneY" size="1" constant-size="true" prop="true"/>
-	<integer name="reserved" size="6" constant-size="true"/>
-</type>
-
-<!-- ******************** FILTERS ****************** -->
-
-<filter name="UnknownFilter" id="-1">
-	<data name="data" size="len" prop="true"/>
-</filter>
-
-<filter name="DropShadow" id="0x00">
-	<context param="alpha" value="1"/>
-	
-	<object type="Color" name="color" prop="true"/>
-	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
-	<bit name="innerShadow" prop="true"/>
-	<bit name="knockout" prop="true"/>
-	<bit name="compositeSource" default="1"/>
-	<integer name="passes" size="5" constant-size="true" prop="true"/>
-</filter>
-
-<filter name="Blur" id="0x01">
-	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<integer name="passes" size="5" constant-size="true" prop="true"/>
-	<integer name="reserved1" size="3" constant-size="true"/>	
-</filter>
-
-<filter name="Glow" id="0x02">
-	<context param="alpha" value="1"/>
-	
-	<object type="Color" name="color" prop="true"/>
-	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
-	<bit name="innerGlow" prop="true"/>
-	<bit name="knockout" prop="true"/>
-	<bit name="compositeSource" default="1"/>
-	<integer name="passes" size="5" constant-size="true" prop="true"/>
-</filter>
-
-<filter name="Bevel" id="0x03">
-	<context param="alpha" value="1"/>
-	
-	<object type="Color" name="shadowColor" prop="true"/>
-	<object type="Color" name="highlightColor" prop="true"/>
-	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
-	<bit name="innerShadow" prop="true"/>
-	<bit name="knockout" prop="true"/>
-	<bit name="compositeSource" default="1"/>
-	<bit name="onTop" prop="true"/>
-	<integer name="passes" size="4" constant-size="true" prop="true"/>
-</filter>
-
-<filter name="GradientGlow" id="0x04">
-	<context param="alpha" value="1"/>
-	
-	<byte name="numColors"/>
-	<list type="Color" name="colors" length="numColors" prop="true"/>
-	<list type="UChar" name="ratio" length="numColors" prop="true"/>
-	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true"/>
-	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
-	<bit name="innerGlow" prop="true"/>
-	<bit name="knockout" prop="true"/>
-	<bit name="compositeSource" default="1"/>
-	<bit name="onTop" prop="true"/>
-	<integer name="passes" size="4" constant-size="true" prop="true"/>
-</filter>
-
-<filter name="Convolution" id="0x05">
-	<context param="alpha" value="1"/>
-	
-	<byte name="matrixX" prop="true"/>
-	<byte name="matrixY" prop="true"/>
-	<float name="divizor" prop="true"/>
-	<float name="bias" prop="true"/>
-	<list type="Float" name="matrix" prop="true" length="(matrixX * matrixY)" constant-length="true"/>
-	<object type="Color" name="defaultColor" prop="true"/>
-	<integer name="reserved" size="5" constant-size="true"/>
-	<bit name="clamp" prop="true"/>
-	<bit name="preserveAlpha" prop="true"/>
-</filter>
-
-<filter name="ColorMatrix" id="0x06">
-	<list type="Float" name="matrix" prop="true" length="20" constant-length="true"/>
-</filter>
-
-<filter name="GradientBevel" id="0x07">
-	<context param="alpha" value="1"/>
-	
-	<byte name="numColors"/>
-	<list type="Color" name="colors" length="numColors" prop="true"/>
-	<list type="UChar" name="ratio" length="numColors" prop="true"/>
-	<fixedpoint2 name="blurX" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint2 name="blurY" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint2 name="angle" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint2 name="distance" signed="true" size="32" constant-size="true" exp="16" prop="true" default="0"/>
-	<fixedpoint2 name="strength" signed="true" size="16" constant-size="true" exp="8" prop="true" default="0"/>
-	<bit name="innerGlow" prop="true"/>
-	<bit name="knockout" prop="true"/>
-	<bit name="compositeSource" default="1"/>
-	<bit name="onTop" prop="true"/>
-	<integer name="passes" size="4" constant-size="true" prop="true"/>
-</filter>
-
-<!-- ******************** STYLES ****************** -->
-
-<style name="Solid" id="0x00">
-	<object type="Color" name="color" prop="true"/>
-</style>
-
-<style name="LinearGradient" id="0x10">
-	<object type="Transform" name="matrix" prop="true"/>
-	<if expression="ctx->tagVersion &lt; 4">
-		<integer name="reserved" size="4" constant-size="true"/>
-	</if>
-	<if expression="ctx->tagVersion >= 4">
-		<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
-		<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
-	</if>
-	<integer name="count" size="4" constant-size="true"/>
-	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
-</style>
-
-<style name="RadialGradient" id="0x12">
-	<object type="Transform" name="matrix" prop="true"/>
-	<if expression="ctx->tagVersion &lt; 4">
-		<integer name="reserved" size="4" constant-size="true"/>
-	</if>
-	<if expression="ctx->tagVersion >= 4">
-		<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
-		<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
-	</if>
-	<integer name="count" size="4" constant-size="true"/>
-	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
-</style>
-
-<style name="ShiftedRadialGradient" id="0x13">
-	<object type="Transform" name="matrix" prop="true"/>
-	<if expression="ctx->tagVersion &lt; 4">
-		<integer name="reserved" size="4" constant-size="true"/>
-	</if>
-	<if expression="ctx->tagVersion >= 4">
-		<integer name="spreadMode" size="2" constant-size="true" prop="true"/>
-		<integer name="interpolationMode" size="2" constant-size="true" prop="true"/>
-	</if>
-	<integer name="count" size="4" constant-size="true"/>
-	<list type="GradientItem" name="gradientColors" length="count" prop="true"/>
-	<fixedpoint2 name="shift" signed="true" size="16" constant-size="true" exp="8" prop="true"/>
-</style>
-
-<style name="TiledBitmap" id="0x40">
-	<word name="objectID" prop="true"/>
-	<object type="Transform" name="matrix" prop="true"/>
-</style>
-
-<style name="ClippedBitmap" id="0x41">
-	<word name="objectID" prop="true"/>
-	<object type="Transform" name="matrix" prop="true"/>
-</style>
-
-<style name="TiledBitmap2" id="0x42">
-	<word name="objectID" prop="true"/>
-	<object type="Transform" name="matrix" prop="true"/>
-</style>
-
-<style name="ClippedBitmap2" id="0x43">
-	<word name="objectID" prop="true"/>
-	<object type="Transform" name="matrix" prop="true"/>
-</style>
-
-<!-- ******************** TAGS ****************** -->
-
-<tag name="UnknownTag" id="-1">
-	<data name="data" size="len" prop="true"/>
-</tag>
-
-<tag name="End" id="0x00"/>
-<tag name="ShowFrame" id="0x01"/>
-
-<tag name="DefineShape" id="0x02">
-	<context param="alpha" value="0"/>
-	<context param="many_shapes" value="0"/>
-	<context param="tagVersion" value="1"/>
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="bounds" prop="true"/>
-	<object type="StyleList" name="styles" prop="true"/>
-	<object type="Shape" name="shapes" prop="true"/>
-	<fill-byte/>
-</tag>
-
-<tag name="RemoveObject" id="0x05">
-	<word name="objectID" prop="true"/>
-	<word name="depth" prop="true"/>
-</tag>
-
-<tag name="DefineBits" id="0x06">
-	<word name="objectID" prop="true"/>
-	<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="SetBackgroundColor" id="0x09">
-	<!-- FIXME: alpha?, when len=4 -->
-	<context param="alpha" value="0"/>
-	<object type="Color" name="color" prop="true" />
-</tag>
-
-<tag name="DefineText" id="0x0B">
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="bounds" prop="true"/>
-	<object type="Transform" name="transform" prop="true"/>
-	<byte name="glyphBits" context="true"/>
-	<byte name="advanceBits" context="true"/>
-	<context param="alpha" value="0"/>
-	<context param="tagVersion" value="1"/>
-	<list name="records" type="TextRecord" prop="true"/>
-</tag>
-
-<tag name="DefineText2" id="0x21">
-	<context param="alpha" value="1"/>
-	
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="bounds" prop="true"/>
-	<object type="Transform" name="transform" prop="true"/>
-	<byte name="glyphBits" context="true"/>
-	<byte name="advanceBits" context="true"/>
-	<list name="records" type="TextRecord2" prop="true"/>
-</tag>
-
-
-<tag name="DoAction" id="0x0C">
-	<list name="actions" type="Action" prop="true"/>
-</tag>
-
-<tag name="DefineFontInfo" id="0x0D">
-	<word name="objectID" prop="true"/>
-	<!--
-		doesnt work for strange encodings (nibbles.swf)
-		<string mode="pascal" name="name" prop="true"/>
-	-->
-	<byte name="nameLength"/>
-	<data name="nameData" size="nameLength"/>
-
-	<integer name="reserved" size="2" constant-size="true"/>
-	<bit name="smallTextOrUnicode" prop="true"/>
-	<bit name="isShiftJIS" prop="true"/>
-	<bit name="isANSII" prop="true"/>
-	<bit name="isItalic" prop="true"/>
-	<bit name="isBold" prop="true"/>
-	<bit name="isWide" prop="true"/>
-	<if expression="ctx->swfVersion>=6">
-		<byte name="language" prop="true"/>
-	</if>
-	<object type="Rest" name="map" prop="true"/>
-</tag>
-
-<tag name="DefineSound" id="0x0E">
-	<word name="objectID" prop="true"/>
-	
-	<!-- format values:
-		 0 Raw
-		 1 ADPCM
-		 2 MP3
-		 3 Uncompressed
-		 6 Nellymoser
-	-->
-	<integer name="format" size="4" constant-size="true" prop="true"/>
-	
-	<!-- rate values:
-		 0 5512(.5?)
-		 1 11025
-		 2 22050
-		 3 44100
-	-->
-	<integer name="rate" size="2" constant-size="true" prop="true"/>
-	
-	<bit name="is16bit" prop="true"/>
-	<bit name="stereo" prop="true"/>
-	<uint32 name="samples" prop="true"/>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="StartSound" id="0x0F">
-	<word name="objectID" prop="true"/>
-	
-	<integer name="reserved" size="2" constant-size="true"/>
-	<bit name="stopPlayback" prop="true"/>
-	<bit name="noMultiple" prop="true"/>
-	<bit name="hasEnvelope" prop="true"/>
-	<bit name="hasLoop" prop="true"/>
-	<bit name="hasOutPoint" prop="true"/>
-	<bit name="hasInPoint" prop="true"/>
-	
-	<flagged flag="hasInPoint">
-		<uint32 name="inPoint" prop="true"/>
-	</flagged>
-	<flagged flag="hasOutPoint">
-		<uint32 name="outPoint" prop="true"/>
-	</flagged>
-	<flagged flag="hasLoop">
-		<word name="loop" prop="true"/>
-	</flagged>
-	<flagged flag="hasEnvelope">
-		<byte name="envelopeCount" prop="true"/>
-		
-		<!-- would be easy to implement, too lazy now, and need a sample -->
-		<object type="Rest" name="envelopeData" prop="true"/>
-	</flagged>
-</tag>
-
-<tag name="DefineShape2" id="0x16">
-	<context param="alpha" value="0"/>
-	<context param="many_shapes" value="1"/>
-	<context param="tagVersion" value="2"/>
-
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="bounds" prop="true"/>
-	<object type="StyleList" name="styles" prop="true"/>
-	<object type="Shape" name="shapes" prop="true"/>
-	<fill-byte/>
-</tag>
-
-<tag name="DefineShape3" id="0x20">
-	<context param="alpha" value="1"/>
-	<context param="many_shapes" value="1"/>
-	<context param="tagVersion" value="3"/>
-
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="bounds" prop="true"/>
-	<object type="StyleList" name="styles" prop="true"/>
-	<object type="Shape" name="shapes" prop="true"/>
-	<fill-byte/>
-</tag>
-
-<tag name="DefineShape4" id="0x43">
-    <word name="objectID" prop="true"/>
-	<object type="Rest" name="data" prop="true"/>
-
-<!-- the above defines basic support for the id only.
-    below is probably correct, but i need a sample first.
-
-    <context param="alpha" value="1"/>
-	<context param="many_shapes" value="1"/>
-	<context param="tagVersion" value="4"/>
-
-	<word name="objectID" prop="true"/>
-    <object type="Rectangle" name="bounds" prop="true"/>
-    <object type="Rectangle" name="strokeBounds" prop="true"/>
-    
-	<integer name="reserved" size="6" constant-size="true"/>
-	<bit name="nonScalingStrokes" prop="true"/>
-	<bit name="scalingStrokes" prop="true"/>
-    
-    <object type="StyleList" name="styles" prop="true"/>
-    <object type="Shape" name="shapes" prop="true"/>
-	<fill-byte/>
--->
-
-</tag>
-
-<tag name="DefineShape5" id="0x53">
-    <context param="alpha" value="1"/>
-	<context param="many_shapes" value="1"/>
-	<context param="tagVersion" value="5"/>
-
-	<word name="objectID" prop="true"/>
-    <object type="Rectangle" name="bounds" prop="true"/>
-    <object type="Rectangle" name="strokeBounds" prop="true"/>
-    
-	<integer name="reserved" size="6" constant-size="true"/>
-    <!-- not quite understanding the sense of having two bits for one booleanoid,
-         copying from alexis here once more. -->
-	<bit name="nonScalingStrokes" prop="true"/>
-	<bit name="scalingStrokes" prop="true"/>
-    
-    <object type="StyleList" name="styles" prop="true"/>
-    <object type="Shape" name="shapes" prop="true"/>
-	<fill-byte/>
-</tag>
-
-
-<tag name="DefineMorphShape" id="0x2E">
-	<word name="objectID" prop="true"/>
-<!-- only basic support for the id -->
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="DefineFontInfo2" id="0x3E">
-	<word name="objectID" prop="true"/>
-	<!--
-		doesnt work for strange encodings (nibbles.swf)
-		<string mode="pascal" name="name" prop="true"/>
-	-->
-	<byte name="nameLength"/>
-	<data name="nameData" size="nameLength"/>
-	
-	<integer name="reserved" size="2" constant-size="true"/>
-	<bit name="smallTextOrUnicode" prop="true"/>
-	<bit name="isShiftJIS" prop="true"/>
-	<bit name="isANSII" prop="true"/>
-	<bit name="isItalic" prop="true"/>
-	<bit name="isBold" prop="true"/>
-	<bit name="isWide" prop="true"/>
-	<if expression="ctx->swfVersion>=6">
-		<byte name="language" prop="true"/>
-	</if>
-	<object type="Rest" name="map" prop="true"/>
-</tag>
-
-<tag name="SoundStreamHead" id="0x12">
-	<integer name="reserved" size="4" constant-size="true"/>
-	<integer name="playbackRate" size="2" constant-size="true" prop="true"/>
-	<bit name="playbackSize" prop="true"/>
-	<bit name="playbackStereo" prop="true"/>
-	<integer name="compression" size="4" constant-size="true" prop="true"/>
-	<integer name="soundRate" size="2" constant-size="true" prop="true"/>
-	<bit name="soundSize" prop="true"/>
-	<bit name="soundStereo" prop="true"/>
-	<word name="sampleSize" prop="true"/>
-	<if expression="compression==2">
-		<!-- doesnt seem to be always present -->
-		<object type="Rest" name="latencySeek" prop="true"/>
-	</if>
-</tag>
-
-<tag name="DefineBitsLossless" id="0x14">
-	<word name="objectID" prop="true"/>
-	<byte name="format" prop="true"/>
-	<word name="width" prop="true"/>
-	<word name="height" prop="true"/>
-	<if expression="format==3">
-		<byte name="n_colormap" prop="true"/>
-	</if>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="DefineBitsJPEG2" id="0x15">
-	<word name="objectID" prop="true"/>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="DefineBitsJPEG3" id="0x23">
-	<word name="objectID" prop="true"/>
-	<uint32 name="offset_to_alpha" prop="true"/>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="DefineBitsLossless2" id="0x24">
-	<word name="objectID" prop="true"/>
-	<byte name="format" prop="true"/>
-	<word name="width" prop="true"/>
-	<word name="height" prop="true"/>
-	<if expression="format==3">
-		<byte name="n_colormap" prop="true"/>
-	</if>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="PlaceObject2" id="0x1A">
-	<bit name="hasEventHandler"/>
-	<bit name="hasClipDepth"/>
-	<bit name="hasName"/>
-	<bit name="hasMorph"/>
-	<bit name="hasColorTransform"/>
-	<bit name="hasTransform"/>
-	<bit name="hasID"/>
-	<bit name="replace" prop="true"/>
-	<word name="depth" prop="true"/>
-	<flagged flag="hasID">
-		<word name="objectID" prop="true" default="0"/>
-	</flagged>
-	<flagged flag="hasTransform">
-		<object type="Transform" name="transform" prop="true"/>
-	</flagged>
-	<flagged flag="hasColorTransform">
-		<object type="ColorTransform2" name="colorTransform" prop="true"/>
-	</flagged>
-	<flagged flag="hasMorph">
-		<word name="morph" prop="true"/>
-	</flagged>
-	<flagged flag="hasName">
-		<string name="name" prop="true" default="NULL"/>
-	</flagged>
-	<flagged flag="hasClipDepth">
-		<word name="clipDepth" prop="true" default="0"/>
-	</flagged>
-	<flagged flag="hasEventHandler">
-		<word name="reserved"/>
-		
-		<!-- allflags1/2 should be set of the | of all item's flags -->
-		<word name="allflags1" prop="true"/>
-		<if expression="ctx->swfVersion>=6">
-			<word name="allflags2" prop="true"/>
+		<flagged flag="hasCacheAsBitmap">
+			<!-- alexis swf ref states this as "not in the macromedia docs", dunno... -->
+			<byte name="bitmapCaching" prop="true" default="0"/>
+		</flagged>
+		<flagged flag="hasEventHandler">
+			<word name="reserved"/>
+
+			<!-- allflags1/2 should be set of the | of all item's flags -->
+			<word name="allflags1" prop="true"/>
+			<if expression="ctx->swfVersion>=6">
+				<word name="allflags2" prop="true"/>
+			</if>
+			<list type="Event" name="events" prop="true"
+				end-condition="!(item->getflags1() | item->getflags2())"/>
+			<!--
+					end-condition="!(item->getconstruct() || item->getkeyPress() || item->getdragOut() || item->getdragOver() || item->getrollOut() || item->getrollOver() || item->getreleaseOutside() || item->getrelease() || item->getpress() || item->getinitialize() || item->getdata() || item->getkeyUp() || item->getkeyDown() || item->getmouseUp() || item->getmouseDown() || item->getmouseMove() || item->getunload() || item->getenterFrame() || item->getload() )"/>
+				<object type="Rest" name="events" prop="true"/>
+			-->
+		</flagged>
+	</tag>
+
+	<tag name="ImportAssets2" id="0x47">
+		<string name="url" prop="true"/>
+		<byte name="reserved1" prop="true"/>
+		<byte name="reserved2" prop="true"/>
+		<word name="count"/>
+		<list name="symbols" type="Symbol" length="count" prop="true"/>
+	</tag>
+
+	<tag name="FileAttributes" id="0x45">
+		<integer name="reserved1" size="3" constant-size="true"/>
+		<bit name="hasMetaData" prop="true"/>
+		<if expression="ctx->swfVersion &lt; 9">
+			<integer name="reserved2" size="3" constant-size="true"/>
 		</if>
-		<list type="Event" name="events" prop="true"
-			end-condition="!(item->getflags1() | item->getflags2())"/>
-		<!--
-				end-condition="!(item->getconstruct() || item->getkeyPress() || item->getdragOut() || item->getdragOver() || item->getrollOut() || item->getrollOver() || item->getreleaseOutside() || item->getrelease() || item->getpress() || item->getinitialize() || item->getdata() || item->getkeyUp() || item->getkeyDown() || item->getmouseUp() || item->getmouseDown() || item->getmouseMove() || item->getunload() || item->getenterFrame() || item->getload() )"/>
-			<object type="Rest" name="events" prop="true"/>
-		-->
-	</flagged>
-</tag>
-
-<tag name="RemoveObject2" id="0x1C">
-	<word name="depth" prop="true"/>
-</tag>
-
-<tag name="DefineEditText" id="0x25">
-	<context param="alpha" value="1"/>
-
-	<word name="objectID" prop="true"/>
-	<object type="Rectangle" name="size" prop="true"/>
-	<bit name="hasText"/>
-	<bit name="wordWrap" prop="true"/>
-	<bit name="multiLine" prop="true"/>
-	<bit name="password" prop="true"/>
-	<bit name="readOnly" prop="true"/>
-	<bit name="hasColor"/>
-	<bit name="hasMaxLength"/>
-	<bit name="hasFont"/>
-	
-	<!-- slight version difference unimplemented -->
-	<bit name="reserved"/>
-	<bit name="autoSize" prop="true"/>
-
-	<bit name="hasLayout" prop="true"/>
-	<bit name="notSelectable" prop="true"/>
-	<bit name="hasBorder" prop="true"/>
-	<bit name="reserved2"/>
-	<bit name="isHTML" prop="true"/>
-	<bit name="useOutlines" prop="true"/>
-
-	<flagged flag="hasFont">
-		<word name="fontRef" prop="true"/>
-		<word name="fontHeight" prop="true"/>
-	</flagged>
-	<flagged flag="hasColor">
-		<object type="Color" name="color" prop="true"/>
-	</flagged>
-	<flagged flag="hasMaxLength">
-		<word name="maxLength" prop="true"/>
-	</flagged>
-	<flagged flag="hasLayout">
-		<byte name="align" prop="true"/>
-		<word name="leftMargin" prop="true"/>
-		<word name="rightMargin" prop="true"/>
-		<word name="indent" signed="true" prop="true"/>
-		<word name="leading" signed="true" prop="true"/>
-	</flagged>
-	<string name="variableName" prop="true"/>
-	<flagged flag="hasText">
-		<string name="initialText" prop="true"/>
-	</flagged>
-</tag>
-
-<tag name="DefineSprite" id="0x27">
-	<word name="objectID" prop="true"/>
-	<word name="frames" prop="true"/>
-	<list name="tags" type="Tag" prop="true"/>
-</tag>
-
-<tag name="FrameLabel" id="0x2B">
-	<string name="label" prop="true"/>
-	<object type="Rest" name="flags" prop="true"/>
-</tag>
-
-<tag name="SoundStreamHead2" id="0x2D">
-	<integer name="reserved" size="4" constant-size="true"/>
-	<integer name="playbackRate" size="2" constant-size="true" prop="true"/>
-	<bit name="playbackSize" prop="true"/>
-	<bit name="playbackStereo" prop="true"/>
-	<integer name="compression" size="4" constant-size="true" prop="true"/>
-	<integer name="soundRate" size="2" constant-size="true" prop="true"/>
-	<bit name="soundSize" prop="true"/>
-	<bit name="soundStereo" prop="true"/>
-	<word name="sampleSize" prop="true"/>
-	<if expression="compression==2">
-		<!-- doesnt seem to be always present -->
-		<object type="Rest" name="latencySeek" prop="true"/>
-	</if>
-</tag>
-
-<tag name="DefineFont" id="0x0A">
-	<context param="tagVersion" value="1"/>
-	<context param="wideGlyphOffsets" value="0"/>
-	<word name="objectID" prop="true"/>
-
-	<object type="Rest" name="data" prop="true"/>
-<!--
-	<object type="GlyphList" name="glyphs" prop="true"/>
--->
-</tag>
-
-<tag name="DefineFont2" id="0x30">
-	<context param="tagVersion" value="2"/>
-	<word name="objectID" prop="true"/>
-	<bit name="hasLayout"/>
-	<bit name="isShiftJIS" prop="true"/>
-	<bit name="isUnicode" prop="true"/>
-	<bit name="isANSII" prop="true"/>
-	<bit name="wideGlyphOffsets" prop="true" context="inverse"/>
-	<bit name="wideMap" context="inverse"/>
-	<bit name="italic" prop="true"/>
-	<bit name="bold" prop="true"/>
-	<byte name="language" prop="true"/>
-	<string mode="pascal" name="name" prop="true"/>
-
-	<word name="glyphCount" context="true"/>
-
-	<object type="GlyphList" name="glyphs" prop="true"/>
-	
-	<flagged flag="hasLayout">
-		<word name="ascent" signed="true" prop="true"/>
-		<word name="descent" signed="true" prop="true"/>
-		<word name="leading" signed="true" prop="true"/>
-		<list name="advance" type="Short" length="glyphCount" prop="true"/>
-		<list name="bounds" type="Rectangle" length="glyphCount" prop="true"/>
-		<word name="kerningCount" signed="true"/>
-		<flagged flag="wideMap">
-			<list name="wideKerning" type="WideKerning" length="kerningCount" prop="true"/>
-		</flagged>
-		<flagged flag="wideMap" negative="true">
-			<list name="kerning" type="Kerning" length="kerningCount" prop="true"/>
-		</flagged>
-	</flagged>
-</tag>
-
-<tag name="DefineFont3" id="0x4B">
-	<context param="tagVersion" value="2"/>
-	<word name="objectID" prop="true"/>
-	<bit name="hasLayout"/>
-	<bit name="isShiftJIS" prop="true"/>
-	<bit name="isUnicode" prop="true"/>
-	<bit name="isANSII" prop="true"/>
-	<bit name="wideGlyphOffsets" prop="true" context="inverse"/>
-	<bit name="wideMap" context="inverse"/>
-	<bit name="italic" prop="true"/>
-	<bit name="bold" prop="true"/>
-	<byte name="language" prop="true"/>
-	<string mode="pascal" name="name" prop="true"/>
-
-	<word name="glyphCount" context="true"/>
-
-	<object type="GlyphList" name="glyphs" prop="true"/>
-	
-	<flagged flag="hasLayout">
-		<word name="ascent" signed="true" prop="true"/>
-		<word name="descent" signed="true" prop="true"/>
-		<word name="leading" signed="true" prop="true"/>
-		<list name="advance" type="Short" length="glyphCount" prop="true"/>
-		<list name="bounds" type="Rectangle" length="glyphCount" prop="true"/>
-		<word name="kerningCount" signed="true"/>
-		<flagged flag="wideMap">
-			<list name="wideKerning" type="WideKerning" length="kerningCount" prop="true"/>
-		</flagged>
-		<flagged flag="wideMap" negative="true">
-			<list name="kerning" type="Kerning" length="kerningCount" prop="true"/>
-		</flagged>
-	</flagged>
-</tag>
-
-<tag name="DefineButton" id="0x07">
-	<context param="tagVersion" value="1"/>
-	
-	<word name="objectID" prop="true"/>
-	<list type="Button" name="buttons" end-condition="!(item->gethitTest() || item->getdown() || item->getover() || item->getup())" end-offset="-2" prop="true"/>
-	<list type="Action" name="actions" prop="true"/>
-</tag>
-
-<tag name="DefineButton2" id="0x22">
-	<context param="tagVersion" value="2"/>
-	
-	<word name="objectID" prop="true"/>
-	<integer name="reserved" size="7" constant-size="true"/>
-	<bit name="menu" prop="true"/>
-	<word name="buttonsSize" prop="true"/>
-	<list type="Button" name="buttons" end-condition="!(item->gethitTest() || item->getdown() || item->getover() || item->getup())" end-offset="-2" prop="true"/>
-	<list type="Condition" name="conditions" prop="true"/>
-</tag>
-
-<tag name="Export" id="0x38">
-	<word name="count"/>
-	<list name="symbols" type="Symbol" length="count" prop="true"/>
-</tag>
-
-<tag name="Import" id="0x39">
-	<string name="url" prop="true"/>
-	<word name="count"/>
-	<list name="symbols" type="Symbol" length="count" prop="true"/>
-</tag>
-
-<tag name="DoInitAction" id="0x3B">
-	<word name="sprite" prop="true"/>
-	<list name="actions" type="Action" prop="true"/>
-</tag>
-
-<tag name="SoundStreamBlock" id="0x13">
-	<data name="data" size="len" prop="true"/>
-</tag>
-
-<tag name="DefineVideoStream" id="0x3C">
-	<word name="objectID" prop="true"/>
-	<word name="frames" prop="true"/>
-	<word name="width" prop="true"/>
-	<word name="height" prop="true"/>
-	<integer name="reserved" size="5" constant-size="true"/>
-	<integer name="deblocking" size="2" constant-size="true" prop="true"/>
-	<bit name="smoothing" prop="true"/>
-	<byte name="codec" prop="true"/>
-</tag>
-
-<tag name="VideoFrame" id="0x3D">
-	<word name="objectID" prop="true"/>
-	<word name="frame" prop="true"/>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
-
-<tag name="ScriptLimits" id="0x41">
-	<word name="maxRecursionDepth" prop="true"/>
-	<word name="timeout" prop="true"/>
-</tag>
-
-<tag name="SetTabIndex" id="0x42">
-	<word name="depth" prop="true"/>
-	<word name="tabIndex" prop="true"/>
-</tag>
-
-<tag name="PlaceObject3" id="0x46">
-	<bit name="hasEventHandler"/>
-	<bit name="hasClipDepth"/>
-	<bit name="hasName"/>
-	<bit name="hasMorph"/>
-	<bit name="hasColorTransform"/>
-	<bit name="hasTransform"/>
-	<bit name="hasID"/>
-	<bit name="replace" prop="true"/>
-	<integer name="reserved1" size="5" constant-size="true"/>
-	<bit name="hasCacheAsBitmap"/>
-	<bit name="hasBlendMode"/>
-	<bit name="hasFilterList"/>
-	<word name="depth" prop="true"/>
-	<flagged flag="hasID">
-		<word name="objectID" prop="true" default="0"/>
-	</flagged>
-	<flagged flag="hasTransform">
-		<object type="Transform" name="transform" prop="true"/>
-	</flagged>
-	<flagged flag="hasColorTransform">
-		<object type="ColorTransform2" name="colorTransform" prop="true"/>
-	</flagged>
-	<flagged flag="hasMorph">
-		<word name="morph" prop="true"/>
-	</flagged>
-	<flagged flag="hasName">
-		<string name="name" prop="true" default="NULL"/>
-	</flagged>
-	<flagged flag="hasClipDepth">
-		<word name="clipDepth" prop="true" default="0"/>
-	</flagged>
-	<flagged flag="hasFilterList">
-			<byte name="numFilters"/>
-			<list type="Filter" name="filters" length="numFilters" prop="true"/>
-	</flagged>
-	<flagged flag="hasBlendMode">
-		<byte name="blendMode" prop="true" default="0"/>
-	</flagged>
-	<flagged flag="hasCacheAsBitmap">
-        <!-- alexis swf ref states this as "not in the macromedia docs", dunno... -->
-		<byte name="bitmapCaching" prop="true" default="0"/>
-	</flagged>
-	<flagged flag="hasEventHandler">
-		<word name="reserved"/>
-		
-		<!-- allflags1/2 should be set of the | of all item's flags -->
-		<word name="allflags1" prop="true"/>
-		<if expression="ctx->swfVersion>=6">
-			<word name="allflags2" prop="true"/>
+		<if expression="ctx->swfVersion >= 9">
+			<bit name="allowABC" prop="true"/>
+			<bit name="suppressCrossDomainCaching" prop="true"/>
+			<bit name="swfRelativeURLs" prop="true"/>
 		</if>
-		<list type="Event" name="events" prop="true"
-			end-condition="!(item->getflags1() | item->getflags2())"/>
-		<!--
-				end-condition="!(item->getconstruct() || item->getkeyPress() || item->getdragOut() || item->getdragOver() || item->getrollOut() || item->getrollOver() || item->getreleaseOutside() || item->getrelease() || item->getpress() || item->getinitialize() || item->getdata() || item->getkeyUp() || item->getkeyDown() || item->getmouseUp() || item->getmouseDown() || item->getmouseMove() || item->getunload() || item->getenterFrame() || item->getload() )"/>
-			<object type="Rest" name="events" prop="true"/>
-		-->
-	</flagged>
-</tag>
+		<bit name="useNetwork" prop="true"/>
+		<integer name="reserved3" size="24" constant-size="true"/>
+	</tag>
 
-<tag name="ImportAssets2" id="0x47">
-	<string name="url" prop="true"/>
-	<byte name="reserved1" prop="true"/>
-	<byte name="reserved2" prop="true"/>
-	<word name="count"/>
-	<list name="symbols" type="Symbol" length="count" prop="true"/>
-</tag>
+	<tag name="DefineFontAlignZones" id="0x49">
+		<word name="objectID" prop="true"/>
+		<integer name="csmTableHint" prop="true" size="2" constant-size="true"/>
+		<integer name="reserved" size="6" constant-size="true"/>
+		<list name="zoneArrays" type="ZoneArray" length="ctx->glyphCount" prop="true"/>
+	</tag>
 
-<tag name="FileAttributes" id="0x45">
-	<integer name="reserved1" size="3" constant-size="true"/>
-	<bit name="hasMetaData" prop="true"/>
-	<if expression="ctx->swfVersion &lt; 9">
-		<integer name="reserved2" size="3" constant-size="true"/>
-	</if>
-	<if expression="ctx->swfVersion >= 9">
-		<bit name="allowABC" prop="true"/>
-		<bit name="suppressCrossDomainCaching" prop="true"/>
-		<bit name="swfRelativeURLs" prop="true"/>
-	</if>
-	<bit name="useNetwork" prop="true"/>
-	<integer name="reserved3" size="24" constant-size="true"/>
-</tag>
+	<tag name="CSMTextSettings" id="0x4A">
+		<word name="objectID" prop="true"/>
+		<integer name="useFlashType" prop="true" size="2" constant-size="true"/>
+		<integer name="gridFit" prop="true" size="3" constant-size="true"/>
+		<integer name="reserved1" size="3" constant-size="true"/>
+		<float name="thickness" prop="true"/>
+		<float name="sharpness" prop="true"/>
+		<byte name="reserved2"/>
+	</tag>
 
-<tag name="DefineFontAlignZones" id="0x49">
-	<word name="objectID" prop="true"/>
-	<integer name="csmTableHint" prop="true" size="2" constant-size="true"/>
-	<integer name="reserved" size="6" constant-size="true"/>
-	<list name="zoneArrays" type="ZoneArray" length="ctx->glyphCount" prop="true"/>
-</tag>
+	<tag name="Metadata" id="0x4D">
+		<xml name="RDF" prop="true"/>
+	</tag>
 
-<tag name="CSMTextSettings" id="0x4A">
-	<word name="objectID" prop="true"/>
-	<integer name="useFlashType" prop="true" size="2" constant-size="true"/>
-	<integer name="gridFit" prop="true" size="3" constant-size="true"/>
-	<integer name="reserved1" size="3" constant-size="true"/>
-	<float name="thickness" prop="true"/>
-	<float name="sharpness" prop="true"/>
-	<byte name="reserved2"/>
-</tag>
+	<tag name="DefineScalingGrid" id="0x4E">
+		<word name="objectID" prop="true"/>
+		<object type="Rectangle" name="splitter" prop="true"/>
+	</tag>
 
-<tag name="Metadata" id="0x4D">
-    <xml name="RDF" prop="true"/>
-</tag>
+	<tag name="DoABC" id="0x48">
+		<object type="Action3" name="actions" prop="true"/>
+	</tag>
 
-<tag name="DefineScalingGrid" id="0x4E"> 
-	<word name="objectID" prop="true"/> 
-	<object type="Rectangle" name="splitter" prop="true"/> 
-</tag> 
+	<tag name="DoABCDefine" id="0x52">
+		<uint32 name="flags" prop="true"/>
+		<string name="name" prop="true"/>
+		<object type="Action3" name="actions" prop="true"/>
+	</tag>
 
-<tag name="DoABC" id="0x48">
-	<object type="Action3" name="actions" prop="true"/>
-</tag>
+	<tag name="SymbolClass" id="0x4C">
+		<word name="count"/>
+		<list name="symbols" type="Symbol" length="count" prop="true"/>
+	</tag>
 
-<tag name="DoABCDefine" id="0x52">
-	<uint32 name="flags" prop="true"/>
-	<string name="name" prop="true"/>
-	<object type="Action3" name="actions" prop="true"/>
-</tag>
+	<tag name="DefineSceneAndFrameLabelData" id="0x56">
+		<encodedu32 name="sceneCount"/>
+		<list name="scenes" type="Scene" length="sceneCount" prop="true"/>
+		<encodedu32 name="frameCount"/>
+		<list name="frames" type="Frame" length="frameCount" prop="true"/>
+	</tag>
 
-<tag name="SymbolClass" id="0x4C">
-	<word name="count"/>
-	<list name="symbols" type="Symbol" length="count" prop="true"/>
-</tag>
+	<tag name="DefineBinaryData" id="0x57">
+		<word name="objectID" prop="true"/>
+		<uint32 name="reserved"/>
+		<object type="Rest" name="data" prop="true"/>
+	</tag>
 
-<tag name="DefineSceneAndFrameLabelData" id="0x56">
-	<encodedu32 name="sceneCount"/>
-	<list name="scenes" type="Scene" length="sceneCount" prop="true"/>
-	<encodedu32 name="frameCount"/>
-	<list name="frames" type="Frame" length="frameCount" prop="true"/>
-</tag>
+	<tag name="DefineFontName" id="0x58">
+		<word name="objectID" prop="true"/>
+		<string name="name" prop="true"/>
+		<string name="copyright" prop="true"/>
+	</tag>
 
-<tag name="DefineBinaryData" id="0x57">
-	<word name="objectID" prop="true"/>
-	<uint32 name="reserved"/>
-	<object type="Rest" name="data" prop="true"/>
-</tag>
+	<tag name="EnableDebugger" id="0x3A">
+		<string name="password" prop="true"/>
+	</tag>
 
-<tag name="DefineFontName" id="0x58">
-	<word name="objectID" prop="true"/>
-	<string name="name" prop="true"/>
-	<string name="copyright" prop="true"/>
-</tag>
-    
-<tag name="EnableDebugger" id="0x3A">
-	<string name="password" prop="true"/>
-</tag>
+	<tag name="EnableDebugger2" id="0x40">
+		<word name="reserved" prop="true"/>
+		<string name="password" prop="true"/>
+	</tag>
 
-<tag name="EnableDebugger2" id="0x40">
-	<word name="reserved" prop="true"/>
-	<string name="password" prop="true"/>
-</tag>
-    
-<!-- ******************** ACTIONS ****************** -->
+	<!-- ******************** ACTIONS ****************** -->
 
-<stackitem name="StackString" id="0x00">
-	<string name="value" prop="true"/>
-</stackitem>
-<stackitem name="StackFloat" id="0x01">
-	<float name="value" prop="true"/>
-</stackitem>
-<stackitem name="StackNull" id="0x02"/>
-<stackitem name="StackUndefined" id="0x03"/>
-<stackitem name="StackRegister" id="0x04">
-	<byte name="reg" prop="true"/>
-</stackitem>
-<stackitem name="StackBoolean" id="0x05">
-	<byte name="value" prop="true"/>
-</stackitem>
-<stackitem name="StackDouble" id="0x06">
-	<double name="value" prop="true"/>
-</stackitem>
-<stackitem name="StackInteger" id="0x07">
-	<uint32 name="value" prop="true"/>
-	<!--<integer name="value" size="32" constant-size="true" prop="true"/>-->
-</stackitem>
-<stackitem name="StackDictionaryLookup" id="0x08">
-	<byte name="index" prop="true"/>
-</stackitem>
-<stackitem name="StackLargeDictionaryLookup" id="0x09">
-	<word name="index" prop="true"/>
-</stackitem>
-
-
-<action name="UnknownAction" id="-1">
-	<data name="data" size="len" prop="true"/>
-</action>
-<action name="EndAction" id="0x00"/>
-<action name="NextFrame" id="0x04"/>
-<action name="PreviousFrame" id="0x05"/>
-<action name="Play" id="0x06"/>
-<action name="Stop" id="0x07"/>
-<action name="ToggleQuality" id="0x08"/>
-<action name="StopSound" id="0x09"/>
-<action name="AddCast" id="0x0A"/>
-<action name="Substract" id="0x0B"/>
-<action name="Mulitply" id="0x0C"/>
-<action name="Divide" id="0x0D"/>
-<action name="EqualCast" id="0x0E"/>
-<action name="LessThanCast" id="0x0F"/>
-<action name="LogicalAND" id="0x10"/>
-<action name="LogicalOR" id="0x11"/>
-<action name="LogicalNOT" id="0x12"/>
-<action name="StringEqual" id="0x13"/>
-<action name="StringLength" id="0x14"/>
-<action name="SubString" id="0x15"/>
-<action name="Pop" id="0x17"/>
-<action name="IntegralPart" id="0x18"/>
-<action name="GetVariable" id="0x1C"/>
-<action name="SetVariable" id="0x1D"/>
-<action name="SetTargetDynamic" id="0x20"/>
-<action name="ConcatenateString" id="0x21"/>
-<action name="GetProperty" id="0x22"/>
-<action name="SetProperty" id="0x23"/>
-<action name="DuplicateSprite" id="0x24"/>
-<action name="RemoveSprite" id="0x25"/>
-<action name="Trace" id="0x26"/>
-<action name="StartDrag" id="0x27"/>
-<action name="StopDrag" id="0x28"/>
-<action name="StringLessThan" id="0x29"/>
-<action name="Throw" id="0x2A"/>
-<action name="CastObject" id="0x2B"/>
-<action name="Implements" id="0x2C"/>
-<action name="Random" id="0x30"/>
-<action name="MultibyteStringLength" id="0x31"/>
-<action name="ORD" id="0x32"/>
-<action name="CHR" id="0x33"/>
-<action name="GetTimer" id="0x34"/>
-<action name="MultibyteSubString" id="0x35"/>
-<action name="MultibyteORD" id="0x36"/>
-<action name="MultibyteCHR" id="0x37"/>
-<action name="Delete" id="0x3A"/>
-<action name="DeleteAll" id="0x3B"/>
-<action name="SetLocalVariable" id="0x3C"/>
-<action name="CallFunction" id="0x3D"/>
-<action name="Return" id="0x3E"/>
-<action name="Modulo" id="0x3F"/>
-<action name="New" id="0x40"/>
-<action name="DeclareLocalVariable" id="0x41"/>
-<action name="DeclareArray" id="0x42"/>
-<action name="DeclareObject" id="0x43"/>
-<action name="TypeOf" id="0x44"/>
-<action name="GetTarget" id="0x45"/>
-<action name="Enumerate" id="0x46"/>
-<action name="AddTyped" id="0x47"/>
-<action name="LessThanTyped" id="0x48"/>
-<action name="EqualTyped" id="0x49"/>
-<action name="DefineNumber" id="0x4A"/>
-<action name="DefineString" id="0x4B"/>
-<action name="Duplicate" id="0x4C"/>
-<action name="Swap" id="0x4D"/>
-<action name="GetMember" id="0x4E"/>
-<action name="SetMember" id="0x4F"/>
-<action name="Increment" id="0x50"/>
-<action name="Decrement" id="0x51"/>
-<action name="CallMethod" id="0x52"/>
-<action name="NewMethod" id="0x53"/>
-<action name="InstanceOf" id="0x54"/>
-<action name="EnumerateObject" id="0x55"/>
-<action name="AND" id="0x60"/>
-<action name="OR" id="0x61"/>
-<action name="XOR" id="0x62"/>
-<action name="ShiftLeft" id="0x63"/>
-<action name="ShiftRight" id="0x64"/>
-<action name="ShiftRightUnsigned" id="0x65"/>
-<action name="StrictEqual" id="0x66"/>
-<action name="GreaterThanTyped" id="0x67"/>
-<action name="StringGreaterThan" id="0x68"/>
-<action name="Extends" id="0x69"/>
-
-<action name="GotoFrame" id="0x81">
-	<word name="frame" prop="true"/>
-</action>
-
-<action name="GetURL" id="0x83">
-	<string name="url" prop="true"/>
-	<string name="target" prop="true"/>
-</action>
-
-<action name="StoreRegister" id="0x87">
-	<byte name="reg" prop="true"/>
-</action>
-
-<action name="Dictionary" id="0x88">
-	<word name="length"/>
-	<list name="strings" type="String" length="length" prop="true"/>
-</action>
-
-<action name="WaitForFrame" id="0x8A">
-	<word name="frame" prop="true"/>
-	<byte name="skip" prop="true"/>
-</action>
-
-<action name="SetTarget" id="0x8B">
-	<string name="label" prop="true"/>
-</action>
-
-<action name="GotoLabel" id="0x8C">
-	<string name="label" prop="true"/>
-</action>
-
-<action name="WaitForFrameDynamic" id="0x8D">
-	<word name="frame" prop="true"/>
-	<byte name="skip" prop="true"/>
-</action>
-
-<action name="DeclareFunction2" id="0x8E" swallow="length">
-	<string name="name" prop="true"/>
-	<word name="argc" prop="true"/>
-	<byte name="regc" prop="true"/>
-	
-	<bit name="preloadParent" prop="true"/>
-	<bit name="preloadRoot" prop="true"/>
-	<bit name="suppressSuper" prop="true"/>
-	<bit name="preloadSuper" prop="true"/>
-	<bit name="suppressArguments" prop="true"/>
-	<bit name="preloadArguments" prop="true"/>
-	<bit name="suppressThis" prop="true"/>
-	<bit name="preloadThis" prop="true"/>
-	<integer name="reserved" size="7" constant-size="true" prop="true"/>
-	<bit name="preloadGlobal" prop="true"/>
-	
-	<list name="args" type="Parameter" length="argc" prop="true"/>
-	<word name="length"/>
-	<list name="actions" type="Action" prop="true" end="length"/>
-</action>
-
-<action name="Try" id="0x8F">
-	<integer name="reserved" size="5" constant-size="true"/>
-	<bit name="catchInRegister"/>
-	<bit name="doFinally" prop="true"/>
-	<bit name="doCatch" prop="true"/>
-	<word name="trySize" prop="true"/>
-	<word name="catchSize" prop="true"/>
-	<word name="finallySize" prop="true"/>
-	<flagged flag="catchInRegister">
+	<stackitem name="StackString" id="0x00">
+		<string name="value" prop="true"/>
+	</stackitem>
+	<stackitem name="StackFloat" id="0x01">
+		<float name="value" prop="true"/>
+	</stackitem>
+	<stackitem name="StackNull" id="0x02"/>
+	<stackitem name="StackUndefined" id="0x03"/>
+	<stackitem name="StackRegister" id="0x04">
 		<byte name="reg" prop="true"/>
-	</flagged>
-</action>
+	</stackitem>
+	<stackitem name="StackBoolean" id="0x05">
+		<byte name="value" prop="true"/>
+	</stackitem>
+	<stackitem name="StackDouble" id="0x06">
+		<double name="value" prop="true"/>
+	</stackitem>
+	<stackitem name="StackInteger" id="0x07">
+		<uint32 name="value" prop="true"/>
+		<!--<integer name="value" size="32" constant-size="true" prop="true"/>-->
+	</stackitem>
+	<stackitem name="StackDictionaryLookup" id="0x08">
+		<byte name="index" prop="true"/>
+	</stackitem>
+	<stackitem name="StackLargeDictionaryLookup" id="0x09">
+		<word name="index" prop="true"/>
+	</stackitem>
 
-<action name="With" id="0x94">
-	<word name="size" prop="true"/>
-</action>
 
-<action name="PushData" id="0x96">
-	<list name="items" type="StackItem" prop="true"/>
-</action>
+	<action name="UnknownAction" id="-1">
+		<data name="data" size="len" prop="true"/>
+	</action>
+	<action name="EndAction" id="0x00"/>
+	<action name="NextFrame" id="0x04"/>
+	<action name="PreviousFrame" id="0x05"/>
+	<action name="Play" id="0x06"/>
+	<action name="Stop" id="0x07"/>
+	<action name="ToggleQuality" id="0x08"/>
+	<action name="StopSound" id="0x09"/>
+	<action name="AddCast" id="0x0A"/>
+	<action name="Substract" id="0x0B"/>
+	<action name="Mulitply" id="0x0C"/>
+	<action name="Divide" id="0x0D"/>
+	<action name="EqualCast" id="0x0E"/>
+	<action name="LessThanCast" id="0x0F"/>
+	<action name="LogicalAND" id="0x10"/>
+	<action name="LogicalOR" id="0x11"/>
+	<action name="LogicalNOT" id="0x12"/>
+	<action name="StringEqual" id="0x13"/>
+	<action name="StringLength" id="0x14"/>
+	<action name="SubString" id="0x15"/>
+	<action name="Pop" id="0x17"/>
+	<action name="IntegralPart" id="0x18"/>
+	<action name="GetVariable" id="0x1C"/>
+	<action name="SetVariable" id="0x1D"/>
+	<action name="SetTargetDynamic" id="0x20"/>
+	<action name="ConcatenateString" id="0x21"/>
+	<action name="GetProperty" id="0x22"/>
+	<action name="SetProperty" id="0x23"/>
+	<action name="DuplicateSprite" id="0x24"/>
+	<action name="RemoveSprite" id="0x25"/>
+	<action name="Trace" id="0x26"/>
+	<action name="StartDrag" id="0x27"/>
+	<action name="StopDrag" id="0x28"/>
+	<action name="StringLessThan" id="0x29"/>
+	<action name="Throw" id="0x2A"/>
+	<action name="CastObject" id="0x2B"/>
+	<action name="Implements" id="0x2C"/>
+	<action name="Random" id="0x30"/>
+	<action name="MultibyteStringLength" id="0x31"/>
+	<action name="ORD" id="0x32"/>
+	<action name="CHR" id="0x33"/>
+	<action name="GetTimer" id="0x34"/>
+	<action name="MultibyteSubString" id="0x35"/>
+	<action name="MultibyteORD" id="0x36"/>
+	<action name="MultibyteCHR" id="0x37"/>
+	<action name="Delete" id="0x3A"/>
+	<action name="DeleteAll" id="0x3B"/>
+	<action name="SetLocalVariable" id="0x3C"/>
+	<action name="CallFunction" id="0x3D"/>
+	<action name="Return" id="0x3E"/>
+	<action name="Modulo" id="0x3F"/>
+	<action name="New" id="0x40"/>
+	<action name="DeclareLocalVariable" id="0x41"/>
+	<action name="DeclareArray" id="0x42"/>
+	<action name="DeclareObject" id="0x43"/>
+	<action name="TypeOf" id="0x44"/>
+	<action name="GetTarget" id="0x45"/>
+	<action name="Enumerate" id="0x46"/>
+	<action name="AddTyped" id="0x47"/>
+	<action name="LessThanTyped" id="0x48"/>
+	<action name="EqualTyped" id="0x49"/>
+	<action name="DefineNumber" id="0x4A"/>
+	<action name="DefineString" id="0x4B"/>
+	<action name="Duplicate" id="0x4C"/>
+	<action name="Swap" id="0x4D"/>
+	<action name="GetMember" id="0x4E"/>
+	<action name="SetMember" id="0x4F"/>
+	<action name="Increment" id="0x50"/>
+	<action name="Decrement" id="0x51"/>
+	<action name="CallMethod" id="0x52"/>
+	<action name="NewMethod" id="0x53"/>
+	<action name="InstanceOf" id="0x54"/>
+	<action name="EnumerateObject" id="0x55"/>
+	<action name="AND" id="0x60"/>
+	<action name="OR" id="0x61"/>
+	<action name="XOR" id="0x62"/>
+	<action name="ShiftLeft" id="0x63"/>
+	<action name="ShiftRight" id="0x64"/>
+	<action name="ShiftRightUnsigned" id="0x65"/>
+	<action name="StrictEqual" id="0x66"/>
+	<action name="GreaterThanTyped" id="0x67"/>
+	<action name="StringGreaterThan" id="0x68"/>
+	<action name="Extends" id="0x69"/>
 
-<action name="GetURL2" id="0x9A">
-	<byte name="method" prop="true"/>
-</action>
+	<action name="GotoFrame" id="0x81">
+		<word name="frame" prop="true"/>
+	</action>
 
-<action name="DeclareFunction" id="0x9B">
-	<string name="name" prop="true"/>
-	<word name="argc" prop="true"/>
-	<list name="args" type="String" length="argc" prop="true"/>
-	<word name="length" prop="true"/>
-</action>
+	<action name="GetURL" id="0x83">
+		<string name="url" prop="true"/>
+		<string name="target" prop="true"/>
+	</action>
 
-<action name="BranchAlways" id="0x99">
-	<!-- we need a mechanism here to derive offset from XML... -->
-	<word name="byteOffset" signed="true" prop="true"/>
-</action>
+	<action name="StoreRegister" id="0x87">
+		<byte name="reg" prop="true"/>
+	</action>
 
-<action name="BranchIfTrue" id="0x9D">
-	<!-- we need a mechanism here to derive offset from XML... -->
-	<word name="byteOffset" signed="true" prop="true"/>
-</action>
+	<action name="Dictionary" id="0x88">
+		<word name="length"/>
+		<list name="strings" type="String" length="length" prop="true"/>
+	</action>
 
-<action name="CallFrame" id="0x9E"/>
+	<action name="WaitForFrame" id="0x8A">
+		<word name="frame" prop="true"/>
+		<byte name="skip" prop="true"/>
+	</action>
 
-<action name="GotoExpression" id="0x9F">
-	<byte name="play" prop="true"/>
-</action>
+	<action name="SetTarget" id="0x8B">
+		<string name="label" prop="true"/>
+	</action>
 
-<!-- **************** NAMESPACE CONSTANTS *************** -->
+	<action name="GotoLabel" id="0x8C">
+		<string name="label" prop="true"/>
+	</action>
 
-<namespaceconstant name="PrivateNamespace" id="5">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+	<action name="WaitForFrameDynamic" id="0x8D">
+		<word name="frame" prop="true"/>
+		<byte name="skip" prop="true"/>
+	</action>
 
-<namespaceconstant name="Namespace" id="8">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+	<action name="DeclareFunction2" id="0x8E" swallow="length">
+		<string name="name" prop="true"/>
+		<word name="argc" prop="true"/>
+		<byte name="regc" prop="true"/>
 
-<namespaceconstant name="PackageNamespace" id="22">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+		<bit name="preloadParent" prop="true"/>
+		<bit name="preloadRoot" prop="true"/>
+		<bit name="suppressSuper" prop="true"/>
+		<bit name="preloadSuper" prop="true"/>
+		<bit name="suppressArguments" prop="true"/>
+		<bit name="preloadArguments" prop="true"/>
+		<bit name="suppressThis" prop="true"/>
+		<bit name="preloadThis" prop="true"/>
+		<integer name="reserved" size="7" constant-size="true" prop="true"/>
+		<bit name="preloadGlobal" prop="true"/>
 
-<namespaceconstant name="PackageInternalNamespace" id="23">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+		<list name="args" type="Parameter" length="argc" prop="true"/>
+		<word name="length"/>
+		<list name="actions" type="Action" prop="true" end="length"/>
+	</action>
 
-<namespaceconstant name="ProtectedNamespace" id="24">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+	<action name="Try" id="0x8F">
+		<integer name="reserved" size="5" constant-size="true"/>
+		<bit name="catchInRegister"/>
+		<bit name="doFinally" prop="true"/>
+		<bit name="doCatch" prop="true"/>
+		<word name="trySize" prop="true"/>
+		<word name="catchSize" prop="true"/>
+		<word name="finallySize" prop="true"/>
+		<flagged flag="catchInRegister">
+			<byte name="reg" prop="true"/>
+		</flagged>
+	</action>
 
-<namespaceconstant name="ExplicitNamespace" id="25">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+	<action name="With" id="0x94">
+		<word name="size" prop="true"/>
+	</action>
 
-<namespaceconstant name="MultinameLNamespace" id="26">
-	<u30 name="index" prop="true"/>
-</namespaceconstant>
+	<action name="PushData" id="0x96">
+		<list name="items" type="StackItem" prop="true"/>
+	</action>
 
-<!-- **************** MULTINAME CONSTANTS *************** -->
+	<action name="GetURL2" id="0x9A">
+		<byte name="method" prop="true"/>
+	</action>
 
-<multinameconstant name="QName" id="7">
-	<u30 name="namespaceIndex" prop="true"/>
-	<u30 name="nameIndex" prop="true"/>
-</multinameconstant>
+	<action name="DeclareFunction" id="0x9B">
+		<string name="name" prop="true"/>
+		<word name="argc" prop="true"/>
+		<list name="args" type="String" length="argc" prop="true"/>
+		<word name="length" prop="true"/>
+	</action>
 
-<multinameconstant name="QNameA" id="13">
-	<u30 name="namespaceIndex" prop="true"/>
-	<u30 name="nameIndex" prop="true"/>
-</multinameconstant>
+	<action name="BranchAlways" id="0x99">
+		<!-- we need a mechanism here to derive offset from XML... -->
+		<word name="byteOffset" signed="true" prop="true"/>
+	</action>
 
-<multinameconstant name="Multiname" id="9">
-	<u30 name="nameIndex" prop="true"/>
-	<u30 name="namespaceSetIndex" prop="true"/>
-</multinameconstant>
+	<action name="BranchIfTrue" id="0x9D">
+		<!-- we need a mechanism here to derive offset from XML... -->
+		<word name="byteOffset" signed="true" prop="true"/>
+	</action>
 
-<multinameconstant name="MultinameA" id="14">
-	<u30 name="nameIndex" prop="true"/>
-	<u30 name="namespaceSetIndex" prop="true"/>
-</multinameconstant>
+	<action name="CallFrame" id="0x9E"/>
 
-<multinameconstant name="RTQName" id="15">
-	<u30 name="nameIndex" prop="true"/>
-</multinameconstant>
+	<action name="GotoExpression" id="0x9F">
+		<byte name="play" prop="true"/>
+	</action>
 
-<multinameconstant name="RTQNameA" id="16">
-	<u30 name="nameIndex" prop="true"/>
-</multinameconstant>
+	<!-- **************** NAMESPACE CONSTANTS *************** -->
 
-<multinameconstant name="MultinameL" id="27">
-	<u30 name="namespaceSetIndex" prop="true"/>
-</multinameconstant>
+	<namespaceconstant name="PrivateNamespace" id="5">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<multinameconstant name="RTQNameL" id="17"/>
-<multinameconstant name="RTQNameLA" id="18"/>
+	<namespaceconstant name="Namespace" id="8">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<multinameconstant name="TypeName" id="29">
-	<u30 name="nameIndex" prop="true"/>
-	<u30 name="nameCount" prop="true"/>
-	<list type="U30" name="types" length="nameCount" prop="true"/>
-</multinameconstant>
+	<namespaceconstant name="PackageNamespace" id="22">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<!-- *********************** TRAITS ********************* -->
+	<namespaceconstant name="PackageInternalNamespace" id="23">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<trait name="Slot" id="0">
-	<u30 name="slotID" prop="true"/>
-	<u30 name="typeIndex" prop="true"/>
-	<u30 name="valueIndex" prop="true"/>
-	<if expression="valueIndex != 0">
-		<byte name="valueKind" prop="true"/>
-	</if>
-</trait>
+	<namespaceconstant name="ProtectedNamespace" id="24">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<trait name="Const" id="6">
-	<u30 name="slotID" prop="true"/>
-	<u30 name="typeIndex" prop="true"/>
-	<u30 name="valueIndex" prop="true"/>
-	<if expression="valueIndex != 0">
-		<byte name="valueKind" prop="true"/>
-	</if>
-</trait>
+	<namespaceconstant name="ExplicitNamespace" id="25">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<trait name="Method" id="1">
-	<u30 name="dispID" prop="true"/>
-	<u30 name="methodInfo" prop="true"/>
-</trait>
+	<namespaceconstant name="MultinameLNamespace" id="26">
+		<u30 name="index" prop="true"/>
+	</namespaceconstant>
 
-<trait name="Getter" id="2">
-	<u30 name="dispID" prop="true"/>
-	<u30 name="methodInfo" prop="true"/>
-</trait>
+	<!-- **************** MULTINAME CONSTANTS *************** -->
 
-<trait name="Setter" id="3">
-	<u30 name="dispID" prop="true"/>
-	<u30 name="methodInfo" prop="true"/>
-</trait>
+	<multinameconstant name="QName" id="7">
+		<u30 name="namespaceIndex" prop="true"/>
+		<u30 name="nameIndex" prop="true"/>
+	</multinameconstant>
 
-<trait name="Class" id="4">
-	<u30 name="slotID" prop="true"/>
-	<u30 name="classInfo" prop="true"/>
-</trait>
+	<multinameconstant name="QNameA" id="13">
+		<u30 name="namespaceIndex" prop="true"/>
+		<u30 name="nameIndex" prop="true"/>
+	</multinameconstant>
 
-<trait name="Function" id="5">
-	<u30 name="slotID" prop="true"/>
-	<u30 name="methodInfo" prop="true"/>
-</trait>
+	<multinameconstant name="Multiname" id="9">
+		<u30 name="nameIndex" prop="true"/>
+		<u30 name="namespaceSetIndex" prop="true"/>
+	</multinameconstant>
 
-<!-- *********************** OPCODES ********************* -->
+	<multinameconstant name="MultinameA" id="14">
+		<u30 name="nameIndex" prop="true"/>
+		<u30 name="namespaceSetIndex" prop="true"/>
+	</multinameconstant>
 
-<opcode name="UnknownOpCode" id="-1">
-	<data name="data" size="len" prop="true"/>
-</opcode>
+	<multinameconstant name="RTQName" id="15">
+		<u30 name="nameIndex" prop="true"/>
+	</multinameconstant>
 
-<opcode name="OpBkPt" id="0x01"/>
-<opcode name="OpNop" id="0x02"/>
-<opcode name="OpThrow" id="0x03"/>
-<opcode name="OpGetSuper" id="0x04">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpSetSuper" id="0x05">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpDXNs" id="0x06">
-	<u30 name="dxns" prop="true"/>
-</opcode>
-<opcode name="OpDXNsLate" id="0x07"/>
-<opcode name="OpKill" id="0x08">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpLabel" id="0x09"/>
-<opcode name="OpIfNlt" id="0x0C">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfNle" id="0x0D">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfNgt" id="0x0E">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfNge" id="0x0F">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpJump" id="0x10">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfTrue" id="0x11">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfFalse" id="0x12">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfEq" id="0x13">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfNe" id="0x14">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfLt" id="0x15">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfLe" id="0x16">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfGt" id="0x17">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfGe" id="0x18">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfStrictEq" id="0x19">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpIfStrictNe" id="0x1A">
-	<s24 name="target" prop="true"/>
-</opcode>
-<opcode name="OpLookupSwitch" id="0x1B">
-	<s24 name="defaulTarget" prop="true"/>
-	<u30 name="caseCount" prop="true"/>
-	<list type="S24" name="targetTable" length="caseCount" length-add="1" prop="true"/>
-</opcode>
-<opcode name="OpPushWith" id="0x1C"/>
-<opcode name="OpPopScope" id="0x1D"/>
-<opcode name="OpNextName" id="0x1E"/>
-<opcode name="OpHasNext" id="0x1F"/>
-<opcode name="OpPushNull" id="0x20"/>
-<opcode name="OpPushUndefined" id="0x21"/>
-<opcode name="OpNextValue" id="0x23"/>
-<opcode name="OpPushByte" id="0x24">
-	<byte name="value" prop="true"/>
-</opcode>
-<opcode name="OpPushShort" id="0x25">
-	<u30 name="value" prop="true"/>
-</opcode>
-<opcode name="OpPushTrue" id="0x26"/>
-<opcode name="OpPushFalse" id="0x27"/>
-<opcode name="OpPushNaN" id="0x28"/>
-<opcode name="OpPop" id="0x29"/>
-<opcode name="OpDup" id="0x2A"/>
-<opcode name="OpSwap" id="0x2B"/>
-<opcode name="OpPushString" id="0x2C">
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpPushInt" id="0x2D">
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpPushUInt" id="0x2E">
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpPushDouble" id="0x2F">
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpPushScope" id="0x30"/>
-<opcode name="OpPushNamespace" id="0x31">
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpHasNext2" id="0x32">
-	<u30 name="object" prop="true"/>
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpNewFunction" id="0x40">
-	<u30 name="index" prop="true"/>
-</opcode>
-<opcode name="OpCall" id="0x41">
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpConstruct" id="0x42">
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallMethod" id="0x43">
-	<u30 name="dispID" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallStatic" id="0x44">
-	<u30 name="methodID" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallSuper" id="0x45">
-	<u30 name="name" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallProperty" id="0x46">
-	<u30 name="name" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpReturnVoid" id="0x47"/>
-<opcode name="OpReturnValue" id="0x48"/>
-<opcode name="OpConstructSuper" id="0x49">
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpConstructProp" id="0x4A">
-	<u30 name="name" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallPropLex" id="0x4C">
-	<u30 name="name" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallSuperVoid" id="0x4E">
-	<u30 name="name" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpCallPropVoid" id="0x4F">
-	<u30 name="name" prop="true"/>
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpApplyType" id="0x53">
-	<u30 name="type" prop="true"/>
-</opcode>
-<opcode name="OpNewObject" id="0x55">
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpNewArray" id="0x56">
-	<u30 name="argc" prop="true"/>
-</opcode>
-<opcode name="OpNewActivation" id="0x57"/>
-<opcode name="OpNewClass" id="0x58">
-	<u30 name="classIndex" prop="true"/>
-</opcode>
-<opcode name="OpGetDescendants" id="0x59">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpNewCatch" id="0x5A">
-	<u30 name="exceptionIndex" prop="true"/>
-</opcode>
-<opcode name="OpFindPropStrict" id="0x5D">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpFindProperty" id="0x5E">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpFindDef" id="0x5F">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpGetLex" id="0x60">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpSetProperty" id="0x61">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpGetLocal" id="0x62">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpSetLocal" id="0x63">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpGetGlobalScope" id="0x64"/>
-<opcode name="OpGetScopeObject" id="0x65">
-	<byte name="scopeIndex" prop="true"/>
-</opcode>
-<opcode name="OpGetProperty" id="0x66">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpInitProperty" id="0x68">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpDeleteProperty" id="0x6A">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpGetSlot" id="0x6C">
-	<u30 name="slotID" prop="true"/>
-</opcode>
-<opcode name="OpSetSlot" id="0x6D">
-	<u30 name="slotID" prop="true"/>
-</opcode>
-<opcode name="OpGetGlobalSlot" id="0x6E">
-	<u30 name="slotID" prop="true"/>
-</opcode>
-<opcode name="OpSetGlobalSlot" id="0x6F">
-	<u30 name="slotID" prop="true"/>
-</opcode>
-<opcode name="OpConvertS" id="0x70"/>
-<opcode name="OpEscXelem" id="0x71"/>
-<opcode name="OpEscXattr" id="0x72"/>
-<opcode name="OpConvertI" id="0x73"/>
-<opcode name="OpConvertU" id="0x74"/>
-<opcode name="OpConvertD" id="0x75"/>
-<opcode name="OpConvertB" id="0x76"/>
-<opcode name="OpConvertO" id="0x77"/>
-<opcode name="OpCheckFilter" id="0x78"/>
-<opcode name="OpCoerce" id="0x80">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpCoerceB" id="0x81"/>
-<opcode name="OpCoerceA" id="0x82"/>
-<opcode name="OpCoerceI" id="0x83"/>
-<opcode name="OpCoerceD" id="0x84"/>
-<opcode name="OpCoerceS" id="0x85"/>
-<opcode name="OpAsType" id="0x86">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpAsTypeLate" id="0x87"/>
-<opcode name="OpCoerceU" id="0x88"/>
-<opcode name="OpCoerceO" id="0x89"/>
-<opcode name="OpNegate" id="0x90"/>
-<opcode name="OpIncrement" id="0x91"/>
-<opcode name="OpIncLocal" id="0x92">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpDecrement" id="0x93"/>
-<opcode name="OpDecLocal" id="0x94">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpTypeOf" id="0x95"/>
-<opcode name="OpNot" id="0x96"/>
-<opcode name="OpBitNot" id="0x97"/>
-<opcode name="OpAdd" id="0xA0"/>
-<opcode name="OpSubtract" id="0xA1"/>
-<opcode name="OpMultiply" id="0xA2"/>
-<opcode name="OpDivide" id="0xA3"/>
-<opcode name="OpModulo" id="0xA4"/>
-<opcode name="OpLShift" id="0xA5"/>
-<opcode name="OpRShift" id="0xA6"/>
-<opcode name="OpURShift" id="0xA7"/>
-<opcode name="OpBitAnd" id="0xA8"/>
-<opcode name="OpBitOr" id="0xA9"/>
-<opcode name="OpBitXor" id="0xAA"/>
-<opcode name="OpEquals" id="0xAB"/>
-<opcode name="OpStrictEquals" id="0xAC"/>
-<opcode name="OpLessThan" id="0xAD"/>
-<opcode name="OpLessEquals" id="0xAE"/>
-<opcode name="OpGreaterThan" id="0xAF"/>
-<opcode name="OpGreaterEquals" id="0xB0"/>
-<opcode name="OpInstanceOf" id="0xB1"/>
-<opcode name="OpIsType" id="0xB2">
-	<u30 name="name" prop="true"/>
-</opcode>
-<opcode name="OpIsTypeLate" id="0xB3"/>
-<opcode name="OpIn" id="0xB4"/>
-<opcode name="OpIncrementI" id="0xC0"/>
-<opcode name="OpDecrementI" id="0xC1"/>
-<opcode name="OpIncLocalI" id="0xC2">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpDecLocalI" id="0xC3">
-	<u30 name="address" prop="true"/>
-</opcode>
-<opcode name="OpNegateI" id="0xC4"/>
-<opcode name="OpAddI" id="0xC5"/>
-<opcode name="OpSubtractI" id="0xC6"/>
-<opcode name="OpMultiplyI" id="0xC7"/>
-<opcode name="OpGetLocal0" id="0xD0"/>
-<opcode name="OpGetLocal1" id="0xD1"/>
-<opcode name="OpGetLocal2" id="0xD2"/>
-<opcode name="OpGetLocal3" id="0xD3"/>
-<opcode name="OpSetLocal0" id="0xD4"/>
-<opcode name="OpSetLocal1" id="0xD5"/>
-<opcode name="OpSetLocal2" id="0xD6"/>
-<opcode name="OpSetLocal3" id="0xD7"/>
+	<multinameconstant name="RTQNameA" id="16">
+		<u30 name="nameIndex" prop="true"/>
+	</multinameconstant>
 
-<opcode name="OpDebugReg" id="0xEF">
-	<byte name="unknown" prop="true"/>
-	<u30 name="name" prop="true"/>
-	<u30 name="reg" prop="true"/>
-	<u30 name="line" prop="true"/>
-</opcode>
-<opcode name="OpDebugLine" id="0xF0">
-	<u30 name="line" prop="true"/>
-</opcode>
-<opcode name="OpDebugFile" id="0xF1">
-	<u30 name="file" prop="true"/>
-</opcode>
-<opcode name="OpBkPtLine" id="0xF2">
-	<u30 name="line" prop="true"/>
-</opcode>
-<opcode name="OpTimestamp" id="0xF3"/>
+	<multinameconstant name="MultinameL" id="27">
+		<u30 name="namespaceSetIndex" prop="true"/>
+	</multinameconstant>
+
+	<multinameconstant name="RTQNameL" id="17"/>
+	<multinameconstant name="RTQNameLA" id="18"/>
+
+	<multinameconstant name="TypeName" id="29">
+		<u30 name="nameIndex" prop="true"/>
+		<u30 name="nameCount" prop="true"/>
+		<list type="U30" name="types" length="nameCount" prop="true"/>
+	</multinameconstant>
+
+	<!-- *********************** TRAITS ********************* -->
+
+	<trait name="Slot" id="0">
+		<u30 name="slotID" prop="true"/>
+		<u30 name="typeIndex" prop="true"/>
+		<u30 name="valueIndex" prop="true"/>
+		<if expression="valueIndex != 0">
+			<byte name="valueKind" prop="true"/>
+		</if>
+	</trait>
+
+	<trait name="Const" id="6">
+		<u30 name="slotID" prop="true"/>
+		<u30 name="typeIndex" prop="true"/>
+		<u30 name="valueIndex" prop="true"/>
+		<if expression="valueIndex != 0">
+			<byte name="valueKind" prop="true"/>
+		</if>
+	</trait>
+
+	<trait name="Method" id="1">
+		<u30 name="dispID" prop="true"/>
+		<u30 name="methodInfo" prop="true"/>
+	</trait>
+
+	<trait name="Getter" id="2">
+		<u30 name="dispID" prop="true"/>
+		<u30 name="methodInfo" prop="true"/>
+	</trait>
+
+	<trait name="Setter" id="3">
+		<u30 name="dispID" prop="true"/>
+		<u30 name="methodInfo" prop="true"/>
+	</trait>
+
+	<trait name="Class" id="4">
+		<u30 name="slotID" prop="true"/>
+		<u30 name="classInfo" prop="true"/>
+	</trait>
+
+	<trait name="Function" id="5">
+		<u30 name="slotID" prop="true"/>
+		<u30 name="methodInfo" prop="true"/>
+	</trait>
+
+	<!-- *********************** OPCODES ********************* -->
+
+	<opcode name="UnknownOpCode" id="-1">
+		<data name="data" size="len" prop="true"/>
+	</opcode>
+
+	<opcode name="OpBkPt" id="0x01"/>
+	<opcode name="OpNop" id="0x02"/>
+	<opcode name="OpThrow" id="0x03"/>
+	<opcode name="OpGetSuper" id="0x04">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpSetSuper" id="0x05">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpDXNs" id="0x06">
+		<u30 name="dxns" prop="true"/>
+	</opcode>
+	<opcode name="OpDXNsLate" id="0x07"/>
+	<opcode name="OpKill" id="0x08">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpLabel" id="0x09"/>
+	<opcode name="OpIfNlt" id="0x0C">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfNle" id="0x0D">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfNgt" id="0x0E">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfNge" id="0x0F">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpJump" id="0x10">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfTrue" id="0x11">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfFalse" id="0x12">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfEq" id="0x13">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfNe" id="0x14">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfLt" id="0x15">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfLe" id="0x16">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfGt" id="0x17">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfGe" id="0x18">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfStrictEq" id="0x19">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpIfStrictNe" id="0x1A">
+		<s24 name="target" prop="true"/>
+	</opcode>
+	<opcode name="OpLookupSwitch" id="0x1B">
+		<s24 name="defaulTarget" prop="true"/>
+		<u30 name="caseCount" prop="true"/>
+		<list type="S24" name="targetTable" length="caseCount" length-add="1" prop="true"/>
+	</opcode>
+	<opcode name="OpPushWith" id="0x1C"/>
+	<opcode name="OpPopScope" id="0x1D"/>
+	<opcode name="OpNextName" id="0x1E"/>
+	<opcode name="OpHasNext" id="0x1F"/>
+	<opcode name="OpPushNull" id="0x20"/>
+	<opcode name="OpPushUndefined" id="0x21"/>
+	<opcode name="OpNextValue" id="0x23"/>
+	<opcode name="OpPushByte" id="0x24">
+		<byte name="value" prop="true"/>
+	</opcode>
+	<opcode name="OpPushShort" id="0x25">
+		<u30 name="value" prop="true"/>
+	</opcode>
+	<opcode name="OpPushTrue" id="0x26"/>
+	<opcode name="OpPushFalse" id="0x27"/>
+	<opcode name="OpPushNaN" id="0x28"/>
+	<opcode name="OpPop" id="0x29"/>
+	<opcode name="OpDup" id="0x2A"/>
+	<opcode name="OpSwap" id="0x2B"/>
+	<opcode name="OpPushString" id="0x2C">
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpPushInt" id="0x2D">
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpPushUInt" id="0x2E">
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpPushDouble" id="0x2F">
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpPushScope" id="0x30"/>
+	<opcode name="OpPushNamespace" id="0x31">
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpHasNext2" id="0x32">
+		<u30 name="object" prop="true"/>
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpNewFunction" id="0x40">
+		<u30 name="index" prop="true"/>
+	</opcode>
+	<opcode name="OpCall" id="0x41">
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpConstruct" id="0x42">
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallMethod" id="0x43">
+		<u30 name="dispID" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallStatic" id="0x44">
+		<u30 name="methodID" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallSuper" id="0x45">
+		<u30 name="name" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallProperty" id="0x46">
+		<u30 name="name" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpReturnVoid" id="0x47"/>
+	<opcode name="OpReturnValue" id="0x48"/>
+	<opcode name="OpConstructSuper" id="0x49">
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpConstructProp" id="0x4A">
+		<u30 name="name" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallPropLex" id="0x4C">
+		<u30 name="name" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallSuperVoid" id="0x4E">
+		<u30 name="name" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpCallPropVoid" id="0x4F">
+		<u30 name="name" prop="true"/>
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpApplyType" id="0x53">
+		<u30 name="type" prop="true"/>
+	</opcode>
+	<opcode name="OpNewObject" id="0x55">
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpNewArray" id="0x56">
+		<u30 name="argc" prop="true"/>
+	</opcode>
+	<opcode name="OpNewActivation" id="0x57"/>
+	<opcode name="OpNewClass" id="0x58">
+		<u30 name="classIndex" prop="true"/>
+	</opcode>
+	<opcode name="OpGetDescendants" id="0x59">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpNewCatch" id="0x5A">
+		<u30 name="exceptionIndex" prop="true"/>
+	</opcode>
+	<opcode name="OpFindPropStrict" id="0x5D">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpFindProperty" id="0x5E">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpFindDef" id="0x5F">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpGetLex" id="0x60">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpSetProperty" id="0x61">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpGetLocal" id="0x62">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpSetLocal" id="0x63">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpGetGlobalScope" id="0x64"/>
+	<opcode name="OpGetScopeObject" id="0x65">
+		<byte name="scopeIndex" prop="true"/>
+	</opcode>
+	<opcode name="OpGetProperty" id="0x66">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpInitProperty" id="0x68">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpDeleteProperty" id="0x6A">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpGetSlot" id="0x6C">
+		<u30 name="slotID" prop="true"/>
+	</opcode>
+	<opcode name="OpSetSlot" id="0x6D">
+		<u30 name="slotID" prop="true"/>
+	</opcode>
+	<opcode name="OpGetGlobalSlot" id="0x6E">
+		<u30 name="slotID" prop="true"/>
+	</opcode>
+	<opcode name="OpSetGlobalSlot" id="0x6F">
+		<u30 name="slotID" prop="true"/>
+	</opcode>
+	<opcode name="OpConvertS" id="0x70"/>
+	<opcode name="OpEscXelem" id="0x71"/>
+	<opcode name="OpEscXattr" id="0x72"/>
+	<opcode name="OpConvertI" id="0x73"/>
+	<opcode name="OpConvertU" id="0x74"/>
+	<opcode name="OpConvertD" id="0x75"/>
+	<opcode name="OpConvertB" id="0x76"/>
+	<opcode name="OpConvertO" id="0x77"/>
+	<opcode name="OpCheckFilter" id="0x78"/>
+	<opcode name="OpCoerce" id="0x80">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpCoerceB" id="0x81"/>
+	<opcode name="OpCoerceA" id="0x82"/>
+	<opcode name="OpCoerceI" id="0x83"/>
+	<opcode name="OpCoerceD" id="0x84"/>
+	<opcode name="OpCoerceS" id="0x85"/>
+	<opcode name="OpAsType" id="0x86">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpAsTypeLate" id="0x87"/>
+	<opcode name="OpCoerceU" id="0x88"/>
+	<opcode name="OpCoerceO" id="0x89"/>
+	<opcode name="OpNegate" id="0x90"/>
+	<opcode name="OpIncrement" id="0x91"/>
+	<opcode name="OpIncLocal" id="0x92">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpDecrement" id="0x93"/>
+	<opcode name="OpDecLocal" id="0x94">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpTypeOf" id="0x95"/>
+	<opcode name="OpNot" id="0x96"/>
+	<opcode name="OpBitNot" id="0x97"/>
+	<opcode name="OpAdd" id="0xA0"/>
+	<opcode name="OpSubtract" id="0xA1"/>
+	<opcode name="OpMultiply" id="0xA2"/>
+	<opcode name="OpDivide" id="0xA3"/>
+	<opcode name="OpModulo" id="0xA4"/>
+	<opcode name="OpLShift" id="0xA5"/>
+	<opcode name="OpRShift" id="0xA6"/>
+	<opcode name="OpURShift" id="0xA7"/>
+	<opcode name="OpBitAnd" id="0xA8"/>
+	<opcode name="OpBitOr" id="0xA9"/>
+	<opcode name="OpBitXor" id="0xAA"/>
+	<opcode name="OpEquals" id="0xAB"/>
+	<opcode name="OpStrictEquals" id="0xAC"/>
+	<opcode name="OpLessThan" id="0xAD"/>
+	<opcode name="OpLessEquals" id="0xAE"/>
+	<opcode name="OpGreaterThan" id="0xAF"/>
+	<opcode name="OpGreaterEquals" id="0xB0"/>
+	<opcode name="OpInstanceOf" id="0xB1"/>
+	<opcode name="OpIsType" id="0xB2">
+		<u30 name="name" prop="true"/>
+	</opcode>
+	<opcode name="OpIsTypeLate" id="0xB3"/>
+	<opcode name="OpIn" id="0xB4"/>
+	<opcode name="OpIncrementI" id="0xC0"/>
+	<opcode name="OpDecrementI" id="0xC1"/>
+	<opcode name="OpIncLocalI" id="0xC2">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpDecLocalI" id="0xC3">
+		<u30 name="address" prop="true"/>
+	</opcode>
+	<opcode name="OpNegateI" id="0xC4"/>
+	<opcode name="OpAddI" id="0xC5"/>
+	<opcode name="OpSubtractI" id="0xC6"/>
+	<opcode name="OpMultiplyI" id="0xC7"/>
+	<opcode name="OpGetLocal0" id="0xD0"/>
+	<opcode name="OpGetLocal1" id="0xD1"/>
+	<opcode name="OpGetLocal2" id="0xD2"/>
+	<opcode name="OpGetLocal3" id="0xD3"/>
+	<opcode name="OpSetLocal0" id="0xD4"/>
+	<opcode name="OpSetLocal1" id="0xD5"/>
+	<opcode name="OpSetLocal2" id="0xD6"/>
+	<opcode name="OpSetLocal3" id="0xD7"/>
+
+	<opcode name="OpDebugReg" id="0xEF">
+		<byte name="unknown" prop="true"/>
+		<u30 name="name" prop="true"/>
+		<u30 name="reg" prop="true"/>
+		<u30 name="line" prop="true"/>
+	</opcode>
+	<opcode name="OpDebugLine" id="0xF0">
+		<u30 name="line" prop="true"/>
+	</opcode>
+	<opcode name="OpDebugFile" id="0xF1">
+		<u30 name="file" prop="true"/>
+	</opcode>
+	<opcode name="OpBkPtLine" id="0xF2">
+		<u30 name="line" prop="true"/>
+	</opcode>
+	<opcode name="OpTimestamp" id="0xF3"/>
 
 </format>
