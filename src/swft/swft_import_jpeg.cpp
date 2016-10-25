@@ -10,7 +10,7 @@
 #include <zlib.h>
 
 #define TMP_STRLEN 0xff
-const char jpeg_header[] = { 0xff, 0xd9, 0xff, 0xd8, 0 };
+const char jpeg_header[] = { (char)0xff, (char)0xd9, (char)0xff, (char)0xd8, 0 };
 
 // defined in swft_import_png
 bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBuffer, int *outLength );
