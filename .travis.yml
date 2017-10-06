@@ -3,6 +3,7 @@ language: cpp
 before_script:
   - sudo apt-get install xsltproc
   - sudo apt-get install mtasc
+  - sudo apt-get install libfreetype6-dev
 
 script:
   - ./autogen.sh
