@@ -25,7 +25,6 @@ missing
 *.la
 /src/xslt/simple.cpp
 /src/xslt/simple.xsl
-.geanyprj
 /test/xml-swf-round-trip/*.swf
 /test/xml-swf-round-trip/*.swf.xml
 /test/xml-swf-round-trip/*.diff
