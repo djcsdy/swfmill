@@ -46,6 +46,11 @@ cd "${PROJECT_DIR}"
 ./autogen.sh
 
 
+# Work around low timestamp precision of some host systems.
+
+sleep 2
+
+
 # Build source package and check it works properly.
 
 mkdir -p "${OUTPUT_DIR}"
