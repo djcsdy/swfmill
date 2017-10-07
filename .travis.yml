@@ -3,6 +3,7 @@ language: cpp
 dist: precise
 
 before_script:
+  - git fetch --unshallow
   - sudo apt-get install xsltproc
   - sudo apt-get install mtasc
 
