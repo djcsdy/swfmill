@@ -21,12 +21,12 @@ mkdir -p ~/dependencies
 
 pushd ~/dependencies
 
-wget --continue 'http://www.swfmill.org/dependencies/libiconv-1.14.tar.gz' \
-	'http://www.swfmill.org/dependencies/zlib-1.2.8.tar.gz' \
-	'http://www.swfmill.org/dependencies/libpng-1.6.6.tar.gz' \
-	'http://www.swfmill.org/dependencies/freetype-2.5.0.1.tar.gz' \
-	'http://www.swfmill.org/dependencies/libxml2-2.9.1.tar.gz' \
-	'http://www.swfmill.org/dependencies/libxslt-1.1.28.tar.gz' \
+wget --continue 'https://www.swfmill.org/dependencies/libiconv-1.14.tar.gz' \
+	'https://www.swfmill.org/dependencies/zlib-1.2.8.tar.gz' \
+	'https://www.swfmill.org/dependencies/libpng-1.6.6.tar.gz' \
+	'https://www.swfmill.org/dependencies/freetype-2.5.0.1.tar.gz' \
+	'https://www.swfmill.org/dependencies/libxml2-2.9.1.tar.gz' \
+	'https://www.swfmill.org/dependencies/libxslt-1.1.28.tar.gz' \
 	&& wget_err=0 || wget_err=$?
 
 # for some daft reason wget exits with code 8 when all files are already
