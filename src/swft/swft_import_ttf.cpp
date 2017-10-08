@@ -14,7 +14,7 @@
 #include FT_OUTLINE_H
 #include "SWFShapeMaker.h"
 
-#include <freetype/tttables.h>
+#include FT_TRUETYPE_TABLES_H
 
 using namespace SWF;
 
