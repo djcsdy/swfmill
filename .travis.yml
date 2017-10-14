@@ -1,6 +1,7 @@
 language: cpp
 
-dist: precise
+sudo: required
+dist: trusty
 
 before_script:
   - git fetch --unshallow
