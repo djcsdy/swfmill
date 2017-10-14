@@ -12,7 +12,7 @@ sudo apt-get update
 sudo apt-get install -y build-essential automake autoconf libtool \
 	xsltproc pkg-config libxml2-dev libxslt-dev libfreetype6-dev \
 	libpng-dev mtasc git mingw-w64 mingw-w64-tools binutils-mingw-w64 \
-	g++-mingw-w64 mingw32-runtime tofrodos zip
+	g++-mingw-w64 tofrodos zip
 
 
 # Download source packages for dependencies
