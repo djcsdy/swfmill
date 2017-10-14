@@ -28,6 +28,10 @@ if test "x${XSLTPROC}" == "x"; then
 fi
 
 
+# Checks for C++11 support.
+AX_CXX_COMPILE_STDCXX(11, noext)
+
+
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h unistd.h])
 
