@@ -47,3 +47,4 @@ missing
 .vagrant*
 /swfmill-*.tar.gz
 /distribution
+/test-driver
