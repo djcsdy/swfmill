@@ -51,6 +51,11 @@ cd "${PROJECT_DIR}"
 sleep 2
 
 
+# Wipe any existing builds.
+
+rm -rf "${WORK_DIR}" &>/dev/null || true
+
+
 # Build source package and check it works properly.
 
 mkdir -p "${OUTPUT_DIR}"
