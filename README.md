@@ -142,7 +142,7 @@ from a shared library, please tell me.
 ## Copyright
 
 Copyright © 2005–2007 Daniel Turing.
-Copyright © 2005–2013 swfmill contributors (see AUTHORS).
+Copyright © 2005–2017 swfmill contributors (see AUTHORS).
 
 swfmill is free software; you can redistribute it and/or modify it under the
 terms of the GNU General Public License version 2, as published by the Free
