@@ -21,12 +21,12 @@ mkdir -p ~/dependencies
 
 pushd ~/dependencies
 
-wget --continue 'https://www.swfmill.org/dependencies/libiconv-1.14.tar.gz' \
-	'https://www.swfmill.org/dependencies/zlib-1.2.8.tar.gz' \
-	'https://www.swfmill.org/dependencies/libpng-1.6.6.tar.gz' \
-	'https://www.swfmill.org/dependencies/freetype-2.5.0.1.tar.gz' \
-	'https://www.swfmill.org/dependencies/libxml2-2.9.1.tar.gz' \
-	'https://www.swfmill.org/dependencies/libxslt-1.1.28.tar.gz' \
+wget --continue 'https://www.swfmill.org/dependencies/libiconv-1.15.tar.gz' \
+	'https://www.swfmill.org/dependencies/zlib-1.2.11.tar.gz' \
+	'https://www.swfmill.org/dependencies/libpng-1.6.32.tar.gz' \
+	'https://www.swfmill.org/dependencies/freetype-2.8.1.tar.bz2' \
+	'https://www.swfmill.org/dependencies/libxml2-2.9.6.tar.gz' \
+	'https://www.swfmill.org/dependencies/libxslt-1.1.31.tar.gz' \
 	&& wget_err=0 || wget_err=$?
 
 # for some daft reason wget exits with code 8 when all files are already
@@ -36,28 +36,28 @@ if [[ ${wget_err} -ne 0 ]] && [[ ${wget_err} -ne 8 ]]; then
 	exit ${wget_err}
 fi
 
-tar zxf libiconv-1.14.tar.gz
+tar zxf libiconv-1.15.tar.gz
 
-tar zxf zlib-1.2.8.tar.gz
+tar zxf zlib-1.2.11.tar.gz
 
-tar zxf libpng-1.6.6.tar.gz
+tar zxf libpng-1.6.32.tar.gz
 
-tar zxf freetype-2.5.0.1.tar.gz
+tar jxf freetype-2.8.1.tar.bz2
 
-tar zxf libxml2-2.9.1.tar.gz
+tar zxf libxml2-2.9.6.tar.gz
 
-tar zxf libxslt-1.1.28.tar.gz
+tar zxf libxslt-1.1.31.tar.gz
 
 popd
 
 
 # Install libiconv for 32-bit Windows
 
-mkdir -p ~/i686-w64-mingw32/libiconv-1.14
+mkdir -p ~/i686-w64-mingw32/libiconv-1.15
 
-pushd ~/i686-w64-mingw32/libiconv-1.14
+pushd ~/i686-w64-mingw32/libiconv-1.15
 
-~/dependencies/libiconv-1.14/configure --host=i686-w64-mingw32 \
+~/dependencies/libiconv-1.15/configure --host=i686-w64-mingw32 \
 	--prefix=/usr/local/i686-w64-mingw32 --enable-static \
 	--disable-shared \
 	CPPFLAGS='-I/usr/local/i686-w64-mingw32/include' \
@@ -72,9 +72,9 @@ popd
 
 # Install zlib for 32-bit Windows
 
-cp -r ~/dependencies/zlib-1.2.8 ~/i686-w64-mingw32/zlib-1.2.8
+cp -r ~/dependencies/zlib-1.2.11 ~/i686-w64-mingw32/zlib-1.2.11
 
-pushd ~/i686-w64-mingw32/zlib-1.2.8
+pushd ~/i686-w64-mingw32/zlib-1.2.11
 
 CC=i686-w64-mingw32-gcc AR=i686-w64-mingw32-ar \
 	RANLIB=i686-w64-mingw32-ranlib \
@@ -91,11 +91,11 @@ popd
 
 # Install libpng for 32-bit Windows
 
-mkdir -p ~/i686-w64-mingw32/libpng-1.6.6
+mkdir -p ~/i686-w64-mingw32/libpng-1.6.32
 
-pushd ~/i686-w64-mingw32/libpng-1.6.6
+pushd ~/i686-w64-mingw32/libpng-1.6.32
 
-~/dependencies/libpng-1.6.6/configure --host=i686-w64-mingw32 \
+~/dependencies/libpng-1.6.32/configure --host=i686-w64-mingw32 \
 	--prefix=/usr/local/i686-w64-mingw32 --enable-static \
 	--disable-shared \
 	CPPFLAGS='-I/usr/local/i686-w64-mingw32/include' \
@@ -110,11 +110,11 @@ popd
 
 # Install Freetype for 32-bit Windows
 
-mkdir -p ~/i686-w64-mingw32/freetype-2.5.0.1
+mkdir -p ~/i686-w64-mingw32/freetype-2.8.1
 
-pushd ~/i686-w64-mingw32/freetype-2.5.0.1
+pushd ~/i686-w64-mingw32/freetype-2.8.1
 
-~/dependencies/freetype-2.5.0.1/configure --host=i686-w64-mingw32 \
+~/dependencies/freetype-2.8.1/configure --host=i686-w64-mingw32 \
 	--prefix=/usr/local/i686-w64-mingw32 --enable-static \
 	--disable-shared --without-bzip2 --without-png \
 	CPPFLAGS='-I/usr/local/i686-w64-mingw32/include' \
@@ -129,11 +129,11 @@ popd
 
 # Install libxml2 for 32-bit Windows
 
-mkdir -p ~/i686-w64-mingw32/libxml2-2.9.1
+mkdir -p ~/i686-w64-mingw32/libxml2-2.9.6
 
-pushd ~/i686-w64-mingw32/libxml2-2.9.1
+pushd ~/i686-w64-mingw32/libxml2-2.9.6
 
-~/dependencies/libxml2-2.9.1/configure --host=i686-w64-mingw32 \
+~/dependencies/libxml2-2.9.6/configure --host=i686-w64-mingw32 \
 	--prefix=/usr/local/i686-w64-mingw32 --enable-static \
 	--disable-shared --without-readline --without-python \
 	--with-iconv=/usr/local/i686-w64-mingw32 \
@@ -151,16 +151,16 @@ popd
 
 # Install libxslt for 32-bit Windows
 
-mkdir -p ~/i686-w64-mingw32/libxslt-1.1.28
+mkdir -p ~/i686-w64-mingw32/libxslt-1.1.31
 
-pushd ~/i686-w64-mingw32/libxslt-1.1.28
+pushd ~/i686-w64-mingw32/libxslt-1.1.31
 
-~/dependencies/libxslt-1.1.28/configure --host=i686-w64-mingw32 \
+~/dependencies/libxslt-1.1.31/configure --host=i686-w64-mingw32 \
 	--prefix=/usr/local/i686-w64-mingw32 --enable-static \
 	--disable-shared --without-python \
 	--with-libxml-prefix=/usr/local/i686-w64-mingw32 \
 	--without-plugins \
-	CPPFLAGS='-I/usr/local/i686-w64-mingw32/include -Dmkdir\(f,p\)=mkdir\(f\)' \
+	CPPFLAGS='-I/usr/local/i686-w64-mingw32/include' \
 	LDFLAGS='-L/usr/local/i686-w64-mingw32/lib'
 
 make
