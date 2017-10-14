@@ -1,7 +1,7 @@
 AC_PREREQ(2.54)
 
 AC_INIT(swfmill, m4_esyscmd([ git describe | tr -d '\n' ]))
-AM_INIT_AUTOMAKE([subdir-objects color-tests])
+AM_INIT_AUTOMAKE([1.15 subdir-objects color-tests])
 
 AC_CONFIG_MACRO_DIR([autoconfig/m4])
 
