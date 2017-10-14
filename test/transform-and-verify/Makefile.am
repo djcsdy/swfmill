@@ -1,8 +1,9 @@
 TESTS_ENVIRONMENT = \
 	SWFMILL="$(top_builddir)/src/swfmill$(EXEEXT)" \
 	XSLTPROC="$(XSLTPROC)" \
-	SED="$(SED)" \
-	$(SH) "$(srcdir)/run-test.sh"
+	SED="$(SED)"
+
+LOG_COMPILER = $(SH) "$(srcdir)/run-test.sh"
 
 TESTS = import-jpeg.xsl \
 	import-jpega.xsl \

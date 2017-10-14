@@ -1,6 +1,7 @@
 TESTS_ENVIRONMENT = \
-	SWFMILL="$(top_builddir)/src/swfmill$(EXEEXT)" \
-	$(SH) "$(srcdir)/run-test.sh"
+	SWFMILL="$(top_builddir)/src/swfmill$(EXEEXT)"
+
+LOG_COMPILER = $(SH) "$(srcdir)/run-test.sh"
 
 TESTS = \
 	as3.xml \

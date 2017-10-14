@@ -1,7 +1,8 @@
 TESTS_ENVIRONMENT = \
 	SWFMILL="$(top_builddir)/src/swfmill$(EXEEXT)" \
-	XSLTPROC="$(XSLTPROC)" \
-	$(SH) "$(srcdir)/run-test.sh"
+	XSLTPROC="$(XSLTPROC)"
+
+LOG_COMPILER = $(SH) "$(srcdir)/run-test.sh"
 
 TESTS = placeobject3-import.xml import-happy-ttf.xml
 
