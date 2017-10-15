@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <xsl:stylesheet	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
 
+<xsl:template mode="ctype" match="*">
+	<xsl:message terminate="yes">Unknown data type: <xsl:value-of select="name()"/>.</xsl:message>
+</xsl:template>
+
 <xsl:template mode="ctype" match="byte">unsigned char</xsl:template>
 <xsl:template mode="ctype" match="word">unsigned short</xsl:template>
 <xsl:template mode="ctype" match="byteOrWord">unsigned short</xsl:template>
@@ -21,6 +25,10 @@
 <xsl:template mode="ctype" match="s24" >int</xsl:template>
 <xsl:template mode="ctype" match="encodedu32">unsigned int</xsl:template>
 
+<xsl:template mode="printf" match="*">
+	<xsl:message terminate="yes">Unknown data type: <xsl:value-of select="name()"/>.</xsl:message>
+</xsl:template>
+
 <xsl:template mode="printf" match="byte">%i</xsl:template>
 <xsl:template mode="printf" match="word">%i</xsl:template>
 <xsl:template mode="printf" match="byteOrWord">%i</xsl:template>
@@ -36,6 +44,10 @@
 <xsl:template mode="printf" match="u30">%i</xsl:template>
 <xsl:template mode="printf" match="s24">%i</xsl:template>
 <xsl:template mode="printf" match="encodedu32">%i</xsl:template>
+
+<xsl:template mode="default" match="*">
+	<xsl:message terminate="yes">Unknown data type: <xsl:value-of select="name()"/>.</xsl:message>
+</xsl:template>
 
 <xsl:template mode="default" match="byte|word|byteOrWord|fixedpoint|fixedpoint2|bit|integer">0</xsl:template>
 <xsl:template mode="default" match="uint32|float|double|half|u30|s24|encodedu32">0</xsl:template>
