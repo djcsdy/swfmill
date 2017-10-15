@@ -45,6 +45,26 @@
 	<xsl:template mode="printf" match="s24">%i</xsl:template>
 	<xsl:template mode="printf" match="encodedu32">%i</xsl:template>
 
+	<xsl:template mode="scanf" match="*">
+		<xsl:message terminate="yes">Unknown data type: <xsl:value-of select="name()"/>.</xsl:message>
+	</xsl:template>
+
+	<xsl:template mode="scanf" match="byte">%i</xsl:template>
+	<xsl:template mode="scanf" match="word">%i</xsl:template>
+	<xsl:template mode="scanf" match="byteOrWord">%i</xsl:template>
+	<xsl:template mode="scanf" match="string">%s</xsl:template>
+	<xsl:template mode="scanf" match="fixedpoint">%G</xsl:template>
+	<xsl:template mode="scanf" match="fixedpoint2">%G</xsl:template>
+	<xsl:template mode="scanf" match="bit">%i</xsl:template>
+	<xsl:template mode="scanf" match="integer">%i</xsl:template>
+	<xsl:template mode="scanf" match="object|list|data">%p</xsl:template>
+	<xsl:template mode="scanf" match="uint32">%i</xsl:template>
+	<xsl:template mode="scanf" match="float|double|half">%g</xsl:template>
+	<xsl:template mode="scanf" match="xml">%s</xsl:template>
+	<xsl:template mode="scanf" match="u30">%i</xsl:template>
+	<xsl:template mode="scanf" match="s24">%i</xsl:template>
+	<xsl:template mode="scanf" match="encodedu32">%i</xsl:template>
+
 	<xsl:template mode="default" match="*">
 		<xsl:message terminate="yes">Unknown data type: <xsl:value-of select="name()"/>.</xsl:message>
 	</xsl:template>
