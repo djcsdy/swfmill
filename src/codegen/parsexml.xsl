@@ -176,7 +176,7 @@ void <xsl:value-of select="@name"/>::parseXML( xmlNodePtr node, Context *ctx ) {
 	tmp = xmlGetProp( node, (const xmlChar *)"<xsl:value-of select="@name"/>" );
 	if( tmp ) {
 		int tmp_int;
-		sscanf( (char *)tmp, "<xsl:apply-templates select="." mode="scanf"/>", &amp;tmp_int );
+		sscanf( (char *)tmp, "%i", &amp;tmp_int );
 		<xsl:value-of select="@name"/> = tmp_int;
 		xmlFree( tmp );
 	}
