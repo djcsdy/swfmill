@@ -21,8 +21,8 @@
 	<xsl:template mode="ctype" match="double">double</xsl:template>
 	<xsl:template mode="ctype" match="half">float</xsl:template>
 	<xsl:template mode="ctype" match="xml">char *</xsl:template>
-	<xsl:template mode="ctype" match="u30" >unsigned int</xsl:template>
-	<xsl:template mode="ctype" match="s24" >int</xsl:template>
+	<xsl:template mode="ctype" match="u30">unsigned int</xsl:template>
+	<xsl:template mode="ctype" match="s24">int</xsl:template>
 	<xsl:template mode="ctype" match="encodedu32">unsigned int</xsl:template>
 
 	<xsl:template mode="printf" match="*">
