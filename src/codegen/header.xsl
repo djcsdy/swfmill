@@ -17,6 +17,8 @@
 #ifndef <xsl:value-of select="/format/@format"/>_H
 #define <xsl:value-of select="/format/@format"/>_H
 
+#include &lt;cinttypes&gt;
+#include &lt;cstdint&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Reader.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Tag.h&gt;
 #include &lt;<xsl:value-of select="/format/@format"/>Action.h&gt;
