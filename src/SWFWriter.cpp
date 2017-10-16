@@ -1,4 +1,5 @@
 #include "SWFWriter.h"
+#include <cinttypes>
 #include <cstring>
 #include <cstdint>
 #include <cstdlib>
@@ -211,11 +212,11 @@ namespace SWF {
 		// sanity check
 		if (!is_signed || value >= 0) {
 			if (value >= (uint64_t)1<<(n+(is_signed?2:1))) {
-				fprintf(stderr,"WARNING: (%ssigned) value %i is too big to be represented in %i bits (max %i)\n", is_signed?"":"un", value, n, 1<<(n+(is_signed?1:0)));
+				fprintf(stderr,"WARNING: (%ssigned) value %" PRIi64 " is too big to be represented in %i bits (max %i)\n", is_signed?"":"un", value, n, 1<<(n+(is_signed?1:0)));
 			}
 		} else {
 			if (value < ((uint64_t)-1)<<(n+(is_signed?2:1))) {
-				fprintf(stderr,"WARNING: (%ssigned) value %i is too small to be represented in %i bits (max %i)\n", is_signed?"":"un", value, n, 1<<(n+(is_signed?1:0)));
+				fprintf(stderr,"WARNING: (%ssigned) value %" PRIi64 " is too small to be represented in %i bits (max %i)\n", is_signed?"":"un", value, n, 1<<(n+(is_signed?1:0)));
 			}
 		}
 
