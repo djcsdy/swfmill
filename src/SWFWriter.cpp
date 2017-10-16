@@ -1,6 +1,9 @@
 #include "SWFWriter.h"
 #include <cstring>
+#include <cstdint>
 #include <cstdlib>
+
+using namespace std;
 
 namespace SWF {
 
