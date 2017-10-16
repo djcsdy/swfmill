@@ -2,7 +2,7 @@
 #define SWF_Reader_H
 
 #include <cstdio>
-#include <stdint.h>
+#include <cstdint>
 #include "SWFBasic.h"
 
 namespace SWF {
@@ -17,11 +17,11 @@ class Reader {
 	
 		// these implicitly do byteAlign()
 		bool getData( void *dst, size_t length );
-		uint8_t getByte();
-		uint16_t getWord();
-		uint32_t getInt();
-		uint64_t getInt64();
-		uint32_t getU30();
+		std::uint8_t getByte();
+		std::uint16_t getWord();
+		std::uint32_t getInt();
+		std::uint64_t getInt64();
+		std::uint32_t getU30();
 		int getS24();
 		float getFloat();
 		double getDouble();
@@ -61,7 +61,7 @@ class Reader {
 	
 		// buf is the current byte when in "NBit mode"
 		// bits is the number of bits represented in buf.
-		uint8_t buf, bits;
+		std::uint8_t buf, bits;
 	
 		int err;
 
