@@ -1,3 +1,4 @@
+#include <cmath>
 #include "SVGTransformParser.h"
 
 using namespace std;
