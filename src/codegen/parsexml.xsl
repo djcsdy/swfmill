@@ -20,6 +20,8 @@
 #include "base64.h"
 #include &lt;errno.h&gt;
 #include &lt;iconv.h&gt;
+#include &lt;cinttypes&gt;
+#include &lt;cstdint&gt;
 
 using namespace std;
 

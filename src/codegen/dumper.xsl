@@ -13,6 +13,9 @@
 // DO NOT MODIFY
 //
 
+#include &lt;cinttypes&gt;
+#include &lt;cstdint&gt;
+
 #include "g<xsl:value-of select="/format/@format"/>.h"
 
 namespace <xsl:value-of select="/format/@format"/> {

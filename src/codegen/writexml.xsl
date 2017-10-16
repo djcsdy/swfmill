@@ -18,6 +18,9 @@
 #include &lt;cstring&gt;
 #include &lt;errno.h&gt;
 #include &lt;iconv.h&gt;
+#include &lt;cinttypes&gt;
+#include &lt;cstdint&gt;
+
 
 namespace <xsl:value-of select="/format/@format"/> {
 
