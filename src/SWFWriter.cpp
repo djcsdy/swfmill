@@ -35,7 +35,6 @@ namespace SWF {
 	void Writer::putWord(uint16_t value) {
 		byteAlign();
 		if (!assure(2)) return;
-		// FIXME x86-centric?
 		data[pos++] = value&0xFF;
 		data[pos++] = value>>8;
 	}
@@ -43,7 +42,6 @@ namespace SWF {
 	void Writer::putInt(uint32_t value) {
 		byteAlign();
 		if (!assure(4)) return;
-		// FIXME x86-centric?
 		data[pos++] = value&0xFF;
 		data[pos++] = (value>>8)&0xFF;
 		data[pos++] = (value>>16)&0xFF;
@@ -68,7 +66,6 @@ namespace SWF {
 		}
 
 		if (!assure(bytes)) return;
-		// FIXME x86-centric?
 
 		for (; bytes > 0; bytes--) {
 			data[pos] = value & 0x7F;
@@ -84,7 +81,6 @@ namespace SWF {
 	void Writer::putS24(int value) {
 		byteAlign();
 		if (!assure(3)) return;
-		// FIXME x86-centric?
 		value = (unsigned int)value;
 		data[pos++] = value&0xFF;
 		data[pos++] = (value>>8)&0xFF;
