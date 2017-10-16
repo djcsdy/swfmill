@@ -6,6 +6,8 @@
 
 #define TMP_STRLEN 0xFF
 
+static const double pi = 3.14159265358979323846;
+
 namespace SWF {
 
 	// TODO assure bits is representable in 4 bits!
@@ -285,7 +287,7 @@ namespace SWF {
 	}
 
 	#define ELLIPSE_SEGMENTS 8
-	#define ELLIPSE_ANGLE (M_PI * 2 / ELLIPSE_SEGMENTS)
+	#define ELLIPSE_ANGLE (pi * 2 / ELLIPSE_SEGMENTS)
 
 	void ShapeMaker::ellipseSegment(double cx, double cy, double rx, double ry, double phi, double theta, double dTheta) {
 		double a1 = theta + dTheta / 2;
@@ -311,7 +313,7 @@ namespace SWF {
 	void ShapeMaker::arcTo(double rx, double ry, double rotation, bool largeArcFlag, bool sweepFlag, double x, double y) {
 		double a, f, lambda, theta, dTheta;
 
-		a = rotation / 180 * M_PI;
+		a = rotation / 180 * pi;
 
 		Point A(lastx, lasty);
 		Point B(x, y);
@@ -344,10 +346,10 @@ namespace SWF {
 		dTheta = atan2((-P.y-C_.y)/ry, (-P.x-C_.x)/rx) - theta;
 
 		if (sweepFlag && dTheta < 0)
-			dTheta += 2 * M_PI;
+			dTheta += 2 * pi;
 
 		if (!sweepFlag && dTheta > 0)
-			dTheta -= 2 * M_PI;
+			dTheta -= 2 * pi;
 
 		double dThetaAbs = (dTheta < 0 ? -dTheta : dTheta);
 		int segments = (int)ceil(dThetaAbs / ELLIPSE_ANGLE);

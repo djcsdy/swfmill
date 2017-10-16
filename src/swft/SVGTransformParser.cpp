@@ -1,7 +1,8 @@
-#include <cmath>
 #include "SVGTransformParser.h"
 
 using namespace std;
+
+static const double pi = 3.14159265358979323846;
 
 namespace SWF {
 
@@ -45,23 +46,23 @@ void TransformParser::handleData(const string& transformType, const vector<strin
 		}
 	} else if(transformType == "rotate") {
 		if(cnt == 1) {
-			transformMatrix.rotate(p[0] * M_PI / 180.0);
+			transformMatrix.rotate(p[0] * pi / 180.0);
 		} else if(cnt == 3) {
 			transformMatrix.translate(p[1] * 20, p[2] * 20);
-			transformMatrix.rotate(p[0] * M_PI / 180.0);
+			transformMatrix.rotate(p[0] * pi / 180.0);
 			transformMatrix.translate(-p[1] * 20, -p[2] * 20);
 		} else {
 			printWarning(transformType);
 		}
 	} else if(transformType == "skewX") {
 		if(cnt == 1) {
-			transformMatrix.skewX(p[0] * M_PI / 180.0);
+			transformMatrix.skewX(p[0] * pi / 180.0);
 		} else {
 			printWarning(transformType);
 		}
 	} else if(transformType == "skewY") {
 		if(cnt == 1) {
-			transformMatrix.skewY(p[0] * M_PI / 180.0);
+			transformMatrix.skewY(p[0] * pi / 180.0);
 		} else {
 			printWarning(transformType);
 		}
