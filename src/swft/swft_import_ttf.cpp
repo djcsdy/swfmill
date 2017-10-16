@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <cstring>
 #include <cmath>
+#include <cwchar>
 
 #include "gSWF.h"
 #include <ft2build.h>
@@ -133,8 +134,8 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 		while ((character = FT_Get_Next_Char(face, character, &glyph_index)) != 0) {
 			if (FT_Load_Glyph(face, glyph_index, FT_LOAD_NO_BITMAP)) {
 				fprintf(stderr,
-						"WARNING: cannot load glyph %lu ('%c') from "
-						"%s.\n", character, character, filename);
+						"WARNING: cannot load glyph %lu ('%lc') from "
+						"%s.\n", character, (wint_t) character, filename);
 				goto fail;
 			}
 			if (face->glyph->format != FT_GLYPH_FORMAT_OUTLINE) {
@@ -211,8 +212,8 @@ void importDefineFont2(DefineFont2 *tag, const char *filename, const char *fontn
 		glyph_index = FT_Get_Char_Index(face, character);
 
 		if (FT_Load_Glyph(face, glyph_index, FT_LOAD_NO_BITMAP)) {
-			fprintf(stderr, "WARNING: cannot load glyph %lu ('%c') "
-					"from %s.\n", character, character, filename);
+			fprintf(stderr, "WARNING: cannot load glyph %lu ('%lc') "
+					"from %s.\n", character, (wint_t) character, filename);
 			goto fail;
 		}
 
@@ -334,8 +335,8 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 		while ((character = FT_Get_Next_Char(face, character, &glyph_index)) != 0) {
 			if (FT_Load_Glyph(face, glyph_index, FT_LOAD_NO_BITMAP)) {
 				fprintf(stderr,
-						"WARNING: cannot load glyph %lu ('%c') "
-						"from %s.\n", character, character, filename);
+						"WARNING: cannot load glyph %lu ('%lc') "
+						"from %s.\n", character, (wint_t) character, filename);
 				goto fail;
 			}
 			if (face->glyph->format != FT_GLYPH_FORMAT_OUTLINE) {
@@ -412,8 +413,8 @@ void importDefineFont3(DefineFont3 *tag, const char *filename, const char *fontn
 
 		if (FT_Load_Glyph(face, glyph_index, FT_LOAD_NO_BITMAP)) {
 			fprintf(stderr,
-					"WARNING: cannot load glyph %lu ('%c') from %s.\n",
-					character, character, filename);
+					"WARNING: cannot load glyph %lu ('%lc') from %s.\n",
+					character, (wint_t) character, filename);
 			goto fail;
 		}
 
