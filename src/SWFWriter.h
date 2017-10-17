@@ -2,7 +2,7 @@
 #define SWF_Writer_H
 
 #include <cstdio>
-#include <stdint.h>
+#include <cstdint>
 
 namespace SWF {
 
@@ -17,11 +17,11 @@ namespace SWF {
 
 			// these implicitly do byteAlign()
 			void putData(void *src, size_t length);
-			void putByte(uint8_t);
-			void putWord(uint16_t);
-			void putInt(uint32_t);
-			void putInt64(uint64_t);
-			void putU30(uint32_t);
+			void putByte(std::uint8_t);
+			void putWord(std::uint16_t);
+			void putInt(std::uint32_t);
+			void putInt64(std::uint64_t);
+			void putU30(std::uint32_t);
 			void putS24(int);
 			void putFloat(float);
 			void putDouble(double);
@@ -33,7 +33,7 @@ namespace SWF {
 			void putEncodedU32(unsigned int);
 
 			// this one cares about the current bit position
-			void putNBitInt(int64_t v, int n, bool is_signed = false);
+			void putNBitInt(std::int64_t v, int n, bool is_signed = false);
 			void putNBitFixed(double v, int n, int m, bool is_signed = false);
 			void putNBitFixed2(double v, int n, int m, bool is_signed = false);
 
@@ -63,7 +63,7 @@ namespace SWF {
 			int getBitPosition() { return (pos*8)+(bits); }
 
 		protected:
-			void writeByte(uint8_t value);
+			void writeByte(std::uint8_t value);
 
 			// the uncompressed swf data and our position within
 			unsigned char *data;
@@ -71,7 +71,7 @@ namespace SWF {
 
 			// buf is the current byte when in "NBit mode"
 			// bits is the number of bits represented in buf.
-			uint8_t buf, bits;
+			std::uint8_t buf, bits;
 
 			int err;
 
