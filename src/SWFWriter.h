@@ -4,16 +4,16 @@
 #include <cstdio>
 #include <stdint.h>
 
-#define SWFW_OK		0
-#define SWFW_ERROR	1
-#define SWFW_FULL	2
-
 namespace SWF {
 
 	class Writer {
 		public:
 			Writer(unsigned char *data, size_t length);
 			Writer(size_t length);
+
+			static const int ok = 0;
+			static const int error = 1;
+			static const int full = 2;
 
 			// these implicitly do byteAlign()
 			void putData(void *src, size_t length);
@@ -50,7 +50,7 @@ namespace SWF {
 				int b = (before==-1?length:before);
 				if (pos+l > b) {
 					fprintf(stderr,"Write buffer full (%i+%i > %i)\n", pos, l, b);
-					err = SWFW_FULL;
+					err = Writer::full;
 					return false;
 				}
 				return true;

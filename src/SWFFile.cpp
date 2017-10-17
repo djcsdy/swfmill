@@ -156,7 +156,7 @@ namespace SWF {
 
 		w = new Writer(data, length);
 		header->write(w, ctx);
-		if(w->getError() != SWFW_OK) {
+		if(w->getError() != Writer::ok) {
 			goto fail;
 		}
 
