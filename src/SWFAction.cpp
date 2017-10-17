@@ -5,8 +5,7 @@
 namespace SWF {
 
 	Action *Action::get(Reader *r, int end, Context *ctx) {
-		uint16_t h = r->getByte();
-		int type = h;
+		int type = r->getByte();
 		int len = 0;
 		if (type >= 0x80) {
 			len = r->getWord();
