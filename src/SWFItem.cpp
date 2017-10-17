@@ -1,4 +1,5 @@
 #include "SWFItem.h"
+#include <cstdint>
 #include <cstring>
 #include <cctype>
 #include "base64.h"
@@ -8,7 +9,7 @@ namespace SWF {
 
 	// ------------ utility functions
 
-	int swf_get_bits_needed_for_uint (uint64_t value) {
+	int swf_get_bits_needed_for_uint (std::uint64_t value) {
 		int i=0;
 		while (value > 0) {
 			value >>= 1;
@@ -17,7 +18,7 @@ namespace SWF {
 		return i;
 	}
 
-	int swf_get_bits_needed_for_int( int64_t value ) {
+	int swf_get_bits_needed_for_int( std::int64_t value ) {
 		if (value < 0) {
 			return swf_get_bits_needed_for_uint(~value) + 1;
 		} else if (value > 0) {
@@ -32,7 +33,7 @@ namespace SWF {
 	}
 
 	int swf_get_bits_needed_for_fp(double value, int exp = 16) {
-		return swf_get_bits_needed_for_int((int64_t)(value * (1 << exp)));
+		return swf_get_bits_needed_for_int((std::int64_t)(value * (1 << exp)));
 	}
 
 	int SWFBitsNeeded(float value, int exp, bool is_signed) {
@@ -43,7 +44,7 @@ namespace SWF {
 		return swf_get_bits_needed_for_fp(value, exp);
 	}
 
-	int SWFBitsNeeded(int32_t value, bool is_signed) {
+	int SWFBitsNeeded(std::int32_t value, bool is_signed) {
 		if (is_signed) {
 			return swf_get_bits_needed_for_int(value);
 		} else {

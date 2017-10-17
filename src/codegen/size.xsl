@@ -14,6 +14,7 @@
 //
 
 #include "g<xsl:value-of select="/format/@format"/>.h"
+#include &lt;cstdint&gt;
 #include &lt;cstring&gt;
 
 namespace <xsl:value-of select="/format/@format"/> {
@@ -133,7 +134,7 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 		<xsl:if test="@mode='pascalU30'">
 			if( <xsl:value-of select="@name"/> ) {
 				int len = strlen( <xsl:value-of select="@name"/> );
-				uint32_t limit = 0x80;
+				std::uint32_t limit = 0x80;
 				for(; len > limit - 1; limit *= 0x80) {
 					bytes++;
 				}
@@ -179,7 +180,7 @@ size_t <xsl:value-of select="@name"/>::calcSize( Context *ctx, int start_at ) {
 	{
 		int bytes = 1;
 	
-		uint32_t limit = 0x80;
+		std::uint32_t limit = 0x80;
 		for(; <xsl:value-of select="@name"/> > limit - 1; limit *= 0x80) {
 			bytes++;
 		}

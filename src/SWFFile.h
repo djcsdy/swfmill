@@ -1,6 +1,8 @@
 #ifndef SWF_FILE_H
 #define SWF_FILE_H
 
+#include <cstdint>
+
 #include "gSWF.h"
 
 namespace SWF {
@@ -26,7 +28,7 @@ class File {
 	
 		bool compressed;
 		unsigned char version;
-		uint32_t length;
+		std::uint32_t length;
 };
 	
 	

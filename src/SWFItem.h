@@ -3,13 +3,14 @@
 
 #include <SWFReader.h>
 #include <SWFWriter.h>
+#include <cstdint>
 #include <libxml/tree.h>
 
 namespace SWF {
 
 	class Context;
 
-	int SWFBitsNeeded(int32_t value, bool is_signed = false);
+	int SWFBitsNeeded(std::int32_t value, bool is_signed = false);
 	int SWFBitsNeeded(float value, int exp, bool is_signed = false);
 	long SWFMaxBitsNeeded(bool is_signed, int how_many, ...);
 
