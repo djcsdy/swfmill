@@ -3,7 +3,6 @@
 
 #include <cstdio>
 #include <stdint.h>
-#include "SWFBasic.h"
 
 #define SWFW_OK		0
 #define SWFW_ERROR	1

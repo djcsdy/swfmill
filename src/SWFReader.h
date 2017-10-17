@@ -3,7 +3,6 @@
 
 #include <cstdio>
 #include <cstdint>
-#include "SWFBasic.h"
 
 namespace SWF {
 	class Reader {

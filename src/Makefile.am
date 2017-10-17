@@ -147,7 +147,6 @@ noinst_HEADERS = \
 	\
 	base64.h \
 	Geom.h \
-	SWFBasic.h \
 	SWFReader.h \
 	SWFWriter.h \
 	SWFFile.h \
