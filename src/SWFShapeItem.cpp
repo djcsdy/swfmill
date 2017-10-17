@@ -121,7 +121,7 @@ namespace SWF {
 		if (ctx->debugTrace) {
 			fprintf(stderr,"PARSE LineTo @%i: %ibits %i/%i\n", file_offset, bits, x, y );
 		}
-		return r->getError() == SWFR_OK;
+		return r->getError() == Reader::ok;
 	}
 
 	void LineTo::dump(int n, Context *ctx) {

@@ -46,7 +46,7 @@ bool <xsl:value-of select="@name"/>::parse( Reader *r, int end, Context *ctx ) {
 	}
 	</xsl:if>
 	
-	return r->getError() == SWFR_OK;
+	return r->getError() == Reader::ok;
 }
 
 </xsl:for-each>

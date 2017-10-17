@@ -83,7 +83,7 @@ namespace SWF {
 			}
 		}
 
-		return r->getError() == SWFR_OK;
+		return r->getError() == Reader::ok;
 	}
 
 	void GlyphList::dump(int n, Context *ctx) {

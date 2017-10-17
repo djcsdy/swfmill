@@ -87,8 +87,8 @@ namespace SWF {
 
 		header->parse(r, length, ctx);
 
-		if (r->getError() != SWFR_OK) {
-			if (r->getError() == SWFR_EOF) {
+		if (r->getError() != Reader::ok) {
+			if (r->getError() == Reader::eof) {
 				fprintf(stderr,"WARNING: reached EOF while reading SWF\n");
 			} else {
 				fprintf(stderr,"unknown error while reading SWF\n");

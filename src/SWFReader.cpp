@@ -15,7 +15,7 @@ namespace SWF {
 
 	bool Reader::getData(void *dst, size_t len) {
 		if (pos+len > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return false;
 		} else {
@@ -27,7 +27,7 @@ namespace SWF {
 
 	uint8_t Reader::getByte() {
 		if (pos+1 > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return 0;
 		}
@@ -36,7 +36,7 @@ namespace SWF {
 
 	uint16_t Reader::getWord() {
 		if (pos+2 > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return 0;
 		}
@@ -47,7 +47,7 @@ namespace SWF {
 
 	uint32_t Reader::getInt() {
 		if (pos+4 > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return 0;
 		}
@@ -63,7 +63,7 @@ namespace SWF {
 
 	uint64_t Reader::getInt64() {
 		if (pos+8 > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return 0;
 		}
@@ -86,7 +86,7 @@ namespace SWF {
 			}
 
 			if (pos > length) {
-				err = SWFR_EOF;
+				err = Reader::eof;
 				pos = length+1;
 				return 0;
 			}
@@ -97,7 +97,7 @@ namespace SWF {
 
 	int Reader::getS24() {
 		if (pos+3 > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return 0;
 		}
@@ -174,7 +174,7 @@ namespace SWF {
 
 		double r = 0;
 		if (pos+bytesize > length) {
-			err = SWFR_EOF;
+			err = Reader::eof;
 			pos = length+1;
 			return 0;
 		}

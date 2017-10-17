@@ -106,7 +106,7 @@ namespace SWF {
 			r->getData(data, size);
 		}
 
-		return r->getError() == SWFR_OK;
+		return r->getError() == Reader::ok;
 	}
 
 	void Rest::dump(int indent, Context *ctx) {

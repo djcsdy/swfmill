@@ -6,13 +6,13 @@
 #include "SWFBasic.h"
 
 namespace SWF {
-	#define SWFR_OK		0
-	#define SWFR_ERROR	1
-	#define SWFR_EOF	2
-
 	class Reader {
 		public:
 			Reader( const unsigned char *data, size_t length );
+
+			static const int ok = 0;
+			static const int error = 1;
+			static const int eof = 2;
 
 			// these implicitly do byteAlign()
 			bool getData( void *dst, size_t length );
