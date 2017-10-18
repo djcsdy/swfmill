@@ -72,8 +72,13 @@ static void swft_pushgradient(xsltTransformContextPtr ctx, xmlNodePtr node, xmlN
 			xmlFree(href);
 		}
 
-		gradient->parse(node);
-		c->gradients[(char *)id] = gradient;
+		if (gradient) {
+			gradient->parse(node);
+			c->gradients[(char *) id] = gradient;
+		} else {
+			fprintf(stderr, "Warning: Invalid gradient.\n");
+		}
+
 		xmlFree(id);
 	}
 
