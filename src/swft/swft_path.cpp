@@ -15,7 +15,7 @@ using namespace SWF;
 	syntax: swft:path( <node> , <shapeid> , <movie-version> )
 */
 void swft_path(xmlXPathParserContextPtr ctx, int nargs) {
-	xmlChar *styleString, *idString, *pathString;
+	xmlChar *idString;
 	xmlDocPtr doc;
 	xmlNodePtr node;
 	xmlNodeSetPtr nodeSet;
@@ -120,7 +120,7 @@ void swft_path(xmlXPathParserContextPtr ctx, int nargs) {
 		}
 	}
 	
-	xmlNodePtr shapeNode, styleNode;
+	xmlNodePtr shapeNode;
 
 	// make the shape xml
 	doc = xmlNewDoc( (const xmlChar *)"1.0");
