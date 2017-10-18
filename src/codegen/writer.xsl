@@ -61,7 +61,7 @@ void <xsl:value-of select="@name"/>::write( Writer *w, Context *ctx ) {
 
 	int l = w->getBitPosition()-start;
 	if( l != getSize(ctx,start)) {
-		printf("WARNING: %s has different size than expected: %zi bits instead of %zi\n",
+		printf("WARNING: %s has different size than expected: %i bits instead of %zi\n",
 				"<xsl:value-of select="@name"/>",
 				l,
 				getSize(ctx,start) );
