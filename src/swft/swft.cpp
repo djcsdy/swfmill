@@ -253,7 +253,7 @@ char *swft_get_filename(const xmlChar *uri, const xmlChar *baseUri) {
 	
 	delete uri;
 
-	if (output_len == -1) {
+	if (output_len == (size_t) -1) {
 		fprintf(stderr, "Error converting filename from UTF-8 "
 				"to system locale\n");
 		exit(1);
