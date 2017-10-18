@@ -32,6 +32,11 @@ fi
 AX_CXX_COMPILE_STDCXX(11, noext)
 
 
+# Enable most reasonable warnings.
+AX_CFLAGS_WARN_ALL
+AX_CXXFLAGS_WARN_ALL
+
+
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h unistd.h])
 
