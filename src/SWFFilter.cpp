@@ -10,14 +10,12 @@ namespace SWF {
 		Filter* ret = getByType(type);
 
 		if (!ret) {
-			Filter* ret = new UnknownFilter();
+			ret = new UnknownFilter();
 		}
 
-		if (ret) {
-			ret->setType(type);
-			ret->setLength(len);
-			ret->parse(r, end, ctx);
-		}
+		ret->setType(type);
+		ret->setLength(len);
+		ret->parse(r, end, ctx);
 
 		return ret;
 	}
