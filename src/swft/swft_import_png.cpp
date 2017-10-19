@@ -140,7 +140,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		int c;
 		float a;
 		unsigned char r,g,b;
-		for( int i=0; i<w*h*4; i+=4 ) {
+		for( unsigned long i=0; i<w*h*4; i+=4 ) {
 			a = data[i+3]/255.0;
 			r = (unsigned char)((data[i+0])*a);
 			g = (unsigned char)((data[i+1])*a);
@@ -154,7 +154,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	} else if( channels == 3 && rowbytes == (3*w) ) {
 		unsigned char *rgba = new unsigned char[ w*h*4 ];
 		
-		for( int i=0; i<w*h; i++ ) {
+		for( unsigned long i=0; i<w*h; i++ ) {
 			rgba[i*4] = 0xff;
 			rgba[(i*4)+3] = data[(i*3)+2];
 			rgba[(i*4)+2] = data[(i*3)+1];
@@ -194,7 +194,7 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 		unsigned char *dst = &data[ (4*n_pal) ];
 		unsigned char *src = img_data;
 		memset( dst, 0, bpr*h );
-		for( int y=0; y<h; y++ ) {
+		for( unsigned long y=0; y<h; y++ ) {
 			memcpy( dst, src, rowbytes );
 			dst += bpr;
 			src += rowbytes;
