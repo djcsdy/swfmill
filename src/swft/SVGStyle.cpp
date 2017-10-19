@@ -92,8 +92,8 @@ SVGGradient *SVGStyle::getGradient(const string &str, map<string, SVGGradient*> 
 	if(str.substr(0, 4) == "url(" && str.substr(str.length() - 1) == ")") {
 		string strGradient = str.substr (4, str.length() - 5);
 
-		if (strGradient [0] == '"' && strGradient [strGradient.length() - 1] == '"' ||
-			strGradient [0] == '\'' && strGradient [strGradient.length() - 1] == '\'')
+		if ((strGradient[0] == '"' && strGradient[strGradient.length() - 1] == '"') ||
+		    (strGradient[0] == '\'' && strGradient[strGradient.length() - 1] == '\''))
 		{
 			strGradient = strGradient.substr (1, strGradient.length () - 2);
 		}
