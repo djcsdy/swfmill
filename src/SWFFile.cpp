@@ -339,13 +339,6 @@ namespace SWF {
 
 		xmlFreeDoc(doc);
 		return length;
-
-	fail:
-		if (doc) {
-			xmlFreeDoc(doc);
-		}
-
-		return 0;
 	}
 
 	#define MAX_BUFFER 1000000
