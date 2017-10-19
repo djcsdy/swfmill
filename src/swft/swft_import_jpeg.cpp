@@ -82,7 +82,6 @@ bool getJpegDimensions (FILE *infile, int &image_width, int &image_height) {
 void swft_import_jpeg( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
@@ -167,10 +166,8 @@ fail:
 void swft_import_jpega( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	char *filename, *maskfilename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
-	xmlXPathObjectPtr obj;
 	char tmp[TMP_STRLEN];
 	unsigned char *jpegdata = NULL;
 	unsigned char *data = NULL;

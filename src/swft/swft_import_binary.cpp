@@ -9,16 +9,12 @@
 #include "readpng.h"
 #include <zlib.h>
 
-#define TMP_STRLEN 0xff
-
 void swft_import_binary( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;
-	char tmp[TMP_STRLEN];
 	unsigned char *data = NULL;
 
 	xmlXPathStringFunction(ctx, 1);

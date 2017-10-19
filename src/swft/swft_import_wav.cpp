@@ -34,7 +34,6 @@ typedef enum {
 void getWaveInfo( WaveInfo& info, char* data, int size ) {
 	info.stereo = 0;
 	info.wrongSamplingRate = false;
-	int pos = 0;
 
 	info.valid = false;
 
@@ -149,7 +148,6 @@ void getWaveInfo( WaveInfo& info, char* data, int size ) {
 void swft_import_wav( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	xmlChar *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;

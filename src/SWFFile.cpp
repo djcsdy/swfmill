@@ -421,7 +421,7 @@ namespace SWF {
 	void File::decompress(unsigned char *outputBuffer, size_t len, FILE *fp) {
 		z_stream stream;
 		static unsigned char inputBuffer[MAX_BUFFER];
-		int status, count;
+		int status;
 
 		stream.avail_in = 0;
 		stream.next_in = inputBuffer;

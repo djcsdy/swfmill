@@ -124,9 +124,6 @@ void SVGLinearGradient::writeXML(xmlNodePtr node, Rect& bounds, bool hadModes, d
 	Matrix m;
 
 	if(userSpace) {
-		double lx = x2 - x1;
-		double ly = y2 - y1;
-
 		double dx = x2 - x1;
 		double dy = y2 - y1;
 		double d = sqrt(dx * dx + dy * dy);

@@ -15,7 +15,7 @@
 // will be updated with the actual size
 bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBuffer, int *outLength ) {
 	z_stream stream;
-	int status, count;
+	int status;
 	
 	stream.avail_in = inLength;
 	stream.next_in = inputBuffer;
@@ -66,7 +66,6 @@ bool compress( unsigned char *inputBuffer, int inLength, unsigned char *outputBu
 void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;

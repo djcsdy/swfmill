@@ -161,7 +161,6 @@ void getMP3Info( MP3Info& info, const unsigned char* data, int size ) {
 void swft_import_mp3( xmlXPathParserContextPtr ctx, int nargs ) {
 	xsltTransformContextPtr tctx;
 	xmlChar *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr node;
 	xmlXPathObjectPtr obj;

@@ -55,7 +55,6 @@ namespace SWF {
 	long SWFMaxBitsNeeded(bool is_signed, int how_many, ...) {
 		long bits = 0;
 		va_list ap;
-		int n;
 		va_start(ap, how_many);
 
 		for (int i=0; i<how_many; i++) {
@@ -143,9 +142,7 @@ namespace SWF {
 		}
 	}
 
-	#define TMP_STRLEN 0xFF
 	void Rest::writeXML(xmlNodePtr xml, Context *ctx) {
-		char tmp[TMP_STRLEN];
 		xmlNodePtr node = xml;
 
 		{

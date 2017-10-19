@@ -172,7 +172,7 @@ int swfmill_xml2swf(int argc, char *argv[]) {
 	xsltStylesheetPtr transform = NULL;
 
 	File input;
-	int size, xmlsize;
+	int size;
 	Context ctx;
 	xmlDocPtr doc = NULL, doc2;
 

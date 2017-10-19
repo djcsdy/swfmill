@@ -9,13 +9,9 @@
 using namespace SWF;
 
 void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
-	xsltTransformContextPtr tctx;
 	char *filename;
-	xsltDocumentPtr xsltdoc;
 	xmlDocPtr doc = NULL;
 	xmlXPathObjectPtr obj;
-	xmlChar *base = NULL;
-	char sig;
 	File import;
 
 	xmlXPathStringFunction(ctx, 1);
@@ -30,8 +26,6 @@ void swft_document( xmlXPathParserContextPtr ctx, int nargs ) {
 		valuePush(ctx, xmlXPathNewNodeSet(NULL));
 		return;
 	}
-	
-	tctx = xsltXPathGetTransformContext(ctx);
 	
 	filename = swft_get_filename( obj->stringval, ctx->context->doc->URL);
 	
