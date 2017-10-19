@@ -137,7 +137,6 @@ void swft_import_png( xmlXPathParserContextPtr ctx, int nargs ) {
 	}
 	
 	if( channels == 4 && rowbytes == (4*w) ) {
-		int c;
 		float a;
 		unsigned char r,g,b;
 		for( unsigned long i=0; i<w*h*4; i+=4 ) {
