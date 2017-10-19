@@ -456,7 +456,7 @@ int swfmill_library(int argc, char *argv[]) {
 		return -1;
 	}
 
-	swfmill_do_xslt(doc, transform, outfile);
+	return swfmill_do_xslt(doc, transform, outfile);
 }
 
 int main(int argc, char *argv[]) {
