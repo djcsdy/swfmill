@@ -47,7 +47,7 @@ void swft_transform(xmlXPathParserContextPtr ctx, int nargs);
 static void swft_pushgradient(xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr com) {
 	swft_ctx *c = (swft_ctx*)xsltGetExtData(ctx, SWFT_NAMESPACE);
 	xmlChar *id, *href;
-	SVGGradient *gradient;
+	SVGGradient *gradient = nullptr;
 
 	id = xmlGetProp(node, (const xmlChar *)"id");
 	if (id) {
