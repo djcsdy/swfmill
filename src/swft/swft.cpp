@@ -17,8 +17,6 @@ using namespace std;
 void *swft_init(xsltTransformContextPtr ctx, const xmlChar *URI);
 void swft_shutdown(xsltTransformContextPtr ctx, const xmlChar *URI, void *data);
 
-static void swft_error(xsltTransformContextPtr ctx, xmlNodePtr node, xmlNodePtr inst, xsltElemPreCompPtr comp);
-
 static void swft_nextid(xmlXPathParserContextPtr ctx, int nargs);
 static void swft_nextdepth(xmlXPathParserContextPtr ctx, int nargs);
 
