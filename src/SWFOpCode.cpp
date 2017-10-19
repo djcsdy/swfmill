@@ -10,14 +10,12 @@ namespace SWF {
 		OpCode* ret = getByType(type);
 
 		if (!ret) {
-			OpCode* ret = new UnknownOpCode();
+			ret = new UnknownOpCode();
 		}
 
-		if (ret) {
-			ret->setType(type);
-			ret->setLength(len);
-			ret->parse(r, end, ctx);
-		}
+		ret->setType(type);
+		ret->setLength(len);
+		ret->parse(r, end, ctx);
 
 		return ret;
 	}
