@@ -40,17 +40,13 @@ Some of the test cases require MTASC, and will be skipped if it is not found.
     
 My references to the SWF format were:
     
- * [Alexis' SWF Reference]
-   (http://sswf.sourceforge.net/SWFalexref.html)
+ * [Alexis' SWF Reference](http://sswf.sourceforge.net/SWFalexref.html)
 
- * [SSWF sources]
-   (http://sswf.sourceforge.net/)
+ * [SSWF sources](http://sswf.sourceforge.net/)
     
- * [MTASC sources]
-   (http://mtasc.org/)
+ * [MTASC sources](http://mtasc.org/)
     
- * [SWF File Format Specification]
-   (http://www.adobe.com/devnet/swf/)
+ * [SWF File Format Specification](http://www.adobe.com/devnet/swf/)
     
 
 ## Compiling and Installing
